@@ -16,5 +16,13 @@
 /RELEASE_NOTES.txt
 /fileadmin/_processed_
 /fileadmin/_migrated
+/fileadmin/_temp_
+/fileadmin/user_upload
 /fileadmin/content_uploads
+/fileadmin/default
 /_.htaccess
+/build_config.ini
+/typo3conf/LocalConfiguration.php
+/typo3conf/PackageStates.php
+/typo3conf/ENABLE_INSTALL_TOOL
+/typo3_src*
