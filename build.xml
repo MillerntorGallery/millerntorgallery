@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ML TYPO3 6.2.0 Test" default="build">
+	<property file="build_config.ini"/>
+	<!-- Environment -->
+	<property environment="env" />
+	<condition property="environment" value="${env.APPLICATION_ENV}" else="production">
+		<isset property="env.APPLICATION_ENV" />
+	</condition>
+	<condition property="composer.env" value="--dev" else="--no-dev">
+		<equals arg1="${environment}" arg2="development" />
+	</condition>
+	<echo message="Starting build for environment: ${environment}" />
+
+	<!-- Theme -->
+	<!--property name="theme.path" value="${basedir}/wp-content/themes/jeromeboateng" /-->
+	
+	<!-- Application -->
+	<property name="typo3.version" value="6.2.0" />
+	
+	<!-- Binaries & Paths -->
+	<property name="php" value="php" />
+	<!-- property name="composer" value="composer.phar" /-->
+	<exec executable="which" outputproperty="composer">
+		<arg value="composer.phar" />
+	</exec>
+	<!-- property name="npm.bin" value="${basedir}/node_modules/.bin" /-->
+	<exec executable="npm" outputproperty="npm.bin">
+		<arg value="bin" />
+	</exec>
+	<!-- property name="npm.root" value="${basedir}/node_modules" /-->
+	<exec executable="npm" outputproperty="npm.root">
+		<arg value="root" />
+	</exec>
+
+	<!-- LESS Compiler/Format -->
+	<property name="less.formatter" value="lessjs" /><!-- other values are 'lessjs', 'compressed' and 'classic' -->
+
+	<!-- YUI Compressor -->
+	<property name="yui.path" value="${basedir}/vendor/bin/yuicompressor.jar" />
+
+		
+	<!-- Clean targets -->
+	<target name="clean-composer-dependencies" description="Delete all vendor dependencies">
+		<echo message="Cleaning all installed dependencies in /vendor" />
+		<delete includeemptydirs="true" verbose="false">
+			<fileset dir="${basedir}/vendor" defaultexcludes="false">
+				<include name="**/*" />
+				<exclude name=".gitignore" />
+				<exclude name=".htaccess" />
+			</fileset>
+			<fileset dir="${basedir}/components" defaultexcludes="false" />
+		</delete>
+	</target>
+
+	<target name="clean-composer-lock" depends="clean-composer-dependencies" description="Delete composer.lock">
+		<echo message="Removing composer.lock file" />
+		<delete file="${basedir}/composer.lock" />
+	</target>
+
+	<target name="clean-composer" depends="clean-composer-dependencies, clean-composer-lock" description="Clean up everything, including composer.lock" />
+
+	<target name="clean-npm" description="Clean installed npm packages">
+		<echo message="Cleaning installed npm packages" />
+		<delete includeemptydirs="true" verbose="false">
+			<fileset dir="${npm.root}" defaultexcludes="false" />
+		</delete>
+	</target>
+	
+	<target name="clean-lint-cache" description="Clean temporary files from PHP lint">
+		<echo message="Removing PHP lint cache" />
+		<delete file="${basedir}/cache.properties" />
+	</target>
+	
+	<target name="clean" depends="clean-composer, clean-npm, clean-lint-cache" description="Clean project" />
+	
+	<target name="clean-all" depends="clean, uninstall-typo3" description="Clean project from all generated or installed files" />
+
+	<!-- Validation targets -->
+	<target name="validate-composer" description="Validate composer.json">
+		<echo message="Validating composer.json" />
+		<exec executable="${composer}" failonerror="true">
+			<arg value="validate" />
+		</exec>
+	</target>
+
+	<target name="validate-lint" description="Check for syntax errors using the PHP interpreter">
+		<echo message="Checking syntax of PHP files with php lint" />
+		<apply executable="${php}" failonerror="true">
+			<arg value="-l" />
+			<fileset dir="${theme.path}">
+				<include name="**/*.php" />
+				<modified />
+			</fileset>
+		</apply>
+	</target>
+	
+	<target name="validate-js" depends="npm-install" description="Check for syntax errors using JSLint">
+		<echo message="Checking syntax of JS files with JSLint" />
+		<apply executable="${npm.bin}/jslint" failonerror="true">
+			<fileset dir="${theme.path}/js_src">
+				<include name="**/*.js" />
+				<modified />
+			</fileset>
+		</apply>
+	</target>
+
+	<target name="validate" description="Validate and check everything" depends="validate-composer, validate-lint" />
+
+	<!-- composer targets -->
+	<target name="composer-install" description="Install dependencies via composer install" depends="validate-composer">
+		<echo message="Installing dependencies into /vendor" />
+		<exec executable="${composer}" failonerror="true">
+			<arg value="install" />
+			<arg value="${composer.env}" />
+		</exec>
+	</target>
+
+	<target name="composer-update" description="Update dependencies via composer update" depends="validate-composer">
+		<echo message="Updating dependencies in /vendor" />
+		<exec executable="${composer}" failonerror="true">
+			<arg value="update" />
+			<arg value="${composer.env}" />
+		</exec>
+	</target>
+	
+	<!-- node (npm) targets -->
+	<target name="npm-install" description="Install npm packages">
+		<echo message="Install npm packages declared in package.json" />
+		<exec executable="npm" failonerror="true">
+			<arg value="install" />
+		</exec>
+	</target>
+
+	<target name="npm-update" description="Update npm packages">
+		<echo message="Update npm packages declared in package.json" />
+		<exec executable="npm" failonerror="true">
+			<arg value="update" />
+		</exec>
+	</target>
+	
+	<target name="npm-prune" description="Prune npm packages">
+		<echo message="Uninstall npm packages, which are not declared in package.json" />
+		<exec executable="npm" failonerror="true">
+			<arg value="prune" />
+		</exec>
+	</target>
+
+	<!-- Git targets -->
+	<macrodef name="git" description="Macro for executing git commands">
+		<attribute name="command" description="The git command to execute" />
+		<sequential>
+			<echo message="Execute &quot;git @{command}&quot;" />
+			<exec executable="git" failonerror="true">
+				<arg value="@{command}" />
+			</exec>
+		</sequential>
+	</macrodef>
+	
+	<target name="git-pull" description="Pulls the current git branch">
+		<git command="pull" />
+	</target>
+	
+	<target name="git-push" description="Push the current git branch to origin">
+		<git command="push" />
+	</target>
+
+	<!-- TYPO3 targets -->
+	<available type="dir" file="${basedir}/typo3_src" property="typo3.available" />
+	<target name="install-typo3" description="Installs the latest typo3" unless="typo3.available">
+		<property name="core.path" value="${basedir}/typo3_src-${typo3.version}" />
+		<get src="http://get.typo3.org/${typo3.version}" dest="${basedir}/${typo3.version}.tar.gz" 
+			verbose="true" skipexisting="true" />
+		<untar src="${basedir}/${typo3.version}.tar.gz" dest="${basedir}" compression="gzip"
+			overwrite="true" failOnEmptyArchive="true" />
+		<!--move todir="${basedir}" overwrite="false">
+			<fileset dir="${basedir}/typo3">
+				<include name="**/*" />
+				<exclude name="**/wp-content/themes/twenty*/**" />
+				<exclude name="**/wp-content/plugins/akismet/**" />
+				<exclude name="**/wp-content/plugins/hello.php" />
+			</fileset>
+		</move>
+		<delete quiet="true" dir="typo3" /-->
+		<!-- delete quiet="true" file="typo3.tar.gz" /-->
+		<!-- CREATE typo3_src SYMLINK -->
+		
+		<symlink resource="typo3_src-${typo3.version}" link="${basedir}/typo3_src" />
+		<symlink resource="typo3_src/typo3" link="typo3" />
+		<symlink resource="typo3_src/index.php" link="index.php" />
+		<copy file="${basedir}/typo3_src/_.htaccess" tofile="${basedir}/.htaccess" />
+		
+		<echo message="TODO: set owner: sudo chown -R ${build.chown} ."/>
+		<echo message="TODO: set permissions: sudo chmod -R ${build.chmod} ."/>
+		
+		
+	</target>
+	
+	<target name="uninstall-typo3" description="Removes a previously installed typo3" if="typo3.available">
+		<delete verbose="true">
+			<fileset dir="${basedir}" defaultexcludes="false">
+				<include name="index.php" />
+				<include name=".htaccess" />
+				<include name="FIRST_INSTALL" />
+			</fileset>
+		</delete>
+		
+		<!-- Base system (directories) -->
+		<delete verbose="true" dir="typo3" />
+		<delete verbose="true" dir="t3lib" />
+		<delete verbose="true" dir="typo3temp" />
+		<delete verbose="true" dir="typo3_src" />
+		
+	</target>
+	
+	<!-- Generate code -->
+	<target name="less" description="Convert .less files into .css" depends="npm-install">
+		<mkdir dir="${theme.path}/css" />
+		<echo message="Generating application CSS from the LESS sources" />
+		<exec executable="${npm.bin}/lessc" failonerror="true">
+			<arg value="--strict-imports" />
+			<arg value="--clean-css" />
+			<arg value="${theme.path}/less/application.less" />
+			<arg value="${theme.path}/css/application.css" />
+		</exec>
+	</target>
+	
+	<target name="plessc" description="Convert .less files into .css" depends="composer-install">
+		<mkdir dir="${theme.path}/css" />
+		<echo message="Generating application CSS from the LESS sources, using '${less.formatter}' formatter" />
+		<exec executable="vendor/leafo/lessphp/plessc" failonerror="true">
+			<arg value="-f=${less.formatter}" />
+			<arg value="${theme.path}/less/application.less" />
+			<arg value="${theme.path}/css/application.css" />
+		</exec>
+	</target>
+	
+	<target name="less-watch" description="Watch less files for changes an generate css on-the-fly" depends="composer-install">
+		<echo message="Watching LESS files for changes and create the application CSS on-the-fly" />
+		<exec executable="vendor/leafo/lessphp/plessc">
+			<arg value="-w" />
+			<arg value="${theme.path}/less/application.less" />
+			<arg value="${theme.path}/css/application.css" />
+		</exec>
+	</target>
+	
+	<target name="js" description="Concatenate javascript files together" depends="composer-install, npm-install">
+		<!--
+		<echo message="Create twbs/bootstrap AMD modules with bootstrap-amd" />
+		<mkdir dir="${basedir}/vendor/twbs/bootstrap/amd" />
+		<mkdir dir="${basedir}/vendor/twbs/bootstrap/amd/src" />
+		<exec executable="${npm.bin}/bootstrap-amd">
+			<arg value="${basedir}/vendor/twbs/bootstrap" />
+		</exec>
+		-->
+		
+		<echo message="Copy vendor require.js to ${theme.path}/js/require.js" />
+		<copy file="${npm.root}/requirejs/require.js" todir="${theme.path}/js" />
+		
+		<echo message="Concatenate vendor javascripts together to 'vendor.js'" />
+		<concat destfile="${theme.path}/js/vendor.js" overwrite="yes" encoding="UTF-8" eol="lf" fixlastline="yes">
+			<!-- Twitter Bootstrap -->
+			<filelist dir="${basedir}/vendor/twbs/bootstrap/js">
+				<file name="transition.js" />
+				<file name="modal.js" />
+				<file name="carousel.js" />
+				<file name="tooltip.js" />
+				<file name="popover.js" />
+				<!--
+				<file name="alert.js" />
+				<file name="button.js" />
+				<file name="collapse.js" />
+				<file name="dropdown.js" />
+				<file name="scrollspy.js" />
+				<file name="tab.js" />
+				<file name="affix.js" />
+				-->
+			</filelist>
+			
+			<!-- Configure Vendor packages -->
+			<filelist dir="${theme.path}/js/vendor">
+				<file name="history.options.js" />
+			</filelist>
+			
+			<!-- Other Vendor packages -->
+			<filelist dir="${basedir}/vendor">
+				<file name="browserstate/history.js/scripts/bundled-uncompressed/html5/jquery.history.js" />
+			</filelist>
+			
+			<!-- Other application vendor javascript src -->
+			<filelist dir="${theme.path}/js/vendor">
+				<file name="array.js" />
+				<file name="glisse.js" />
+				<file name="history.patch.js" /><!-- Patching history.js -->
+				<file name="jquery.debounce.js" />
+				<file name="jquery.isotope.min.js" />
+				<file name="jquery.easing.1.3.js" />
+				<file name="jquery.scrollTo.min.js" />
+				<file name="jquery.infinitescroll.js" />
+				<file name="behavior-infinitescroll-social.js" />
+				<file name="behavior-infinitescroll-social_masonry.js" />
+				<file name="imagesLoaded.min.js" />
+			</filelist>
+		</concat>
+	</target>
+	
+	<target name="js-minify" description="Minify generated javascript code" depends="js">
+		<echo message="Compressing javascript with YUI" />
+		<exec executable="java" failonerror="true" output="${theme.path}/js/vendor.min.js">
+			<arg value="-jar" />
+			<arg value="${yui.path}" />
+			<arg value="${theme.path}/js/vendor.js" />
+		</exec>
+	</target>
+	
+	<target name="rjs" description="" depends="npm-install">
+		<echo message="Building javascript application into 'app-build.js'" />
+		<exec executable="node" failonerror="true">
+			<arg value="${npm.bin}/r.js" />
+			<arg value="-o" />
+			<arg value="${theme.path}/js/build.js" />
+		</exec>
+	</target>
+	
+	<target name="generate" description="Process special source file and generate the application code" depends="less, js, rjs" />
+
+	<!-- Build targets -->
+	<target name="build" depends="validate, composer-install, npm-install, install-typo3, generate" description="Build the application (${environment})" />
+	
+	<!-- Update targets -->
+	<target name="update" depends="git-pull, validate, generate" description="Update the application (${environment})" />
+
+	<target name="update-deps" depends="composer-update, npm-update" description="Update the applications dependencies (${environment})" />
+	
+	<!-- Remote targets -->
+	<macrodef name="remote">
+		<attribute name="command" description="Command to execute on the remote host" />
+		<sequential>
+			<echo message="Execute command &quot;@{command}&quot; on remote host ${remote.host}" />
+			<exec executable="ssh" failonerror="true">
+				<arg line="${remote.host} &quot;cd ${remote.path} &amp;&amp; sudo -u ${remote.user} @{command}&quot;" />
+			</exec>
+		</sequential>
+	</macrodef>
+	
+	<target name="remote-update" description="Update the application on remote host">
+		<remote command="ant update" />
+	</target>
+	
+	<!-- Sync targets -->
+	<macrodef name="rsync">
+		<attribute name="dir" description="The directory to sync" />
+		<sequential>
+			<echo message="Syncing files in @{dir}" />
+			<exec executable="rsync" dir="${basedir}" failonerror="true">
+				<arg value="--recursive" />
+				<arg value="--links" />
+				<arg value="--perms" />
+				<arg value="--executability" />
+				<arg value="--times" />
+				<arg value="--rsh=ssh" />
+				<arg value="${remote.host}:${remote.path}@{dir}/" />
+				<arg value="${basedir}@{dir}" />
+			</exec>
+		</sequential>
+	</macrodef>
+	
+	<!--target name="sync-uploads" description="Sync typo3 uploads from remote to local host">
+		<rsync dir="/uploads" />
+	</target>
+	
+	<target name="sync" depends="sync-uploads" description="Sync from remote to local host" /-->
+
+	<!-- Deploy targets -->
+	<macrodef name="deploy">
+		<attribute name="dir" description="The directory to sync" />
+		<sequential>
+			<echo message="Syncing files in @{dir}" />
+			<exec executable="rsync" dir="${basedir}" failonerror="true">
+				<arg value="--recursive" />
+				<arg value="--links" />
+				<arg value="--perms" />
+				<arg value="--executability" />
+				<arg value="--times" />
+				<arg value="--rsh=ssh" />
+				<arg value="--verbose" />
+				<arg value="${basedir}@{dir}" />
+				<arg value="${deploy.host}:${deploy.path}@{dir}" />
+			</exec>
+		</sequential>
+	</macrodef>
+	
+	<target name="deploy" description="Deploy to production server" depends="build">
+		<deploy dir="/components/" />
+		<deploy dir="/vendor/" />
+		<deploy dir="/wp-admin/" />
+		<deploy dir="/wp-content/languages/" />
+		<deploy dir="/wp-content/plugins/" />
+		<deploy dir="/wp-content/themes/jeromeboateng/assets/" />
+		<deploy dir="/wp-content/themes/jeromeboateng/css/" />
+		<deploy dir="/wp-content/themes/jeromeboateng/includes/" />
+		<!-- deploy dir="/wp-content/themes/jeromeboateng/js/modules/vendor/analytics.js" / -->
+		<deploy dir="/wp-content/themes/jeromeboateng/js/app-build.js" />
+		<deploy dir="/wp-content/themes/jeromeboateng/js/require.js" />
+		<deploy dir="/wp-content/themes/jeromeboateng/js/vendor.js" />
+		<deploy dir="/wp-content/themes/jeromeboateng/languages/" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-controls.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-controlsisotope.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-indicators.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-loader.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-modal_blog.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-modal.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-pages.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-partner.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-socialmedia.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-switch.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-teasers.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/block-world.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/content_blog.json" />
+		<deploy dir="/wp-content/themes/jeromeboateng/content_infos.json" />
+		<deploy dir="/wp-content/themes/jeromeboateng/content_social-media.json" />
+		<deploy dir="/wp-content/themes/jeromeboateng/footer.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/functions.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/header.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/index.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/style.css" />
+		<deploy dir="/wp-content/themes/jeromeboateng/world-blog.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/world-infos.php" />
+		<deploy dir="/wp-content/themes/jeromeboateng/world-social-media.php" />
+		<deploy dir="/wp-content/themes/index.php" />
+		<deploy dir="/wp-content/index.php" />
+		<deploy dir="/wp-includes/" />
+		<!-- deploy dir="/.htaccess" /-->
+		<deploy dir="/index.php" />
+		<deploy dir="/wp-activate.php" />
+		<deploy dir="/wp-blog-header.php" />
+		<deploy dir="/wp-comments-post.php" />
+		<deploy dir="/wp-config-sample.php" />
+		<deploy dir="/wp-cron.php" />
+		<deploy dir="/wp-links-opml.php" />
+		<deploy dir="/wp-load.php" />
+		<deploy dir="/wp-login.php" />
+		<deploy dir="/wp-mail.php" />
+		<deploy dir="/wp-settings.php" />
+		<deploy dir="/wp-signup.php" />
+		<deploy dir="/wp-trackback.php" />
+		<deploy dir="/xmlrpc.php" />
+	</target>
+</project>
