@@ -1,0 +1,54 @@
+// Prefix path for twbs less files
+@bootstrapLessPath: "../../../../../bootstrap_package/Resources/Private/Less/Bootstrap-3-1-1"; 
+
+
+// Core variables and mixins
+//@import "@{bootstrapLessPath}/Default/variables_bootstrap.less"; // Modify this for custom colors, font-sizes, etc
+@import "variables.less"; // Override bootstrap's variables with customized ones
+@import "@{bootstrapLessPath}/mixins.less";
+
+// Reset
+@import "@{bootstrapLessPath}/normalize.less";
+@import "@{bootstrapLessPath}/print.less";
+
+// Core CSS
+@import "@{bootstrapLessPath}/scaffolding.less";
+@import "@{bootstrapLessPath}/type.less";
+//@import "@{bootstrapLessPath}/code.less";
+@import "@{bootstrapLessPath}/grid.less";
+@import "@{bootstrapLessPath}/tables.less";
+@import "@{bootstrapLessPath}/forms.less";
+@import "@{bootstrapLessPath}/buttons.less";
+
+// Components
+//@import "@{bootstrapLessPath}/component-animations.less";
+@import "@{bootstrapLessPath}/glyphicons.less";
+@import "@{bootstrapLessPath}/dropdowns.less";
+@import "@{bootstrapLessPath}/button-groups.less";
+@import "@{bootstrapLessPath}/input-groups.less";
+@import "@{bootstrapLessPath}/navs.less";
+@import "@{bootstrapLessPath}/navbar.less";
+@import "@{bootstrapLessPath}/breadcrumbs.less";
+@import "@{bootstrapLessPath}/pagination.less";
+//@import "@{bootstrapLessPath}/pager.less";
+//@import "@{bootstrapLessPath}/labels.less";
+//@import "@{bootstrapLessPath}/badges.less";
+@import "@{bootstrapLessPath}/jumbotron.less";
+//@import "@{bootstrapLessPath}/thumbnails.less";
+@import "@{bootstrapLessPath}/alerts.less";
+//@import "@{bootstrapLessPath}/progress-bars.less";
+@import "@{bootstrapLessPath}/media.less";
+@import "@{bootstrapLessPath}/list-group.less";
+@import "@{bootstrapLessPath}/panels.less";
+@import "@{bootstrapLessPath}/wells.less";
+@import "@{bootstrapLessPath}/close.less";
+
+// Components w/ JavaScript
+@import "@{bootstrapLessPath}/modals.less";
+@import "@{bootstrapLessPath}/tooltip.less";
+@import "@{bootstrapLessPath}/popovers.less";
+@import "@{bootstrapLessPath}/carousel.less";
+
+// Utility classes
+@import "@{bootstrapLessPath}/utilities.less";
+@import "@{bootstrapLessPath}/responsive-utilities.less";

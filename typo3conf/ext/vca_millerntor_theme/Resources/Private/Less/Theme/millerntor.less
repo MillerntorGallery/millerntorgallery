@@ -1,0 +1,121 @@
+@millerntor-brown: #693C10;
+
+#mainNavigation {
+	border-top: 4px solid @millerntor-brown;
+	
+}
+
+.navbar-top {
+	
+	#social-links {
+		vertical-align: bottom;
+		text-align: left;
+		
+		.social-bottom {
+			display: table-cell;
+			vertical-align: bottom;
+			height: 120px;
+		}
+	}
+	#logo {
+		text-align: center;
+		.navbar-brand-image {
+			.transition(opacity .15s ease-in-out 0s);
+	        &:hover {
+	            opacity: 0.8;
+	        }
+		}
+	}
+	#next-date {
+		text-align: right;
+		
+		h2 {
+			display: inherit;
+			vertical-align: bottom;
+			text-align: right;
+			margin-bottom: 0px;
+			padding-bottom: 0px;
+			margin-top: 90px;	
+		}	
+	}
+	
+}
+
+.navbar-main {
+	&.navbar-nav > li {
+		margin-top: 10px
+	}
+	&.navbar-nav > li > a {
+		margin-top: ;
+		padding:5px 15px 10px 15px;
+		color: #000;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+	&.nav > li > a:hover, 
+	&.nav > li > a:focus {
+		background-color: transparent;
+	} 
+	&.nav > li.dropdown > a:hover, 
+	&.nav > li.dropdown > a:focus,
+	&.nav > li.dropdown.open,
+	&.nav .open > a,
+	&.nav .open > a:hover,
+	&.nav .open > a:focus {
+		background-color: @millerntor-brown;
+		color: #fff;
+	} 
+	
+	.dropdown-menu {
+		background-color: @millerntor-brown;
+    	border: 0px solid rgba(0, 0, 0, 0.15);
+    	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.176);
+    	
+    	> li > a {
+    		color: #fff;
+    		text-transform: uppercase;
+    		padding: 3px 14px;
+    	}
+    	> li > a:hover,
+    	> li > a:focus {
+    		background-color: transparent;
+    		text-decoration: underline;
+    	}
+	}
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    background-color: @millerntor-brown;
+ }
+ 
+ .footerNav {
+ 	text-align: right;
+ }
+ 
+ 
+ .meta-section .stopper {
+ 	border-top: 4px solid @millerntor-brown;
+ 	margin-bottom: 15px;
+ }
+ 
+ 
+ 
+ .well {
+    background-color: #FFFFFF;
+    border: 1px solid @black;
+    border-radius: 0px 0px 0px 0px;
+    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    padding: 19px;
+}
+
+.container .jumbotron,
+.jumbotron {
+	border: 2px solid @black;
+    border-radius: 0px 0px 0px 0px;
+    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.5);
+    background-color: #FFFFFF;
+    color: inherit;
+    margin-bottom: 30px;
+}
