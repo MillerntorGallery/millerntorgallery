@@ -1,0 +1,63 @@
+<f:if condition="{settings.styles.navbar.footer.fullwidth}">
+	<f:then>
+	<f:render section="FooterTag" />
+		<div class="container">
+			<div class="row">
+				<f:render section="Cols" />
+			</div>
+		</div>
+	</footer>
+	</f:then>
+	<f:else>
+	<div class="container">
+		<div class="row">
+			<f:render section="FooterTag" />
+				<f:render section="Cols" />
+			</footer>
+		</div>
+	</div>
+	</f:else>
+</f:if>
+
+<f:section name="FooterTag">
+	<f:if condition="{settings.styles.navbar.style.inverse}">
+		<f:then>
+			<f:if condition="{settings.styles.navbar.footer.fullwidth}">
+				<f:then>
+					<footer class="navbar navbar-inverse" style="margin-bottom:0;">
+				</f:then>
+				<f:else>
+					<footer class="navbar navbar-inverse">
+				</f:else>
+			</f:if>
+		</f:then>
+		<f:else>
+			<f:if condition="{settings.styles.navbar.footer.fullwidth}">
+				<f:then>
+					<footer class="navbar navbar-default" style="margin-bottom:0;">
+				</f:then>
+				<f:else>
+					<footer class="navbar navbar-default">
+				</f:else>
+			</f:if>
+		</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="Cols">
+		<div class="col-md-4 fcol1">
+			<f:cObject typoscriptObjectPath="lib.content.leftFooter" />
+		</div>
+		<div class="col-md-4 fcol2">
+			<f:if condition="{settings.styles.footer.show}">
+			<small>{settings.general.copyright_information}</small>
+			</f:if>
+			<f:cObject typoscriptObjectPath="lib.content.footer" />
+		</div>
+		<nav class="col-md-4 fcol3">
+			<f:if condition="{settings.styles.footer.show}">
+			<f:cObject typoscriptObjectPath="lib.navigation.footer" />
+			</f:if>
+			<f:cObject typoscriptObjectPath="lib.content.rightFooter" />
+		</nav>
+</f:section>

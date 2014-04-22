@@ -1,0 +1,82 @@
+{namespace t3s = Tx_T3sbootstrap_ViewHelpers}
+
+<f:for each="<t3s:chunk input='{data.tx_gridelements_view_children}' size='{data.flexform_columns}' />" as="thumbnailrow" iteration="tr">
+
+	<f:if condition="{data.flexform_equalHeight}">
+		<t3s:InlineJs inlineJS="var highestBox = 0;jQuery('.tr{data.uid}-{tr.cycle} .thumbnail').each(function(){if(jQuery(this).height()>highestBox){highestBox = $(this).height();}});jQuery('.tr{data.uid}-{tr.cycle} .thumbnail').height(highestBox);" currentRow="{tr.cycle}" />
+	</f:if>
+
+	<div class="row tr{data.uid}-{tr.cycle}">
+		<f:for each="{thumbnailrow}" as="thumbnail">
+			<f:if condition="{data.flexform_columns} == 2">
+				<div class="col-sm-6 col-md-6">
+			</f:if>
+			<f:if condition="{data.flexform_columns} == 3">
+				<div class="col-sm-6 col-md-4">
+			</f:if>
+			<f:if condition="{data.flexform_columns} == 4">
+				<div class="col-sm-6 col-md-3">
+			</f:if>
+
+			<f:if condition="{thumbnail.image_zoom}">
+			<f:else>
+				<div class="thumbnail">
+			</f:else>
+			</f:if>
+
+				<t3s:fal data="{thumbnail}" as="images">
+				<f:if condition="{images}">
+
+					<f:for each="{images}" as="image" iteration="i">
+						<f:if condition="{i.isFirst}">
+						<f:if condition="{thumbnail.image_zoom}">
+							<f:then>
+								<a class="thumbnail gallery" href="<f:uri.image src='{image.publicUrl}' maxWidth='800' />">
+									<f:image src="{image.publicUrl}" id="I{image.uid}" title="{image.title}" alt="{image.alternative}" width="{data.flexform_width}c" height="{data.flexform_height}c" />
+								</a>
+							</f:then>
+							<f:else>
+								<f:image src="{image.publicUrl}" id="I{image.uid}" title="{image.title}" alt="{image.alternative}" width="{data.flexform_width}c" height="{data.flexform_height}c" />
+							</f:else>
+						</f:if>
+						</f:if>
+					</f:for>
+
+				</f:if>
+				</t3s:fal>
+
+					<f:if condition="{thumbnail.bodytext}">
+					<f:then>
+						<div class="caption">
+							<f:if condition="{thumbnail.header}">
+								<h3>{thumbnail.header}</h3>
+							</f:if>
+							<f:format.html>{thumbnail.bodytext}</f:format.html>
+								<f:if condition="{thumbnail.header_link}">
+									<p><f:link.page pageUid="{thumbnail.header_link}" class="btn btn-primary" noCacheHash="1" > mehr</f:link.page></p>
+								</f:if>
+						</div>
+					</f:then>
+					<f:else>
+						<f:if condition="{thumbnail.header}">
+						<f:then>
+							<div class="caption">
+								<h3>{thumbnail.header}</h3>
+							</div>
+						</f:then>
+						<f:else>
+						</f:else>
+						</f:if>
+					</f:else>
+					</f:if>
+
+				<f:if condition="{thumbnail.image_zoom}">
+				<f:else>
+					</div>
+				</f:else>
+				</f:if>
+
+			</div>
+		</f:for>
+	</div>
+</f:for>

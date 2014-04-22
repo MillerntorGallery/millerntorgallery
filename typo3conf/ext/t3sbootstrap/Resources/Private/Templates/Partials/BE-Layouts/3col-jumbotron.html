@@ -1,0 +1,20 @@
+<f:render partial="Page/Jumbotron" />
+<div class="container">
+	<f:render partial="Page/Breadcrumb" />
+	<div class="row content-row">
+		<aside class="col-md-3">
+			<f:if condition="{settings.navigation.sidebar-subMenu.enable}">
+				<f:if condition="{subnav}">
+					<f:cObject typoscriptObjectPath="lib.navigation.sidebar" />
+				</f:if>
+			</f:if>
+			<f:cObject typoscriptObjectPath="lib.content.left" />
+		</aside>
+		<section class="col-md-6 main-content">
+			<f:cObject typoscriptObjectPath="lib.content.main" />
+		</section>
+		<aside class="col-md-3">
+			<f:cObject typoscriptObjectPath="lib.content.right" />
+		</aside>
+	</div>
+</div>

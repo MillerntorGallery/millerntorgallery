@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<description>Language labels for Contact Form</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="label_fieldset">Contact Form</label>
+			<label index="name">Name</label>
+			<label index="email">E-Mail</label>
+			<label index="message">Message</label>
+			<label index="receive-copy">I want to receive a copy of this request</label>
+			<label index="submit">Send</label>
+
+			<label index="greetings">Dear</label>
+			<label index="email_user_subject">Your contact request</label>
+			<label index="email_user_text">We have received your request via a contact form. We will process your request and get in contact with you soon.</label>
+			<label index="email_user_footer">---------------------------------- This message was created automatically. --------------------------------</label>
+
+			<label index="email_admin_subject">Contact request</label>
+			<label index="email_admin_text">A user filled out the contact form.</label>
+			<label index="email_admin_footer">---------------------------------- This message was created automatically. --------------------------------</label>
+
+			<label index="error_name_required">Please enter your name!</label>
+			<label index="error_email_required">Please enter your email address!</label>
+			<label index="error_email_email">Please enter a valid email address!</label>
+			<label index="error_message_required">Please enter a message!</label>
+
+			<label index="error_name_required">has-error</label>
+			<label index="error_email_required">has-error</label>
+			<label index="error_email_email">has-error</label>
+			<label index="error_message_required">has-error</label>
+
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="label_fieldset">Kontaktformular</label>
+			<label index="name">Name</label>
+			<label index="email">E-Mail</label>
+			<label index="message">Nachricht</label>
+			<label index="receive-copy">Ich möchte eine Kopie dieser Anfrage erhalten</label>
+			<label index="submit">Senden</label>
+
+			<label index="greetings">Hallo</label>
+			<label index="email_user_subject">Ihre Anfrage</label>
+			<label index="email_user_text">Wir haben Ihre Anfrage über ein Kontaktformular erhalten. Wir werden Ihre Anfrage umgehend bearbeiten.</label>
+			<label index="email_user_footer">---------------------------------- Diese Nachricht wurde automatisch erstellt. --------------------------------</label>
+
+			<label index="email_admin_subject">Kontakt / Anfrage</label>
+			<label index="email_admin_text">Ein Benutzer hat das Kontaktformular ausgefüllt.</label>
+			<label index="email_admin_footer">---------------------------------- Diese Nachricht wurde automatisch erstellt. --------------------------------</label>
+
+			<label index="error_name_required">Bitte Ihren Namen eingeben!</label>
+			<label index="error_email_required">Bitte Ihre E-Mail-Adresse eingeben!</label>
+			<label index="error_email_email">Bitte eine gültige E-Mail-Adresse eingeben!</label>
+			<label index="error_message_required">Bitte eine Nachricht eingeben!</label>
+
+			<label index="error_name_required">has-error</label>
+			<label index="error_email_required">has-error</label>
+			<label index="error_email_email">has-error</label>
+			<label index="error_message_required">has-error</label>
+
+		</languageKey>
+
+		<languagekey index="pl" type="array">
+			<label index="label_fieldset">Formularz kontaktowy</label>
+			<label index="name">Nazwisko</label>
+			<label index="email">Email</label>
+			<label index="message">Wiadomość</label>
+			<label index="receive-copy">Chcę otrzymać kopię tej wiadomości</label>
+			<label index="submit">Wyślij</label>
+
+			<label index="greetings">Witam</label>
+			<label index="email_user_subject">Wasze zapytanie</label>
+			<label index="email_user_text">Otrzymaliśmy wasze zapytanie poprzez formularz kontaktowy. Odpowiadamy na Waszą wiadomość jak najszybciej.</label>
+			<label index="email_user_footer">---------------------------------- Ta wiadomość została wysłana automatycznie. --------------------------------</label>
+
+			<label index="email_admin_subject">Kontakt /Zapytanie</label>
+			<label index="email_admin_text">Użytkownik wypełnił formularz kontaktowy.</label>
+			<label index="email_admin_footer">---------------------------------- Ta wiadomość została wysłana automatycznie. --------------------------------</label>
+
+			<label index="error_name_required">Proszę wpisać Wasze nazwisko!</label>
+			<label index="error_email_required">Proszę wpisać Wasz adres mailowy!</label>
+			<label index="error_email_email">Proszę wpisać poprawny adres mailowy!</label>
+			<label index="error_message_required">Proszę wpisać wiadomość!</label>
+
+			<label index="error_name_required">Wystąpił błąd.</label>
+			<label index="error_email_required">Wystąpił błąd.</label>
+			<label index="error_email_email">Wystąpił błąd.</label>
+			<label index="error_message_required">Wystąpił błąd.</label>
+
+		</languagekey>
+
+
+
+	</data>
+</T3locallang>

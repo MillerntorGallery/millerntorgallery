@@ -1,0 +1,50 @@
+{namespace t3s = Tx_T3sbootstrap_ViewHelpers}
+<div id="carousel-{data.uid}" class="carousel slide" data-ride="carousel">
+	<!-- Indicators -->
+	<ol class="carousel-indicators">
+		<f:for each="{data.tx_gridelements_view_children}" as="carousel-indicators" iteration="iteration-indicators">
+			<li data-target="#carousel-{data.uid}" data-slide-to="{iteration-indicators.index}" {f:if(condition:'{iteration-indicators.isFirst}',then:' class="active"')}></li>
+		</f:for>
+	</ol>
+	<!-- Wrapper for slides -->
+	<div class="carousel-inner">
+		<f:for each="{data.tx_gridelements_view_children}" as="carousel" iteration="iteration-inner">
+		<div class="item {f:if(condition:'{iteration-inner.isFirst}',then:'active')}">
+			<t3s:fal data="{carousel}" as="images">
+			<f:if condition="{images}">
+				<f:for each="{images}" as="image" iteration="iteration-image">
+					<f:if condition="{iteration-image.isFirst}">
+						<f:image src="{image.publicUrl}" id="I{image.uid}" title="{image.title}" alt="{image.alternative}" width="{data.flexform_width}c" height="{data.flexform_height}c" class="img-responsive" />
+					</f:if>
+				</f:for>
+			</f:if>
+			</t3s:fal>
+			<f:if condition="{carousel.bodytext}">
+			<f:then>
+				<div class="carousel-caption">
+					<f:if condition="{carousel.header}">
+						<h3>{carousel.header}</h3>
+					</f:if>
+					<f:format.html>{carousel.bodytext}</f:format.html>
+				</div>
+			</f:then>
+			<f:else>
+				<f:if condition="{carousel.header}">
+				<f:then>
+					<div class="carousel-caption">
+						<h3>{carousel.header}</h3>
+					</div>
+				</f:then>
+				<f:else>
+
+				</f:else>
+				</f:if>
+			</f:else>
+			</f:if>
+		</div>
+		</f:for>
+	</div>
+	<!-- Controls -->
+	<a class="left carousel-control" href="#carousel-{data.uid}" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	<a class="right carousel-control" href="#carousel-{data.uid}" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2014-01-08T20:03:08Z" product-name="t3sbootstrap">
+		<header/>
+		<body>
+
+			<trans-unit id="pages.tx_t3sbootstrap_glyphicon">
+				<target>Bootstrap Glyphicon:</target>
+			</trans-unit>
+
+			<trans-unit id="tt_content.tx_t3sbootstrap_panel_state">
+				<target>Panel-Kontext Alternativen:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_pull">
+				<target>Media object Bildorientierung:</target>
+			</trans-unit>
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_pull_left">
+				<target>Bild links ausgerichtet</target>
+			</trans-unit>
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_pull_right">
+				<target>Bild rechts ausgerichtet</target>
+			</trans-unit>
+
+		</body>
+	</file>
+
+
+</xliff>
