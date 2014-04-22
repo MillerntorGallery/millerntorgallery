@@ -2297,8 +2297,8 @@ input[type="button"].btn-block {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../fonts/glyphicons-halflings-regular.eot');
-  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('../Fonts/glyphicons-halflings-regular.eot');
+  src: url('../Fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../Fonts/glyphicons-halflings-regular.woff') format('woff'), url('../Fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../Fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -5518,7 +5518,7 @@ button.close {
 }
 .navbar-main.navbar-nav > li > a {
   margin-top: ;
-  padding: 5px 15px 10px 15px;
+  padding: 7px 15px;
   color: #000;
   text-transform: uppercase;
   font-weight: bold;
@@ -5529,6 +5529,8 @@ button.close {
 }
 .navbar-main.nav > li.dropdown > a:hover,
 .navbar-main.nav > li.dropdown > a:focus,
+.navbar-main.nav > li > a:hover,
+.navbar-main.nav > li > a:focus,
 .navbar-main.nav > li.dropdown.open,
 .navbar-main.nav .open > a,
 .navbar-main.nav .open > a:hover,
@@ -5807,7 +5809,7 @@ ul.work-artists li a {
 }
 .artist_select {
   float: left;
-  margin-top: 6px;
+  margin-top: 10px;
 }
 .artist_select select,
 .artist_select select:focus {
