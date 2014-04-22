@@ -1,0 +1,18 @@
+<div class="navbar navbar-{themeNavigationstyle} navbar-top" role="navigation">
+    
+        <div class="navbar-header navbar-header-main">
+            <f:if condition="{f:cObject(typoscriptObjectPath:'lib.navigation.main')}">
+            <button type="button" class="navbar-toggle navbar-toggle-menu" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="glyphicon glyphicon-list"></span>
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            </f:if>
+            <span class="navbar-header-border-bottom"></span>
+        </div>
+            
+        <div id="mainNavigation" class="navbar-collapse collapse">
+	        <f:cObject typoscriptObjectPath="lib.dropdown.kuenstler" />
+            <f:cObject typoscriptObjectPath="lib.navigation.main" />
+        </div>
+    
+</div>

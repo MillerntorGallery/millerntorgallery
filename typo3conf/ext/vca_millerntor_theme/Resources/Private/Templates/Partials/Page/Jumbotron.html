@@ -1,0 +1,38 @@
+<f:if condition="{settings.styles.jumbotron.fullwidth}">
+	<f:then>
+				<f:if condition="{settings.styles.jumbotron.bgImg.enable}">
+				<f:then>
+					<f:cObject typoscriptObjectPath="lib.jumbotronBgImgDiv" />
+				</f:then>
+				<f:else>
+					<div class="jumbotron hidden-xs">
+				</f:else>
+				</f:if>
+			<div class="container">
+				<f:if condition="{settings.styles.bsHeader.enable}">
+					<f:cObject typoscriptObjectPath="lib.bs_header" />
+				</f:if>
+				<f:cObject typoscriptObjectPath="lib.content.jumbotron" />
+			</div>
+		</div>
+	</f:then>
+	<f:else>
+		<div class="container">
+			<div class="row">
+				<f:if condition="{settings.styles.jumbotron.bgImg.enable}">
+				<f:then>
+					<f:cObject typoscriptObjectPath="lib.jumbotronBgImgDiv" />
+				</f:then>
+				<f:else>
+					<div class="jumbotron hidden-xs">
+				</f:else>
+				</f:if>
+					<f:if condition="{settings.styles.bsHeader.enable}">
+						<f:cObject typoscriptObjectPath="lib.bs_header" />
+				</f:if>
+						<f:cObject typoscriptObjectPath="lib.content.jumbotron" />
+					</div>
+			</div>
+		</div>
+	</f:else>
+</f:if>

@@ -33,7 +33,7 @@ $EM_CONF[$_EXTKEY] = array(
 			'extbase' => '1.3',
 			'fluid' => '1.3',
 			'typo3' => '6.2',
-			'bootstrap_package' => '6.2',
+			't3sbootstrap' => '0.0.3',
 		),
 		'conflicts' => array(
 		),

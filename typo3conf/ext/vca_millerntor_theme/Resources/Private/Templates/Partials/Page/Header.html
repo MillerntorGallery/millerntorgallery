@@ -1,0 +1,33 @@
+<div class="navbar navbar-{themeNavigationstyle} navbar-top"> 
+		<div class="row">
+			<div class="col-xs-4" id="social-links">
+				<div class="social-bottom"><f:cObject typoscriptObjectPath="lib.pheader.social_media" /></div>
+			</div>
+			<div class="col-xs-4" id="logo">
+				<f:if condition="{logoFile}">
+	          <f:then>
+	          	<div id="f1_container">
+					<div id="f1_card" class="shadow">
+					  <div class="front face">
+					    <f:link.page pageUid="{rootPage}" class="navbar-brand-image">
+	                  		<img src="{f:uri.image(src: logoFile)}" height="{logoHeight}" width="{logoWidth}" alt="{themeCopyrightText}" />     
+	                  	</f:link.page>
+					  </div>
+					  <div class="back face center">
+					    <f:link.page pageUid="{rootPage}" class="navbar-brand-image">
+	                  		<img src="{f:uri.image(src: logoFileBack)}" height="{logoHeight}" width="{logoWidth}" alt="{themeCopyrightText}" />     
+	                  	</f:link.page>
+					  </div>
+					</div>
+				</div>
+	          </f:then>
+	          <f:else>
+	              <f:link.page pageUid="{rootPage}" class="sideTitle">{siteTitle}</f:link.page>
+	          </f:else>
+	      </f:if>
+			</div>
+			<div class="col-xs-4" id="next-date">
+				<f:cObject typoscriptObjectPath="lib.pheader.next_excebition" />
+			</div>
+		</div>
+</div>
