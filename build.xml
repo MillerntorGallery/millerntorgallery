@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="ML TYPO3 6.2.0 Test" default="build">
+<project name="ML TYPO3 6.2.1 Test" default="build">
 	<property file="build_config.ini"/>
 	<!-- Environment -->
 	<property environment="env" />
@@ -12,10 +12,10 @@
 	<echo message="Starting build for environment: ${environment}" />
 
 	<!-- Theme -->
-	<!--property name="theme.path" value="${basedir}/wp-content/themes/jeromeboateng" /-->
+	<property name="theme.path" value="${basedir}/typo3conf/ext/vca_millerntor_theme" />
 	
 	<!-- Application -->
-	<property name="typo3.version" value="6.2.0" />
+	<property name="typo3.version" value="6.2.1" />
 	
 	<!-- Binaries & Paths -->
 	<property name="php" value="php" />
@@ -214,34 +214,16 @@
 	
 	<!-- Generate code -->
 	<target name="less" description="Convert .less files into .css" depends="npm-install">
-		<mkdir dir="${theme.path}/css" />
+		<mkdir dir="${theme.path}/Resources/Public/Css" />
 		<echo message="Generating application CSS from the LESS sources" />
 		<exec executable="${npm.bin}/lessc" failonerror="true">
 			<arg value="--strict-imports" />
-			<arg value="--clean-css" />
-			<arg value="${theme.path}/less/application.less" />
-			<arg value="${theme.path}/css/application.css" />
+			<!--arg value="- -clean-css" /-->
+			<arg value="${theme.path}/Resources/Private/Less/Theme/application.less" />
+			<arg value="${theme.path}/Resources/Public/Css/application.css" />
 		</exec>
 	</target>
 	
-	<target name="plessc" description="Convert .less files into .css" depends="composer-install">
-		<mkdir dir="${theme.path}/css" />
-		<echo message="Generating application CSS from the LESS sources, using '${less.formatter}' formatter" />
-		<exec executable="vendor/leafo/lessphp/plessc" failonerror="true">
-			<arg value="-f=${less.formatter}" />
-			<arg value="${theme.path}/less/application.less" />
-			<arg value="${theme.path}/css/application.css" />
-		</exec>
-	</target>
-	
-	<target name="less-watch" description="Watch less files for changes an generate css on-the-fly" depends="composer-install">
-		<echo message="Watching LESS files for changes and create the application CSS on-the-fly" />
-		<exec executable="vendor/leafo/lessphp/plessc">
-			<arg value="-w" />
-			<arg value="${theme.path}/less/application.less" />
-			<arg value="${theme.path}/css/application.css" />
-		</exec>
-	</target>
 	
 	<target name="js" description="Concatenate javascript files together" depends="composer-install, npm-install">
 		<!--
