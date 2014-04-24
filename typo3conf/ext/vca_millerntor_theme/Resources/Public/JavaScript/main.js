@@ -80,9 +80,11 @@ $(function(){
 
             $('.dropdown-menu').on('mouseenter', function() {
                 $('.dropdown-menu').show();
+                $(this).parent().addClass('open');
                 clearTimeout(t);
             }).on('mouseleave', function() {
                 $('.dropdown-menu').hide();
+                $(this).parent().removeClass('open');
             })
         });
     

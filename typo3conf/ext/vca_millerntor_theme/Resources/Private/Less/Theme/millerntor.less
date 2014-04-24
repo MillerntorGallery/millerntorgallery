@@ -79,12 +79,26 @@
 	
 }
 
-.navbar-main {
-	&.navbar-nav > li {
-		margin-top: 10px
+.artist_select {
+	float: left;
+	margin-top: 10px;
+	margin-right: 6px;
+	
+	select,
+	select:focus {
+		width: 150px;
+		border-radius: 0;
+		border:1px solid black;
+    	box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
+    	color: black;
+    	text-transform: uppercase;
+    	padding: 6px;
 	}
-	&.navbar-nav > li > a {
-		margin-top: ;
+}
+
+.navbar-main {
+	&.nav > li > a {
+		margin-top: 10px;
 		padding:7px 15px;
 		color: #000;
 		text-transform: uppercase;
@@ -98,18 +112,24 @@
 	&.nav > li.dropdown > a:focus,
 	&.nav > li > a:hover, 
 	&.nav > li > a:focus,
-	&.nav > li.dropdown.open,
+	&.nav > li.dropdown.open > a,
 	&.nav .open > a,
 	&.nav .open > a:hover,
 	&.nav .open > a:focus {
 		background-color: @millerntor-brown;
 		color: #fff;
 	} 
+	li.dropdown {
+		position:relative;
+	}
 	
 	.dropdown-menu {
 		background-color: @millerntor-brown;
     	border: 0px solid rgba(0, 0, 0, 0.15);
     	box-shadow: 0 0px 0px rgba(0, 0, 0, 0.176);
+    	border-radius: 0px;
+    	margin: 0px;
+    	font-size: 13px;
     	
     	> li > a {
     		color: #fff;
@@ -420,18 +440,4 @@ ul.work-artists {
 	
 }
 
-.artist_select {
-	float: left;
-	margin-top: 10px;
-	
-	select,
-	select:focus {
-		width: 150px;
-		border-radius: 0;
-		border:1px solid black;
-    	box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
-    	color: black;
-    	text-transform: uppercase;
-    	padding: 6px;
-	}
-}
+

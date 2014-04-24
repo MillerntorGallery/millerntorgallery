@@ -105,6 +105,9 @@ page {
 		#jquery.disableCompression = 1
 		jquery = EXT:vca_millerntor_theme/Resources/Public/JavaScript/Libs/jquery-1.10.2.min.js
 		jquery.forceOnTop = 1
+		responsive = EXT:vca_millerntor_theme/Resources/Public/JavaScript/Libs/jquery.responsiveimages.min.js
+		main = EXT:vca_millerntor_theme/Resources/Public/JavaScript/main.js
+		#jquery.forceOnTop = 1
 	}
 
 	jsFooterInline.5 = TEXT
