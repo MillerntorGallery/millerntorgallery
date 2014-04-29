@@ -76,6 +76,12 @@
 	<target name="clean-all" depends="clean, uninstall-typo3" description="Clean project from all generated or installed files" />
 
 	<!-- Validation targets -->
+	<target name="validate-composer" description="Validate composer.json">
+		<echo message="Validating composer.json" />
+		<exec executable="${composer}" failonerror="true">
+			<arg value="validate" />
+		</exec>
+	</target>
 
 	<target name="validate-lint" description="Check for syntax errors using the PHP interpreter">
 		<echo message="Checking syntax of PHP files with php lint" />
@@ -87,8 +93,57 @@
 			</fileset>
 		</apply>
 	</target>
+	
+	<target name="validate-js" depends="npm-install" description="Check for syntax errors using JSLint">
+		<echo message="Checking syntax of JS files with JSLint" />
+		<apply executable="${npm.bin}/jslint" failonerror="true">
+			<fileset dir="${theme.path}/js_src">
+				<include name="**/*.js" />
+				<modified />
+			</fileset>
+		</apply>
+	</target>
 
-	<target name="validate" description="Validate and check everything" depends="validate-lint" />
+	<target name="validate" description="Validate and check everything" depends="validate-composer, validate-lint" />
+
+	<!-- composer targets -->
+	<target name="composer-install" description="Install dependencies via composer install" depends="validate-composer">
+		<echo message="Installing dependencies into /vendor" />
+		<exec executable="${composer}" failonerror="true">
+			<arg value="install" />
+			<arg value="${composer.env}" />
+		</exec>
+	</target>
+
+	<target name="composer-update" description="Update dependencies via composer update" depends="validate-composer">
+		<echo message="Updating dependencies in /vendor" />
+		<exec executable="${composer}" failonerror="true">
+			<arg value="update" />
+			<arg value="${composer.env}" />
+		</exec>
+	</target>
+	
+	<!-- node (npm) targets -->
+	<target name="npm-install" description="Install npm packages">
+		<echo message="Install npm packages declared in package.json" />
+		<exec executable="npm" failonerror="true">
+			<arg value="install" />
+		</exec>
+	</target>
+
+	<target name="npm-update" description="Update npm packages">
+		<echo message="Update npm packages declared in package.json" />
+		<exec executable="npm" failonerror="true">
+			<arg value="update" />
+		</exec>
+	</target>
+	
+	<target name="npm-prune" description="Prune npm packages">
+		<echo message="Uninstall npm packages, which are not declared in package.json" />
+		<exec executable="npm" failonerror="true">
+			<arg value="prune" />
+		</exec>
+	</target>
 
 	<!-- Git targets -->
 	<macrodef name="git" description="Macro for executing git commands">
@@ -158,7 +213,7 @@
 	</target>
 	
 	<!-- Generate code -->
-	<target name="less" description="Convert .less files into .css">
+	<target name="less" description="Convert .less files into .css" depends="npm-install">
 		<mkdir dir="${theme.path}/Resources/Public/Css" />
 		<echo message="Generating application CSS from the LESS sources" />
 		<exec executable="${npm.bin}/lessc" failonerror="true">
@@ -170,7 +225,7 @@
 	</target>
 	
 	
-	<target name="js" description="Concatenate javascript files together">
+	<target name="js" description="Concatenate javascript files together" depends="composer-install, npm-install">
 		<!--
 		<echo message="Create twbs/bootstrap AMD modules with bootstrap-amd" />
 		<mkdir dir="${basedir}/vendor/twbs/bootstrap/amd" />
@@ -240,15 +295,15 @@
 	</target>
 	
 	
-	<target name="generate" description="Process special source file and generate the application code" depends="less" />
+	<target name="generate" description="Process special source file and generate the application code" depends="less, js" />
 
 	<!-- Build targets -->
-	<target name="build" depends="validate, install-typo3, generate" description="Build the application (${environment})" />
+	<target name="build" depends="validate, composer-install, npm-install, install-typo3, generate" description="Build the application (${environment})" />
 	
 	<!-- Update targets -->
 	<target name="update" depends="git-pull, validate, generate" description="Update the application (${environment})" />
 
-	<target name="update-deps" depends="" description="Update the applications dependencies (${environment})" />
+	<target name="update-deps" depends="composer-update, npm-update" description="Update the applications dependencies (${environment})" />
 	
 	<!-- Remote targets -->
 	<macrodef name="remote">
