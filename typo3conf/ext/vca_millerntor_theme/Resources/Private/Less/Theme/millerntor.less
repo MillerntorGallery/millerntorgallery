@@ -173,7 +173,7 @@
     background-color: #FFFFFF;
     border: 1px solid @black;
     border-radius: 0px 0px 0px 0px;
-    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
     margin-bottom: 20px;
     padding: 19px;
 }
@@ -182,7 +182,7 @@
 .jumbotron {
 	border: 2px solid @black;
     border-radius: 0px 0px 0px 0px;
-    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
     background-color: #FFFFFF;
     color: inherit;
     margin-bottom: 30px;
@@ -191,26 +191,31 @@
 /**************
 * Logo Flip
 **************/
-#f1_container {
+
+.flip_container {
   position: relative;
   margin: 0px auto;
-  width: 119px;
-  height: 150px;
   z-index: 1;
-}
-#f1_container {
   perspective: 1000;
 }
-#f1_card {
+#f1_container {
+  width: 119px;
+  height: 150px;
+}
+
+.flip_card {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
   transition: all 1.0s linear;
 }
-#f1_container:hover #f1_card {
-  transform: rotateX(180deg);
- 
+.flip_container:hover .flip_card {
+	  transform: rotateX(180deg);
 }
+.flip_container.vert:hover .flip_card {
+	  transform: rotateY(180deg);
+}
+	
 .face {
   position: absolute;
   width: 100%;
@@ -221,8 +226,15 @@
   display: block;
   transform: rotateX(180deg);
   box-sizing: border-box;
-  color: white;
   text-align: center;
+  
+  p {
+  	text-align: left;
+  }
+  
+}
+.vert .face.back {
+	transform: rotateY(180deg);
 }
 
 /**************
@@ -323,11 +335,16 @@ a.sb.gray:hover, .sb.gray a, a.sb.gray:after, .sb.gray a:after {
 		display: block;
 		margin-right: 5px;
 	}
+	.well {
+		margin-right: 5px;
+		height: 100%;
+		overflow:hidden;
+	}
 	img {
 		background: none repeat scroll 0 0 #FFF;
     	border: 1px solid @black;
 		border-radius: 0px 0px 0px 0px;
-		box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.5);
+		box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
 		width: 100%;
 		height: 100%;
 	}
