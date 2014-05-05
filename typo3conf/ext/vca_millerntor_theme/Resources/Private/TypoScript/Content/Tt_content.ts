@@ -386,12 +386,16 @@ tt_content.gridelements_pi1.20.10.setup.collapsible_container {
 tt_content.gridelements_pi1.20.10.setup.isotope_container {
 	# Wrap isotope
 	# Build: <div id="container">|</div>
-	outerWrap = <div id="container">|</div>
+	outerWrap = <div id="container" class="test">|</div>
 	outerWrap.insertData = 1
 
 	# Direct rendering of the isotope elements, prevents "csc-default"-wrap
 	columns.0 {
-		renderObj = < tt_content
+		renderObj < tt_content
+		renderObj {
+			stdWrap.innerWrap > 
+			stdWrap.innerWrap = <div class="item">|</div>
+		}
 	}
 
 }
