@@ -5741,7 +5741,8 @@ a.sb.gray:after,
   height: 100%;
   overflow: hidden;
 }
-#container .item img {
+#container .item img,
+#container .item iframe {
   background: none repeat scroll 0 0 #FFF;
   border: 1px solid #000000;
   border-radius: 0px 0px 0px 0px;
