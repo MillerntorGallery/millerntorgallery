@@ -26,7 +26,7 @@ plugin.t3sbootstrap_configuration {
 	general {
 
  		# cat=basic/file/1; type=string; label=External Bootstrap Theme: include an external Bootstrap-Theme
-		externalBootstrapTheme = //netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css
+		externalBootstrapTheme = https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css
  		# cat=basic/file/2; type=string; label=Internal Bootstrap Theme: include an internal Bootstrap-Theme
 		internalBootstrapTheme = EXT:t3sbootstrap/Resources/Public/Template/css/t3sbootstrap.css
 
@@ -42,15 +42,14 @@ plugin.t3sbootstrap_configuration {
 			suffix =
 		}
 
- 		# cat=advanced/enable/4; type=boolean; label=Indexed Search Engine: Enables cached pages to be indexed.
-		index.enable = 0
-
 		logo {
 			# cat=basic/enable/3; type=boolean; label=Logo: Enable a logo in the header or jumbotron.
 			enable = 0
 			# cat=basic/file/3; type=string; label=Path to your Logo:
 			path = EXT:t3sbootstrap/Resources/Public/Template/img/logo_260x120.png
 		}
+		# cat=basic/enable/8; type=boolean; label=Tooltip: Enable bootstrap tooltip
+		tooltip = 1
 
 	}
 
@@ -92,8 +91,8 @@ plugin.t3sbootstrap_configuration {
 		navBarLabel = <span class="glyphicon glyphicon-globe"></span>
 		# cat=basic/language/1; type=small; label=Languages: uid list of languages
 		languages = 0,1
-		# cat=basic/language/2; type=string; label=Language Labels: is shown in the language menu ( separate the labels ​​by |*| )
-		labels = <img title="de" alt="de" src="../typo3/sysext/t3skin/images/flags/de.png"> Deutsch |*| <img title="gb" alt="gb" src="../typo3/sysext/t3skin/images/flags/gb.png"> Englisch
+		# cat=basic/language/2; type=string; label=Language Labels: is shown in the language menu ( separate the labels ​​by || )
+		labels = <img title="de" alt="de" src="../typo3/sysext/t3skin/images/flags/de.png"> Deutsch || <img title="gb" alt="gb" src="../typo3/sysext/t3skin/images/flags/gb.png"> Englisch
 	}
 
 	styles {
@@ -123,32 +122,18 @@ plugin.t3sbootstrap_configuration {
 		# cat=basic/enable/4; type=boolean; label=Lightbox: Include jquery-colorbox and configuration
 		lightbox.enable = 1
 
+		# cat=basic/enable/5; type=boolean; label=Lightbox max. width: Enable to disable the lightbox on screens smaller than 641px.
+		lightbox.widthCheck = 0
+
 		# cat=page/other/3; type=int+; label=Search Result Uid:
 		indexed_search.page =
 
-		formhandler {
-			contact-form {
-				email {
-					user {
-						# cat=basic/other/7; type=string; label=Formhandler - User email sender:Email address to use as sender address for the user email. (if used)
-						sender_email =
-					}
-					admin {
-						# cat=basic/other/8; type=string; label=Formhandler - Admin email sender:Email address to use as sender address for the admin email. (if used)
-						sender_email =
-						# cat=basic/other/9; type=string; label=Formhandler -Admin email recipient:Email address of an admin to receive the contact request. (if used)
-						to_email =
-					}
-				}
-
-				# cat=page/other/4; type=int+; label=Formhandler Redirect Page: Page ID to redirect after successful form submission. (if used)
-				redirectPage =
-			}
-		}
+		# cat=page/other/4; type=int+; label=Powermail Form Page: Page ID with contact form (jQuery version 1.8 is loaded for this side)
+		powermail.formPid =
 
 	}
 }
 
 [globalVar = GP:L = 1]
-plugin.t3sbootstrap_configuration.navigation_lang.labels = <img title="de" alt="de" src="../typo3/sysext/t3skin/images/flags/de.png"> German |*| <img title="gb" alt="gb" src="../typo3/sysext/t3skin/images/flags/gb.png"> English
+plugin.t3sbootstrap_configuration.navigation_lang.labels = <img title="de" alt="de" src="../typo3/sysext/t3skin/images/flags/de.png"> German || <img title="gb" alt="gb" src="../typo3/sysext/t3skin/images/flags/gb.png"> English
 [global]

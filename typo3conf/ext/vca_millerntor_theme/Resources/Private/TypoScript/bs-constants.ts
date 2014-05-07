@@ -132,6 +132,9 @@ plugin.t3sbootstrap_configuration {
 		# cat=basic/enable/4; type=boolean; label=Lightbox: Include jquery-colorbox and configuration
 		lightbox.enable = 1
 
+		# cat=basic/enable/5; type=boolean; label=Lightbox max. width: Enable to disable the lightbox on screens smaller than 641px.
+		lightbox.widthCheck = 0
+
 		# cat=page/other/3; type=int+; label=Search Result Uid:
 		indexed_search.page =
 

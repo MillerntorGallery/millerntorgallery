@@ -45,19 +45,19 @@
 </f:section>
 
 <f:section name="Cols">
-		<div class="col-md-4 fcol1">
-			<f:cObject typoscriptObjectPath="lib.content.leftFooter" />
-		</div>
-		<div class="col-md-4 fcol2">
-			<f:if condition="{settings.styles.footer.show}">
-			<small>{settings.general.copyright_information}</small>
-			</f:if>
-			<f:cObject typoscriptObjectPath="lib.content.footer" />
-		</div>
-		<nav class="col-md-4 fcol3">
-			<f:if condition="{settings.styles.footer.show}">
-			<f:cObject typoscriptObjectPath="lib.navigation.footer" />
-			</f:if>
-			<f:cObject typoscriptObjectPath="lib.content.rightFooter" />
-		</nav>
+	<div class="col-md-4 fcol1">
+		<f:cObject typoscriptObjectPath="lib.content.leftFooter" />
+	</div>
+	<div class="col-md-4 fcol2">
+		<f:if condition="{settings.styles.footer.show}">
+		<small>{settings.general.copyright_information}</small>
+		</f:if>
+		<f:cObject typoscriptObjectPath="lib.content.footer" />
+	</div>
+	<nav class="col-md-4 fcol3">
+		<f:if condition="{settings.styles.footer.show}">
+		<f:cObject typoscriptObjectPath="lib.navigation.footer" />
+		</f:if>
+		<f:cObject typoscriptObjectPath="lib.content.rightFooter" />
+	</nav>
 </f:section>

@@ -25,8 +25,8 @@
 						<n:link newsItem="{newsItem}" settings="{settings}">
 							<f:alias map="{mediaElement: newsItem.falMediaPreviews.0}">
 								<f:if condition="{mediaElement.originalResource.type} == 2">
-									<f:image src="{mediaElement.uid}" treatIdAsReference="1" title="{mediaElement.originalResource.title}" alt="{mediaElement.originalResource.alternative}"
-										width="{settings.thumbnail.width}c" height="{settings.thumbnail.height}c" class="img-responsive" />
+									<f:cObject typoscriptObjectPath="lib.imageRendering" data="{uid: mediaElement.uid, title: mediaElement.originalResource.title,
+									altText: mediaElement.originalResource.alternative, width: settings.thumbnail.width, height: settings.thumbnail.height}" />
 								</f:if>
 							</f:alias>
 						</n:link>
@@ -34,7 +34,7 @@
 					<f:else>
 						<f:if condition="{settings.displayDummyIfNoMedia}">
 							<n:link newsItem="{newsItem}" settings="{settings}">
-								<f:image src="{settings.list.media.dummyImage}" title="" alt="" width="{settings.thumbnail.width}c" height="{settings.thumbnail.height}c" class="img-responsive" />
+								<f:image src="{settings.list.media.dummyImage}" title="" alt="" width="{settings.thumbnail.width}" height="{settings.thumbnail.height}" class="img-responsive" />
 							</n:link>
 						</f:if>
 					</f:else>

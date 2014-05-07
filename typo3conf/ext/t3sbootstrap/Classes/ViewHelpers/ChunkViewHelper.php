@@ -37,8 +37,11 @@ class Tx_T3sbootstrap_ViewHelpers_ChunkViewHelper extends \TYPO3\CMS\Fluid\Core\
     public function render($input,$size) {
 
 		if ( !is_array($input) ) $input = $this->object_to_array($input);
+		if ($size == 6) $cols = 2;
+		if ($size == 4) $cols = 3;
+		if ($size == 3) $cols = 4;
 
-        return array_chunk($input, $size);
+        return array_chunk($input, $cols);
 
     }
 

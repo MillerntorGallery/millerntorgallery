@@ -12,7 +12,7 @@ CREATE TABLE pages (
 CREATE TABLE tt_content (
 	tx_t3sbootstrap_panel_state varchar(100) DEFAULT '' NOT NULL,
 	tx_t3sbootstrap_list_group varchar(100) DEFAULT '' NOT NULL,
-	tx_t3sbootstrap_imagestyle varchar(100) DEFAULT '0' NOT NULL,
+	tx_t3sbootstrap_imagestyle varchar(100) DEFAULT '' NOT NULL,
 	tx_t3sbootstrap_mediapull varchar(100) DEFAULT '' NOT NULL,
 );
 

@@ -16,9 +16,9 @@
 							<config type="array">
 								<type>select</type>
 								<items type="array">
-									<numIndex index="0" type="array"><numIndex index="0">2</numIndex><numIndex index="1">2</numIndex></numIndex>
-									<numIndex index="1" type="array"><numIndex index="0">3</numIndex><numIndex index="1">3</numIndex></numIndex>
-									<numIndex index="2" type="array"><numIndex index="0">4</numIndex><numIndex index="1">4</numIndex></numIndex>
+									<numIndex index="0" type="array"><numIndex index="0">2</numIndex><numIndex index="1">6</numIndex></numIndex>
+									<numIndex index="1" type="array"><numIndex index="0">3</numIndex><numIndex index="1">4</numIndex></numIndex>
+									<numIndex index="2" type="array"><numIndex index="0">4</numIndex><numIndex index="1">3</numIndex></numIndex>
 								</items>
 								<default>3</default>
 							</config>

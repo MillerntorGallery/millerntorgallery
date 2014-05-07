@@ -4,20 +4,53 @@
 		<f:for each="{images}" as="image">
 			<f:if condition="{data.image_zoom}">
 				<f:then>
-					<a class="pull-{data.tx_t3sbootstrap_mediapull} gallery" href="<f:uri.image src='{image.publicUrl}' maxWidth='800' />">
-					<f:image src="{image.publicUrl}" id="I{image.uid}" title="{image.title}" alt="{image.alternative}" maxWidth="{data.imagewidth}c" maxHeight="{data.imageheight}c" />
+					<a class="pull-{data.tx_t3sbootstrap_mediapull} gallery" href="<f:uri.image src='{image.publicUrl}' />">
+						<f:render section="Image" arguments="{image: image, data: data}" />
 					</a>
 				</f:then>
 				<f:else>
 					<span class="pull-{data.tx_t3sbootstrap_mediapull} gallery">
-					<f:image src="{image.publicUrl}" id="I{image.uid}" title="{image.title}" alt="{image.alternative}" maxWidth="{data.imagewidth}c" maxHeight="{data.imageheight}c" />
+						<f:render section="Image" arguments="{image: image, data: data}" />
 					</span>
 				</f:else>
 			</f:if>
 		</f:for>
 	</t3s:fal>
 	<div class="media-body">
-    	<h4 class="media-heading">{data.header}</h4>
+		<f:if condition="{data.header_link}">
+			<f:then>
+				<f:if condition="{data.subheader}">
+					<f:then>
+						<f:link.page pageUid="{data.header_link}" noCacheHash="1" ><h4 class="media-heading">{data.header} <small>{data.subheader}</small></h4></f:link.page>
+					</f:then>
+					<f:else>
+						<f:link.page pageUid="{data.header_link}" noCacheHash="1" ><h4 class="media-heading">{data.header}</h4></f:link.page>
+					</f:else>
+				</f:if>
+			</f:then>
+			<f:else>
+				<f:if condition="{data.subheader}">
+					<f:then>
+						<h4 class="media-heading">{data.header} <small>{data.subheader}</small></h4>
+					</f:then>
+					<f:else>
+						<h4 class="media-heading">{data.header}</h4>
+					</f:else>
+				</f:if>
+			</f:else>
+		</f:if>
 		<f:format.html>{data.bodytext}</f:format.html>
 	</div>
 </div>
+
+
+<f:section name="Image">
+	<f:if condition="{data.tx_t3sbootstrap_imagestyle}">
+		<f:then>
+			<f:cObject typoscriptObjectPath="lib.imageRendering" data="{uid: image.uid, title: image.title, altText: image.alternative, width: data.imagewidth, height: data.imageheight, params: data.tx_t3sbootstrap_imagestyle}" />
+		</f:then>
+		<f:else>
+			<f:cObject typoscriptObjectPath="lib.imageRendering" data="{uid: image.uid, title: image.title, altText: image.alternative, width: data.imagewidth, height: data.imageheight}" />
+		</f:else>
+	</f:if>
+</f:section>

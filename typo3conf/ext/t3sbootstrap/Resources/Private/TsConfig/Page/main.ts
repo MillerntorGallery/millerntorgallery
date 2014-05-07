@@ -39,12 +39,12 @@ mod.wizards.newContentElement.wizardItems.bootstrap.show = tx_t3sbootstrap_panel
 #-------------------------------------------------------------------------------
 TCEFORM.pages {
 	# Backend Layouts
-	backend_layout.PAGE_TSCONFIG_ID = 1
-	backend_layout_next_level.PAGE_TSCONFIG_ID = 1
+#	backend_layout.PAGE_TSCONFIG_ID = 1
+#	backend_layout_next_level.PAGE_TSCONFIG_ID = 1
 
 	# Hide no backend layout label, deactivated by default!
-	backend_layout.removeItems = 0,-1
-	backend_layout_next_level.removeItems = -1
+#	backend_layout.removeItems = 0,-1
+#	backend_layout_next_level.removeItems = -1
 }
 TCEMAIN.table.pages.disablePrependAtCopy = 1
 

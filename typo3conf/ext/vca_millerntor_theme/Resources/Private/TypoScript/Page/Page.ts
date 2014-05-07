@@ -31,6 +31,37 @@ temp.globalSettings {
 }
 
 
+temp.jsFooterInline = COA
+temp.jsFooterInline {
+	1 = TEXT
+	1.value = jQuery(function() {
+	# affix
+	10 = TEXT
+	10.value (
+		var $affixElement = $('ul[data-spy="affix"]');
+		$affixElement.width($affixElement.parent().width());
+		jQuery('.bs-affix li:first').addClass('active');
+	)
+	10.if.isInList.data = TSFE:id
+	10.if.value = {$plugin.t3sbootstrap_configuration.pages.affix.uidList}
+	# scroll to top after reload
+	20 = TEXT
+	20.value = jQuery(this).scrollTop(0);
+	# tooltip
+	30 = TEXT
+	30.value = jQuery('.content-row .csc-default p a').tooltip();
+	30.if.value = 1
+	30.if.equals = {$plugin.t3sbootstrap_configuration.general.tooltip}
+	# colorbox (lightbox)
+	50 < temp.colorbox.jsFooterInline
+	50.if.value = 1
+	50.if.equals = {$plugin.t3sbootstrap_configuration.extensions.lightbox.enable}
+	# closing 1.
+	99 = TEXT
+	99.value = });
+}
+
+
 page = PAGE
 page {
 
@@ -92,11 +123,14 @@ page {
 
 	# JS files to be included
 	includeJS {
+		srcset = EXT:t3sbootstrap/Resources/Public/Contrib/Srcset/srcset.min.js
+		srcset.if.value = srcset
+		srcset.if.equals = {$styles.content.imgtext.layoutKey}
 		#bootstrap = //netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js
 		#bootstrap.external = 1
 		#bootstrap.excludeFromConcatenation = 1
 		#bootstrap.disableCompression = 1
-		bootstrap = EXT:vca_millerntor_theme/Resources/Public/JavaScript/Libs/bootstrap.min.js
+		bootstrap = EXT:vca_millerntor_theme/Resources/Public/JavaScript/Libs/bootstrap.js
 		# jQuery 2.x has the same API as jQuery 1.x, but does not support Internet Explorer 6, 7, or 8.
 		#jquery = //ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js
 		#jquery.external = 1
@@ -110,26 +144,8 @@ page {
 		#jquery.forceOnTop = 1
 	}
 
-	jsFooterInline.5 = TEXT
-	jsFooterInline.5.value (
-	  jQuery(function() {
+	jsFooterInline.5 < temp.jsFooterInline
 
-	    var $affixElement = $('ul[data-spy="affix"]');
-	    $affixElement.width($affixElement.parent().width());
-
-	    jQuery(this).scrollTop(0);
-
-		jQuery('.bs-affix li:first').addClass('active');
-
-		jQuery('a.gallery').colorbox();
-
-		jQuery('.content-row .csc-default a').tooltip();
-
-		jQuery('a img').attr('title', '');
-
-	  });
-
-	)
 
 	# Add some classes to the bodytag
 	bodyTagCObject >

@@ -77,6 +77,19 @@ RTE.classes {
 			value = color: #A94442;
         }
 
+
+        indent-1 {
+			name = Indent-20px
+        }
+
+        indent-2 {
+			name = Indent-40px
+        }
+
+        indent-3 {
+			name = Indent-60px
+        }
+
 }
 
 
@@ -108,32 +121,46 @@ RTE.default {
 		, insertparagraphbefore
 		, insertparagraphafter
 
-		, definitionlist
-		, definitionitem
 	)
 
 	toolbarOrder (
-		bold, italic, underline, code, small, formatblock
+		bold
+		, italic
+		, underline
+		, code
+		, small
+		, formatblock
 		, linebreak
-		, textstyle, textstylelabel
+		, textstyle
+		, textstylelabel
 		, linebreak
-		, blockstyle, blockstylelabel
+		, blockstyle
+		, blockstylelabel
 		, linebreak
-		, insertparagraphbefore, insertparagraphafter, unorderedlist, orderedlist, insertcharacter, line, link, removeformat, findreplace, chMode, undo
+		, insertparagraphbefore
+		, insertparagraphafter
+		, unorderedlist
+		, orderedlist
+		, insertcharacter
+		, line
+		, link
+		, removeformat
+		, findreplace
+		, chMode
+		, undo
 
-		, definitionlist
-		, definitionitem
 	)
 
 	buttons.formatblock.removeItems = article, aside, footer, header, nav, h1, h2, h6, section
 	buttons.formatblock.orderItems = p, h3, h4, h5, blockquote, div, pre, address
 
 	buttons {
+		 blockstyle.tags.ul.allowedClasses := addToList(list-unstyled, list-inline)
 		 blockstyle.tags.blockquote.allowedClasses := addToList(pull-right)
 		 blockstyle.tags.div.allowedClasses := addToList(alert, alert-success, alert-info, alert-warning, alert-danger, small, lead, text-muted, text-primary, text-success, text-info, text-warning, text-danger,text-center,text-left,text-right,pull-right)
-		 blockstyle.tags.p.allowedClasses := addToList(small, lead, text-muted, text-primary, text-success, text-info, text-warning, text-danger,text-center,text-left,text-right,pull-right)
+		 blockstyle.tags.p.allowedClasses := addToList(indent-1, indent-2, indent-3, small, lead, text-muted, text-primary, text-success, text-info, text-warning, text-danger,text-center,text-left,text-right,pull-right)
 
-		 textstyle.tags.span.allowedClasses := addToList(badge, small, lead, text-muted, text-primary, text-success, text-info, text-warning, text-danger, alert)
+		 textstyle.tags.span.allowedClasses := addToList(indent-1, indent-2, indent-3, badge, small, lead, text-muted, text-primary, text-success, text-info, text-warning, text-danger, alert)
 	}
 	buttons {
 		 blockstyle.tags.div.allowedClasses := removeFromList(csc-frame-frame1, csc-frame-frame2, important, name-of-person, detail)
@@ -142,7 +169,7 @@ RTE.default {
 	allowTags < RTE.default.proc.allowTags
 
 	proc {
-		allowedClasses := addToList(alert, alert-success, alert-info, alert-warning, alert-danger, badge, error, small, lead, text-muted, text-primary, text-success, text-info, text-warning, text-danger,text-center,text-left,text-right,pull-right,list-unstyled,list-inline)
+		allowedClasses := addToList(indent-1, indent-2, indent-3, alert, alert-success, alert-info, alert-warning, alert-danger, badge, error, small, lead, text-muted, text-primary, text-success, text-info, text-warning, text-danger,text-center,text-left,text-right,pull-right,list-unstyled,list-inline)
 		allowedClasses := removeFromList(csc-frame-frame1,csc-frame-frame2,important,name-of-person,detail,align-left,align-center,align-right,align-justify,component-items,action-items,component-items-ordered,action-items-ordered,indent)
 
 		entryHTMLparser_db {
@@ -162,8 +189,9 @@ RTE.mutuallyExclusiveClasses {
  10 = text-left, text-right, text-center
  20 = small, lead
  30 = text-muted, text-primary, text-success, text-info, text-warning, text-danger
- 40 = list-unstyled,list-inline
- 50 = alert-success,alert-info,alert-warning,alert-danger
+ 40 = list-unstyled, list-inline
+ 50 = alert-success, alert-info, alert-warning, alert-danger
+ 60 = indent-1, indent-2, indent-3
 }
 
 RTE.default.FE < RTE.default

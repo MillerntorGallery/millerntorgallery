@@ -6,11 +6,6 @@ page {
 	meta.viewport = width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no
 #	meta.X-UA-Compatible = IE=edge
 #	meta.X-UA-Compatible.httpEquivalent = 1
-
-	config {
-		index_enable = {$plugin.t3sbootstrap_configuration.general.index.enable}
-		index_externals = {$plugin.t3sbootstrap_configuration.general.index.externals}
-	}
 }
 
 page.headerData.5 = TEXT
@@ -21,7 +16,6 @@ page.headerData.5.value (
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 )
-
 
 config {
 	doctype = html5

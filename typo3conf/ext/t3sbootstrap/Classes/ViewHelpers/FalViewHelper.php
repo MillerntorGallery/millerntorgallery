@@ -33,6 +33,16 @@ class Tx_T3sbootstrap_ViewHelpers_FalViewHelper extends \TYPO3\CMS\Fluid\Core\Vi
      */
     protected $fileRepository;
 
+
+  /**
+  * Configuration Manager
+  *
+  * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	* @inject
+  */
+#  protected $configurationManager;
+
+
     /**
      * @param array $data
      * @param string $as
@@ -53,6 +63,12 @@ class Tx_T3sbootstrap_ViewHelpers_FalViewHelper extends \TYPO3\CMS\Fluid\Core\Vi
         $this->templateVariableContainer->add($as, $items);
         $content = $this->renderChildren();
         $this->templateVariableContainer->remove($as);
+
+#$this->cObj = $this->configurationManager->getContentObject();
+#$settings = $this->templateVariableContainer->get('settings');
+#\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($this->templateVariableContainer);
+
+#\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($content);
 
         return $content;
 

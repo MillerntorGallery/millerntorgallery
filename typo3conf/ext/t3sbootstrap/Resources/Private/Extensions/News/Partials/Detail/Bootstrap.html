@@ -61,10 +61,8 @@
 <f:if condition="{settings.backPid}">
 	<f:then>
 		<div class="row hidden-print">
-		<div class="col-md-6">
-			<f:link.page pageUid="{settings.backPid}"  class="btn btn-primary hidden-print back">
-				<f:translate key="back-link" />
-			</f:link.page>
+		<div class="col-md-6" style="margin-bottom:20px;">
+			<a href="javascript:window.back()" class="btn btn-primary hidden-print back"><f:translate key="back-link" /></a>
 		</div>
 		<f:if condition="{settings.detail.showSocialShareButtons}">
 			<div class="facebook col-md-6" style="margin-bottom:20px;">

@@ -1,4 +1,5 @@
 {namespace t3s = Tx_T3sbootstrap_ViewHelpers}
+
 <div id="carousel-{data.uid}" class="carousel slide" data-ride="carousel">
 	<!-- Indicators -->
 	<ol class="carousel-indicators">
@@ -23,21 +24,30 @@
 			<f:then>
 				<div class="carousel-caption">
 					<f:if condition="{carousel.header}">
-						<h3>{carousel.header}</h3>
+						<f:if condition="{carousel.subheader}">
+							<f:then>
+								<h3>{carousel.header} <small>{carousel.subheader}</small></h4>
+							</f:then>
+							<f:else>
+								<h3>{carousel.header}</h3>
+							</f:else>
+						</f:if>
 					</f:if>
 					<f:format.html>{carousel.bodytext}</f:format.html>
 				</div>
 			</f:then>
 			<f:else>
 				<f:if condition="{carousel.header}">
-				<f:then>
 					<div class="carousel-caption">
-						<h3>{carousel.header}</h3>
+					<f:if condition="{carousel.subheader}">
+						<f:then>
+							<h3>{carousel.header} <small>{carousel.subheader}</small></h4>
+						</f:then>
+						<f:else>
+							<h3>{carousel.header}</h3>
+						</f:else>
+					</f:if>
 					</div>
-				</f:then>
-				<f:else>
-
-				</f:else>
 				</f:if>
 			</f:else>
 			</f:if>

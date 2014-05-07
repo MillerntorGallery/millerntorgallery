@@ -28,6 +28,7 @@ $tempPagesColumns = Array (
 		'config' => array (
 			'type' => 'select',
 			'items' => array(
+				array('LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_db.xlf:pages.tx_t3sbootstrap_no_glyphicon', ''),
 				array('glyphicon-asterisk', 'asterisk'),
 				array('glyphicon-plus', 'plus'),
 				array('glyphicon-euro', 'euro'),
@@ -237,11 +238,8 @@ $tempPagesColumns = Array (
 
 );
 
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('pages',$tempPagesColumns,1);
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('pages','tx_t3sbootstrap_glyphicon');
-
-$GLOBALS['TCA']['pages']['types']['1']['showitem'] = '--palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.standard;standard, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.title;title, --div--;LLL:EXT:cms/locallang_tca.xlf:pages.tabs.access, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.visibility;visibility, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.access;access, --div--;LLL:EXT:cms/locallang_tca.xlf:pages.tabs.metadata, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.abstract;abstract, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.metatags;metatags, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.editorial;editorial, --div--;LLL:EXT:cms/locallang_tca.xlf:pages.tabs.appearance, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.layout;layout, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.replace;replace, --div--;LLL:EXT:cms/locallang_tca.xlf:pages.tabs.behaviour, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.links;links, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.caching;caching, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.language;language, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.miscellaneous;miscellaneous, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.module;module, --div--;LLL:EXT:cms/locallang_tca.xlf:pages.tabs.resources, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.media;media, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.storage;storage, --palette--;LLL:EXT:cms/locallang_tca.xlf:pages.palettes.config;config, --div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category, categories, --div--;LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:backend_layout.bootstrap, tx_t3sbootstrap_glyphicon';
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette('pages','title','--linebreak--,tx_t3sbootstrap_glyphicon','after:subtitle');
 
 /***************
  * New fields in table:tt_content
@@ -292,9 +290,9 @@ $tempContentColumns = array (
 			'type' => 'select',
 			'items' => array(
 				array('Default', '0'),
-				array('Rounded', '1'),
-				array('Circle', '2'),
-				array('Thumbnail', '3'),
+				array('Rounded', 'img-rounded'),
+				array('Circle', 'img-circle'),
+				array('Thumbnail', 'img-thumbnail'),
 			),
 			'size' => 1,
 			'maxitems' => 1,
@@ -334,7 +332,7 @@ $tempContentColumns = array (
 	'CType'
 );
 
-$GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_panel']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,header,tx_t3sbootstrap_panel_state,bodytext;LLL:EXT:cms/locallang_ttc.xml:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], rte_enabled;LLL:EXT:cms/locallang_ttc.xml:rte_enabled_formlabel,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.appearance, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.frames;frames,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.extended, tx_gridelements_container, tx_gridelements_columns';
+$GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_panel']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,header, subheader, tx_t3sbootstrap_panel_state,bodytext;LLL:EXT:cms/locallang_ttc.xml:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], rte_enabled;LLL:EXT:cms/locallang_ttc.xml:rte_enabled_formlabel,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.appearance, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.frames;frames,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended, --div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category, categories, tx_gridelements_container, tx_gridelements_columns';
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
@@ -345,7 +343,7 @@ $GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_panel']['showitem'] = '--pa
 	'CType'
 );
 
-$GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_mediaobject']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,image, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.image_settings;image_settings, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.imagelinks;imagelinks,tx_t3sbootstrap_mediapull,header,bodytext;LLL:EXT:cms/locallang_ttc.xml:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], rte_enabled;LLL:EXT:cms/locallang_ttc.xml:rte_enabled_formlabel,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.appearance, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.frames;frames,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.extended, tx_gridelements_container, tx_gridelements_columns';
+$GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_mediaobject']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,image, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.image_settings;image_settings, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.imagelinks;imagelinks,tx_t3sbootstrap_mediapull,header,header_link, subheader, bodytext;LLL:EXT:cms/locallang_ttc.xml:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], rte_enabled;LLL:EXT:cms/locallang_ttc.xml:rte_enabled_formlabel,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.appearance, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.frames;frames,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended, --div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category, categories, tx_gridelements_container, tx_gridelements_columns';
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
@@ -356,7 +354,7 @@ $GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_mediaobject']['showitem'] =
 	'CType'
 );
 
-$GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_thumbnail']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,image, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.imagelinks;imagelinks,--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header,bodytext;LLL:EXT:cms/locallang_ttc.xml:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], rte_enabled;LLL:EXT:cms/locallang_ttc.xml:rte_enabled_formlabel,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.extended, tx_gridelements_container, tx_gridelements_columns';
+$GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_thumbnail']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,image, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.imagelinks;imagelinks,header, header_link, subheader, bodytext;LLL:EXT:cms/locallang_ttc.xml:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], rte_enabled;LLL:EXT:cms/locallang_ttc.xml:rte_enabled_formlabel,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended, --div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category, categories, tx_gridelements_container, tx_gridelements_columns';
 
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPlugin(
@@ -367,18 +365,30 @@ $GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_thumbnail']['showitem'] = '
 	'CType'
 );
 
-$GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_carousel']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,image,header,bodytext;LLL:EXT:cms/locallang_ttc.xml:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], rte_enabled;LLL:EXT:cms/locallang_ttc.xml:rte_enabled_formlabel, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.extended, tx_gridelements_container, tx_gridelements_columns';
+$GLOBALS['TCA']['tt_content']['types']['t3sbootstrap_carousel']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general,image,header, subheader, bodytext;LLL:EXT:cms/locallang_ttc.xml:bodytext_formlabel;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], rte_enabled;LLL:EXT:cms/locallang_ttc.xml:rte_enabled_formlabel, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended, --div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category, categories, tx_gridelements_container, tx_gridelements_columns';
+
 
 
 
 # tx_t3sbootstrap_list_group in CType=bullets
-$GLOBALS['TCA']['tt_content']['types']['bullets']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header,tx_t3sbootstrap_list_group,bodytext;LLL:EXT:cms/locallang_ttc.xml:bodytext.ALT.bulletlist_formlabel;;nowrap,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.appearance,--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.frames;frames,--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.textlayout;textlayout,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access,--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility,--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.extended, tx_gridelements_container, tx_gridelements_columns';
+$GLOBALS['TCA']['tt_content']['types']['bullets']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.general;general, --palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.header;header, tx_t3sbootstrap_list_group, bodytext;LLL:EXT:cms/locallang_ttc.xlf:bodytext.ALT.bulletlist_formlabel;;nowrap, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.appearance, --palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.frames;frames, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xlf:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xlf:tabs.extended, --div--;LLL:EXT:lang/locallang_tca.xlf:sys_category.tabs.category, categories, tx_gridelements_container, tx_gridelements_columns';
 
-# tx_t3sbootstrap_imagestyle in CType=image
-$GLOBALS['TCA']['tt_content']['types']['image']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.images, image, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.imagelinks;imagelinks, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.appearance, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.frames;frames, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.image_settings;image_settings, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.imageblock;imageblock,tx_t3sbootstrap_imagestyle, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.extended, tx_gridelements_container, tx_gridelements_columns';
 
-# tx_t3sbootstrap_imagestyle in CType=textpic
-$GLOBALS['TCA']['tt_content']['types']['textpic']['showitem'] = '--palette--;LLL:EXT:cms/locallang_ttc.xml:palette.general;general, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.header;header, bodytext;Text;;richtext:rte_transform[flag=rte_enabled|mode=ts_css], rte_enabled;LLL:EXT:cms/locallang_ttc.xml:rte_enabled_formlabel,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.images, image, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.imagelinks;imagelinks,--div--;LLL:EXT:cms/locallang_ttc.xml:tabs.appearance, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.frames;frames, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.image_settings;image_settings, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.imageblock;imageblock, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.textlayout;textlayout,tx_t3sbootstrap_imagestyle, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.access, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.visibility;visibility, --palette--;LLL:EXT:cms/locallang_ttc.xml:palette.access;access, --div--;LLL:EXT:cms/locallang_ttc.xml:tabs.extended, tx_gridelements_container, tx_gridelements_columns';
+# add tx_t3sbootstrap_imagestyle
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+        'tt_content',
+        'imagelinks',
+        '--linebreak--,tx_t3sbootstrap_imagestyle',
+        'after:imagelinks'
+);
+
+# add subheader
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+        'tt_content',
+        'header',
+        '--linebreak--,subheader',
+        'after:header'
+);
 
 
 ?>

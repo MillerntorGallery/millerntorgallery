@@ -9,17 +9,15 @@ config {
 	locale_all = de_DE.UTF-8
 	htmlTag_langKey = de
 	sys_language_mode = content_fallback ; 1,0
-    sys_language_overlay =1
+    sys_language_overlay = 1
 }
-plugin.tx_indexedsearch._DEFAULT_PI_VARS.lang = 0
 
 # English
-[globalVar = GP:L=1]
+[globalVar = GP:L = 1]
 	config {
 		sys_language_uid = 1
 		language = en
 		locale_all = en_UK.UTF-8
 		htmlTag_langKey = en
 	}
-	plugin.tx_indexedsearch._DEFAULT_PI_VARS.lang = 1
 [global]

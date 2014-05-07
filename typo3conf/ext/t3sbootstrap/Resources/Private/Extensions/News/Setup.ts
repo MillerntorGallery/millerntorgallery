@@ -11,17 +11,17 @@ plugin.tx_news {
 	}
 
 	settings {
-		cssFile >
+		cssFile = EXT:t3sbootstrap/Resources/Public/Template/css/News.css
 
 		thumbnail {
 			# 2,3 or 4 columns
 			columns = 3
-			width = 400c
-			height = 250c
+			width = 400
+			height = 250
 		}
 		mediaObject {
-			width = 100c
-			height = 100c
+			width = 100
+			height = 100
 		}
 	}
 }

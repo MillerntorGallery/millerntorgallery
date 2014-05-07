@@ -1,3 +1,16 @@
+p span.indent-1,
+pre span.indent-1 {
+	padding-left:20px;
+}
+p span.indent-2,
+pre span.indent-2 {
+	padding-left:40px;
+}
+p span.indent-3,
+pre span.indent-3 {
+	padding-left:60px;
+}
+
 div.alert {
     border: 1px solid rgba(0, 0, 0, 0);
     border-radius: 4px;
@@ -144,6 +157,12 @@ blockquote.pull-right {
     padding-right: 15px;
     float: right !important;
 }
+blockquote footer, blockquote small, blockquote .small {
+    color: #999999;
+    display: block;
+    font-size: 80%;
+    line-height: 1.42857;
+}
 blockquote.pull-right p, blockquote.pull-right small, blockquote.pull-right .small {
     text-align: right;
 }
@@ -172,6 +191,9 @@ li.list-inline > li {
     padding-left: 5px;
     padding-right: 5px;
 }
+
+
+
 
 
 pre {
