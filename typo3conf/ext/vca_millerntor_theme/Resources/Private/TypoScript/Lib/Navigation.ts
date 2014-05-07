@@ -14,7 +14,7 @@ lib.navigation.main {
     		
         1 = TMENU
         1 {
-            wrap = <ul class="nav nav-justified navbar-main">|</ul>
+            wrap = <ul class="nav nav-justified navbar-main navbar-collapse collapse">|</ul>
             expAll = 1
             noBlur = 1
             NO = 1
