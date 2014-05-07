@@ -5758,6 +5758,7 @@ a.sb.gray:after,
   overflow: hidden;
   margin-bottom: 20px;
   text-align: center;
+  padding-right: 5px;
 }
 #container .item .img-link {
   display: block;
@@ -5865,4 +5866,40 @@ ul.work-artists li a {
   padding: 3px 5px;
   margin: 2px;
   text-transform: uppercase;
+}
+@media (max-width: 768px) {
+  #container .item {
+    float: left;
+    margin: 15px;
+    padding: 0px;
+    width: 200px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-right: 5px;
+  }
+  #container .item .img-link {
+    display: block;
+    margin-right: 5px;
+  }
+  #container .item .well {
+    margin-right: 5px;
+    height: 100%;
+    overflow: hidden;
+  }
+  #container .item img,
+  #container .item iframe {
+    background: none repeat scroll 0 0 #FFF;
+    border: 1px solid #000000;
+    border-radius: 0px 0px 0px 0px;
+    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
+    width: 100%;
+    height: 100%;
+  }
+  #container .item h3,
+  #container .item h3 a {
+    font-size: 14px;
+    color: black;
+    text-transform: uppercase;
+  }
 }
