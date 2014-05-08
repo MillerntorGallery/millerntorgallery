@@ -5791,6 +5791,9 @@ a.sb.gray:after,
   color: black;
   text-transform: uppercase;
 }
+.flip_content {
+  text-align: left;
+}
 img.well {
   padding: 0px;
   margin: 0px;
