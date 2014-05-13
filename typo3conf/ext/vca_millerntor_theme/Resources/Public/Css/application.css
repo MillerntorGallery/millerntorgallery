@@ -5640,9 +5640,9 @@ button.close {
   position: relative;
   margin: 0px auto;
   z-index: 1;
-  -webkit-perspective: 1000;
-  -moz-perspective: 1000;
-  perspective: 1000;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  perspective: 1000px;
 }
 #f1_container {
   width: 119px;
