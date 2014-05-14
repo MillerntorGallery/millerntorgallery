@@ -5618,7 +5618,7 @@ button.close {
 }
 .well {
   background-color: #FFFFFF;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   border-radius: 0px 0px 0px 0px;
   box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
   margin-bottom: 20px;
@@ -5778,7 +5778,7 @@ a.sb.gray:after,
 #container .item img,
 #container .item iframe {
   background: none repeat scroll 0 0 #FFF;
-  border: 1px solid #000000;
+  border: 2px solid #000000;
   border-radius: 0px 0px 0px 0px;
   -webkit-box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
   box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
