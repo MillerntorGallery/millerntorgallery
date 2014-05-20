@@ -5668,6 +5668,9 @@ div.csc-textpic .csc-textpic-imagewrap img {
   width: 100%;
   height: 100%;
 }
+div.csc-textpic.csc-textpic-intext-left .csc-textpic-imagewrap {
+  margin-right: 15px;
+}
 /**************
 * Logo Flip
 **************/
