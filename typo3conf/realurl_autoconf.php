@@ -72,6 +72,9 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']=array (
   						)
                      )
   				),
+//   				array(
+//   					'GETvar' => 'cHash',
+//   				),
   			),		
   			'ausstellung' => array(
   				array(
@@ -94,6 +97,9 @@ $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['realurl']=array (
   						)
                      )
   				),
+//   				array(
+//   					'GETvar' => 'cHash',
+//   				),		
   			),		
   		),	
   	),	
