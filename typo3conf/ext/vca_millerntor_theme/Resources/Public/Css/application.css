@@ -5864,6 +5864,7 @@ a.sb.gray:after,
   font-size: 14px;
   color: black;
   text-transform: uppercase;
+  margin: 10px 0 0;
 }
 .flip_content {
   text-align: left;
