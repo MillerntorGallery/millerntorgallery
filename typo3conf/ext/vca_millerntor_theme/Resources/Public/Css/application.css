@@ -5695,6 +5695,9 @@ h3 a {
   width: 100%;
   height: 100%;
 }
+.bs-callout div.csc-textpic .csc-textpic-center-inner .csc-textpic-imagewrap .csc-textpic-imagecolumn.csc-textpic-lastcol {
+  margin-right: 5px;
+}
 .bs-callout div.csc-textpic.csc-textpic-intext-left .csc-textpic-imagewrap {
   margin-right: 15px;
 }
