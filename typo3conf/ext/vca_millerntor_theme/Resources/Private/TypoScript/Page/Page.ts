@@ -45,8 +45,8 @@ temp.jsFooterInline {
 	10.if.isInList.data = TSFE:id
 	10.if.value = {$plugin.t3sbootstrap_configuration.pages.affix.uidList}
 	# scroll to top after reload
-	20 = TEXT
-	20.value = jQuery(this).scrollTop(0);
+	#20 = TEXT
+	#20.value = jQuery(this).scrollTop(0);
 	# tooltip
 	30 = TEXT
 	30.value = jQuery('.content-row a').tooltip();
