@@ -5610,6 +5610,7 @@ button.close {
   padding: 3px 14px;
 }
 .navbar-main .dropdown-menu > li > a:hover,
+.navbar-main .dropdown-menu > li.active > a,
 .navbar-main .dropdown-menu > li > a:focus {
   background-color: transparent;
   text-decoration: underline;
