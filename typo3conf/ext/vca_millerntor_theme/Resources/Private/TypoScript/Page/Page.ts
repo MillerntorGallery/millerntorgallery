@@ -50,8 +50,8 @@ temp.jsFooterInline {
 	# tooltip
 	30 = TEXT
 	30.value = jQuery('.content-row .csc-default p a').tooltip();
-	30.if.value = 1
-	30.if.equals = {$plugin.t3sbootstrap_configuration.general.tooltip}
+	#30.if.value = 1
+	#30.if.equals = {$plugin.t3sbootstrap_configuration.general.tooltip}
 	# colorbox (lightbox)
 	50 < temp.colorbox.jsFooterInline
 	50.if.value = 1
