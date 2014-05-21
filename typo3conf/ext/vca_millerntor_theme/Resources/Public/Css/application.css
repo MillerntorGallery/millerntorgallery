@@ -5585,6 +5585,7 @@ button.close {
 .navbar-main.nav > li.dropdown > a:focus,
 .navbar-main.nav > li > a:hover,
 .navbar-main.nav > li > a:focus,
+.navbar-main.nav > li.active > a,
 .navbar-main.nav > li.dropdown.open > a,
 .navbar-main.nav .open > a,
 .navbar-main.nav .open > a:hover,
