@@ -102,7 +102,9 @@ page {
         logoHeight.value = {$plugin.t3sbootstrap_configuration.general.logo.height}
         logoWidth = TEXT
         logoWidth.value = {$plugin.t3sbootstrap_configuration.general.logo.width}
-
+ 	      dateFile = TEXT
+        dateFile.value = {$plugin.t3sbootstrap_configuration.general.date.path}
+ 
         themeCopyright = TEXT
         themeCopyright.value = 1
         themeCopyrightText = TEXT

@@ -5546,14 +5546,19 @@ button.close {
 }
 .navbar-top #next-date {
   text-align: right;
+  position: relative;
 }
-.navbar-top #next-date h2 {
+.navbar-top #next-date h2,
+.navbar-top #next-date img {
   display: inherit;
   vertical-align: bottom;
   text-align: right;
   margin-bottom: 0px;
   padding-bottom: 0px;
   margin-top: 90px;
+  position: absolute;
+  top: 30px;
+  right: 10px;
 }
 .artist_select {
   float: left;

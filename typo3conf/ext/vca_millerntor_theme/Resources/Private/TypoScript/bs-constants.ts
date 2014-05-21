@@ -59,6 +59,10 @@ plugin.t3sbootstrap_configuration {
 	    # cat=basic/110/width; type=int+; label=Width: The image will not be resized!
 	    width                           = 119
 		}
+		date {
+			# cat=basic/file/3; type=string; label=Path to your date image:
+			path = EXT:vca_millerntor_theme/Resources/Public/Images/mtg_datum.png
+		}
 
 	}
 
