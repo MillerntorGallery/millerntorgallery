@@ -83,10 +83,11 @@ lib.pheader.next_excebition {
 lib.pheader.logo = COA
 lib.pheader.logo {
 	wrap = <div class="foot_logos">|</div>
+	/*
 	10 = IMAGE
 	10 {
 		file = /typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/fcstpauli_logo.png
-		file.height = 50
+		file.height = 60
 		wrap = <div class="footer_logo">|</div>
 	}
 	20 = IMAGE
@@ -95,4 +96,16 @@ lib.pheader.logo {
 		file.height = 50
 		wrap = <div class="footer_logo">|</div>
 	}
+	*/
+	10 = TEXT
+	10 {
+		value = <img width="50" height="50" alt="FC St. Pauli" src="typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/fcstpauli_logo.png">
+		wrap = <div class="footer_logo">|</div>
+	}
+	20 = TEXT
+	20 {
+		value = <img width="97" height="50" alt="Viva con Aqua" src="typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/vca_logo.png">
+		wrap = <div class="footer_logo">|</div>
+	}
+	
 }

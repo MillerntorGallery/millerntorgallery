@@ -49,7 +49,7 @@
 
 
 	
-	#social-links {
+	.social-links {
 		vertical-align: bottom;
 		text-align: left;
 		
@@ -99,11 +99,24 @@
 	.social-bottom {
 			display: table-cell;
 			vertical-align: bottom;
-			height: 150px;
+			height: 138px;
 	}
 	
 	#logo {
 		text-align: center;
+		
+		.front-logo {
+			background-image: url("../Images/millerntor_gallery.png");
+		    display: block;
+    		height: 135px;
+    		width: 105px;
+		}
+		.back-logo {
+			background-image: url("../Images/back_millerntor_gallery.png");
+		    display: block;
+    		height: 135px;
+    		width: 105px;
+		}
 		
 	}
 	#next-date {
@@ -121,10 +134,23 @@
 			position:absolute;
 			top: 30px;
 			right: 10px;	
-		}	
+		}
+		a.claim {
+				margin-top: 7px;
+				position:absolute;
+				top: 0px;
+				right: 10px;	
+				
+				background: url("../Images/mtg_datum.png") bottom right no-repeat;
+				
+				display: block;
+				width: 180px;
+				height: 133px;
+		}
 	}
 	
 }
+
 
 .artist_select {
 	float: left;
@@ -334,8 +360,8 @@ div.csc-textpic.csc-textpic-intext-left {
   overflow: visible !important;
 }
 #f1_container {
-  width: 119px;
-  height: 150px;
+  width: 105px;
+  height: 135px;
 }
 
 .flip_card {
@@ -633,10 +659,104 @@ ul.work-artists {
 * Logo Flip
 **************/
 
+/*
 .face.back {
   display: none;  
 }
+*/
 	
 	
 }
+
+@media screen and (max-width: @screen-xs-max) {
+	
+	.navbar {
+		margin-bottom: 0px;
+		min-height: 40px;
+		
+		.navbar-toggle {
+			margin-bottom: 0px;
+    		margin-right: 0px;
+    		margin-top: 0px;
+    		padding: 0px;
+		}	
+		
+	}
+	
+	.navbar-top {	
+		.social-bottom {
+			display: table-cell;
+			vertical-align: bottom;
+			height: 60px;
+		}	
+		#logo {
+			text-align: center;
+			
+			.front-logo {
+				background-image: url("../Images/millerntor_gallery_small.png");
+			    display: block;
+	    		height: 68px;
+	    		width: 53px;
+			}
+			.back-logo {
+				background-image: url("../Images/back_millerntor_gallery_small.png");
+			    display: block;
+	    		height: 68px;
+	    		width: 53px;
+			}
+			
+		}
+		#next-date {			
+			h2,
+			img {
+				margin-top: 20px;
+				position:absolute;
+				top: 20px;
+				right: 10px;	
+			}	
+			a.claim {
+				margin-top: 20px;
+				position:absolute;
+				top: 20px;
+				right: 15px;	
+				
+				background-image: url("../Images/mtg_datum_small.png") ;
+				display: block;
+				width: 90px;
+				height: 17px;
+			}
+		}
+	}
+	#f1_container {
+   		height: 68px;
+   		width: 53px;
+	}	
+	
+	.social-links {
+		
+		a {
+			text-indent: -999px;
+			width: 20px;
+			height: 20px;
+			display: block;
+			float:left;
+		}
+		
+		.mailto {
+			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/mail.png') no-repeat top left;
+		}
+		.facebook {
+			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/facebook_small.png') no-repeat top left;			
+		}
+		.twitter {
+			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/twitter_small.png') no-repeat top left;			
+		}
+		.instagram {
+			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/instagram_small.png') no-repeat top left;			
+		}
+	}
+	
+}
+
+
 

@@ -5499,27 +5499,27 @@ button.close {
 #mainNavigation {
   border-top: 5px solid #673e16;
 }
-#social-links {
+.social-links {
   vertical-align: bottom;
   text-align: left;
 }
-#social-links a {
+.social-links a {
   text-indent: -999px;
   width: 39px;
   height: 31px;
   display: block;
   float: left;
 }
-#social-links .mailto {
+.social-links .mailto {
   background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/mail.png') no-repeat top left;
 }
-#social-links .facebook {
+.social-links .facebook {
   background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/facebook.png') no-repeat top left;
 }
-#social-links .twitter {
+.social-links .twitter {
   background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/twitter.png') no-repeat top left;
 }
-#social-links .instagram {
+.social-links .instagram {
   background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/instagram.png') no-repeat top left;
 }
 .copyright {
@@ -5539,10 +5539,22 @@ button.close {
 .navbar-top .social-bottom {
   display: table-cell;
   vertical-align: bottom;
-  height: 150px;
+  height: 138px;
 }
 .navbar-top #logo {
   text-align: center;
+}
+.navbar-top #logo .front-logo {
+  background-image: url("../Images/millerntor_gallery.png");
+  display: block;
+  height: 135px;
+  width: 105px;
+}
+.navbar-top #logo .back-logo {
+  background-image: url("../Images/back_millerntor_gallery.png");
+  display: block;
+  height: 135px;
+  width: 105px;
 }
 .navbar-top #next-date {
   text-align: right;
@@ -5559,6 +5571,16 @@ button.close {
   position: absolute;
   top: 30px;
   right: 10px;
+}
+.navbar-top #next-date a.claim {
+  margin-top: 7px;
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  background: url("../Images/mtg_datum.png") bottom right no-repeat;
+  display: block;
+  width: 180px;
+  height: 133px;
 }
 .artist_select {
   float: left;
@@ -5729,8 +5751,8 @@ h3 a {
   overflow: visible !important;
 }
 #f1_container {
-  width: 119px;
-  height: 150px;
+  width: 105px;
+  height: 135px;
 }
 .flip_card {
   width: 100%;
@@ -6000,7 +6022,81 @@ ul.work-artists li a {
   /**************
 * Logo Flip
 **************/
-  .face.back {
-    display: none;
+  /*
+.face.back {
+  display: none;  
+}
+*/
+}
+@media screen and (max-width: 767px) {
+  .navbar {
+    margin-bottom: 0px;
+    min-height: 40px;
+  }
+  .navbar .navbar-toggle {
+    margin-bottom: 0px;
+    margin-right: 0px;
+    margin-top: 0px;
+    padding: 0px;
+  }
+  .navbar-top .social-bottom {
+    display: table-cell;
+    vertical-align: bottom;
+    height: 60px;
+  }
+  .navbar-top #logo {
+    text-align: center;
+  }
+  .navbar-top #logo .front-logo {
+    background-image: url("../Images/millerntor_gallery_small.png");
+    display: block;
+    height: 68px;
+    width: 53px;
+  }
+  .navbar-top #logo .back-logo {
+    background-image: url("../Images/back_millerntor_gallery_small.png");
+    display: block;
+    height: 68px;
+    width: 53px;
+  }
+  .navbar-top #next-date h2,
+  .navbar-top #next-date img {
+    margin-top: 20px;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+  }
+  .navbar-top #next-date a.claim {
+    margin-top: 20px;
+    position: absolute;
+    top: 20px;
+    right: 15px;
+    background-image: url("../Images/mtg_datum_small.png");
+    display: block;
+    width: 90px;
+    height: 17px;
+  }
+  #f1_container {
+    height: 68px;
+    width: 53px;
+  }
+  .social-links a {
+    text-indent: -999px;
+    width: 20px;
+    height: 20px;
+    display: block;
+    float: left;
+  }
+  .social-links .mailto {
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/mail.png') no-repeat top left;
+  }
+  .social-links .facebook {
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/facebook_small.png') no-repeat top left;
+  }
+  .social-links .twitter {
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/twitter_small.png') no-repeat top left;
+  }
+  .social-links .instagram {
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/instagram_small.png') no-repeat top left;
   }
 }
