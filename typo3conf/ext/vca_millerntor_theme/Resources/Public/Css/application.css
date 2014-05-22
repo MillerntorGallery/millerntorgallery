@@ -4926,7 +4926,7 @@ button.close {
   color: #ffffff;
   text-align: center;
   text-decoration: none;
-  background-color: #693c10;
+  background-color: #673e16;
   border-radius: 0px;
 }
 .tooltip-arrow {
@@ -4941,52 +4941,52 @@ button.close {
   left: 50%;
   margin-left: -5px;
   border-width: 5px 5px 0;
-  border-top-color: #693c10;
+  border-top-color: #673e16;
 }
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;
   left: 5px;
   border-width: 5px 5px 0;
-  border-top-color: #693c10;
+  border-top-color: #673e16;
 }
 .tooltip.top-right .tooltip-arrow {
   bottom: 0;
   right: 5px;
   border-width: 5px 5px 0;
-  border-top-color: #693c10;
+  border-top-color: #673e16;
 }
 .tooltip.right .tooltip-arrow {
   top: 50%;
   left: 0;
   margin-top: -5px;
   border-width: 5px 5px 5px 0;
-  border-right-color: #693c10;
+  border-right-color: #673e16;
 }
 .tooltip.left .tooltip-arrow {
   top: 50%;
   right: 0;
   margin-top: -5px;
   border-width: 5px 0 5px 5px;
-  border-left-color: #693c10;
+  border-left-color: #673e16;
 }
 .tooltip.bottom .tooltip-arrow {
   top: 0;
   left: 50%;
   margin-left: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #693c10;
+  border-bottom-color: #673e16;
 }
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
   left: 5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #693c10;
+  border-bottom-color: #673e16;
 }
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
   right: 5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #693c10;
+  border-bottom-color: #673e16;
 }
 .popover {
   position: absolute;
@@ -5497,7 +5497,7 @@ button.close {
   font-style: normal;
 }
 #mainNavigation {
-  border-top: 5px solid #693c10;
+  border-top: 5px solid #673e16;
 }
 #social-links {
   vertical-align: bottom;
@@ -5595,14 +5595,14 @@ button.close {
 .navbar-main.nav .open > a,
 .navbar-main.nav .open > a:hover,
 .navbar-main.nav .open > a:focus {
-  background-color: #693c10;
+  background-color: #673e16;
   color: #fff;
 }
 .navbar-main li.dropdown {
   position: relative;
 }
 .navbar-main .dropdown-menu {
-  background-color: #693c10;
+  background-color: #673e16;
   border: 0px solid rgba(0, 0, 0, 0.15);
   box-shadow: 0 0px 0px rgba(0, 0, 0, 0.176);
   border-radius: 0px;
@@ -5622,7 +5622,7 @@ button.close {
 }
 .dropdown:hover .dropdown-menu {
   display: block;
-  background-color: #693c10;
+  background-color: #673e16;
 }
 .main-content {
   margin-bottom: 40px;
@@ -5644,7 +5644,7 @@ button.close {
   display: none;
 }
 .meta-section .stopper {
-  border-top: 5px solid #693c10;
+  border-top: 5px solid #673e16;
   margin-bottom: 15px;
 }
 .container-fluid {
@@ -5956,7 +5956,7 @@ ul.work-artists li {
 }
 ul.work-artists li a {
   display: block;
-  background-color: #693c10;
+  background-color: #673e16;
   color: white;
   padding: 3px 5px;
   margin: 2px;
