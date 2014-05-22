@@ -6099,4 +6099,12 @@ ul.work-artists li a {
   .social-links .instagram {
     background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/instagram_small.png') no-repeat top left;
   }
+  .foot_logos {
+    margin: 0 auto;
+    width: 100px;
+  }
+  .footer_logo {
+    float: none;
+    margin: 0px 0 10px 0px;
+  }
 }
