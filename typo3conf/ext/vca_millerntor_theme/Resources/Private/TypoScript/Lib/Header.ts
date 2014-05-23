@@ -21,7 +21,7 @@ lib.pheader.social_media {
 		typolink {
 
         # This is the destination of the link,
-        parameter = http://facebook.com/millerntor_gallery
+        parameter = http://facebook.com/millerntorgallery
 
         # with a target ("_blank" opens a new window),
         extTarget = _blank
@@ -37,7 +37,7 @@ lib.pheader.social_media {
 		typolink {
 
         # This is the destination of the link,
-        parameter = http://twitter.com/millerntor_gallery
+        parameter = http://twitter.com/MG_SocialArt
 
         # with a target ("_blank" opens a new window),
         extTarget = _blank
