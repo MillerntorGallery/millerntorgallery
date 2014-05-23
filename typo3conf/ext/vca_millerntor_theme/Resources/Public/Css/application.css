@@ -5597,8 +5597,10 @@ button.close {
   text-transform: uppercase;
   padding: 6px;
 }
+.navbar-main {
+  padding-top: 10px;
+}
 .navbar-main.nav > li > a {
-  margin-top: 10px;
   padding: 7px 15px;
   color: #000;
   text-transform: uppercase;
@@ -5691,7 +5693,7 @@ button.close {
   margin-bottom: 30px;
 }
 .page-header {
-  border-bottom: 1px solid #000000;
+  border-bottom: 2px solid #000000;
   padding-bottom: 2px;
   margin: 60px 0 20px;
 }
