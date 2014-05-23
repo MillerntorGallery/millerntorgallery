@@ -29,7 +29,7 @@ config {
 	linkVars = L, print
 	baseURL = {$plugin.t3sbootstrap_configuration.url}
 //	prefixLocalAnchors = all
-	no_cache = 1
+	no_cache = 0
 	spamProtectEmailAddresses = 1
 	
 	 uniqueLinkVars                      = 1
@@ -69,10 +69,10 @@ config {
     htmlTag_setParams                   = lang="en" dir="ltr" class="no-js"
 
     // Compression and Concatenation of CSS and JS Files
-    compressJs                          = 0
-    compressCss                         = 0
-    concatenateJs                       = 0
-    concatenateCss                      = 0
+    compressJs                          = 1
+    compressCss                         = 1
+    concatenateJs                       = 1
+    concatenateCss                      = 1
 	
 }
 
