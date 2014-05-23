@@ -5841,22 +5841,19 @@ a.sb.gray:after,
   z-index: 1;
 }
 /**** Isotope CSS3 transitions ****/
-/*
 .isotope,
 .isotope .isotope-item {
-	.transition-duration(0.8s);
+  -webkit-transition-duration: 0.8s;
+  transition-duration: 0.8s;
 }
-
 .isotope {
-	-webkit-transition-property: height, width;
-          transition-property: height, width;
+  -webkit-transition-property: height, width;
+  transition-property: height, width;
 }
-
 .isotope .isotope-item {
-	-webkit-transition-property: transform, opacity;
-          transition-property: transform, opacity;
+  -webkit-transition-property: transform, opacity;
+  transition-property: transform, opacity;
 }
-*/
 /**** disabling Isotope CSS3 transitions ****/
 .isotope.no-transition,
 .isotope.no-transition .isotope-item,
@@ -5926,6 +5923,23 @@ img.well {
 }
 .modal-body {
   padding: 0px;
+}
+.well header.page-header {
+  margin: 0 0 20px;
+}
+.well header.page-header h1 {
+  margin-top: 0px;
+}
+#filter .btn-default {
+  border-color: #000000;
+}
+#filter .btn-default:hover,
+#filter .btn-default:focus,
+#filter .btn-default.active {
+  background-color: #673E16;
+  border-color: #000000;
+  box-shadow: 0 5px 5px #000000;
+  color: #FFFFFF;
 }
 /*********
 * Carousel
