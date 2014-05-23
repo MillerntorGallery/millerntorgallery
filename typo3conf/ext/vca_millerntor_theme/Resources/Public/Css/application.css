@@ -5862,6 +5862,9 @@ a.sb.gray:after,
   -webkit-transition: none;
   transition: none;
 }
+#container {
+  margin: 10px auto;
+}
 #container .item {
   float: left;
   margin: 15px;
