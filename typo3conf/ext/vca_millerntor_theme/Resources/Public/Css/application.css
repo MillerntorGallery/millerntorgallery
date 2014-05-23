@@ -5917,11 +5917,12 @@ img.well {
   margin: 0px;
 }
 .artists-logo img.well {
-  padding-top: 10px;
+  margin-top: 10px;
 }
 .modal-content {
   box-shadow: 5px 8px 8px rgba(0, 0, 0, 0.9);
   border-radius: 0px;
+  border: 2px solid #000000;
 }
 .modal-body {
   padding: 0px;
