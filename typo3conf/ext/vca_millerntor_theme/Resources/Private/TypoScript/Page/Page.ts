@@ -49,7 +49,7 @@ temp.jsFooterInline {
 	#20.value = jQuery(this).scrollTop(0);
 	# tooltip
 	30 = TEXT
-	30.value = jQuery('.content-row a').tooltip();
+	30.value = jQuery('.content-row p a').tooltip();
 	#30.if.value = 1
 	#30.if.equals = {$plugin.t3sbootstrap_configuration.general.tooltip}
 	# colorbox (lightbox)
