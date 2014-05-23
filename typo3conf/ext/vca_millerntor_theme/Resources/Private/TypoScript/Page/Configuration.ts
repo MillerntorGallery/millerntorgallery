@@ -77,9 +77,10 @@ config {
 }
 
 [globalString = IENV:HTTP_HOST = cms.millerntorgallery.org]
-config.baseURL = http://cms.millerntorgallery.org/
+config.baseURL = http://millerntorgallery.org/
 [end]
 
 [globalString = IENV:HTTP_HOST = millerntorgallery.org]
 config.baseURL = http://millerntorgallery.org/
 [end]
+config.baseURL = http://millerntorgallery.org/
