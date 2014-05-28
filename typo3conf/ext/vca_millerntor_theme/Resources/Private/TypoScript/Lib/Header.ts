@@ -47,6 +47,54 @@ lib.pheader.social_media {
     }
 	
 	} 
+	35 = TEXT
+	35 {
+		value = instagram
+		typolink {
+
+        # This is the destination of the link,
+        parameter = http://instagram.com/millerntorgallery
+
+        # with a target ("_blank" opens a new window),
+        extTarget = _blank
+
+        # and add a class to the link so we can style it.
+        ATagParams = class="instagram"
+    }
+	
+	} 
+	40 = TEXT
+	40 {
+		value = youtube
+		typolink {
+
+        # This is the destination of the link,
+        parameter = http://www.youtube.com/channel/UC9RTHLkoR529JUxoJVgQE3A
+
+        # with a target ("_blank" opens a new window),
+        extTarget = _blank
+
+        # and add a class to the link so we can style it.
+        ATagParams = class="youtube"
+    }
+	
+	}
+	50 = TEXT
+	50 {
+		value = vimeo
+		typolink {
+
+        # This is the destination of the link,
+        parameter = https://vimeo.com/millerntorgallery
+
+        # with a target ("_blank" opens a new window),
+        extTarget = _blank
+
+        # and add a class to the link so we can style it.
+        ATagParams = class="vimeo"
+    }
+	
+	} 
 }
 
 lib.pheader.next_excebition = COA
