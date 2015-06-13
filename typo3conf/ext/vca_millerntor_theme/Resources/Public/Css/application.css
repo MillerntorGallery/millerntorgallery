@@ -5740,6 +5740,9 @@ h3 a {
 .bs-callout div.csc-textpic.csc-textpic-intext-left .csc-textpic-imagewrap {
   margin-right: 15px;
 }
+div.csc-textpic div.csc-textpic-imagerow {
+  overflow: visible;
+}
 .csc-mailform {
   margin: 60px 0 20px;
 }
