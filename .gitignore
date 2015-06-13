@@ -20,9 +20,16 @@
 /fileadmin/user_upload
 /fileadmin/content_uploads
 /fileadmin/default
+/fileadmin/media
 /_.htaccess
 /build_config.ini
 /typo3conf/LocalConfiguration.php
 /typo3conf/PackageStates.php
 /typo3conf/ENABLE_INSTALL_TOOL
 /typo3_src*
+/node_modules
+/typo3conf/ext/extbase_realurl
+/typo3conf/ext/piwik
+/typo3conf/ext/piwikintegration
+/typo3conf/ext/typo3.piwikintegration-master
+/typo3conf/ext/pw_teaser
