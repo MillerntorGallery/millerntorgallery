@@ -84,3 +84,6 @@ config.baseURL = http://millerntorgallery.org/
 config.baseURL = http://millerntorgallery.org/
 [end]
 config.baseURL = http://millerntorgallery.org/
+[globalString = IENV:HTTP_HOST = local.62]
+config.baseURL = http://local.62/
+[end]
