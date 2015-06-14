@@ -5503,6 +5503,18 @@ button.close {
   vertical-align: bottom;
   text-align: left;
 }
+.social-links .language-top .active a {
+  text-decoration: underline;
+}
+.social-links .language-top a {
+  text-indent: 0px;
+  width: auto;
+  height: auto;
+  display: block;
+  color: black;
+  text-transform: uppercase;
+  font-weight: bold;
+}
 .social-links a {
   text-indent: -999px;
   width: 33px;
