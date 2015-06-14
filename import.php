@@ -1,13 +1,16 @@
 <?php
-exit;
+//exit;
 error_reporting(E_ALL);
   ini_set("display_errors", 1);
 echo "hello";
 //exit;
 
 $dbhost = 'localhost';
+//$dbhost = '127.0.0.1';
 $dbuser = 'millerntor';
+//$dbuser = 'root';
 $dbpass = 'aenovuodashuteiv';
+//$dbpass = '';
 $table = 'tx_vcamillerntor_domain_model_kuenstler';
 $conn = mysql_connect($dbhost, $dbuser, $dbpass);
 if(! $conn )
@@ -19,6 +22,8 @@ if(! $conn )
 
 
 mysql_select_db('millerntor');
+//mysql_select_db('ml_62');
+
 
 
 
@@ -30,7 +35,7 @@ if (($handle = fopen("artistmg5.csv", "r")) !== FALSE) {
         
         echo $row_count.':'.$num.':'.$data[0].'<br />'; 
     
-	    $search_sql = 'SELECT * FROM '.$table.' WHERE name LIKE ("%'.$data[0].'%") AND sys_language_uid=0';
+	    $search_sql = 'SELECT * FROM '.$table.' WHERE LOWER(name) LIKE ("'.strtolower($data[0]).'") AND sys_language_uid=0';
 	  
 		$result = mysql_query( $search_sql, $conn );
 		if(! $result )
@@ -51,7 +56,7 @@ if (($handle = fopen("artistmg5.csv", "r")) !== FALSE) {
 				}
 				$uid = mysql_insert_id();
 
-				
+				echo 'insert-uid: '.$uid.'<br />';
 				
 			} else {
 				while ($row = mysql_fetch_assoc($result)) {
@@ -66,13 +71,14 @@ if (($handle = fopen("artistmg5.csv", "r")) !== FALSE) {
 				    echo $row['name'].':';
 				    echo $row['uid'].'<br /><br />';
 				    $uid = $row['uid'];
+
 				}			
 			}
 
 			//create translation
 			//search translation
 			
-			$search_trans_sql = 'SELECT * FROM '.$table.' WHERE name LIKE ("%'.$data[0].'%") AND sys_language_uid = 1';
+			$search_trans_sql = 'SELECT * FROM '.$table.' WHERE LOWER(name) LIKE ("'.strtolower($data[0]).'") AND sys_language_uid = 1';
 	  
 			$result_trans = mysql_query( $search_trans_sql, $conn );
 			if(! $result_trans )
