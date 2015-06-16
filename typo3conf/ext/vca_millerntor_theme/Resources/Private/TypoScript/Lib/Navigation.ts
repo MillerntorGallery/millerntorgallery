@@ -126,7 +126,7 @@ lib.language {
             NO = 1
             NO {
                 linkWrap = <li>|</li>
-                stdWrap.override = en||de
+                stdWrap.override = de||en
                 doNotLinkIt = 1
                 stdWrap {
                     typolink {
@@ -145,7 +145,7 @@ lib.language {
             #### NO TRANSLATION AVAILABLE STATES ####
             USERDEF1 < .NO
             USERDEF1 {
-                linkWrap = <li class="text-muted">|</li>
+                linkWrap = <li class="text-muted"><a>|</a></li>
                 stdWrap.typolink >
             }
             USERDEF2 < .ACT
