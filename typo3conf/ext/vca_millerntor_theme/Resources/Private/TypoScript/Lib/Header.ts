@@ -152,7 +152,7 @@ lib.pheader.logo {
 	}
 	20 = TEXT
 	20 {
-		value = <img width="97" height="50" alt="Viva con Aqua" src="typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/vca_logo.png">
+		value = <img width="97" height="50" alt="Viva con Agua" src="typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/vca_logo.png">
 		wrap = <div class="footer_logo">|</div>
 	}
 	
