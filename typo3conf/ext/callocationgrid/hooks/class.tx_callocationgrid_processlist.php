@@ -124,7 +124,7 @@ class tx_callocationgrid_processlist {
         $this->calmonth = $hookParams['cal_month'];
         $this->calyear = $hookParams['cal_year'];		
         $head = '';
-        $head.= $parent->cObj->stdWrap('',$parent->conf['view.']['locationgrid.']['headerItem_stdWrap.']);
+        $head.= $parent->cObj->stdWrap('',$parent->conf['view.']['locationgrid.']['headerItem_stdWrap2.']);
         foreach ($this->locations_txt as $loc) {
             $loc_head = $loc;
             $head.= $parent->cObj->stdWrap($loc_head,$parent->conf['view.']['locationgrid.']['headerItem_stdWrap.']);
@@ -143,6 +143,7 @@ class tx_callocationgrid_processlist {
         } else {
             // if current event date is different from the previous one: render the list & reset the array
             if (($hookParams['cal_day']!=$this->calday)||($hookParams['cal_week']!=$this->calweek)) {
+            	
                 // render the events
                 $this->gOut.= $this->renderCalList($parent);
                 $this->callist = array();

@@ -1,0 +1,1 @@
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:vca_millerntor_theme/Resources/Private/TypoScript/Extensions/plugin.tx_callocation.ts">
