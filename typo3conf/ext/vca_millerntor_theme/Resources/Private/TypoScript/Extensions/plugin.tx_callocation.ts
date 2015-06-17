@@ -1,9 +1,14 @@
 plugin.tx_cal_controller {
 	view {
+		list {
+			event {
+				category.dataWrap = |
+			}
+		}
 		locationgrid {
 			enable = 1
-			locationIds = 1|2,3|4,5
-			locationText = Millerntor,Reeperbahn,Sonstige
+			locationIds = 1;2;3;4
+			locationText = Outdoor;Indoor;Ballsaal;Cinema
 			stdWrap {
 				#wrap = <table id="locationgrid">|</table>
 				wrap = <div id="locationgrid">|</div>

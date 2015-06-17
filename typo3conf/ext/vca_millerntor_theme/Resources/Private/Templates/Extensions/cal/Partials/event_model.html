@@ -237,16 +237,16 @@ Stop monitoring this event? <input type="hidden" id="userid" value="1"/> <input 
 <!--###TEMPLATE_PHPICALENDAR_EVENT_LOCATION### end -->
 
 <!-- ###TEMPLATE_PHPICALENDAR_EVENT_LIST_ODD### start -->
-	<dt class="vevent">
-		<div class="dtstart-container"><abbr title="###MICROFORMAT_START###" class="dtstart">###STARTDATE### ###STARTTIME###</abbr></div>
+	<div class="vevent well ###CATEGORY###">
+		<div class="dtstart-container"><abbr title="###MICROFORMAT_START###" class="dtstart">###STARTTIME### ###ENDTIME###</abbr></div>
 		<div class="summary"><!-- ###EVENT_LINK### start-->###TITLE###<!-- ###EVENT_LINK### end--></div>
-	</dt>
+	</div>
 <!-- ###TEMPLATE_PHPICALENDAR_EVENT_LIST_ODD### end -->
 <!-- ###TEMPLATE_PHPICALENDAR_EVENT_LIST_EVEN### start -->
-	<dt class="vevent even">
-		<div class="dtstart-container"><abbr title="###MICROFORMAT_START###" class="dtstart">###STARTDATE### ###STARTTIME###</abbr></div>
+	<div class="vevent even well ###CATEGORY###">
+		<div class="dtstart-container"><abbr title="###MICROFORMAT_START###" class="dtstart">###STARTTIME### ###ENDTIME###</abbr></div>
 		<div class="summary"><!-- ###EVENT_LINK### start-->###TITLE###<!-- ###EVENT_LINK### end--></div>
-	</dt>
+	</div>
 <!-- ###TEMPLATE_PHPICALENDAR_EVENT_LIST_EVEN### end -->
 
 <!-- ###TEMPLATE_PHPICALENDAR_EVENT_LIST_ODD_ALLDAY### start -->

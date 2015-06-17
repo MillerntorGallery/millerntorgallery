@@ -6042,6 +6042,36 @@ ul.work-artists li a {
   margin: 2px;
   text-transform: uppercase;
 }
+.list-view .legend .unit {
+  float: left;
+  width: 60px;
+  text-align: center;
+  border: 1px solid black;
+  padding: 4px;
+  margin: 5px;
+}
+.list-view .Film {
+  background-color: #CE0E1E;
+}
+.list-view .Music {
+  background-color: #CCC;
+}
+.list-view .Culture {
+  background-color: #0EB21B;
+}
+.list-view .Action {
+  background-color: #0098CA;
+}
+#locationgrid .locationgrid_item,
+#locationgrid .locationgrid_date {
+  border-top: 1px solid black;
+  padding-top: 10px;
+}
+#locationgrid .locationgrid_date {
+  box-sizing: border-box;
+  height: 100%;
+  min-height: 100%;
+}
 @media (max-width: 991px) {
   #container .item {
     float: left;

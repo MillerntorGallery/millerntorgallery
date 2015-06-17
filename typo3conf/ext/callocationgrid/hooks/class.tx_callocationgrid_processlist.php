@@ -124,7 +124,7 @@ class tx_callocationgrid_processlist {
         $this->calmonth = $hookParams['cal_month'];
         $this->calyear = $hookParams['cal_year'];		
         $head = '';
-        $head.= $parent->cObj->stdWrap('',$parent->conf['view.']['locationgrid.']['headerItem_stdWrap2.']);
+        $head.= $parent->cObj->stdWrap('&nbsp;',$parent->conf['view.']['locationgrid.']['headerItem_stdWrap2.']);
         foreach ($this->locations_txt as $loc) {
             $loc_head = $loc;
             $head.= $parent->cObj->stdWrap($loc_head,$parent->conf['view.']['locationgrid.']['headerItem_stdWrap.']);
