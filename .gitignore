@@ -33,3 +33,7 @@
 /typo3conf/ext/piwikintegration
 /typo3conf/ext/typo3.piwikintegration-master
 /typo3conf/ext/pw_teaser
+/typo3conf/ext/barscheduler
+/typo3conf/ext/cal_introduction
+/typo3conf/ext/dm_simplecalendar
+/typo3conf/ext/jcc_appointments
