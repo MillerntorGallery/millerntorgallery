@@ -1,0 +1,154 @@
+{namespace lfe=SGalinski\Lfeditor\ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="selectItems">
+	<f:render partial="SelectExtensionAndLanguageFile" arguments="{_all}" />
+</f:section>
+
+<f:section name="main">
+	<lfe:extendedIf condition="{languageFileSelection}" and="{infos}">
+		<lfe:addJavaScriptFile javaScriptFile="{f:uri.resource(path: 'Scripts/GeneralTable.js')}" />
+		<h2 class="uppercase">
+			<f:translate key="function.general.general" />
+		</h2>
+		<div>
+			<a id="hideShowUntranslatedLanguagesInTableId" href="javascript:hideShowUntranslatedLanguagesInTable()">
+				[<f:translate key="function.general.hideShowUntranslated" />]
+			</a>
+			<table id="tx-lfeditor-table">
+				<thead>
+					<tr>
+						<th class="bgColor5">
+							<f:translate key="lang.shortcut" />
+						</th>
+						<th class="bgColor5">
+							<f:translate key="lang.state" />
+						</th>
+						<th class="bgColor5">
+							<f:translate key="lang.origin" />
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<f:for each="{infos}" as="info" key="langKey">
+						<tr>
+							<td class="bgColor4">
+								<f:link.action action="goToEditFile" arguments="{language: langKey}">
+									{f:if(condition: '{langKey} == \'default\'', then: 'en', else: '{langKey}')}
+								</f:link.action>
+							</td>
+							<td class="bgColor4">
+								<f:if condition="{info.numTranslated} >= {refLangNumTranslated}">
+									<f:then>
+										<span class="tx-lfeditor-goodMarkup">
+											<f:translate key="lang.complete" />
+										</span>
+									</f:then>
+									<f:else>
+										<span class="tx-lfeditor-badMarkup">
+											<f:translate key="lang.incomplete" />
+										</span>
+									</f:else>
+								</f:if>
+								(
+								<span class="tx-lfeditor-goodMarkup" title="{f:translate(key:'const.type.translated')}">
+									{info.numTranslated}
+								</span>
+								-
+								<span class="tx-lfeditor-specialMarkup" title="{f:translate(key:'const.type.unknown')}">
+									{info.numUnknown}
+								</span>
+								-
+								<span class="tx-lfeditor-badMarkup" title="{f:translate(key:'const.type.untranslated')}">
+									{info.numUntranslated}
+								</span>
+								)
+							</td>
+							<td class="bgColor4">{info.origin}</td>
+						</tr>
+					</f:for>
+				</tbody>
+			</table>
+		</div>
+
+		<f:form id="contentForm" action="generalSave">
+			<fieldset class="tx-lfeditor-fieldset bgColor5 tx-lfeditor-fleft">
+				<legend class="bgColor3">
+					<f:translate key="function.general.metaInfo.metaInfo" />
+				</legend>
+				<fieldset class="bgColor4">
+					<legend class="bgColor3">
+						<f:translate key="function.general.metaInfo.author" />
+					</legend>
+					<div>
+						<label for="name" class="tx-lfeditor-label">
+							<f:translate key="function.general.metaInfo.author.name" />
+						</label>
+						<f:form.textfield id="name" name="authorName" value="{infos.default.meta.authorName}" class="tx-lfeditor-input" />
+					</div>
+					<div>
+						<label for="email" class="tx-lfeditor-label">
+							<f:translate key="function.general.metaInfo.author.email" />
+						</label>
+						<f:form.textfield id="email" name="authorEmail" value="{infos.default.meta.authorEmail}" class="tx-lfeditor-input" />
+					</div>
+				</fieldset>
+				<fieldset class="bgColor4">
+					<legend class="bgColor3">
+						<f:translate key="function.general.metaInfo.desc" />
+					</legend>
+					<f:form.textarea cols="80" rows="{numTextAreaRows}" name="metaDescription" value="{metaDescription}" class="tx-lfeditor-textarea" />
+
+				</fieldset>
+			</fieldset>
+
+			<f:if condition="{editingMode} != 'override'">
+				<fieldset class="tx-lfeditor-fieldset bgColor5 tx-lfeditor-fright">
+					<legend class="bgColor3">
+						<f:translate key="function.general.options" />
+					</legend>
+					<lfe:extendedIf condition="{langFileExtension} != 'xlf'" and="{editingMode} != 'l10n'">
+						<fieldset class="bgColor4">
+							<legend class="bgColor3">
+								<f:translate key="function.general.split.split" />
+							</legend>
+							<p>
+								<f:form.radio name="splitFile" id="normalSplit" value="1" checked="{preselectMerge} != 'TRUE'" />
+								<label for="normalSplit">
+									<f:translate key="function.general.split.splitNormal" />
+								</label>
+							</p>
+							<p>
+								<f:form.radio name="splitFile" id="merge" value="2" checked="{preselectMerge}" />
+								<label for="merge">
+									<f:translate key="function.general.split.merge" />
+								</label>
+							</p>
+						</fieldset>
+					</lfe:extendedIf>
+
+					<fieldset class="bgColor4">
+						<legend class="bgColor3">
+							<f:translate key="function.general.transform.transform" />
+						</legend>
+						<p>
+							<f:form.radio name="transformFile" id="xlf" value="xlf" checked="{langFileExtension} == 'xlf'" />
+							<label for="xlf">XLF</label>
+						</p>
+						<p>
+							<f:form.radio name="transformFile" id="xml" value="xml" checked="{langFileExtension} == 'xml'" />
+							<label for="xml">
+								<f:translate key="function.general.transform.xml" />
+							</label>
+						</p>
+					</fieldset>
+				</fieldset>
+			</f:if>
+
+			<div class="tx-lfeditor-buttons">
+				<f:form.submit value="{f:translate(key:'button.save')}" />
+			</div>
+		</f:form>
+	</lfe:extendedIf>
+</f:section>

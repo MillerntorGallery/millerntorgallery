@@ -1,0 +1,32 @@
+{namespace lfe=SGalinski\Lfeditor\ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="selectItems">
+	<f:render partial="SelectExtensionAndLanguageFile" arguments="{_all}" />
+	<f:form id="mainMenuForm" action="changeSelection">
+		<f:render partial="SelectConstant" arguments="{_all}" />
+	</f:form>
+</f:section>
+
+<f:section name="main">
+	<lfe:extendedIf condition="{extensionSelection}" and="{languageFileSelection}"
+		and2="{constantSelection}" and3="{constantSelection} != '###default###'">
+		<h2 class="uppercase">
+			<f:translate key="function.const.rename.rename" />
+		</h2>
+		<f:form id="contentForm" action="renameConstantSave">
+			<p><f:translate key="function.const.rename.hint" /></p>
+			<p>
+				<f:form.textfield name="newConstantName" value="{constantSelection}" class="tx-lfeditor-wideField" />
+				<strong>
+					<f:translate key="function.const.rename.newName" />
+				</strong>
+			</p>
+
+			<div class="tx-lfeditor-buttons">
+				<f:form.submit value="{f:translate(key:'button.rename')}" />
+			</div>
+		</f:form>
+	</lfe:extendedIf>
+</f:section>

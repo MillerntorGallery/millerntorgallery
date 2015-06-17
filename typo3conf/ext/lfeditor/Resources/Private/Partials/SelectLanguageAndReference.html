@@ -1,0 +1,17 @@
+{namespace lfe=SGalinski\Lfeditor\ViewHelpers}
+
+<lfe:extendedIf condition="{extensionSelection}" and="{languageFileSelection}" and2="{referenceLanguageOptions}">
+	<h2 class="uppercase">
+		<f:translate key="select.languageAndPattern" />
+	</h2>
+	<f:form.select name="languageSelection"
+		value="{languageSelection}"
+		options="{languageOptions}"
+		additionalAttributes="{onchange: 'submitForm(\'mainMenuForm\')'}"
+		/>
+	<f:form.select name="referenceLanguageSelection"
+		value="{referenceLanguageSelection}"
+		options="{referenceLanguageOptions}"
+		additionalAttributes="{onchange: 'submitForm(\'mainMenuForm\')'}"
+		/>
+</lfe:extendedIf>
