@@ -1,8 +1,17 @@
 plugin.tx_cal_controller {
-	view.event.eventModelTemplate = EXT:vca_millerntor_theme/Resources/Private/Templates/Extensions/cal/Partials/event_model.html
-	view.list.listTemplate = EXT:vca_millerntor_theme/Resources/Private/Templates/Extensions/cal/Partials/list.tmpl
-	view.timeFormat = %H:%M
-	view.dateFormat = %d.%m
+	view { 
+		event { 
+			eventModelTemplate = EXT:vca_millerntor_theme/Resources/Private/Templates/Extensions/cal/Partials/event_model.html
+			eventTemplate = EXT:vca_millerntor_theme/Resources/Private/Templates/Extensions/cal/Partials/event.tmpl
+		}	
+		list.listTemplate = EXT:vca_millerntor_theme/Resources/Private/Templates/Extensions/cal/Partials/list.tmpl
+		location { 
+			locationTemplate = EXT:vca_millerntor_theme/Resources/Private/Templates/Extensions/cal/Partials/location.tmpl
+			locationModelTemplate = EXT:vca_millerntor_theme/Resources/Private/Templates/Extensions/cal/Partials/location_model.tmpl
+		}	
+		timeFormat = %H:%M
+		dateFormat = %d.%m
+	}	
 }
 
 #-------------------------------------------------------------------------------

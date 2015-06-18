@@ -7,35 +7,37 @@
 @tooltip-bg: @millerntor-brown;
 @border-radius-base: 0px;
 
+@baseurl: '/typo3conf/ext/vca_millerntor_theme/Resources/Public/';
+
 
 @font-face {
     font-family: "Futura LT Medium";
-    src: url('../Fonts/Futura-LT-Heavy-Oblique.eot');
-    src: url('../Fonts/Futura-LT-Heavy-Oblique.eot?#iefix') format('embedded-opentype'),
-    url('../Fonts/Futura-LT-Heavy-Oblique.svg#Futura LT Medium') format('svg'),
-    url('../Fonts/Futura-LT-Heavy-Oblique.woff') format('woff'),
-    url('../Fonts/Futura-LT-Heavy-Oblique.ttf') format('truetype');
+    src: url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.eot');
+    src: url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.eot?#iefix') format('embedded-opentype'),
+    url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.svg#Futura LT Medium') format('svg'),
+    url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.woff') format('woff'),
+    url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
 @font-face {
     font-family: 'futurateemedoblique';
-    src: url('../Fonts/futurateemed_oblique-webfont.eot');
-    src: url('../Fonts/futurateemed_oblique-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../Fonts/futurateemed_oblique-webfont.woff') format('woff'),
-         url('../Fonts/futurateemed_oblique-webfont.ttf') format('truetype'),
-         url('../Fonts/futurateemed_oblique-webfont.svg#futurateemedoblique') format('svg');
+    src: url('@{baseurl}/Fonts/futurateemed_oblique-webfont.eot');
+    src: url('@{baseurl}/Fonts/futurateemed_oblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('@{baseurl}/Fonts/futurateemed_oblique-webfont.woff') format('woff'),
+         url('@{baseurl}/Fonts/futurateemed_oblique-webfont.ttf') format('truetype'),
+         url('@{baseurl}/Fonts/futurateemed_oblique-webfont.svg#futurateemedoblique') format('svg');
     font-weight: normal;
     font-style: normal;
 
 }
 @font-face {
     font-family: 'futurateemedregular';
-    src: url('../Fonts/futurateemed-webfont.eot');
-    src: url('../Fonts/futurateemed-webfont.eot?#iefix') format('embedded-opentype'),
-         url('../Fonts/futurateemed-webfont.woff') format('woff'),
-         url('../Fonts/futurateemed-webfont.ttf') format('truetype'),
-         url('../Fonts/futurateemed-webfont.svg#futurateemedregular') format('svg');
+    src: url('@{baseurl}/Fonts/futurateemed-webfont.eot');
+    src: url('@{baseurl}/Fonts/futurateemed-webfont.eot?#iefix') format('embedded-opentype'),
+         url('@{baseurl}/Fonts/futurateemed-webfont.woff') format('woff'),
+         url('@{baseurl}/Fonts/futurateemed-webfont.ttf') format('truetype'),
+         url('@{baseurl}/Fonts/futurateemed-webfont.svg#futurateemedregular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -77,23 +79,23 @@
 		}
 		
 		.mailto {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/mail.png') no-repeat top left;
+			background: url('@{baseurl}/Images/mail.png') no-repeat top left;
 			width: 39px;
 		}
 		.facebook {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/facebook.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/facebook.png') no-repeat top left;			
 		}
 		.twitter {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/twitter.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/twitter.png') no-repeat top left;			
 		}
 		.instagram {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/instagram.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/instagram.png') no-repeat top left;			
 		}
 		.youtube {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/youtube.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/youtube.png') no-repeat top left;			
 		}
 		.vimeo {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/vimeo.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/vimeo.png') no-repeat top left;			
 		}
 	}
 
@@ -128,13 +130,13 @@
 		text-align: center;
 		
 		.front-logo {
-			background-image: url("../Images/millerntor_gallery.png");
+			background-image: url("@{baseurl}/Images/millerntor_gallery.png");
 		    display: block;
     		height: 135px;
     		width: 105px;
 		}
 		.back-logo {
-			background-image: url("../Images/back_millerntor_gallery.png");
+			background-image: url("@{baseurl}/Images/back_millerntor_gallery.png");
 		    display: block;
     		height: 135px;
     		width: 105px;
@@ -163,7 +165,7 @@
 				top: 0px;
 				right: 10px;	
 				
-				background: url("../Images/mtg_datum.png") bottom right no-repeat;
+				background: url("@{baseurl}/Images/mtg_datum.png") bottom right no-repeat;
 				
 				display: block;
 				width: 180px;
@@ -395,19 +397,34 @@ div.csc-textpic div.csc-textpic-imagerow {
   height: 135px;
 }
 
-.flip_card {
-  width: 100%;
+#f1_card {
+width: 100%;
   height: 100%;
   transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   .transition(all 1.0s linear);
 }
+.flip_container:hover #f1_card  {
+	.rotateX(180deg);
+}
+
+.flip_card {
+  width: 100%;
+  height: 100%;
+/*
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  .transition(all 1.0s linear);
+}
+
 .flip_container:hover .flip_card {
 	.rotateX(180deg);
 }
 .flip_container.vert:hover .flip_card {
 	.rotateY(180deg);
+*/	
 }
 	
 .face {
@@ -430,13 +447,14 @@ div.csc-textpic div.csc-textpic-imagerow {
   }
   
 }
+/*
 .flip_container.vert:hover .flip_card {
 	.rotateY(180deg);
 }
 .vert .face.back {
 	.rotateY(180deg);
 }
-
+*/
 /**************
 * Social media verlinkung
 ***************/
@@ -694,21 +712,23 @@ ul.work-artists {
 			border: 1px solid black;
 			padding: 4px;
 			margin: 5px;
+			
+			
 		}
 	}
 	
-	.Film {
+	.Film,.film {
 		background-color: #CE0E1E;
 	}
 	
-	.Music {
+	.Music, .music {
 		background-color: #CCC;
 	}
 	
-	.Culture {
+	.Culture, .culture {
 		background-color: #0EB21B;
 	}
-	.Action {
+	.Action, .action {
 		background-color: #0098CA;
 	}
 	
@@ -728,8 +748,9 @@ ul.work-artists {
 		min-height: 100%;
 	}
 	
-	
-	
+	a {
+		color:#000;
+	}
 }
 
 
@@ -811,13 +832,13 @@ ul.work-artists {
 			text-align: center;
 			
 			.front-logo {
-				background-image: url("../Images/millerntor_gallery_small.png");
+				background-image: url("@{baseurl}/Images/millerntor_gallery_small.png");
 			    display: block;
 	    		height: 68px;
 	    		width: 53px;
 			}
 			.back-logo {
-				background-image: url("../Images/back_millerntor_gallery_small.png");
+				background-image: url("@{baseurl}/Images/back_millerntor_gallery_small.png");
 			    display: block;
 	    		height: 68px;
 	    		width: 53px;
@@ -838,7 +859,7 @@ ul.work-artists {
 				top: 20px;
 				right: 15px;	
 				
-				background-image: url("../Images/mtg_datum_small.png") ;
+				background-image: url("@{baseurl}/Images/mtg_datum_small.png") ;
 				display: block;
 				width: 90px;
 				height: 17px;
@@ -861,23 +882,23 @@ ul.work-artists {
 		}
 		
 		.mailto {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/mail_small.png') no-repeat top left;
+			background: url('@{baseurl}/Images/mail_small.png') no-repeat top left;
 			width: 28px;
 		}
 		.facebook {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/facebook_small.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/facebook_small.png') no-repeat top left;			
 		}
 		.twitter {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/twitter_small.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/twitter_small.png') no-repeat top left;			
 		}
 		.instagram {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/instagram_small.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/instagram_small.png') no-repeat top left;			
 		}
 		.youtube {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/youtube_small.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/youtube_small.png') no-repeat top left;			
 		}
 		.vimeo {
-			background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/vimeo_small.png') no-repeat top left;			
+			background: url('@{baseurl}/Images/vimeo_small.png') no-repeat top left;			
 		}
 	}
 	

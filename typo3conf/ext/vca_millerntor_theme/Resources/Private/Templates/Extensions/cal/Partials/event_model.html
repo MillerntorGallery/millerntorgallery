@@ -40,24 +40,27 @@ value = HelloWorld<br/>
 
 <!--###TEMPLATE_PHPICALENDAR_EVENT### begin -->
 <!--phpicalendar_event.tmpl-->
-<h1>###HEADING###</h1>
-###EDIT_LINK###
 
-###TITLE###
+###EDIT_LINK###
 ###STARTDATE###
 ###ENDDATE###
-###STARTTIME###
-###ENDTIME###
+<div class="time">###STARTTIME###
+###ENDTIME###</div>
+###TITLE###
+<div class="row">
+###IMAGE###
+<div class="col-sm-8 event_text">
+
 ###STATUS### ###PRIORITY### ###COMPLETED###
 ###ORGANIZER###
 ###LOCATION###
 ###DESCRIPTION###
-###IMAGE###
+
 ###ATTACHMENT###
 ###ATTENDEE###
 <!-- ###ICS_LINK### start --><img src="###IMG_PATH###/ics.gif" border="0"/><!-- ###ICS_LINK### end -->
 ###MORE_LINK###
-
+</div>
 <!-- ###SUBSCRIPTION### start -->
 <div id="monitor_event">
 <!--###NOTLOGGEDIN### start-->
