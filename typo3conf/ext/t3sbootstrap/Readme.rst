@@ -1,5 +1,5 @@
 Extension Manual:
 =================
 
-http://www.t3sbootstrap.de
+* http://t3sbootstrap.de
 

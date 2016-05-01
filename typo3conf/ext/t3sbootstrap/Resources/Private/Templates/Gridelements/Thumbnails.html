@@ -1,0 +1,145 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
+	xmlns:t3sbs="http://typo3.org/ns/T3SBS/T3sbootstrap/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="Main">
+<f:render partial="Header" arguments="{settings: settings, data: data, class: '' }" />
+<f:for each="{data.tx_gridelements_view_children}" as="thumbnail" iteration="iterator">
+	<f:if condition="{iterator.isFirst}">
+		<f:if condition="{data.flexform_equalHeight}">
+			<t3sbs:InlineJs inlineJS="var highestBox = 0;jQuery('.tr{data.uid}-{iterator.cycle} .thumbnail').
+			each(function(){if(jQuery(this).height()>highestBox){highestBox = $(this).height();}});jQuery('.tr{data.uid}-{iterator.cycle} .thumbnail')
+			.height(highestBox);" currentRow="{iterator.cycle}" />
+		</f:if>
+		<div class="row tr{data.uid}-{iterator.cycle}">
+	</f:if>
+	<f:if condition="{iterator.cycle} % {modulo}">
+		<f:then>
+			<div class="col-sm-6 col-md-{data.flexform_columns}">
+				<f:render section="thumbnail" arguments="{_all}" />
+			</div>
+		</f:then>
+		<f:else>
+			<div class="col-sm-6 col-md-{data.flexform_columns}">
+				<f:render section="thumbnail" arguments="{_all}" />
+			</div>
+			<f:if condition="{iterator.isLast}">
+				<f:else>
+					</div>
+					<f:if condition="{data.flexform_equalHeight}">
+						<t3sbs:InlineJs inlineJS="var highestBox = 0;jQuery('.tr{data.uid}-{iterator.cycle} .thumbnail').
+						each(function(){if(jQuery(this).height()>highestBox){highestBox = $(this).height();}});jQuery('.tr{data.uid}-{iterator.cycle} .thumbnail')
+						.height(highestBox);" currentRow="{iterator.cycle}" />
+					</f:if>
+					<div class="row tr{data.uid}-{iterator.cycle}">
+				</f:else>
+			</f:if>
+		</f:else>
+	</f:if>
+	<f:if condition="{iterator.isLast}">
+		</div>
+	</f:if>
+</f:for>
+</f:section>
+
+
+<f:section name="thumbnail">
+<div class="thumbnail">
+	<t3sbs:fal uid="{thumbnail.uid}" as="media">
+		<f:if condition="{media}">
+			<f:if condition="{thumbnail.imageorient}">
+				<f:else>
+					<f:render section="mediaType" arguments="{_all}" />
+				</f:else>
+			</f:if>
+		</f:if>
+	</t3sbs:fal>
+	<f:if condition="{thumbnail.bodytext}">
+		<f:then>
+			<div class="caption">
+				<f:if condition="{thumbnail.header}">
+					<f:render section="header" arguments="{_all}" />
+				</f:if>
+				{thumbnail.bodytext -> f:format.html()}
+			</div>
+		</f:then>
+		<f:else>
+			<f:if condition="{thumbnail.header}">
+				<div class="caption">
+					<f:render section="header" arguments="{_all}" />
+				</div>
+			</f:if>
+		</f:else>
+	</f:if>
+	<t3sbs:fal uid="{thumbnail.uid}" as="media">
+		<f:if condition="{media}">
+			<f:if condition="{thumbnail.imageorient}">
+				<f:render section="mediaType" arguments="{_all}" />
+			</f:if>
+		</f:if>
+	</t3sbs:fal>
+</div>
+</f:section>
+
+<f:section name="header">
+<f:if condition="{thumbnail.header_layout} != 100">
+	<f:if condition="{thumbnail.header}">
+		<f:render partial="Header/Header" arguments="{
+			header: thumbnail.header,
+			layout: thumbnail.header_layout,
+			link: thumbnail.header_link,
+			fontawesome: thumbnail.tx_t3sbootstrap_fontawesome_icon,
+			subheader: thumbnail.subheader,
+			default: settings.defaultHeaderType}" />
+		<f:render partial="Header/Date" arguments="{_all}" />
+	</f:if>
+</f:if>
+</f:section>
+
+<f:section name="mediaType">
+	<f:if condition="{media.0.type} == 2">
+		<f:render section="imageType" arguments="{_all}" />
+	</f:if>
+	<f:if condition="{media.0.type} == 4">
+		<f:render section="videoType" arguments="{_all}" />
+	</f:if>
+</f:section>
+
+<f:section name="imageType">
+	<f:if condition="{media.0.link}">
+		<f:then>
+			<f:link.typolink parameter="{media.0.link}">
+				<f:render section="media" arguments="{_all}" />
+			</f:link.typolink>
+		</f:then>
+		<f:else>
+			<f:if condition="{thumbnail.image_zoom}">
+				<f:then>
+					<t3sbs:clickEnlarge image="{media.0}" configuration="{settings.media.popup}" uid="{data.uid}" slideshow="{settings.media.popup.slideshow}">
+						<f:render section="media" arguments="{_all}" />
+					</t3sbs:clickEnlarge>
+				</f:then>
+				<f:else>
+					<f:render section="media" arguments="{_all}" />
+				</f:else>
+			</f:if>
+		</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="videoType">
+	<div class="embed-responsive embed-responsive-{settings.video.ratio}">
+		<f:render section="media" arguments="{_all}" />
+	</div>
+</f:section>
+
+<f:section name="media">
+	<f:media
+		file="{media.0}"
+		alt="{media.0.alternative}"
+		title="{media.0.title}"
+		width="{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{thumbnail.imagewidth}\',then: \'{thumbnail.imagewidth}\', else: \'320\')}')}"
+		height="{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{thumbnail.imageheight}\',then: \'{thumbnail.imageheight}c\')}')}"
+		class="{f:if(condition: '{media.0.type} == 2',then: 'img-responsive', else: 'embed-responsive-item')}{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{thumbnail.tx_t3sbootstrap_imagestyle}\',then: \' {thumbnail.tx_t3sbootstrap_imagestyle}\')}')}"
+	/>
+</f:section>
+</html>

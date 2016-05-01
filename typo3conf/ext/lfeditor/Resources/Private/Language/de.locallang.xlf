@@ -21,6 +21,10 @@ Tapio Markula --&gt; finnish translation</description>
 			<source>Delete</source>
 			<target>Löschen</target>
 		</trans-unit>
+		<trans-unit id="button.refreshLanguageFileList.title" approved="yes">
+			<source>Refresh list of language file options, only if you have added or deleted a language file</source>
+			<target>Aktualisiert die Liste der verfügbaren Sprachdateien; nur notwendig, falls Sprachdateien gelöscht oder hinzugefügt worden sind</target>
+		</trans-unit>
 		<trans-unit id="button.rename" approved="yes">
 			<source>Rename</source>
 			<target>Umbenennen</target>

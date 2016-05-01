@@ -136,3 +136,18 @@ function hideUnHideAll() {
 		hideAll = true;
 	}
 }
+
+/**
+ * Triggers click on button with id = 'tx-lfeditor-button-submit' when user presses Ctrl + Enter.
+ *
+ * @param eventParameter
+ * @returns void
+ */
+function saveOnKeyDown(eventParameter) {
+	var eventObject = window.event? event : eventParameter;
+	if (eventObject.keyCode == 13 && eventObject.ctrlKey) {
+		document.getElementById('tx-lfeditor-button-submit').click();
+	}
+}
+
+document.onkeydown = saveOnKeyDown;

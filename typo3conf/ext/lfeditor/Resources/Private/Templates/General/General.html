@@ -82,16 +82,16 @@
 						<f:translate key="function.general.metaInfo.author" />
 					</legend>
 					<div>
-						<label for="name" class="tx-lfeditor-label">
+						<label class="tx-lfeditor-label">
 							<f:translate key="function.general.metaInfo.author.name" />
+							<f:form.textfield id="name" name="authorName" value="{infos.default.meta.authorName}" class="tx-lfeditor-input" />
 						</label>
-						<f:form.textfield id="name" name="authorName" value="{infos.default.meta.authorName}" class="tx-lfeditor-input" />
 					</div>
 					<div>
-						<label for="email" class="tx-lfeditor-label">
+						<label class="tx-lfeditor-label">
 							<f:translate key="function.general.metaInfo.author.email" />
+							<f:form.textfield id="email" name="authorEmail" value="{infos.default.meta.authorEmail}" class="tx-lfeditor-input" />
 						</label>
-						<f:form.textfield id="email" name="authorEmail" value="{infos.default.meta.authorEmail}" class="tx-lfeditor-input" />
 					</div>
 				</fieldset>
 				<fieldset class="bgColor4">
@@ -147,7 +147,7 @@
 			</f:if>
 
 			<div class="tx-lfeditor-buttons">
-				<f:form.submit value="{f:translate(key:'button.save')}" />
+				<f:form.submit id="tx-lfeditor-button-submit" value="{f:translate(key:'button.save')}" />
 			</div>
 		</f:form>
 	</lfe:extendedIf>

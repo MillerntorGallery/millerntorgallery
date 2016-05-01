@@ -1,0 +1,32 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="Main">
+<f:if condition="{data.flexform_button}">
+	<f:then>
+		<button type="button" class="btn btn-{data.flexform_style}" data-toggle="modal" data-target="#modal-{data.uid}">
+			{f:if(condition:'{data.tx_t3sbootstrap_fontawesome_icon}',then:'<i class="fa {data.tx_t3sbootstrap_fontawesome_icon}"></i> ')}
+			{f:if(condition:'{data.header}',then:'{data.header}', else: 'Modal-Button')}
+		</button>
+	</f:then>
+	<f:else>
+		<a class="modal-link" data-toggle="modal" data-target="#modal-{data.uid}" style="cursor:pointer;">
+			{f:if(condition:'{data.tx_t3sbootstrap_fontawesome_icon}',then:'<i class="fa {data.tx_t3sbootstrap_fontawesome_icon}"></i> ')}
+			{f:if(condition:'{data.header}',then:'{data.header}', else: 'Modal-Link')}</a>
+	</f:else>
+</f:if>
+
+<div class="modal {f:if(condition:'{data.flexform_animation}',then:'fade')}" id="modal-{data.uid}" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog {data.flexform_size}">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Schließen"><span aria-hidden="true">&times;</span></button>
+				<f:render partial="Header" arguments="{settings: settings, data: data, class: '' }" />
+			</div>
+			<div class="modal-body">
+				{data.tx_gridelements_view_columns.0 -> f:format.raw()}	
+			</div>
+		</div>
+	</div>
+</div>
+</f:section>
+</html>

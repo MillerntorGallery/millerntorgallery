@@ -1,0 +1,1 @@
+RTE.default.buttons.link.relAttribute.enabled = 1

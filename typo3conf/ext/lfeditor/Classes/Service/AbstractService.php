@@ -30,6 +30,9 @@ use SGalinski\Lfeditor\Session\PhpSession;
 use TYPO3\CMS\Core\SingletonInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
+/**
+ * Class AbstractService
+ */
 abstract class AbstractService implements SingletonInterface {
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManager
@@ -40,9 +43,13 @@ abstract class AbstractService implements SingletonInterface {
 	 */
 	protected $session;
 
+	/**
+	 * Constructor
+	 */
 	public function __construct() {
 		$this->objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
 	}
+
 	/**
 	 * Initializes the session object.
 	 *

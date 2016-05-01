@@ -1,11 +1,12 @@
 <?php
+namespace DmitryDulepov\Realurl;
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2010 Dmitry Dulepov <dmitry.dulepov@typo3.org>
+*  (c) 2016 Dmitry Dulepov <dmitry.dulepov@gmail.com>
 *  All rights reserved
 *
-*  This script is part of the Typo3 project. The Typo3 project is
+*  This script is part of the TYPO3 project. The TYPO3 project is
 *  free software; you can redistribute it and/or modify
 *  it under the terms of the GNU General Public License as published by
 *  the Free Software Foundation; either version 2 of the License, or
@@ -23,78 +24,51 @@
 ***************************************************************/
 
 /**
- * Class for updating RealURL data
+ * This class updates realurl from version 1.x to 2.x.
  *
- * $Id$
- *
- * @author  Dmitry Dulepov <dmitry.dulepov@typo3.org>
- * @package TYPO3
- * @subpackage realurl
+ * @author Dmitry Dulepov <support@snowflake.ch>
  */
 class ext_update {
 
+	/** @var \TYPO3\CMS\Core\Database\DatabaseConnection */
+	protected $databaseConnection;
+
 	/**
-	 * Stub function for the extension manager
-	 *
-	 * @param	string	$what	What should be updated
-	 * @return	boolean	true to allow access
+	 * Creates the instance of the class.
 	 */
-	public function access($what = 'all') {
-		$fields = $GLOBALS['TYPO3_DB']->admin_get_fields('pages');
-		return isset($fields['tx_aoerealurlpath_overridepath']) && isset($fields['tx_aoerealurlpath_excludefrommiddle']);
+	public function __construct() {
+		$this->databaseConnection = $GLOBALS['TYPO3_DB'];
 	}
 
 	/**
-	 * Updates nested sets
-	 *
-	 * @return	string		HTML output
+	 * Runs the update.
 	 */
 	public function main() {
-		if (t3lib_div::_POST('nssubmit') != '') {
-			$this->updateOverridePaths();
-			$content = 'Update finished successfully.';
+		if ($this->pathCacheNeedsUpdates()) {
+			$this->databaseConnection->sql_query('ALTER TABLE tx_realurl_pathcache CHANGE cache_id uid int(11) NOT NULL');
+			$this->databaseConnection->sql_query('ALTER TABLE tx_realurl_pathcache DROP PRIMARY KEY');
+			$this->databaseConnection->sql_query('ALTER TABLE tx_realurl_pathcache MODIFY uid int(11) NOT NULL auto_increment primary key');
 		}
-		else {
-			$content = $this->prompt();
-		}
-		return $content;
 	}
 
 	/**
-	 * Shows a form to created nested sets data.
+	 * Checks if the script should execute.
 	 *
-	 * @return	string
+	 * @return bool
 	 */
-	protected function prompt() {
-		return
-			'<form action="' . t3lib_div::getIndpEnv('REQUEST_URI') . '" method="POST">' .
-			'<p>This update will do the following:</p>' .
-			'<ul>' .
-			'<li>Import path overrides from aoe_realurlpath</li>' .
-			'<li>Import exclusion flags from aoe_realurlpath</li>' .
-			'</ul>' .
-			'<p><b>Warning!</b> All current empty values will be discarded and replaced with values from aoe_realurlpath!</p>' .
-			'<br />' .
-			'<input type="submit" name="nssubmit" value="Update" /></form>';
+	public function access() {
+		return $this->pathCacheNeedsUpdates();
 	}
 
 	/**
-	 * Creates nested sets data for pages
+	 * Checks if path cache table is ok.
 	 *
-	 * @return	string	Result
+	 * @return bool
 	 */
-	protected function updateOverridePaths() {
-		$GLOBALS['TYPO3_DB']->sql_query('UPDATE pages SET tx_realurl_exclude=1 ' .
-			'WHERE tx_aoerealurlpath_excludefrommiddle<>0');
-		$GLOBALS['TYPO3_DB']->sql_query('UPDATE pages SET tx_realurl_pathoverride=1,tx_realurl_pathsegment=tx_aoerealurlpath_overridepath ' .
-			'WHERE tx_aoerealurlpath_overridepath<>\'\' AND tx_realurl_pathsegment=\'\'');
-		$GLOBALS['TYPO3_DB']->sql_query('UPDATE pages_language_overlay SET tx_realurl_pathsegment=tx_aoerealurlpath_overridepath ' .
-			'WHERE tx_aoerealurlpath_overridepath<>\'\' AND tx_realurl_pathsegment=\'\'');
+	protected function pathCacheNeedsUpdates() {
+		$fields = $this->databaseConnection->admin_get_fields('tx_realurl_pathcache');
+
+		return isset($fields['cache_id']) || !isset($fields['uid']) || stripos($fields['uid']['Extra'], 'auto_increment') === false;
 	}
-}
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/realurl/class.ext_update.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/realurl/class.ext_update.php']);
 }
-
-?>

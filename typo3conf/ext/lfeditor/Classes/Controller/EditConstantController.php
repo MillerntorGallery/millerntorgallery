@@ -28,7 +28,6 @@ namespace SGalinski\Lfeditor\Controller;
 
 use SGalinski\Lfeditor\Exceptions\LFException;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use TYPO3\CMS\Extbase\Mvc\Exception\UnsupportedRequestTypeException;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
@@ -103,6 +102,16 @@ class EditConstantController extends AbstractBackendController {
 		} catch (LFException $e) {
 			$this->addLFEFlashMessage($e);
 		}
+		$this->redirect('editConstant');
+	}
+
+	/**
+	 * Clears extensionAndLangFileOptions cache, and in that way refreshes list of language file options in select box.
+	 *
+	 * @return void
+	 */
+	public function refreshLanguageFileListAction() {
+		$this->clearSelectOptionsCache('extensionAndLangFileOptions');
 		$this->redirect('editConstant');
 	}
 

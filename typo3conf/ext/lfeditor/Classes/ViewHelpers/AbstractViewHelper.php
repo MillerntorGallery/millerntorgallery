@@ -36,9 +36,12 @@ class AbstractViewHelper extends AbstractBackendViewHelper {
 	/**
 	 * Returns an instance of the page renderer
 	 *
+	 * @deprecated Implement the following migration if the extension just needs to support > 7.5.
 	 * @return PageRenderer
 	 */
 	public function getPageRenderer() {
+//		Migration
+//		return $this->objectManager->get(\TYPO3\CMS\Core\Page\PageRenderer::class);
 		if (TYPO3_MODE === 'BE') {
 			$pageRenderer = $this->getDocInstance()->getPageRenderer();
 		} else {

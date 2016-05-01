@@ -1,0 +1,17 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:comment> BE-Layout: pagets__t3sbootstrap_2 </f:comment>
+<f:render partial="BE-Layouts/Div/NavPageHeader" arguments="{_all}" />
+<div class="{f:if(condition: '{settings.styles.container-fluid}',then: 'container-fluid', else: 'container')} page-content">
+	<div class="row content-row">
+		<aside class="col-md-3 col-md-push-9">
+			<f:if condition="{settings.navigation.sidebar-subMenu.enable}">
+				<f:render partial="NavBar/Sidebar" arguments="{_all}" />
+			</f:if>
+			<f:cObject typoscriptObjectPath="lib.content.right" />
+		</aside>
+		<main class="col-md-9 col-md-pull-3 main-content">
+			<f:cObject typoscriptObjectPath="lib.content.main" />
+		</main>
+	</div>
+</div>
+</html>

@@ -39,6 +39,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
+/**
+ * Class ConfigurationService
+ */
 class ConfigurationService extends AbstractService {
 	/**
 	 * @var array extension configuration
@@ -57,7 +60,7 @@ class ConfigurationService extends AbstractService {
 	protected $langArray = array();
 
 	/**
-	 * @var \SGalinski\Lfeditor\Service\FileService
+	 * @var \SGalinski\Lfeditor\Service\FileBaseService
 	 */
 	protected $fileObj;
 
@@ -94,6 +97,9 @@ class ConfigurationService extends AbstractService {
 		$this->extConfig['numTextAreaRows'] = 5;
 		$this->extConfig['numSiteConsts'] = 6;
 		$this->extConfig['anzBackup'] = 5;
+		// Options for number of constants presented on EditFile page
+		$this->extConfig['numSiteConstsOptions']
+			= array('10' => 10, '20' => 20, '50' => 50, '100' => 100, '150' => 150, '200' => 200);
 
 		// paths and files (dont need to exist)
 		$this->extConfig['pathBackup'] = Typo3Lib::fixFilePath(
@@ -184,7 +190,7 @@ class ConfigurationService extends AbstractService {
 			}
 
 			// global extensions
-			if ($this->extConfig['viewGlobalExt']) {
+			if ($this->extConfig['viewGlobalExt'] && is_dir(Typo3Lib::pathGlobalExt)) {
 				if (count(
 					$content = Functions::searchExtensions(
 						PATH_site . Typo3Lib::pathGlobalExt, $this->extConfig['viewStateExt'],
@@ -281,7 +287,8 @@ class ConfigurationService extends AbstractService {
 	 * @throws LFException
 	 */
 	public function menuLangList(
-		$langData, $default = '', BackendUserAuthentication $backendUser = NULL, $translatedLanguagesOnly = FALSE) {
+		$langData, $default = '', BackendUserAuthentication $backendUser = NULL, $translatedLanguagesOnly = FALSE
+	) {
 		// build languages
 		$languageArray = $this->getLangArray($backendUser);
 		$languageList = array();
@@ -381,14 +388,17 @@ class ConfigurationService extends AbstractService {
 	/**
 	 * Executes writing of language files
 	 *
-	 * @throws LFException raised if file could not be written or some param criterias are not correct
-	 * @throws Exception|LFException
+	 *
 	 * @param array $modArray changes (constants with empty values will be deleted)
 	 * @param array $modMetaArray meta changes (indexes with empty values will be deleted)
 	 * @param boolean $forceDel set to true if you want delete default constants
+	 * @param array|NULL $editedLanguages
+	 * @throws Exception
+	 * @throws LFException if file could not be written or some param criteria is not correct
+	 * @throws \TYPO3\CMS\Core\Cache\Exception\NoSuchCacheException
 	 * @return void
 	 */
-	public function execWrite($modArray, $modMetaArray = array(), $forceDel = FALSE) {
+	public function execWrite($modArray, $modMetaArray = array(), $forceDel = FALSE, $editedLanguages = NULL) {
 		// checks
 		if (!is_array($modArray)) {
 			throw new LFException('failure.file.notWritten');
@@ -429,7 +439,7 @@ class ConfigurationService extends AbstractService {
 		}
 
 		// write new language data
-		$fileObject->writeFile();
+		$fileObject->writeFile($editedLanguages);
 
 		// delete possible language files
 		$absFile = $fileObject->getVar('absFile');
@@ -553,7 +563,7 @@ class ConfigurationService extends AbstractService {
 			$newFile = SgLib::setFileExtension($type, $file);
 			if ($this->convObj->getVar('workspace') == 'base') {
 				if ($this->convObj->checkLocalizedFile(basename($file), $langKey)) {
-					$newFile =  dirname($file) . '/' . $this->fileObj->nameLocalizedFile($langKey);
+					$newFile = dirname($file) . '/' . $this->fileObj->nameLocalizedFile($langKey);
 				}
 			}
 			$this->fileObj->setOriginLangData(Typo3Lib::fixFilePath($newFile), $langKey);

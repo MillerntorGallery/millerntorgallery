@@ -12,14 +12,15 @@
 			<f:translate key="function.const.search.search" />
 		</h2>
 		<f:form id="contentForm" action="searchConstantSearch">
-			<f:form.checkbox id="caseSensitive" name="caseSensitive" value="1" checked="{searchCaseSensitive}"
-				class="tx-lfeditor-checkBox-bottom" />
-			<label for="caseSensitive">
+			<label>
+				<f:form.checkbox id="caseSensitive" name="caseSensitive" value="1" checked="{searchCaseSensitive}"
+					class="tx-lfeditor-checkBox-bottom" />
 				<f:translate key="function.search.caseSensitiveCheckbox" />
 			</label>
+
 			<p>
 				<f:form.textfield name="searchStr" value="{searchString}" class="tx-lfeditor-wideField" />
-				<f:form.submit value="{f:translate(key:'button.search')}" />
+				<f:form.submit id="tx-lfeditor-button-submit" value="{f:translate(key:'button.search')}" />
 			</p>
 
 			<f:if condition="{searchResultArray}">

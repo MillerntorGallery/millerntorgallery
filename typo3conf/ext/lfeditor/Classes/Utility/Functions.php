@@ -266,7 +266,7 @@ class Functions {
 
 		// Sort by numTranslated DESC
 		foreach ($infos as $key => $row) {
-		    $numTranslated[$key]  = $row['numTranslated'];
+			$numTranslated[$key] = $row['numTranslated'];
 		}
 		array_multisort($numTranslated, SORT_DESC, $infos);
 

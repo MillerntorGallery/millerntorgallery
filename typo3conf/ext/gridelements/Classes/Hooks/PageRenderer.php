@@ -3,241 +3,196 @@ namespace GridElementsTeam\Gridelements\Hooks;
 
 /***************************************************************
  *  Copyright notice
- *
  *  (c) 2013 Jo Hasenau <info@cybercraft.de>, Tobias Ferger <tobi@tt36.de>
  *  All rights reserved
- *
  *  This script is part of the TYPO3 project. The TYPO3 project is
  *  free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation; either version 2 of the License, or
  *  (at your option) any later version.
- *
  *  The GNU General Public License can be found at
  *  http://www.gnu.org/copyleft/gpl.html.
- *
  *  This script is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
- *
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Backend\Clipboard\Clipboard;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Imaging\Icon;
+use TYPO3\CMS\Core\Imaging\IconFactory;
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class/Function which adds the necessary ExtJS and pure JS stuff for the grid elements.
  *
- * @author		Jo Hasenau <info@cybercraft.de>, Tobias Ferger <tobi@tt36.de>
- * @package		TYPO3
- * @subpackage	tx_gridelements
+ * @author Jo Hasenau <info@cybercraft.de>, Tobias Ferger <tobi@tt36.de>
+ * @package TYPO3
+ * @subpackage tx_gridelements
  */
-class PageRenderer {
+class PageRenderer implements SingletonInterface
+{
 
-	/**
-	 * wrapper function called by hook (t3lib_pageRenderer->render-preProcess)
-	 *
-	 * @param	array	            $parameters: An array of available parameters
-	 * @param	\TYPO3\CMS\Core\Page\PageRenderer $pageRenderer: The parent object that triggered this hook
-	 * @return	void
-	 */
-	public function addJSCSS($parameters, &$pageRenderer) {
-		if($GLOBALS['MCONF']['name'] == 'web_layout' || $GLOBALS['MCONF']['name'] == 'web_list') {
-			$this->addJS($parameters, $pageRenderer);
-			$this->addCSS($parameters, $pageRenderer);
-		}
-	}
+    /**
+     * wrapper function called by hook (\TYPO3\CMS\Core\Page\PageRenderer->render-preProcess)
+     *
+     * @param array $parameters : An array of available parameters
+     * @param \TYPO3\CMS\Core\Page\PageRenderer $pageRenderer : The parent object that triggered this hook
+     *
+     * @return void
+     */
+    public function addJSCSS($parameters, &$pageRenderer)
+    {
+        $pageRenderer->addCssFile(ExtensionManagementUtility::extRelPath('gridelements') . 'Resources/Public/Backend/Css/Skin/t3skin_override.css');
+        if (get_class($GLOBALS['SOBE']) === 'TYPO3\CMS\Recordlist\RecordList') {
+            $pageRenderer->loadRequireJsModule('TYPO3/CMS/Gridelements/GridElementsOnReady');
+            return;
+        }
+        if (get_class($GLOBALS['SOBE']) === 'TYPO3\CMS\Backend\Controller\PageLayoutController') {
+            $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
+            $pageRenderer->loadRequireJsModule('TYPO3/CMS/Gridelements/GridElementsOnReady');
+            $pageRenderer->loadRequireJsModule('TYPO3/CMS/Gridelements/GridElementsDragDrop');
+            $pageRenderer->loadRequireJsModule('TYPO3/CMS/Gridelements/GridElementsDragInWizard');
 
-	/**
-	 * method that adds JS files within the page renderer
-	 *
-	 * @param	array	            $parameters: An array of available parameters while adding JS to the page renderer
-	 * @param	\TYPO3\CMS\Core\Page\PageRenderer $pageRenderer: The parent object that triggered this hook
-	 * @return	void
-	 */
-	protected function addJS($parameters, &$pageRenderer) {
+            /** @var Clipboard $clipObj */
+            $clipObj = GeneralUtility::makeInstance(Clipboard::class); // Start clipboard
+            $clipObj->initializeClipboard();
+            $clipObj->lockToNormal();
 
-		$formprotection = \TYPO3\CMS\Core\FormProtection\FormProtectionFactory::get();
+            if (!$pageRenderer->getCharSet()) {
+                $pageRenderer->setCharSet($GLOBALS['LANG']->charSet ? $GLOBALS['LANG']->charSet : 'utf-8');
+            }
 
-		if (count($parameters['jsFiles'])) {
+            // pull locallang_db.xml to JS side - only the tx_gridelements_js-prefixed keys
+            $pageRenderer->addInlineLanguageLabelFile('EXT:gridelements/Resources/Private/Language/locallang_db.xml',
+                'tx_gridelements_js');
 
-			if (method_exists($GLOBALS['SOBE']->doc, 'issueCommand')) {
-				/** @var \TYPO3\CMS\Backend\Clipboard\Clipboard $clipObj  */
-				$clipObj = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Backend\Clipboard\Clipboard');		// Start clipboard
-				$clipObj->initializeClipboard();
+            $pAddExtOnReadyCode = '
+                TYPO3.l10n = {
+                    localize: function(langKey){
+                        return TYPO3.lang[langKey];
+                    }
+                }
+            ';
 
-				$clipBoardHasContent = FALSE;
+            $allowedContentTypesClassesByColPos = array();
+            $allowedGridTypesClassesByColPos = array();
+            $layoutSetup = GeneralUtility::callUserFunction('TYPO3\\CMS\\Backend\\View\\BackendLayoutView->getSelectedBackendLayout',
+                intval(GeneralUtility::_GP('id')), $this);
+            if (is_array($layoutSetup) && !empty($layoutSetup['__config']['backend_layout.']['rows.'])) {
+                foreach ($layoutSetup['__config']['backend_layout.']['rows.'] as $rows) {
+                    foreach ($rows as $row) {
+                        if (!empty($layoutSetup['__config']['backend_layout.']['rows.'])) {
+                            foreach ($row as $col) {
+                                $classes = '';
+                                $gridClasses = '';
+                                if ($col['allowed']) {
+                                    $allowed = explode(',', $col['allowed']);
+                                    foreach ($allowed as $contentTypes) {
+                                        $contentTypes = trim($contentTypes);
+                                        if ($contentTypes === '*') {
+                                            $classes = 't3-allow-all';
+                                            break;
+                                        } else {
+                                            $contentTypes = explode(',', $contentTypes);
+                                            foreach ($contentTypes as $contentType) {
+                                                $classes .= 't3-allow-' . $contentType . ' ';
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    $classes = 't3-allow-all';
+                                }
+                                if ($col['allowedGridTypes']) {
+                                    $allowedGridTypes = explode(',', $col['allowedGridTypes']);
+                                    $classes .= 't3-allow-gridelements_pi1 ';
+                                    foreach ($allowedGridTypes as $gridTypes) {
+                                        $gridTypes = trim($gridTypes);
+                                        if ($gridTypes !== '*') {
+                                            if (empty($gridClasses)) {
+                                                $gridClasses .= 't3-allow-gridtype ';
+                                            }
+                                            $gridTypes = explode(',', $gridTypes);
+                                            foreach ($gridTypes as $gridType) {
+                                                $gridClasses .= 't3-allow-gridtype-' . $gridType . ' ';
+                                            }
+                                        }
+                                    }
+                                    if ($classes !== 't3-allow-all' && !empty($gridClasses)) {
+                                        $classes .= 't3-allow-gridelements_pi1 ';
+                                    }
+                                }
+                                $allowedContentTypesClassesByColPos[$col['colPos']] .= ' ' . trim($classes);
+                                $allowedGridTypesClassesByColPos[$col['colPos']] .= ' ' . trim($gridClasses);
+                            }
+                        }
+                    }
+                }
+            }
 
-				if(isset($clipObj->clipData['normal']['el']) && strpos(key($clipObj->clipData['normal']['el']), 'tt_content') !== FALSE) {
-					$pasteURL = str_replace('&amp;', '&', $clipObj->pasteUrl('tt_content', 'DD_PASTE_UID', 0));
-					if (isset($clipObj->clipData['normal']['mode'])) {
-						$clipBoardHasContent = 'copy';
-					} else {
-						$clipBoardHasContent = 'move';
-					}
-				}
+            // add Ext.onReady() code from file
+            $pAddExtOnReadyCode .= "
+            top.pageColumnsAllowedCTypes = " . json_encode($allowedContentTypesClassesByColPos) . ";
+            top.pageColumnsAllowedGridTypes = " . json_encode($allowedGridTypesClassesByColPos) . ";
+            top.pasteReferenceAllowed = " . ($this->getBackendUser()->checkAuthMode('tt_content', 'CType', 'shortcut',
+                    'explicitAllow') ? 'true' : 'false') . ";
+            top.skipDraggableDetails = " . ($this->getBackendUser()->uc['dragAndDropHideNewElementWizardInfoOverlay'] ? 'true' : 'false') . ";
+            top.backPath = '" . $GLOBALS['BACK_PATH'] . "';
+            top.browserUrl = '" . BackendUtility::getModuleUrl('wizard_element_browser') . "'";
 
-				$moveParams = '&cmd[tt_content][DD_DRAG_UID][move]=DD_DROP_UID';
-				$moveURL = str_replace('&amp;', '&', htmlspecialchars($GLOBALS['SOBE']->doc->issueCommand($moveParams, 1)));
-				$copyParams = '&cmd[tt_content][DD_DRAG_UID][copy]=DD_DROP_UID&DDcopy=1';
-				$copyURL = str_replace('&amp;', '&', htmlspecialchars($GLOBALS['SOBE']->doc->issueCommand($copyParams, 1)));
+            $elFromTable = $clipObj->elFromTable('tt_content');
+            if (!empty($elFromTable)) {
+                $pasteItem = substr(key($elFromTable), 11);
+                $pasteRecord = BackendUtility::getRecord('tt_content', (int)$pasteItem);
+                $pasteTitle = $pasteRecord['header'] ? $pasteRecord['header'] : $pasteItem;
+                $copyMode = $clipObj->clipData['normal']['mode'] ? '-' . $clipObj->clipData['normal']['mode'] : '';
+                $pAddExtOnReadyCode .= "
+                    top.pasteIntoLinkTemplate = " . json_encode('<a data-pasteitem="' . $pasteItem . '" data-pastetitle="' . $pasteTitle . '" class="t3js-paste t3js-paste' . $copyMode . ' t3js-paste-into btn btn-default" title="' . $this->getLanguageService()->sL('LLL:EXT:gridelements/Resources/Private/Language/locallang_db.xml:tx_gridelements_js.pasteinto') . '">' . $iconFactory->getIcon('actions-document-paste-into',
+                            Icon::SIZE_SMALL)->render() . '</a>') . ";
+                    top.pasteAfterLinkTemplate = " . json_encode('<a data-pasteitem="' . $pasteItem . '" data-pastetitle="' . $pasteTitle . '"  class="t3js-paste t3js-paste' . $copyMode . ' t3js-paste-after btn btn-default" title="' . $this->getLanguageService()->sL('LLL:EXT:gridelements/Resources/Private/Language/locallang_db.xml:tx_gridelements_js.pasteafter') . '">' . $iconFactory->getIcon('actions-document-paste-into',
+                            Icon::SIZE_SMALL)->render() . '</a>') . ";";
+                if ($this->getBackendUser()->checkAuthMode('tt_content', 'CType', 'shortcut', 'explicitAllow')) {
+                    $pAddExtOnReadyCode .= "
+                        top.pasteReferencesAllowed = true;";
+                }
 
-				// add JavaScript library
-				$pageRenderer->addJsFile(
-					$GLOBALS['BACK_PATH'] . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('gridelements') . 'Resources/Public/Backend/JavaScript/dbNewContentElWizardFixDTM.js',
-					$type = 'text/javascript',
-					$compress = TRUE,
-					$forceOnTop = FALSE,
-					$allWrap = ''
-				);
+            } else {
+                $pAddExtOnReadyCode .= "
+                    top.pasteIntoLinkTemplate = '';
+                    top.pasteAfterLinkTemplate = '';";
+            }
 
-				// add JavaScript library
-				$pageRenderer->addJsFile(
-					$GLOBALS['BACK_PATH'] . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('gridelements') . 'Resources/Public/Backend/JavaScript/GridElementsDD.js',
-					$type = 'text/javascript',
-					$compress = TRUE,
-					$forceOnTop = FALSE,
-					$allWrap = ''
-				);
+            $pAddExtOnReadyCode .= "
+                    top.copyFromAnotherPageLinkTemplate = " . json_encode('<a class="t3js-paste-new btn btn-default" title="' . $this->getLanguageService()->sL('LLL:EXT:gridelements/Resources/Private/Language/locallang_db.xml:tx_gridelements_js.copyfrompage') . '">' . $iconFactory->getIcon('actions-insert-reference',
+                        Icon::SIZE_SMALL)->render() . '</a>') . ";";
 
-				// add JavaScript library
-				$pageRenderer->addJsFile(
-					$GLOBALS['BACK_PATH'] . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath('gridelements') . 'Resources/Public/Backend/JavaScript/GridElementsListView.js',
-					$type = 'text/javascript',
-					$compress = TRUE,
-					$forceOnTop = FALSE,
-					$allWrap = ''
-				);
+            $pageRenderer->addJsInlineCode(// add some more JS here
+                'gridelementsExtOnReady', $pAddExtOnReadyCode);
+        }
+    }
 
-				if (!$pageRenderer->getCharSet()) {
-					$pageRenderer->setCharSet($GLOBALS['LANG']->charSet ? $GLOBALS['LANG']->charSet : 'utf-8');
-				}
+    /**
+     * Gets the current backend user.
+     *
+     * @return \TYPO3\CMS\Core\Authentication\BackendUserAuthentication
+     */
+    public function getBackendUser()
+    {
+        return $GLOBALS['BE_USER'];
+    }
 
-				if(is_array($clipObj->clipData['normal']['el'])) {
-				    $arrCBKeys = array_keys($clipObj->clipData['normal']['el']);
-				    $intFirstCBEl = str_replace('tt_content|', '', $arrCBKeys[0]);
-				}
+    /**
+     * getter for databaseConnection
+     *
+     * @return \TYPO3\CMS\Lang\LanguageService
+     */
+    public function getLanguageService()
+    {
+        return $GLOBALS['LANG'];
+    }
 
-				// pull locallang_db.xml to JS side - only the tx_gridelements_js-prefixed keys
-				$pageRenderer->addInlineLanguageLabelFile('EXT:gridelements/Resources/Private/Language/locallang_db.xml', 'tx_gridelements_js');
-
-				$pRaddExtOnReadyCode = '
-					TYPO3.l10n = {
-						localize: function(langKey){
-							return TYPO3.lang[langKey];
-						}
-					}
-				';
-
-				$allowedCTypesClassesByColPos = array();
-				$layoutSetup = \TYPO3\CMS\Core\Utility\GeneralUtility::callUserFunction('TYPO3\\CMS\\Backend\\View\\BackendLayoutView->getSelectedBackendLayout', intval(\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id')), $this);
-				if (is_array($layoutSetup) && !empty($layoutSetup['__config']['backend_layout.']['rows.'])) {
-					foreach($layoutSetup['__config']['backend_layout.']['rows.'] as $rows){
-						foreach($rows as $row){
-							if(!empty($layoutSetup['__config']['backend_layout.']['rows.'])) {
-								foreach($row as $col){
-									$classes = '';
-									if($col['allowed']){
-										$allowed = explode(',', $col['allowed']);
-										foreach($allowed as $ctype){
-											$ctype = trim($ctype);
-											if($ctype == '*') {
-												$classes = 't3-allow-all';
-												break;
-											} else {
-												$classes .= 't3-allow-' . $ctype . ' ';
-											}
-										}
-									} else {
-										$classes = 't3-allow-all';
-									}
-									$allowedCTypesClassesByColPos[] = $col['colPos'] . ':' . trim($classes);
-								}
-							}
-						}
-					}
-				}
-
-				// add Ext.onReady() code from file
-				$pageRenderer->addExtOnReadyCode(
-					// add some more JS here
-					$pRaddExtOnReadyCode . "
-						top.pageColumnsAllowedCTypes = '" . join('|', $allowedCTypesClassesByColPos) . "';
-						top.pasteURL = '" . $pasteURL . "';
-						top.moveURL = '" . $moveURL . "';
-						top.copyURL = '" . $copyURL . "';
-						top.pasteTpl = '" . str_replace('&redirect=1', '', str_replace('DDcopy=1', 'DDcopy=1&reference=DD_REFYN', $copyURL)) . "';
-						top.DDtceActionToken = '" . $formprotection->generateToken('tceAction') . "';
-						top.DDtoken = '" . $formprotection->generateToken('editRecord') . "';
-						top.DDpid = '" . (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id') . "';
-						top.DDclipboardfilled = '" . ($clipBoardHasContent ? $clipBoardHasContent : 'false') . "';
-						top.DDclipboardElId = '" . $intFirstCBEl . "';
-					" .
-					// replace placeholder for detail info on draggables
-					str_replace(
-						array(
-							'top.skipDraggableDetails = 0;',
-							// set extension path
-							'insert_ext_baseurl_here',
-							// set current server time
-							'insert_server_time_here',
-							// additional sprites
-							'top.geSprites = {};',
-							// back path
-							"top.backPath = '';"
-						),
-						array(
-							$GLOBALS['BE_USER']->uc['dragAndDropHideNewElementWizardInfoOverlay'] ? 'top.skipDraggableDetails = true;' : 'top.skipDraggableDetails = false;',
-							// set extension path
-							\TYPO3\CMS\Core\Utility\GeneralUtility::locationHeaderUrl('/' . \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::siteRelPath('gridelements')),
-							// set current server time, format matches "+new Date" in JS, accuracy in seconds is fine
-							time() . '000',
-							// add sprite icon classes
-							"top.geSprites = {
-								copyfrompage: '" . \TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIconClasses('extensions-gridelements-copyfrompage') . "',
-								pastecopy: '" . \TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIconClasses('extensions-gridelements-pastecopy') . "',
-								pasteref: '" . \TYPO3\CMS\Backend\Utility\IconUtility::getSpriteIconClasses('extensions-gridelements-pasteref') . "'
-							};",
-							"top.backPath = '" . $GLOBALS['BACK_PATH'] . "';"
-						),
-						// load content from file
-						file_get_contents(
-							\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('gridelements') . 'Resources/Public/Backend/JavaScript/GridElementsDD_onReady.js'
-						)
-					),
-					TRUE
-				);
-			}
-		}
-	}
-
-	/**
-	 * method that adds CSS files within the page renderer
-	 *
-	 * @param	array	            $parameters: An array of available parameters while adding CSS to the page renderer
-	 * @param	\TYPO3\CMS\Core\Page\PageRenderer $pageRenderer: The parent object that triggered this hook
-	 * @return	void
-	 */
-	protected function addCSS($parameters, &$pageRenderer) {
-		if (count($parameters['cssFiles'])) {
-			// get configuration
-			$this->confArr = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['gridelements']);
-			$filename = $this->confArr['additionalStylesheet'];
-			if($filename){
-				// evaluate filename
-				if (substr($filename, 0, 4) == 'EXT:') { // extension
-					list($extKey, $local) = explode('/', substr($filename, 4), 2);
-					$filename = '';
-					if (strcmp($extKey, '') && \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded($extKey) && strcmp($local, '')) {
-						$filename = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extRelPath($extKey) . $local;
-					}
-				}
-				$pageRenderer->addCssFile($filename, 'stylesheet', 'screen');
-			}
-		}
-	}
 }
-
-if (defined('TYPO3_MODE') && isset($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/gridelements/Classes/Hooks/PageRenderer.php'])) {
-	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/gridelements/Classes/Hooks/PageRenderer.php']);
-}
-

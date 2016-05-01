@@ -77,6 +77,9 @@ class EditFileController extends AbstractBackendController {
 			$constantTypeOptions = $this->getConstantTypeOptions();
 			$this->assignViewWidthMenuVariables('constantType', $constantTypeOptions);
 
+			$extConfig = $this->configurationService->getExtConfig();
+			$this->assignViewWidthMenuVariables('numSiteConsts', $extConfig['numSiteConstsOptions']);
+
 			$this->prepareEditFileViewMainSectionContent($langData, $buttonType);
 		} catch (LFException $e) {
 			$this->addLFEFlashMessage($e);
@@ -94,17 +97,29 @@ class EditFileController extends AbstractBackendController {
 	 * @param string $referenceLanguageSelection
 	 * @param string $constantTypeSelection
 	 * @param string $bottomReferenceLanguageSelection
+	 * @param string $numSiteConstsSelection
 	 * @throws UnsupportedRequestTypeException
 	 * @return void
 	 */
 	public function changeSelectionAction(
 		$extensionSelection = NULL, $languageFileSelection = NULL, $languageSelection = NULL,
-		$referenceLanguageSelection = NULL, $constantTypeSelection = NULL, $bottomReferenceLanguageSelection = NULL
+		$referenceLanguageSelection = NULL, $constantTypeSelection = NULL, $bottomReferenceLanguageSelection = NULL,
+		$numSiteConstsSelection = NULL
 	) {
 		$this->saveSelectionsInSession(
 			$extensionSelection, $languageFileSelection, $referenceLanguageSelection, NULL, $languageSelection,
-			$constantTypeSelection, $bottomReferenceLanguageSelection
+			$constantTypeSelection, $bottomReferenceLanguageSelection, $numSiteConstsSelection
 		);
+		$this->redirect('editFile', NULL, NULL, array('buttonType' => 0));
+	}
+
+	/**
+	 * Clears extensionAndLangFileOptions cache, and in that way refreshes list of language file options in select box.
+	 *
+	 * @return void
+	 */
+	public function refreshLanguageFileListAction() {
+		$this->clearSelectOptionsCache('extensionAndLangFileOptions');
 		$this->redirect('editFile', NULL, NULL, array('buttonType' => 0));
 	}
 
@@ -127,7 +142,7 @@ class EditFileController extends AbstractBackendController {
 	 */
 	protected function prepareEditFileViewMainSectionContent(array $langData, $buttonType) {
 		$extConfig = $this->configurationService->getExtConfig();
-		$numConstantsPerPage = $extConfig['numSiteConsts'];
+		$numConstantsPerPage = $this->session->getDataByKey('numSiteConstsSelection');
 
 		$langList = $this->session->getDataByKey('languageSelection');
 		$patternList = $this->session->getDataByKey('referenceLanguageSelection');
@@ -238,6 +253,7 @@ class EditFileController extends AbstractBackendController {
 		$this->view->assign('constValues', $constValues);
 		$this->view->assign('curConsts', $sessionLangDataConstantsIterator);
 		$this->view->assign('totalConsts', $numConsts);
+		$this->view->assign('numSiteConstsSelection', $numConstantsPerPage);
 	}
 
 	/**
@@ -286,7 +302,13 @@ class EditFileController extends AbstractBackendController {
 
 			// write if no session continued
 			if (!$langDataSessionContinued) {
-				$this->configurationService->execWrite($langfileEditNewLangData);
+				// Making array of languages that were changed, so only that language files will be edited.
+				$editedLanguages = array($languageSelection);
+				if ($languageSelection !== $referenceLanguageSelection) {
+					$editedLanguages[] = $referenceLanguageSelection;
+				}
+
+				$this->configurationService->execWrite($langfileEditNewLangData, array(), FALSE, $editedLanguages);
 				$this->addFlashMessage(
 					LocalizationUtility::translate('lang.file.write.success', 'lfeditor'),
 					'',

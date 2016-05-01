@@ -1,0 +1,19 @@
+<f:switch expression="{data.CType}">
+	<f:case value="t3sbs_thumbnails">
+		<p style="background-color: yellow;">
+			<strong>ERROR:</strong> Content Element type "{data.CType}" has no rendering definition!<br />
+			<strong>You must place the Content Element type "t3sbs_thumbnails" within a gridelement "Thumbnail Container".</strong>
+		</p>
+	</f:case>
+	<f:case value="t3sbs_carousel">
+		<p style="background-color: yellow;">
+			<strong>ERROR:</strong> Content Element type "{data.CType}" has no rendering definition!<br />
+			<strong>You must place the Content Element type "t3sbs_carousel" within a gridelement "Carousel Container".</strong>
+		</p>
+	</f:case>
+	<f:case default="true">
+		<p style="background-color: yellow;">
+			<strong>ERROR:</strong> Content Element type "{data.CType}" has no rendering definition!
+		</p>
+	</f:case>
+</f:switch>

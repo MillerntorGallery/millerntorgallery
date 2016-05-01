@@ -13,6 +13,10 @@
 		</h2>
 		<f:form id="contentForm" action="addConstantSave">
 			<f:if condition="{constantSelection} != '###default###'">
+				<div class="tx-lfeditor-buttons">
+					<f:form.submit id="tx-lfeditor-button-submit" value="{f:translate(key:'button.save')}" />
+				</div>
+
 				<p>
 					<f:form.textfield name="nameOfConstant" class="tx-lfeditor-wideField" />
 					<strong>

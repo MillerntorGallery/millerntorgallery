@@ -227,9 +227,10 @@ class FileBasePHPService extends FileBaseService {
 	/**
 	 * prepares the final content
 	 *
+	 * @param array | NULL $editedLanguages
 	 * @return array language files as key and content as value
 	 */
-	protected function prepareFileContents() {
+	protected function prepareFileContents($editedLanguages = NULL) {
 		// convert all language values from utf-8 to the original charset
 		if (!Typo3Lib::isTypo3BackendInUtf8Mode()) {
 			$this->localLang = Typo3Lib::utf8($this->localLang, FALSE, array('default'));

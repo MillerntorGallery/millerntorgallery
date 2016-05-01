@@ -117,43 +117,6 @@ class Typo3Lib {
 	}
 
 	/**
-	 * writes the localconf file
-	 *
-	 * @throws Exception raised if localconf is empty or cant be backuped
-	 * @param string $addLine line which should be added
-	 * @param string $value value of line
-	 * @return void
-	 */
-	public static function writeLocalconf($addLine, $value) {
-		$localconf = PATH_typo3conf . 'localconf.php';
-
-		/** t3lib_install */
-		require_once(PATH_t3lib . 'class.t3lib_install.php');
-
-		// get current content
-		$lines = file_get_contents($localconf);
-		if (empty($lines)) {
-			throw new Exception('localconf is empty...');
-		}
-		$lines = explode("\n", str_replace('?>', '', $lines));
-		/** @var t3lib_install $localConfObj */
-		$localConfObj = GeneralUtility::makeInstance('t3lib_install');
-		$localConfObj->updateIdentity = 'LFEditor';
-
-		// add information
-		$localConfObj->setValueInLocalconfFile($lines, $addLine, $value);
-
-		// backup localconf
-		if (!copy($localconf, $localconf . '.bak.php')) {
-			throw new Exception('localconf couldnt be backuped...');
-		}
-
-		// write localconf
-		$localConfObj->allowUpdateLocalConf = 1;
-		$localConfObj->writeToLocalconf_control($lines);
-	}
-
-	/**
 	 * decodes or encodes all values in the given language array to utf-8
 	 *
 	 * @param array $localLang language content array
@@ -169,7 +132,7 @@ class Typo3Lib {
 
 		// get charset object
 		/** @var $csConvObj CharsetConverter */
-		$csConvObj = & $GLOBALS['LANG']->csConvObj;
+		$csConvObj = &$GLOBALS['LANG']->csConvObj;
 
 		// loop all possible languages
 		foreach ($localLang as $langKey => $convContent) {

@@ -119,6 +119,16 @@ class SearchConstantController extends AbstractBackendController {
 	}
 
 	/**
+	 * Clears extensionAndLangFileOptions cache, and in that way refreshes list of language file options in select box.
+	 *
+	 * @return void
+	 */
+	public function refreshLanguageFileListAction() {
+		$this->clearSelectOptionsCache('extensionAndLangFileOptions');
+		$this->redirect('searchConstant', NULL, NULL, array('searchDone' => TRUE));
+	}
+
+	/**
 	 * Prepares main section content of searchConstant view.
 	 *
 	 * @param bool $searchDone

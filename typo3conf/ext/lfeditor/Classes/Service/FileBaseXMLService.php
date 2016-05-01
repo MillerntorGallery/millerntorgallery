@@ -173,7 +173,8 @@ class FileBaseXMLService extends FileBaseService {
 	 * @return void
 	 */
 	protected function arrayToXml(
-		array $phpArray, CdataSupportingSimpleXMLElement $xmlElement, array $parentTagMap = array(), $parentTagName = NULL
+		array $phpArray, CdataSupportingSimpleXMLElement $xmlElement, array $parentTagMap = array(),
+		$parentTagName = NULL
 	) {
 		foreach ($phpArray as $key => $value) {
 			if (strcasecmp($key, '@attributes') === 0) {
@@ -185,7 +186,8 @@ class FileBaseXMLService extends FileBaseService {
 				$tagName = $parentTagMap[$parentTagName];
 				$indexAttributeValue = $key;
 			}
-			if (is_array($value)) {
+			// If element is array, check that it is not 'label' tag, just in case
+			if (is_array($value) && $tagName !== 'label') {
 				if (is_numeric($tagName)) {
 					$tagName = 'item' . $tagName;
 				}
@@ -277,13 +279,15 @@ class FileBaseXMLService extends FileBaseService {
 	/**
 	 * prepares the final content
 	 *
+	 * @param array | NULL $editedLanguages
 	 * @return array language files as key and content as value
 	 */
-	protected function prepareFileContents() {
+	protected function prepareFileContents($editedLanguages = NULL) {
 		// convert all language values to utf-8
 		if (!Typo3Lib::isTypo3BackendInUtf8Mode()) {
 			$this->localLang = Typo3Lib::utf8($this->localLang, TRUE, array('default'));
 		}
+		$mergedFile = TRUE;
 
 		// prepare Content
 		$mainFileContent = array('meta' => $this->prepareMeta());
@@ -292,7 +296,11 @@ class FileBaseXMLService extends FileBaseService {
 		foreach ($languages as $lang) {
 			// get content of localized and main file
 			if ($this->checkLocalizedFile(basename($this->originLang[$lang]), $lang)) {
-				if (is_array($this->localLang[$lang]) && count($this->localLang[$lang])) {
+				$mergedFile = FALSE;
+				if (is_array($this->localLang[$lang]) && count($this->localLang[$lang])
+					// check if this language content was edited
+					&& ($editedLanguages === NULL || in_array($lang, $editedLanguages))
+				) {
 					$languageFiles[$this->originLang[$lang]] .=
 						$this->array2xml(
 							$this->getLangContent($this->localLang[$lang], $lang),
@@ -321,6 +329,9 @@ class FileBaseXMLService extends FileBaseService {
 
 		// only a localized file?
 		if ($this->checkLocalizedFile(basename($this->absFile), implode('|', SgLib::getSystemLanguages()))) {
+			return $languageFiles;
+		}
+		if (!$mergedFile && $editedLanguages !== NULL && !in_array('default', $editedLanguages)) {
 			return $languageFiles;
 		}
 

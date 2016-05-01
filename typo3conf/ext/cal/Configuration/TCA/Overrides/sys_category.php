@@ -75,7 +75,7 @@ $newCalSysCategoryColumns = array (
 				'label' => $ll . 'tx_cal_category.headerstyle',
 				'config' => Array (
 						'type' => 'user',
-						'userFunc' => 'tx_cal_customtca->getHeaderStyles' 
+						'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getHeaderStyles' 
 				) 
 		),
 		'bodystyle' => Array (
@@ -83,7 +83,7 @@ $newCalSysCategoryColumns = array (
 				'label' => $ll . 'tx_cal_category.bodystyle',
 				'config' => Array (
 						'type' => 'user',
-						'userFunc' => 'tx_cal_customtca->getBodyStyles' 
+						'userFunc' => 'TYPO3\CMS\Cal\Backend\TCA\CustomTca->getBodyStyles' 
 				) 
 		),
 		'calendar_id' => Array (
@@ -91,7 +91,7 @@ $newCalSysCategoryColumns = array (
 				'label' => $ll . 'tx_cal_category.calendar',
 				'config' => Array (
 						'type' => 'select',
-						'itemsProcFunc' => 'tx_cal_itemsProcFunc->getRecords',
+						'itemsProcFunc' => 'TYPO3\CMS\Cal\Backend\TCA\ItemsProcFunc->getRecords',
 						'itemsProcFunc_config' => array (
 								'table' => 'tx_cal_calendar',
 								'orderBy' => 'tx_cal_calendar.title' 

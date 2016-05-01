@@ -57,6 +57,12 @@ class FileBaseXLFService extends FileBaseService {
 	public function readFile() {
 		$this->readXlfFile();
 
+		foreach ($this->localLang['default'] as $constant => $value) {
+			if (empty($value)) {
+				$this->localLang['default'][$constant] = '';
+			}
+		}
+
 		// convert all language values from utf-8 to the original charset
 		if (!Typo3Lib::isTypo3BackendInUtf8Mode()) {
 			$this->localLang = Typo3Lib::utf8($this->localLang, FALSE, array('default'));
@@ -113,6 +119,10 @@ class FileBaseXLFService extends FileBaseService {
 				$flatData[$constant] = $data['target'];
 			} else {
 				$flatData[$constant] = $data['source'];
+			}
+
+			if (empty($flatData[$constant])) {
+				$flatData[$constant] = '';
 			}
 		}
 
@@ -259,7 +269,9 @@ class FileBaseXLFService extends FileBaseService {
 				$value = SgLib::htmlSpecialCharsIgnoringCdata($value);
 				$body .= "\t\t" . '<trans-unit id="' . htmlspecialchars(
 						$constant
-					) . '"' . $approved . $this->addPreserveSpaceAttribute($value, $enValue, $targetLanguage) . '>' . "\n";
+					) . '"' . $approved . $this->addPreserveSpaceAttribute(
+						$value, $enValue, $targetLanguage
+					) . '>' . "\n";
 
 				if ($targetLanguage !== 'default') {
 					$body .= "\t\t\t" . '<source>' . $enValue . '</source>' . "\n";
@@ -318,9 +330,10 @@ class FileBaseXLFService extends FileBaseService {
 	/**
 	 * prepares the final content
 	 *
+	 * @param array | NULL $editedLanguages
 	 * @return array language files as key and content as value
 	 */
-	protected function prepareFileContents() {
+	protected function prepareFileContents($editedLanguages = NULL) {
 		// convert all language values to utf-8
 		if (!Typo3Lib::isTypo3BackendInUtf8Mode()) {
 			$this->localLang = Typo3Lib::utf8($this->localLang, TRUE, array('default'));
@@ -333,6 +346,12 @@ class FileBaseXLFService extends FileBaseService {
 		$enLanguage = $this->getLangContent($this->localLang['default']);
 		foreach ($languages as $lang) {
 			if ($lang === 'default') {
+				continue;
+			}
+			// If default language content and $lang language content are not edited, skip this file.
+			if ($editedLanguages !== NULL &&
+				!in_array('default', $editedLanguages) && !in_array($lang, $editedLanguages)
+			) {
 				continue;
 			}
 
@@ -348,6 +367,9 @@ class FileBaseXLFService extends FileBaseService {
 
 		// only a localized file?
 		if ($this->checkLocalizedFile(basename($this->absFile), implode('|', SgLib::getSystemLanguages()))) {
+			return $languageFiles;
+		}
+		if ($editedLanguages !== NULL && !in_array('default', $editedLanguages)) {
 			return $languageFiles;
 		}
 

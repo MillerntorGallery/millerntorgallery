@@ -1,0 +1,113 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
+	xmlns:ce="http://typo3.org/ns/TYPO3/CMS/FluidStyledContent/ViewHelpers"
+	xmlns:t3sbs="http://typo3.org/ns/T3SBS/T3sbootstrap/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="Main">
+<f:render partial="Header" arguments="{settings: settings, data: data, class: '' }" />
+<div id="carousel-{data.uid}" class="carousel slide" data-ride="carousel" data-interval="{data.flexform_interval}">
+	<f:comment>
+		<!-- Indicators -->
+	</f:comment>
+	<ol class="carousel-indicators">
+		<f:for each="{data.tx_gridelements_view_children}" as="carousel-indicators" iteration="iteration-indicators">
+			<li data-target="#carousel-{data.uid}" data-slide-to="{iteration-indicators.index}" {f:if(condition:'{iteration-indicators.isFirst}',then:' class="active"')}></li>
+		</f:for>
+	</ol>
+	<f:comment>
+		<!-- Wrapper for slides -->
+	</f:comment>
+	<div class="carousel-inner">
+		<f:for each="{data.tx_gridelements_view_children}" as="carousel" iteration="iteration-inner">
+			<t3sbs:fal uid="{carousel.uid}" as="media">
+				<f:if condition="{media.0.type} == 2">
+				<f:then>
+					<div class="item{f:if(condition:'{iteration-inner.isFirst}',then:' active')}{f:if(condition: '{carousel.layout}',then: ' layout-{carousel.layout}')}">
+				</f:then>
+				<f:else>
+					<div class="item embed-responsive embed-responsive-{settings.video.ratio}{f:if(condition:'{iteration-inner.isFirst}',then:' active')}{f:if(condition: '{carousel.layout}',then: ' layout-{carousel.layout}')}">
+				</f:else>
+				</f:if>
+				<f:if condition="{media}">
+					<f:render section="mediaType" arguments="{_all}" />
+				</f:if>
+			</t3sbs:fal>
+			<f:if condition="{carousel.bodytext}">
+				<f:then>
+					<div class="carousel-caption">
+						<f:if condition="{carousel.header}">
+							<f:render section="Header" arguments="{_all}" />
+						</f:if>
+						{carousel.bodytext -> f:format.html()}
+					</div>
+				</f:then>
+				<f:else>
+					<f:if condition="{carousel.header}">
+						<div class="carousel-caption">
+							<f:render section="Header" arguments="{_all}" />
+						</div>
+					</f:if>
+				</f:else>
+			</f:if>			
+		</div>
+		</f:for>
+	</div>
+	<f:comment>
+		<!-- Controls -->
+	</f:comment>
+	<a class="left carousel-control" href="#carousel-{data.uid}" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	<a class="right carousel-control" href="#carousel-{data.uid}" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+</div>
+</f:section>
+
+<f:section name="Header">
+<f:if condition="{carousel.header_layout} != 100">
+	<f:if condition="{carousel.header}">
+		<f:render partial="Header/Header" arguments="{
+			header: carousel.header,
+			layout: carousel.header_layout,
+			link: carousel.header_link,
+			fontawesome: carousel.tx_t3sbootstrap_fontawesome_icon,
+			subheader: carousel.subheader,
+			default: settings.defaultHeaderType}" />
+		<f:render partial="Header/Date" arguments="{_all}" />
+	</f:if>
+</f:if>
+</f:section>
+
+<f:section name="mediaType">
+	<f:if condition="{media.0.type} == 2">
+		<f:render section="imageType" arguments="{_all}" />
+	</f:if>
+	<f:if condition="{media.0.type} == 4">
+		<f:render section="videoType" arguments="{_all}" />
+	</f:if>
+</f:section>
+
+<f:section name="imageType">
+	<f:if condition="{media.0.link}">
+		<f:then>
+			<f:link.typolink parameter="{media.0.link}">
+				<f:render section="media" arguments="{_all}" />
+			</f:link.typolink>
+		</f:then>
+		<f:else>
+			<f:render section="media" arguments="{_all}" />
+		</f:else>
+	</f:if>
+</f:section>
+
+<f:section name="videoType">
+	<f:render section="media" arguments="{_all}" />
+</f:section>
+
+<f:section name="media">
+	<f:media
+		file="{media.0}"
+		alt="{media.0.alternative}"
+		title="{media.0.title}"
+		width="{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{data.flexform_width}\',then: \'{data.flexform_width}\', else:\'1110\')}')}"
+		height="{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{data.flexform_height}\',then: \'{data.flexform_height}c\', else:\'591c\')}')}"		
+		class="{f:if(condition: '{media.0.type} == 2',then: 'carousel-slide', else:'embed-responsive-item')}"	
+	/>
+</f:section>
+</html>

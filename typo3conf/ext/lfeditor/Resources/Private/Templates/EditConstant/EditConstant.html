@@ -16,12 +16,16 @@
 			<f:translate key="function.const.edit.edit" />
 		</h2>
 		<f:form id="contentForm" action="editConstantSave">
+			<div class="tx-lfeditor-buttons">
+				<f:form.submit id="tx-lfeditor-button-submit" value="{f:translate(key:'button.save')}" />
+			</div>
+
 			<f:for each="{languages}" key="lang" as="constValue" iteration="iterator">
 				<fieldset class="tx-lfeditor-fieldset bgColor5 {f:if(condition: iterator.isEven, then: 'tx-lfeditor-fright', else: 'tx-lfeditor-fleft')}">
 					<legend class="bgColor3">
 						{f:if(condition: '{lang} == \'default\'', then: 'en', else: '{lang}')}
 					</legend>
-					<lfe:extendedIf condition="{lang} == {defaultLanguage}" and="{defaultLanguagePermission} != 'TRUE'">
+					<lfe:extendedIf condition="{lang} == {defaultLanguage}" and="{defaultLanguagePermission} != 1">
 						<f:then>
 							<f:form.textarea
 								cols="80" rows="{numTextAreaRows}"

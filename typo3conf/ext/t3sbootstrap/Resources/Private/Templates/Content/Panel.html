@@ -1,0 +1,11 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="Main">	
+	<div class="panel panel-{panelState}">
+		<div class="panel-heading">
+			<f:render partial="Header" arguments="{settings: settings, data: data, class: 'panel-title' }" />
+		</div>
+		<div class="panel-body">{data.bodytext -> f:format.html()}</div>
+	</div>
+</f:section>
+</html>

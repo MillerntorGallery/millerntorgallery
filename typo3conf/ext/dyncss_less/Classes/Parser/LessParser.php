@@ -11,22 +11,39 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class LessParser extends \KayStrobach\Dyncss\Parser\AbstractParser{
 
+	/**
+	 *
+	 */
 	function __construct() {
+		parent::__construct();
+
 		// ensure no one else has loaded lessc already ;)
 		if(!class_exists('Less_Cache')) {
 			require_once(ExtensionManagementUtility::extPath('dyncss_less') . 'Resources/Private/Php/less.php/Autoloader.php');
 			\Less_Autoloader::register();
 		}
 
-		$config = array(
-			//'cache_dir'=>'/var/www/writable_folder',
-		);
-
-		if($this->config['enableDebug']) {
-			$config['sourceMap'] = TRUE;
-		}
-
 		$this->parser = NULL;
+	}
+
+	public function getVersion() {
+		return \Less_Version::version . ' - compat less.js version ' . \Less_Version::less_version;
+	}
+
+	/**
+	 * returns the homepage of the parser
+	 * @return string
+	 */
+	public function getParserHomepage() {
+		return 'http://lessphp.gpeasy.com';
+	}
+
+	/**
+	 * return readable name of the project
+	 * @return string
+	 */
+	public function getParserName() {
+		return 'Less.php';
 	}
 
 	/**
@@ -73,6 +90,12 @@ class LessParser extends \KayStrobach\Dyncss\Parser\AbstractParser{
 				),
 				'cache_dir' => GeneralUtility::getFileAbsFileName('typo3temp/DynCss/Cache')
 			);
+
+			if($this->config['enableDebugMode']) {
+				$options['sourceMap'] = TRUE;
+				$options['sourceMapRootpath'] = '/';
+				$options['sourceMapBasepath'] = GeneralUtility::getIndpEnv('TYPO3_DOCUMENT_ROOT');
+			}
 
 			$files = array(
 				$inputFilename => ''

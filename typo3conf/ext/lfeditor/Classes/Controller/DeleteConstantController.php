@@ -122,6 +122,16 @@ class DeleteConstantController extends AbstractBackendController {
 	}
 
 	/**
+	 * Clears extensionAndLangFileOptions cache, and in that way refreshes list of language file options in select box.
+	 *
+	 * @return void
+	 */
+	public function refreshLanguageFileListAction() {
+		$this->clearSelectOptionsCache('extensionAndLangFileOptions');
+		$this->redirect('deleteConstant');
+	}
+
+	/**
 	 * Prepares main section content of deleteConstant view.
 	 *
 	 * @throws LFException

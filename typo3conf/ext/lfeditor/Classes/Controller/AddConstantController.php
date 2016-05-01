@@ -104,6 +104,7 @@ class AddConstantController extends AbstractBackendController {
 			}
 
 			$this->configurationService->execWrite($newConstLanguages);
+			$this->session->setDataByKey('constantSelection', $nameOfConstant);
 
 			$this->addFlashMessage(
 				LocalizationUtility::translate('lang.file.write.success', 'lfeditor'),
@@ -114,6 +115,16 @@ class AddConstantController extends AbstractBackendController {
 		} catch (LFException $e) {
 			$this->addLFEFlashMessage($e);
 		}
+		$this->redirect('addConstant');
+	}
+
+	/**
+	 * Clears extensionAndLangFileOptions cache, and in that way refreshes list of language file options in select box.
+	 *
+	 * @return void
+	 */
+	public function refreshLanguageFileListAction() {
+		$this->clearSelectOptionsCache('extensionAndLangFileOptions');
 		$this->redirect('addConstant');
 	}
 

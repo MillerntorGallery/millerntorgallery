@@ -212,7 +212,16 @@
 
 			<!-- content element: table -->
 			<trans-unit id="tt_content.table.acctables_tableclass">
-				<target>bootstrap: additional css class</target>
+				<target>BOOTSTRAP: additional css class</target>
+			</trans-unit>
+			<trans-unit id="tablewidth">
+				<target>Tabelle element-style "width:auto"</target>
+			</trans-unit>
+			<trans-unit id="tablecolwidth">
+				<target>Szerokość kolumny w% w kolumnie (Przykład:"20|30|25|25"):</target>
+			</trans-unit>
+			<trans-unit id="tablerowcontext">
+				<target>BOOTSTRAP: Warianty kontekstowe (active,success,warning,danger lub info) pro Zeile (Przykład:"success||danger|"):</target>
 			</trans-unit>
 			<trans-unit id="tableclasses.default">
 				<target>basic example</target>

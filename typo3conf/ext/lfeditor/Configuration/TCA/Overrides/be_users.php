@@ -44,11 +44,7 @@ $fieldDefinition = array(
 	'be_users', 'lfeditor_change_editing_modes', '', 'after:allowed_languages'
 );
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
-	'be_users',
-	$fieldDefinition,
-	1
-);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('be_users', $fieldDefinition);
 
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
 	'be_users',

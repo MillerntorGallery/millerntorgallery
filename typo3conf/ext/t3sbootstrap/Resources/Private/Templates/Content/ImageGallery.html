@@ -1,0 +1,42 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
+	xmlns:t3sbs="http://typo3.org/ns/T3SBS/T3sbootstrap/ViewHelpers" data-namespace-typo3-fluid="true">		
+<f:layout name="Default" />
+<f:section name="Main">
+	<f:render partial="Header" arguments="{settings : settings, data : data, class : '' }" />
+	<f:if condition="{files}">
+		<div class="wrapper-parent" style="padding: 13px;">	
+			<f:for each="{files}" as="row" iteration="fileIterator">
+				<div class="row">
+					<f:for each="{row}" as="file">
+						<f:if condition="{settings.galleryColumns} == 1">
+							<div class="col-md-12" style="padding:2px;">
+						</f:if>
+						<f:if condition="{settings.galleryColumns} == 2">
+							<div class="col-sm-6 col-md-6" style="padding:2px;">
+						</f:if>
+						<f:if condition="{settings.galleryColumns} == 3">
+							<div class="col-xs-6 col-sm-4 col-md-4" style="padding:2px;">
+						</f:if>
+						<f:if condition="{settings.galleryColumns} == 4">
+							<div class="col-xs-6 col-sm-3 col-md-3" style="padding:2px;">
+						</f:if>
+						<f:if condition="{settings.galleryColumns} == 6">
+							<div class="col-xs-4 col-sm-4 col-md-2 col-lg-2" style="padding:2px;">
+						</f:if>
+						<f:if condition="{settings.galleryColumns} == 12">
+							<div class="col-xs-4 col-sm-3 col-md-2 col-lg-1" style="padding:2px;">
+						</f:if>
+						<a data-footer="{file.description}" data-title="{file.title}" 
+							 {f:if(condition: '{settings.media.popup.slideshow}',then: ' data-gallery="gallery-{data.uid}"')} 
+							 data-parent=".wrapper-parent" data-toggle="lightbox" href="fileadmin{file.identifier}">
+							<f:media file="{file}" class="img-responsive center-block{f:if(condition: '{settings.thumbnail}',then: ' img-thumbnail')}"
+							 width="{settings.imageWidth}" height="{settings.imageHeight}c" />
+						</a>		
+						</div>
+					</f:for>
+				</div>	
+			</f:for>						
+		</div>
+	</f:if>
+</f:section>	
+</html>

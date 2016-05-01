@@ -14,14 +14,42 @@
 			<trans-unit id="tt_content.tx_t3sbootstrap_panel_state">
 				<source>Panel contextual alternatives:</source>
 			</trans-unit>
-			<trans-unit id="tt_content.tx_t3sbootstrap_media_pull">
-				<source>Media object image orientation:</source>
+
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_position">
+				<source>Image position:</source>
 			</trans-unit>
-			<trans-unit id="tt_content.tx_t3sbootstrap_media_pull_left">
-				<source>Left-aligned image</source>
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_position_left">
+				<source>Left</source>
 			</trans-unit>
-			<trans-unit id="tt_content.tx_t3sbootstrap_media_pull_right">
-				<source>Right-aligned image</source>
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_position_right">
+				<source>Right</source>
+			</trans-unit>
+
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_alignment">
+				<source>Image alignment:</source>
+			</trans-unit>
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_alignment_top">
+				<source>Top-aligned image</source>
+			</trans-unit>
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_alignment_middle">
+				<source>Middle-aligned image</source>
+			</trans-unit>
+			<trans-unit id="tt_content.tx_t3sbootstrap_media_alignment_bottom">
+				<source>Bottom-aligned image</source>
+			</trans-unit>
+
+			<trans-unit id="tt_content.tx_t3sbootstrap_content_slide">
+				<source>Content slide through the rootline (on top/bottom of column)</source>
+			</trans-unit>
+
+			<trans-unit id="tt_content.tx_t3sbootstrap_image_style">
+				<source>Bootstrap image style</source>
+			</trans-unit>
+			<trans-unit id="pages.tx_t3sbootstrap_fontawesome_icon">
+				<source>Fontawesome Icon (e.g. fa-cog)</source>
+			</trans-unit>
+			<trans-unit id="pages.tx_t3sbootstrap_linkToTop">
+				<source>Link to top</source>
 			</trans-unit>
 
 		</body>

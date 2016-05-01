@@ -17,6 +17,7 @@
 				additionalAttributes="{onchange: 'submitForm(\'mainMenuForm\')'}"
 				/>
 		</f:if>
+		<f:render partial="SelectNumConstants" arguments="{_all}"/>
 	</f:form>
 </f:section>
 
@@ -39,7 +40,7 @@
 				<f:if condition="{displayNextButton}">
 					<f:form.submit value="{f:translate(key:'button.session.next')}" onclick="submitLanguageFileEdit(2)" />
 				</f:if>
-				<f:form.submit value="{f:translate(key:'button.save')}" onclick="submitLanguageFileEdit(3)" />
+				<f:form.submit id="tx-lfeditor-button-submit" value="{f:translate(key:'button.save')}" onclick="submitLanguageFileEdit(3)" />
 				<f:form.submit value="{f:translate(key:'button.cancel')}" onclick="return confirmCancelFileEdit()" />
 			</div>
 
@@ -48,7 +49,7 @@
 					<legend class="bgColor3 tx-lfeditor-constantMaxWidth400" title="{languageSelection}:{constKey}">
 						{f:if(condition: '{languageSelection} == \'default\'', then: 'en', else: '{languageSelection}')}:{constKey}
 					</legend>
-					<lfe:extendedIf condition="{languageSelection} == {defaultLanguage}" and="{defaultLanguagePermission} != 'TRUE'">
+					<lfe:extendedIf condition="{languageSelection} == {defaultLanguage}" and="{defaultLanguagePermission} != 1">
 						<f:then>
 							<f:form.textarea
 								cols="80" rows="{numTextAreaRows}"
@@ -78,7 +79,7 @@
 						<legend class="bgColor3 tx-lfeditor-constantMaxWidth400" title="{referenceLanguageSelection}:{constKey}">
 							{f:if(condition: '{referenceLanguageSelection} == \'default\'', then: 'en', else: '{referenceLanguageSelection}')}:{constKey}
 						</legend>
-						<lfe:extendedIf condition="{referenceLanguageSelection} == {defaultLanguage}" and="{defaultLanguagePermission} != 'TRUE'">
+						<lfe:extendedIf condition="{referenceLanguageSelection} == {defaultLanguage}" and="{defaultLanguagePermission} != 1">
 							<f:then>
 								<f:form.textarea
 									cols="80" rows="{numTextAreaRows}"

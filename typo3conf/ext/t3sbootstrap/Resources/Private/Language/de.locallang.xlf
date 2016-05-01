@@ -8,6 +8,17 @@
 				<target>suchen</target>
 			</trans-unit>
 
+			<trans-unit id="moreButton">
+				<target>weiter</target>
+			</trans-unit>
+
+			<trans-unit id="login">
+				<target>Einloggen</target>
+			</trans-unit>
+
+			<trans-unit id="logout">
+				<target>Ausloggen</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

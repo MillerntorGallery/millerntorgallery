@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "lfeditor".
  *
- * Auto generated 16-06-2015 13:15
+ * Auto generated 01-05-2016 23:35
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -11,8 +11,8 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array (
-	'title' => 'Language File Editor',
-	'description' => 'This module serves several functions for editing of language files.
+  'title' => 'Language File Editor',
+  'description' => 'This module serves several functions for editing of language files.
 The extension differs between editors and administrators with appropriate privileges.
 Normal users are allowed to edit only languages for which they have permission.
 Following functions are implemented in this module:
@@ -27,29 +27,30 @@ Following functions are implemented in this module:
 	* Tree view of constants
 	* Meta information handling
 	* Backups, recovering and diff view',
-	'category' => 'module',
-	'version' => '3.1.5',
-	'state' => 'stable',
-	'uploadfolder' => false,
-	'createDirs' => '',
-	'clearcacheonload' => false,
-	'author' => 'Stefan Galinski, Damjan Komlenac',
-	'author_email' => 'stefan@sgalinski.de',
-	'author_company' => 'sgalinski Internet Services',
-	'constraints' => 
-	array (
-		'depends' => 
-		array (
-			'php' => '5.3.0-5.6.99',
-			'typo3' => '6.2.0-7.99.99',
-		),
-		'suggests' => 
-		array (
-			'tinymce' => '4.2.0',
-		),
-		'conflicts' => 
-		array (
-		),
-	),
+  'category' => 'module',
+  'version' => '3.3.2',
+  'doNotLoadInFE' => 1,
+  'state' => 'stable',
+  'uploadfolder' => false,
+  'createDirs' => '',
+  'clearcacheonload' => false,
+  'author' => 'Stefan Galinski, Damjan Komlenac',
+  'author_email' => 'stefan@sgalinski.de',
+  'author_company' => 'sgalinski Internet Services',
+  'constraints' => 
+  array (
+    'depends' => 
+    array (
+      'php' => '5.3.0-5.6.99',
+      'typo3' => '6.2.15-7.99.99',
+    ),
+    'conflicts' => 
+    array (
+    ),
+    'suggests' => 
+    array (
+      'tinymce' => '4.2.8',
+    ),
+  ),
 );
 

@@ -35,11 +35,39 @@ abstract class AbstractParser implements ParserInterface{
 	 */
 	protected $config = array();
 
+	public function __construct() {
+		$this->initEmConfiguration();
+	}
+
 	/**
 	 * @todo add docblock
 	 */
 	protected function initEmConfiguration() {
 		$this->config = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['dyncss']);
+	}
+
+	/**
+	 * returns the parser version, not the extension version
+	 * @return string
+	 */
+	public function getVersion() {
+		return 'unknown';
+	}
+
+	/**
+	 * returns the homepage of the parser
+	 * @return string
+	 */
+	public function getParserHomepage() {
+		return NULL;
+	}
+
+	/**
+	 * return readable name of the project
+	 * @return string
+	 */
+	public function getParserName() {
+		return NULL;
 	}
 
 	/**
@@ -97,9 +125,22 @@ abstract class AbstractParser implements ParserInterface{
 		$relativePath = dirname(substr($this->inputFilename, strlen(PATH_site))) . '/';
 
 		/**
-		 * @todo missing declaration of $matches
+		 * find all matches of url() and adjust uris
 		 */
 		preg_match_all('|url[\s]*\([\s]*(?<url>[^\)]*)[\s]*\)[\s]*|Ui', $string, $matches, PREG_SET_ORDER);
+
+		if(is_array($matches) && count($matches)) {
+			foreach($matches as $key => $value) {
+				$url = trim($value['url'], '\'"');
+				$newPath = $this->resolveUrlInCss($url);
+				$string = str_replace($url, $newPath, $string);
+			}
+		}
+
+		/**
+		 * find all matches of src= and adjust uris
+		 */
+		preg_match_all('|src=([\'"])(?<url>[^\'"]*)\1|Ui', $string, $matches, PREG_SET_ORDER);
 
 		if(is_array($matches) && count($matches)) {
 			foreach($matches as $key => $value) {
@@ -120,16 +161,26 @@ abstract class AbstractParser implements ParserInterface{
 	 * @todo add typehinting
 	 */
 	public function resolveUrlInCss($url) {
-		if(strpos($url, '://') !== FALSE) {
-			// http://, ftp:// etc. urls leave untouched
+		if(substr($url, 0, 2) === '//') {
+			// double slashed indicate a fully fledged url like //typo3.org
 			return $url;
-		} elseif(substr($url, 0, 1) === '/') {
-			// absolute path, should not be touched
-			return $url;
-		} else {
-			// anything inside TYPO3 has to be adjusted
-			return '../../../../' . dirname($this->removePrefixFromString(PATH_site, $this->inputFilename)) . '/' . $url;
 		}
+		if(strpos($url, '://') !== FALSE) {
+			// http://, ftp:// etc. should not be touched
+			return $url;
+		}
+		if(substr($url, 0, 1) === '/') {
+			if (substr($url, 0, strlen(PATH_site)) === PATH_site) {
+				return '../../' . substr($url, strlen(PATH_site));
+			}
+			return $url;
+		}
+		if(substr($url, 0, 5) === 'data:') {
+			// data:image/svg+xml;base64,... should not be touched
+			return $url;
+		}
+		// anything inside TYPO3 has to be adjusted
+		return '../../../../' . dirname($this->removePrefixFromString(PATH_site, $this->inputFilename)) . '/' . $url;
 	}
 
 	/**
@@ -150,12 +201,16 @@ abstract class AbstractParser implements ParserInterface{
 	}
 
 	/**
-	 * @param $overrides
+	 * @param array $overwrites
 	 *
-	 * @todo add typehinting
 	 */
-	public function setOverrides($overrides) {
-		$this->overrides = ArrayUtility::arrayMergeRecursiveOverrule($this->overrides, $overrides);
+	public function setOverrides($overwrites) {
+		foreach($overwrites as $key => $overwrite) {
+			if(empty($overwrite)) {
+				unset($overwrites[$key]);
+			}
+		}
+		$this->overrides = ArrayUtility::arrayMergeRecursiveOverrule($this->overrides, $overwrites);
 	}
 
 	/**
@@ -208,7 +263,10 @@ abstract class AbstractParser implements ParserInterface{
 
 			if($fileContent !== false) {
 				file_put_contents($outputFilename, $fileContent);
-				unlink($preparedFilename);
+				// important for some cache clearing scenarios
+				if(file_exists($preparedFilename)) {
+					unlink($preparedFilename);
+				}
 			}
 		}
 

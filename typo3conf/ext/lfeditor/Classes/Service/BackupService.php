@@ -32,6 +32,9 @@ use SGalinski\Lfeditor\Utility\Functions;
 use SGalinski\Lfeditor\Utility\SgLib;
 use SGalinski\Lfeditor\Utility\Typo3Lib;
 
+/**
+ * Class BackupService
+ */
 class BackupService extends AbstractService {
 	/**
 	 * @var \SGalinski\Lfeditor\Service\FileBackupService
@@ -79,9 +82,9 @@ class BackupService extends AbstractService {
 
 				$extPath = SgLib::trimPath(
 					$langFile, SgLib::trimPath(
-						PATH_site,
-						$typo3AbsFile
-					), '/'
+					PATH_site,
+					$typo3AbsFile
+				), '/'
 				);
 			} else {
 				$extPath = SgLib::trimPath(PATH_site, $confService->getFileObj()->getVar('absPath'), '/');

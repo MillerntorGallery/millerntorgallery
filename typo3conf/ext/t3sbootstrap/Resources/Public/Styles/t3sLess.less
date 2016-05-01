@@ -1,0 +1,362 @@
+/* CUSTOM STYLE for EXT:t3sbootstrap */
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+/* navbar - main navigation
+***********************
+*/
+.nav a,
+.navbar-header a {
+  outline: 0;
+}
+.navbar li a span.glyphicon {
+  margin: 0 7px 3px;
+  top: 3px;
+}
+.navbar li a span.glyphicon-print {
+  margin-right: 0;
+}
+.navbar-collapse .navbar-form {
+  border: none;
+  box-shadow: none;
+  margin: 8px -15px 8px -5px;
+}
+/* logo in navbar */
+.navbar-header .navbar-brand > img {
+  display: block;
+  height: 50px;
+  width: auto;
+  margin-top: -15px;
+}
+/* fontawesome in navbar */
+.navbar-nav a .fa {
+	float: right;
+	margin-top:3px;
+}
+.external-link-new-window:before {
+	content:  "\f08e";
+}
+.external-link:before {
+	content:  "\f08e";
+}
+.internal-link:before {
+	content:  "\f14c";
+}
+.internal-link-new-window:before {
+	content:  "\f14c";
+}
+.download:before {
+	content:  "\f019";
+}
+.mail:before {
+	content:  "\f003";
+}
+.external-link-new-window:before, 
+.external-link:before, 
+.internal-link:before,
+.internal-link-new-window:before, 
+.download:before, 
+.mail:before {
+	display: inline-block;
+	font-family: FontAwesome;
+	font-style: normal;
+	font-weight: normal;
+	line-height: 1;
+	text-decoration: inherit;
+	padding-right: 0.3em;
+}
+
+/* languageMenu */
+#languageMenu img {
+  vertical-align: baseline;
+}
+#languageMenu a img {
+  margin-right: 5px;
+}
+
+/* textmedia */
+.textmedia .carousel {
+	margin-bottom: 1.5rem;
+}
+
+
+img.border,
+iframe.border {
+	border-color: @hr-border;
+	border-style: solid;
+}
+
+figcaption {
+    display: block !important;
+    caption-side: bottom;
+    text-align: left;
+    color: @gray;
+    font-size: 85%;
+    font-weight: normal;
+    line-height: 1;
+    padding-top: 5px;
+}
+
+/* Colorbox 
+#cboxTitle, #cboxPrevious, #cboxPrevious, #cboxNext, #cboxSlideshow, #cboxClose {
+    bottom: -2px;
+}
+*/
+/* Accordion */
+.panel-title a {
+	display:block; padding: 10px 15px;
+}
+.panel-group .panel-heading {
+	padding: 0px 0px;
+}
+.nav.nav-tabs {
+    margin-bottom: 15px;
+}
+
+/* bs-callout */
+.bs-callout {
+  padding: 20px;
+  margin: 20px 0;
+  border: 1px solid @gray;
+  border-left-width: 5px;
+  border-radius: 3px;
+}
+.bs-callout h4 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.bs-callout p:last-child {
+  margin-bottom: 0;
+}
+.bs-callout code {
+  border-radius: 3px;
+}
+.bs-callout + .bs-callout {
+  margin-top: -5px;
+}
+.bs-callout-danger {
+  border-left-color: @brand-danger;
+}
+.bs-callout-danger h4 {
+  color: @brand-danger;
+}
+.bs-callout-warning {
+  border-left-color: @brand-warning;
+}
+.bs-callout-warning h4 {
+  color: @brand-warning;
+}
+.bs-callout-info {
+  border-left-color: @brand-info;
+}
+.bs-callout-info h4 {
+	color: @brand-info;
+}
+
+/* Link to top */
+.back-to-top {
+	position: fixed;
+	bottom: 2em;
+	right: 1.5em;
+	text-decoration: none;
+	color: @component-active-bg;
+	background-color: lighten(@component-active-bg, 20%);
+	opacity: 0.7;
+	padding: 1em;
+	z-index: 999;
+}
+.back-to-top:hover {
+	background-color: @component-active-bg;
+}
+
+/* Indexed Search */
+.tx-indexedsearch-redMarkup {
+  color: red;
+}
+
+/* diverse
+***********************
+*/
+.jumbotron {
+	margin-bottom: 20px;
+	min-height: 200px;
+}
+.alert {
+  overflow: auto;
+}
+
+.well p:last-child {
+  margin: 0;
+}
+h1 small {
+  white-space: normal;
+  display: inline;
+}
+
+.page-content .fsc-default,
+.page-content .gridelement,
+.page-content .background-image,
+.page-content .background-color {
+	margin-bottom: 20px;
+}
+.ge_collapsible_accordion {
+	margin-bottom: 0 !important;	
+}
+.rulerBefore {
+    border-top: 1px solid @gray-light;
+}
+.rulerAfter {
+    border-bottom: 1px solid @gray-light;
+	padding-bottom: 15px;
+}
+
+/* RTE
+***********************
+*/
+p span.indent-1,
+pre span.indent-1 {
+  padding-left: 20px;
+}
+p span.indent-2,
+pre span.indent-2 {
+  padding-left: 40px;
+}
+p span.indent-3,
+pre span.indent-3 {
+  padding-left: 60px;
+}
+
+/* footer */
+#page-footer.navbar {
+    border-radius: 0;
+    margin-bottom: 0;   
+}
+#page-footer.navbar-default,
+#page-footer.navbar-default a {
+	color:@navbar-default-color;
+}
+#page-footer.navbar-inverse,
+#page-footer.navbar-inverse a {
+	color:@navbar-inverse-color;
+}
+
+.parallax {
+    background-attachment: fixed;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+}
+
+.vcenter {
+	position: relative;
+	top: 50%;
+	-webkit-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+}
+
+.caret-up {
+  width: 0;
+  height: 0;
+  border-left: 4px solid rgba(0, 0, 0, 0);
+  border-right: 4px solid rgba(0, 0, 0, 0);
+  border-bottom: 4px solid;
+  display: inline-block;
+  margin-left: 2px;
+  vertical-align: middle;
+}
+
+@media screen and (max-width: 767px){
+	.navbar-nav .open .dropdown-menu {
+		background-color: lighten(@brand-primary, 40%);	
+	}
+	.x-navbar-fixed-top {
+		position: relative !important;
+	}	
+}
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+	.background-fixed {
+	 	background-attachment: fixed;	
+	}
+	.navbar-nav .open .dropdown-menu {
+		background-image: none;
+		background-repeat: no-repeat;
+		box-shadow: 0px 0px 0px black;
+	}
+
+	/* navbar main navigation */
+	.navbar-nav a .fa {
+		float: none;
+	}
+
+	/* sidebar sub navigation */
+	nav.sidebar a .fa {
+		margin-top:3px;
+	}	
+	
+	/* multi level dropdown */
+	.dropdown-submenu {
+		position: relative;
+	}
+	.dropdown-submenu > .dropdown-menu {
+		top: 0;
+		left: 100%;
+		margin-top: -6px;
+		margin-left: -1px;
+		-webkit-border-radius: 0 6px 6px 6px;
+		-moz-border-radius: 0 6px 6px;
+		border-radius: 0 6px 6px 6px;
+	}
+	.dropdown-submenu:hover > .dropdown-menu {
+		display: block;
+	}
+
+
+	.indent {
+	    padding-left: 100px;
+	}
+
+  /* end min-width: 768px */
+}
+
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+	
+	/* affix */
+	.affix {
+		top: 80px;
+		width: 22rem;
+	}
+	.affix-bottom {
+		position: absolute;
+		width: 262.5px;
+	}
+	.affixmenu .nav > li.active > a {
+		background-color: @component-active-bg;
+		color: @component-active-color;
+	}
+	
+	/* textmedia */
+	.media-first-row .embed-responsive,
+	.media-first-row .img-responsive {
+		margin-top: 0;
+	}
+	  
+	/* end min-width: 992px */
+}
+
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+	/* affix */
+	.affix {
+		width: 26rem;
+	}
+  
+  /* end min-width: 1200px */
+}

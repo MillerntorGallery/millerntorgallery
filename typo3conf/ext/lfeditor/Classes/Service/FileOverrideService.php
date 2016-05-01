@@ -30,6 +30,9 @@ use SGalinski\Lfeditor\Exceptions\LFException;
 use SGalinski\Lfeditor\Utility\SgLib;
 use SGalinski\Lfeditor\Utility\Typo3Lib;
 
+/**
+ * FileOverrideService
+ */
 class FileOverrideService extends FileBaseXMLService {
 	/**
 	 * Object which represents original (overridden) language file.
@@ -128,10 +131,12 @@ class FileOverrideService extends FileBaseXMLService {
 	/**
 	 * Writes language override files.
 	 *
+	 * @param array|null $editedLanguages
 	 * @throws LFException raised if a file cant be written
+	 * @throws \Exception
 	 * @return void
 	 */
-	public function writeFile() {
+	public function writeFile($editedLanguages = NULL) {
 		$this->deleteDuplicates();
 		if (!$this->langDataExists() && !is_file($this->absFile)) {
 			return;

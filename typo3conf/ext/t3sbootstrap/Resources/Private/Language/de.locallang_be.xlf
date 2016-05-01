@@ -4,6 +4,10 @@
 		<header/>
 		<body>
 
+			<trans-unit id="backend_layout.bootstrap">
+				<target>Bootstrap</target>
+			</trans-unit>
+
 			<trans-unit id="backend_layout.jumbotron">
 				<target>Jumbotron</target>
 			</trans-unit>
@@ -61,6 +65,13 @@
 				<target>2 Spalten Jumbotron (3-9)</target>
 			</trans-unit>
 
+			<trans-unit id="backend_layout.otc">
+				<target>Optionaler oberer Inhalt</target>
+			</trans-unit>
+			<trans-unit id="backend_layout.obc">
+				<target>Optionaler unterer Inhalt</target>
+			</trans-unit>
+
 
 			<!-- Flexforms in gridelements -->
 			<trans-unit id="flexforms.settings">
@@ -105,6 +116,9 @@
 			<trans-unit id="flexforms.maxImgHeight">
 				<target>Max. Bildhöhe:</target>
 			</trans-unit>
+			<trans-unit id="flexforms.interval">
+				<source>Intervall:</source>
+			</trans-unit>
 			<trans-unit id="flexforms.none">
 				<target>keiner</target>
 			</trans-unit>
@@ -115,51 +129,179 @@
 				<target>Gleiche Höhe pro Reihe</target>
 			</trans-unit>
 
+			<trans-unit id="flexforms.small">
+				<target>Klein</target>
+			</trans-unit>
+			<trans-unit id="flexforms.large">
+				<target>Groß</target>
+			</trans-unit>
+			<trans-unit id="flexforms.animation">
+				<target>Animation</target>
+			</trans-unit>
+			<trans-unit id="flexforms.modalsize">
+				<target>Modalgröße</target>
+			</trans-unit>
+			<trans-unit id="flexforms.usebutton">
+				<target>Button</target>
+			</trans-unit>
+			<trans-unit id="flexforms.buttonstyle">
+				<target>Button Stil</target>
+			</trans-unit>
 
 			<!-- Content element: Header Layout -->
-			<trans-unit id="tt_content.header_layout.1">
-				<target>Bootstrap: Page header</target>
+			<trans-unit id="tt_content.header_layout.ph1">
+			               <target>Bootstrap Page Header: H1</target>
+			</trans-unit>
+			<trans-unit id="tt_content.header_layout.ph2">
+			               <target>Bootstrap Page Header: H2</target>
 			</trans-unit>
 			<trans-unit id="tt_content.header_layout.2">
-				<target>Überschrift 2</target>
+			               <target>Überschrift H2</target>
 			</trans-unit>
 			<trans-unit id="tt_content.header_layout.3">
-				<target>Überschrift 3</target>
+			               <target>Überschrift H3</target>
 			</trans-unit>
 			<trans-unit id="tt_content.header_layout.4">
-				<target>Überschrift 4</target>
+			               <target>Überschrift H4</target>
 			</trans-unit>
 			<trans-unit id="tt_content.header_layout.5">
-				<target>Überschrift 5</target>
+			               <target>Überschrift H5</target>
+			</trans-unit>
+			<trans-unit id="tt_content.header_layout.6">
+			               <target>Überschrift H6</target>
 			</trans-unit>
 
 
 			<!-- New Content Element Wizard -->
-			<trans-unit id="bootstrap.panel.title">
-				<target>Panels</target>
+
+			<trans-unit id="t3sbs_contentelements">
+				<target>T3S Bootstrap</target>
 			</trans-unit>
-			<trans-unit id="bootstrap.panel.description">
-				<target>DOM in einer Box. Für jene Situationen, versuchen Sie die Panel-Komponente.</target>
+			<trans-unit id="t3sbs_header.title">
+				<target>BS Nur Überschrift</target>
 			</trans-unit>
-			<trans-unit id="bootstrap.mediaobject.title">
-				<target>Media object</target>
+			<trans-unit id="t3sbs_header.description">
+				<target>Eine Überschrift.</target>
 			</trans-unit>
-			<trans-unit id="bootstrap.mediaobject.description">
-				<target>Inhaltselement mit Text und Bild. Das Bild kann links oder rechts floaten.</target>
+			<trans-unit id="t3sbs_text.title">
+				<target>BS Text</target>
 			</trans-unit>
-			<trans-unit id="bootstrap.thumbnail.title">
-				<target>Thumbnail</target>
+			<trans-unit id="t3sbs_text.description">
+				<target>Ein normales Textelement mit Überschrift und Fließtext.</target>
 			</trans-unit>
-			<trans-unit id="bootstrap.thumbnail.description">
-				<target>Nur mit "Thumbnails Container" zu nutzen (Grid Element).</target>
+			<trans-unit id="t3sbs_textpic.title">
+				<target>BS Text &amp; Bilder</target>
 			</trans-unit>
-			<trans-unit id="bootstrap.carousel.title">
-				<target>Carousel slide</target>
+			<trans-unit id="t3sbs_textpic.description">
+				<target>Eine beliebige Anzahl von Bildern mit umfließendem Text.</target>
 			</trans-unit>
-			<trans-unit id="bootstrap.carousel.description">
-				<target>Nur mit "Carousel Container" zu nutzen (Grid Element).</target>
+			<trans-unit id="t3sbs_images.title">
+				<target>BS Bilder</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_images.description">
+				<target>Eine beliebige Anzahl von in Zeilen und Spalten angeordneten Bildern mit Beschriftung.</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_bullets.title">
+				<target>BS Aufzählung </target>
+			</trans-unit>
+			<trans-unit id="t3sbs_bullets.description">
+				<target>Eine einzelne Aufzählung.</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_table.title">
+				<target>BS Tabelle </target>
+			</trans-unit>
+			<trans-unit id="t3sbs_table.description">
+				<target>Eine einfache Tabelle.</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_menu.title">
+				<target>BS Spezial-Menüs</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_menu.description">
+				<target>Erstellt ein Seitenmenü, eine Sitemap oder andere Spezial-Menüs.</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_fluidtemplate.title">
+				<target>Fluidtemplate</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_fluidtemplate.description">
+				<target>Hier kannst Du Dein eigenes Fluidtemplate einfügen (Pfad zum Template z.B. fileadmin/template.html).</target>
 			</trans-unit>
 
+
+			<trans-unit id="t3sbs_tabs.title">
+				<target>BS Togglable tabs</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_tabs.description">
+				<target>Add quick, dynamic tab functionality to transition through panes of local content.</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_nonvisible_header">
+				<target>Header (not visible in the frontend):</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_carousel.title">
+				<target>BS Carousel</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_carousel.description">
+				<target>Nur mit "Carousel Container" zu nutzen (Grid Element).</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_thumbnails.title">
+				<target>BS Thumbnails </target>
+			</trans-unit>
+			<trans-unit id="t3sbs_thumbnails.description">
+				<target>Nur mit "Thumbnails Container" zu nutzen (Grid Element).</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_video.title">
+				<target>BS Video</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_video.description">
+				<target>Responsive embeded HML5-Video-Player.</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_panel.title">
+				<target>BS Panels</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_panel.description">
+				<target>DOM in einer Box. Für jene Situationen, versuchen Sie die Panel-Komponente.</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_mediaobject.title">
+				<target>BS Media object</target>
+			</trans-unit>
+			<trans-unit id="t3sbs_mediaobject.description">
+				<target>Inhaltselement mit Text und Bild. Das Bild kann links oder rechts floaten.</target>
+			</trans-unit>
+
+
+			<!-- Flexform -->
+			<trans-unit id="flexform.source">
+				<target>Quelle</target>
+			</trans-unit>
+			<trans-unit id="flexform.source.MP4">
+				<target>MP4 Quelle</target>
+			</trans-unit>
+			<trans-unit id="flexform.source.WebM">
+				<target>WebM Quelle</target>
+			</trans-unit>
+			<trans-unit id="flexform.source.Ogg">
+				<target>Ogg Quelle</target>
+			</trans-unit>
+			<trans-unit id="flexform.ownsource">
+				<target>Eigene Video Quelle</target>
+			</trans-unit>
+			<trans-unit id="flexform.previewImage">
+				<target>Vorschaubild</target>
+			</trans-unit>
+			<trans-unit id="flexform.aspectratio">
+				<target>Seitenverhältnis</target>
+			</trans-unit>
+			<trans-unit id="flexform.centerbutton">
+				<target>Button zentrieren</target>
+			</trans-unit>
+			<trans-unit id="flexform.autoplay">
+				<target>Autoplay</target>
+			</trans-unit>
+			<trans-unit id="flexform.preload">
+				<target>Preload</target>
+			</trans-unit>
+			<trans-unit id="flexform.loop">
+				<target>Loop</target>
+			</trans-unit>
 
 			<!-- Content element: Section -->
 			<trans-unit id="tt_content.section.hidden">
@@ -169,7 +311,7 @@
 				<target>Versteckt auf Handys</target>
 			</trans-unit>
 			<trans-unit id="tt_content.section.visible-phone">
-				<target>Sichtbar am Telefon</target>
+				<target>Sichtbar auf Handys</target>
 			</trans-unit>
 			<trans-unit id="tt_content.section.hidden-desktop">
 				<target>Versteckt auf Desktops</target>
@@ -210,10 +352,28 @@
 				<target>Callout info</target>
 			</trans-unit>
 
+			<trans-unit id="tt_content.containerOverride">
+				<target>"Fluid Container" Konstante überschreiben.</target>
+			</trans-unit>
+
+
+			<trans-unit id="tt_content.menu_type.8">
+				<target>BOOTSTRAP: Sitemap der ausgewählten Seiten</target>
+			</trans-unit>
+
 
 			<!-- Content element: Table -->
 			<trans-unit id="tt_content.table.acctables_tableclass">
 				<target>BOOTSTRAP: Additional CSS Class</target>
+			</trans-unit>
+			<trans-unit id="tablewidth">
+				<target>Tabelle element-style "width:auto"</target>
+			</trans-unit>
+			<trans-unit id="tablecolwidth">
+				<target>Spaltenbreite in % pro Spalte (Beispiel:"20|30|25|25"):</target>
+			</trans-unit>
+			<trans-unit id="tablerowcontext">
+				<target>BOOTSTRAP: Kontext-Varianten (active,success,warning,danger oder info) pro Zeile (Beispiel:"success||danger|"):</target>
 			</trans-unit>
 			<trans-unit id="tableclasses.default">
 				<target>Basic example</target>
@@ -242,6 +402,9 @@
 			<trans-unit id="gridelement.anyColumns.colPos.2">
 				<target>Spalte 3</target>
 			</trans-unit>
+			<trans-unit id="gridelement.anyColumns.colPos.3">
+				<target>Spalte 4</target>
+			</trans-unit>
 			<trans-unit id="gridelement.twoColumns.title">
 				<target>2 Spalten</target>
 			</trans-unit>
@@ -253,6 +416,12 @@
 			</trans-unit>
 			<trans-unit id="gridelement.threeColumns.description">
 				<target>Behälter mit 3 Spalten</target>
+			</trans-unit>
+			<trans-unit id="gridelement.fourColumns.title">
+				<target>4 Spalten</target>
+			</trans-unit>
+			<trans-unit id="gridelement.fourColumns.description">
+				<target>Behälter mit 4 Spalten</target>
 			</trans-unit>
 			<trans-unit id="gridelement.tabContainer.title">
 				<target>Tab Behälter</target>
@@ -284,12 +453,45 @@
 			<trans-unit id="gridelement.thumbnailsContainer.description">
 				<target>Ein Behälter für verschiedene Thumbnails (CE:t3sbootstrap_thumbnail) (roter Rahmen)</target>
 			</trans-unit>
+			<trans-unit id="gridelement.modal.title">
+				<target>Modal Behälter</target>
+			</trans-unit>
+			<trans-unit id="gridelement.modal.description">
+				<target>Ein Behälter für verschiedene Content Elemente (grüner Rahmen)</target>
+			</trans-unit>
 
 			<trans-unit id="gridelement.carouselContainer.title">
 				<target>Carousel Behälter</target>
 			</trans-unit>
 			<trans-unit id="gridelement.carouselContainer.description">
 				<target>Ein Behälter für verschiedene Carousel slides (CE:t3sbootstrap_carousel) (roter Rahmen)</target>
+			</trans-unit>
+
+			<trans-unit id="gridelement.grayscaleSection.title">
+				<target>Grayscale Section Behälter</target>
+			</trans-unit>
+			<trans-unit id="gridelement.grayscaleSection.description">
+				<target>Ein Behälter für verschiedene Sections, für das "Grayscale theme backend layout" (grüner Rahmen)</target>
+			</trans-unit>
+
+			<trans-unit id="gridelement.backgroundWrapper.title">
+				<target>Background wrapper</target>
+			</trans-unit>
+			<trans-unit id="gridelement.backgroundWrapper.description">
+				<target>Ein Container mit Hintergrundbild oder -farbe.</target>
+			</trans-unit>
+			<trans-unit id="gridelement.parallaxWrapper.title">
+				<target>Parallax wrapper</target>
+			</trans-unit>
+			<trans-unit id="gridelement.parallaxWrapper.description">
+				<target>Parallax scrolling Container (Handys/Tablets: ohne scrolling)</target>
+			</trans-unit>
+
+			<trans-unit id="t3sbsgallery.title">
+				<target>Image Gallery</target>
+			</trans-unit>
+			<trans-unit id="t3sbsgallery.description">
+				<target>Imag Gallery mit Lightbox.</target>
 			</trans-unit>
 
 

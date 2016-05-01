@@ -70,6 +70,7 @@
 			<label index="cal.pi_flexform.categoryMode.showSelected">Show only selected categories (exact match)</label>
 			<label index="cal.pi_flexform.categoryMode.excludeSelected">Don't show selected categories</label>
 			<label index="cal.pi_flexform.categoryMode.showSelectedOr">Show only selected categories (any)</label>
+			<label index="cal.pi_flexform.categoryMode.showMinSelected">Show selected categories (minimum match)</label>
 			<label index="cal.pi_flexform.sheetYearView">Year View</label>
 			<label index="cal.pi_flexform.yearViewPid">Year view page</label>
 			<label index="cal.pi_flexform.yearTemplate">Year template</label>
@@ -124,7 +125,6 @@
 			<label index="cal.pi_flexform.eventViewPid">Event view page</label>
 			<label index="cal.pi_flexform.eventTemplate">Event template</label>
 			<label index="cal.pi_flexform.isPreview">Show preview</label>
-			<label index="cal.pi_flexform.phpicalendarEventTemplate">PhpICalendar event template</label>
 			<label index="cal.pi_flexform.createEventTemplate">Create event template</label>
 			<label index="cal.pi_flexform.confirmEventTemplate">Confirm event template</label>
 			<label index="cal.pi_flexform.deleteEventTemplate">Delete event template</label>
@@ -213,6 +213,7 @@
 			<label index="cal.pi_flexform.categoryMode.showSelected">Zeige exakt die ausgewählte Kategorien</label>
 			<label index="cal.pi_flexform.categoryMode.excludeSelected">Zeige ausgewählte Kategorien nicht</label>
 			<label index="cal.pi_flexform.categoryMode.showSelectedOr">Zeige irgend eine der ausgewählten Kategorien</label>
+			<label index="cal.pi_flexform.categoryMode.showMinSelected">Zeige minimum die ausgewählten Kategorien</label>
 			<label index="cal.pi_flexform.sheetYearView">Jahres-Ansicht</label>
 			<label index="cal.pi_flexform.yearViewPid">Jahres-Ansicht Seite</label>
 			<label index="cal.pi_flexform.yearTemplate">Jahres-Ansicht Template</label>
@@ -267,7 +268,6 @@
 			<label index="cal.pi_flexform.eventViewPid">Ereignis-Ansicht Seite</label>
 			<label index="cal.pi_flexform.eventTemplate">Ereignis-Ansicht Template</label>
 			<label index="cal.pi_flexform.isPreview">Zeige Vorschau</label>
-			<label index="cal.pi_flexform.phpicalendarEventTemplate">PhpICalendar Ereignis-Template</label>
 			<label index="cal.pi_flexform.createEventTemplate">Ereignis erstellen Template</label>
 			<label index="cal.pi_flexform.confirmEventTemplate">Ereignis bestätigen Template</label>
 			<label index="cal.pi_flexform.deleteEventTemplate">Ereignis löschen Template</label>
@@ -341,7 +341,6 @@
 			<label index="cal.pi_flexform.sheetEventView">Begivenhedsoversigt</label>
 			<label index="cal.pi_flexform.eventViewPid">Begivenhedsoversigt side</label>
 			<label index="cal.pi_flexform.eventTemplate">Begivenhedsskabelon</label>
-			<label index="cal.pi_flexform.phpicalendarEventTemplate">PhpICalendar begivenhedsskabelon</label>
 			<label index="cal.pi_flexform.createEventTemplate">Opret begivenhedsskabelon</label>
 			<label index="cal.pi_flexform.confirmEventTemplate">Bekræft begivenhedsskabelon</label>
 			<label index="cal.pi_flexform.deleteEventTemplate">Slet begivenhedsskabelon</label>
@@ -410,7 +409,6 @@
 			<label index="cal.pi_flexform.sheetEventView">Vista de Evento</label>
 			<label index="cal.pi_flexform.eventViewPid">Página de Vista de Evento</label>
 			<label index="cal.pi_flexform.eventTemplate">Plantilla de evento</label>
-			<label index="cal.pi_flexform.phpicalendarEventTemplate">Plantilla de evento PhpICalendar</label>
 			<label index="cal.pi_flexform.createEventTemplate">Crear plantilla de evento</label>
 			<label index="cal.pi_flexform.confirmEventTemplate">Plantilla de confirmar evento</label>
 			<label index="cal.pi_flexform.deleteEventTemplate">Plantilla de borrar evento</label>
@@ -533,7 +531,6 @@
 			<label index="cal.pi_flexform.eventViewPid">Pagina voor gebeurtenisweergave</label>
 			<label index="cal.pi_flexform.eventTemplate">Gebeurtenissjabloon</label>
 			<label index="cal.pi_flexform.isPreview">Toon voorvertoning</label>
-			<label index="cal.pi_flexform.phpicalendarEventTemplate">Sjabloon voor PhpICalendar</label>
 			<label index="cal.pi_flexform.createEventTemplate">Maak gebeurtenissjabloon</label>
 			<label index="cal.pi_flexform.confirmEventTemplate">Bevestig gebeurtenissjabloon</label>
 			<label index="cal.pi_flexform.deleteEventTemplate">Verwijder gebeurtenissjabloon</label>
@@ -667,7 +664,6 @@
 			<label index="cal.pi_flexform.eventViewPid" type="integer">100112602</label>
 			<label index="cal.pi_flexform.eventTemplate" type="integer">76016590</label>
 			<label index="cal.pi_flexform.isPreview" type="integer">61951189</label>
-			<label index="cal.pi_flexform.phpicalendarEventTemplate" type="integer">236094173</label>
 			<label index="cal.pi_flexform.createEventTemplate" type="integer">1227768</label>
 			<label index="cal.pi_flexform.confirmEventTemplate" type="integer">171321578</label>
 			<label index="cal.pi_flexform.deleteEventTemplate" type="integer">244633613</label>
@@ -802,7 +798,6 @@
 			<label index="cal.pi_flexform.eventViewPid">Event view page</label>
 			<label index="cal.pi_flexform.eventTemplate">Event template</label>
 			<label index="cal.pi_flexform.isPreview">Show preview</label>
-			<label index="cal.pi_flexform.phpicalendarEventTemplate">PhpICalendar event template</label>
 			<label index="cal.pi_flexform.createEventTemplate">Create event template</label>
 			<label index="cal.pi_flexform.confirmEventTemplate">Confirm event template</label>
 			<label index="cal.pi_flexform.deleteEventTemplate">Delete event template</label>

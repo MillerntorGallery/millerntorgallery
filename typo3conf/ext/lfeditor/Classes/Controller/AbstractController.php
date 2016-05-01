@@ -28,6 +28,7 @@ namespace SGalinski\Lfeditor\Controller;
 
 use SGalinski\Lfeditor\Exceptions\LFException;
 use SGalinski\Lfeditor\Session\PhpSession;
+use SGalinski\Tinymce\Loader;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Page\PageRenderer;
@@ -82,12 +83,13 @@ abstract class AbstractController extends ActionController {
 	 * @param string $languageSelection
 	 * @param string $constantTypeSelection
 	 * @param string $bottomReferenceLanguageSelection
+	 * @param string $numSiteConstsSelection
 	 * @return void
 	 */
 	protected function saveSelectionsInSession(
 		$extensionSelection = NULL, $languageFileSelection = NULL, $referenceLanguageSelection = NULL,
 		$constantSelection = NULL, $languageSelection = NULL, $constantTypeSelection = NULL,
-		$bottomReferenceLanguageSelection = NULL
+		$bottomReferenceLanguageSelection = NULL, $numSiteConstsSelection = NULL
 	) {
 		/* Extension/language file select box can't be unselected.
 		Only situation when $extensionSelection === NULL is when the form is submitted by
@@ -112,6 +114,9 @@ abstract class AbstractController extends ActionController {
 		}
 		if ($bottomReferenceLanguageSelection) {
 			$this->session->setDataByKey('bottomReferenceLanguageSelection', $bottomReferenceLanguageSelection);
+		}
+		if ($numSiteConstsSelection) {
+			$this->session->setDataByKey('numSiteConstsSelection', $numSiteConstsSelection);
 		}
 	}
 
@@ -275,7 +280,7 @@ abstract class AbstractController extends ActionController {
 		}
 		$pathTinyMCEConfig = PATH_site . ExtensionManagementUtility::siteRelPath('lfeditor')
 			. 'Resources/Public/Scripts/TinyMCEConfig.js';
-		$tinyMCE = $this->objectManager->get('\SGalinski\Tinymce\Loader');
+		$tinyMCE = $this->objectManager->get('SGalinski\Tinymce\Loader');
 		$tinyMCE->loadConfiguration($pathTinyMCEConfig);
 
 		/** @var PageRenderer $pageRenderer */

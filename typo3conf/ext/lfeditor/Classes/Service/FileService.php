@@ -81,9 +81,10 @@ abstract class FileService extends AbstractService {
 	protected $meta;
 
 	/**
+	 * @param $editedLanguages
 	 * @return mixed
 	 */
-	abstract protected function prepareFileContents();
+	abstract protected function prepareFileContents($editedLanguages);
 
 	/**
 	 * @return mixed
@@ -200,7 +201,13 @@ abstract class FileService extends AbstractService {
 		if (!empty($value) || (($langKey === 'default' && !$forceDel))) {
 			$this->localLang[$langKey][$constant] = $value;
 		} elseif (isset($this->localLang[$langKey][$constant])) {
-			unset($this->localLang[$langKey][$constant]);
+			if ($this->session->getDataByKey('editingMode') === 'override' &&
+				isset($this->localLang[$langKey][$constant])
+			) {
+				$this->localLang[$langKey][$constant] = "";
+			} else {
+				unset($this->localLang[$langKey][$constant]);
+			}
 		}
 	}
 
@@ -263,22 +270,39 @@ abstract class FileService extends AbstractService {
 	/**
 	 * writes language files
 	 *
+	 * @param array | NULL $editedLanguages
 	 * @throws LFException raised if a file cant be written
 	 * @return void
 	 */
-	public function writeFile() {
+	public function writeFile($editedLanguages = NULL) {
 		// get prepared language files
-		$languageFiles = $this->prepareFileContents();
+		$languageFiles = $this->prepareFileContents($editedLanguages);
+		$this->writeFilesWithContent($languageFiles);
+	}
 
+	/**
+	 * Writes the given files with the given content.
+	 *
+	 * Array structure:
+	 * array (
+	 *        '/var/www/file.xlf' => 'My content',
+	 *        ...
+	 * )
+	 *
+	 * @param array $files
+	 * @throws LFException
+	 * @return void
+	 */
+	public function writeFilesWithContent(array $files = array()) {
 		// check write permissions of all files
-		foreach ($languageFiles as $file => $content) {
+		foreach ($files as $file => $content) {
 			if (!SgLib::checkWritePerms($file)) {
 				throw new LFException('failure.file.badPermissions');
 			}
 		}
 
 		// write files
-		foreach ($languageFiles as $file => $content) {
+		foreach ($files as $file => $content) {
 			if (!GeneralUtility::writeFile($file, $content)) {
 				throw new LFException('failure.file.notWritten');
 			}

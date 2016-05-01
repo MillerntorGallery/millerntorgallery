@@ -19,6 +19,9 @@ Tapio Markula --&gt; finnish translation</description>
 		<trans-unit id="button.delete">
 			<source>Delete</source>
 		</trans-unit>
+		<trans-unit id="button.refreshLanguageFileList.title">
+			<source>Refresh list of language file options, only if you have added or deleted a language file</source>
+		</trans-unit>
 		<trans-unit id="button.rename">
 			<source>Rename</source>
 		</trans-unit>
@@ -387,6 +390,9 @@ Tapio Markula --&gt; finnish translation</description>
 		</trans-unit>
 		<trans-unit id="select.nothing">
 			<source>Nothing selected</source>
+		</trans-unit>
+		<trans-unit id="select.numConstants">
+			<source>Select # of constants to show</source>
 		</trans-unit>
 		<trans-unit id="select.referenceLanguage">
 			<source>Select reference language</source>

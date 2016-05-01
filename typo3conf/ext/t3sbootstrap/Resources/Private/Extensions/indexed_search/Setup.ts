@@ -10,6 +10,7 @@
 #-------------------------------------------------------------------------------
 #	EXT:indexed_search Searchbox
 #-------------------------------------------------------------------------------
+
 lib.extensions.indexed_search.searchbox = COA_INT
 lib.extensions.indexed_search.searchbox {
 	wrap = <li class="dropdown"><a class="dropdown-toggle" href="#" data-toggle="dropdown"> <span class="glyphicon glyphicon-search"></span> </a>|</li>
@@ -18,7 +19,7 @@ lib.extensions.indexed_search.searchbox {
 		wrap = <div class="dropdown-menu" style="padding: 0 15px; min-width: 260px;">|</div>
 		10 = TEXT
 		10 {
-			wrap = <form style="width:100%;" class="navbar-form" role="search" action="|" method="post"><div class="input-group">
+			wrap = <form style="width:100%;" class="navbar-form" action="|" method="post"><div class="input-group">
 			typolink {
 				parameter = {$plugin.t3sbootstrap_configuration.extensions.indexed_search.page}
 				returnLast = url
@@ -28,7 +29,7 @@ lib.extensions.indexed_search.searchbox {
 		15 {
 			value (
 				<input type="hidden" name="tx_indexedsearch[_sections]" value="0">
-				<input type="hidden" name="tx_indexedsearch[group]" value="sections">
+				<input type="hidden" name="tx_indexedsearch[group]" value="flat">
 				<input type="hidden" name="tx_indexedsearch[lang]" value="-1">
 			)
 		}

@@ -1,0 +1,30 @@
+<div class="item {f:if(condition:'{iterator.isFirst} == 1',then:'active')}">
+    <div class="mediaelement mediaelement-image">
+        <f:if condition="{settings.detail.media.image.lightbox}">
+            <f:then>
+                <a rel="{settings.detail.media.image.lightbox}" title="{mediaElement.title}" href="{f:uri.image(src:'{mediaElement.uid}' treatIdAsReference:1 maxWidth:'800')}">
+                    <f:image src="{mediaElement.uid}" treatIdAsReference="1" title="{mediaElement.title}" alt="{mediaElement.alternative}" maxWidth="{settings.detail.media.image.maxWidth}" maxHeight="{settings.detail.media.image.maxHeight}" class="img-responsive" />
+                </a>
+            </f:then>
+            <f:else>
+                <f:if condition="{mediaElement.link}">
+                    <f:then>
+                        <f:format.html parseFuncTSPath="lib.parseFuncNews">
+                            <link {mediaElement.link}>
+                            <f:image src="{mediaElement.uid}" treatIdAsReference="1" title="{mediaElement.title}" alt="{mediaElement.alternative}" maxWidth="{settings.detail.media.image.maxWidth}" maxHeight="{settings.detail.media.image.maxHeight}" class="img-responsive" />
+                            </link>
+                        </f:format.html>
+                    </f:then>
+                    <f:else>
+                        <f:image src="{mediaElement.uid}" treatIdAsReference="1" title="{mediaElement.title}" alt="{mediaElement.alternative}" maxWidth="{settings.detail.media.image.maxWidth}" maxHeight="{settings.detail.media.image.maxHeight}" class="img-responsive" />
+                    </f:else>
+                </f:if>
+            </f:else>
+        </f:if>
+    </div>
+    <f:if condition="{mediaElement.description}">
+        <p class="news-img-caption">
+            {mediaElement.description}
+        </p>
+    </f:if>
+</div>

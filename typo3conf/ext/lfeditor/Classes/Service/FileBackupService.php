@@ -331,8 +331,10 @@ class FileBackupService extends FileService {
 		try {
 			SgLib::deleteFiles(array($file));
 		} catch (Exception $e) {
-			throw new LFException('failure.backup.notDeleted', 0,
-				'(' . $e->getMessage(), ')');
+			throw new LFException(
+				'failure.backup.notDeleted', 0,
+				'(' . $e->getMessage(), ')'
+			);
 		}
 	}
 
@@ -447,10 +449,13 @@ class FileBackupService extends FileService {
 	/**
 	 * prepares the backup file and writes the new meta information
 	 *
-	 * @throws LFException raised if meta file cant be written
-	 * @return array backup file as key and content as value
+	 * @param array | NULL $editedLanguages
+	 * @return array raised if meta file cant be written
+	 * @throws Exception
+	 * @throws LFException
+	 * @return array
 	 */
-	protected function prepareFileContents() {
+	protected function prepareFileContents($editedLanguages = NULL) {
 		// get content
 		$xml = $this->prepareBackupContent();
 

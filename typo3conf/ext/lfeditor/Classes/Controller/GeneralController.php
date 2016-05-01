@@ -170,6 +170,16 @@ class GeneralController extends AbstractBackendController {
 	}
 
 	/**
+	 * Clears extensionAndLangFileOptions cache, and in that way refreshes list of language file options in select box.
+	 *
+	 * @return void
+	 */
+	public function refreshLanguageFileListAction() {
+		$this->clearSelectOptionsCache('extensionAndLangFileOptions');
+		$this->redirect('general');
+	}
+
+	/**
 	 * Prepares main section content of general view.
 	 *
 	 * @return void
