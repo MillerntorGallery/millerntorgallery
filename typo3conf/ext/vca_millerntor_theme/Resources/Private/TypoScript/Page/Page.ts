@@ -117,9 +117,10 @@ page {
 
 
 	# CSS files to be included
-	includeCSS > 
+	#includeCSS > 
 	includeCSS {		
-		vca_millerntor_theme =  EXT:vca_millerntor_theme/Resources/Public/Css/application.css
+		#vca_millerntor_theme =  EXT:vca_millerntor_theme/Resources/Public/Css/application.css
+		vca_millerntor_theme =  EXT:vca_millerntor_theme/Resources/Private/Less/Theme/application.less
 		vca_millerntor_theme.media = screen
 	}
 

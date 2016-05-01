@@ -5477,22 +5477,22 @@ button.close {
 }
 @font-face {
   font-family: "Futura LT Medium";
-  src: url('../Fonts/Futura-LT-Heavy-Oblique.eot');
-  src: url('../Fonts/Futura-LT-Heavy-Oblique.eot?#iefix') format('embedded-opentype'), url('../Fonts/Futura-LT-Heavy-Oblique.svg#Futura LT Medium') format('svg'), url('../Fonts/Futura-LT-Heavy-Oblique.woff') format('woff'), url('../Fonts/Futura-LT-Heavy-Oblique.ttf') format('truetype');
+  src: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/Futura-LT-Heavy-Oblique.eot');
+  src: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/Futura-LT-Heavy-Oblique.eot?#iefix') format('embedded-opentype'), url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/Futura-LT-Heavy-Oblique.svg#Futura LT Medium') format('svg'), url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/Futura-LT-Heavy-Oblique.woff') format('woff'), url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/Futura-LT-Heavy-Oblique.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'futurateemedoblique';
-  src: url('../Fonts/futurateemed_oblique-webfont.eot');
-  src: url('../Fonts/futurateemed_oblique-webfont.eot?#iefix') format('embedded-opentype'), url('../Fonts/futurateemed_oblique-webfont.woff') format('woff'), url('../Fonts/futurateemed_oblique-webfont.ttf') format('truetype'), url('../Fonts/futurateemed_oblique-webfont.svg#futurateemedoblique') format('svg');
+  src: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed_oblique-webfont.eot');
+  src: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed_oblique-webfont.eot?#iefix') format('embedded-opentype'), url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed_oblique-webfont.woff') format('woff'), url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed_oblique-webfont.ttf') format('truetype'), url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed_oblique-webfont.svg#futurateemedoblique') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'futurateemedregular';
-  src: url('../Fonts/futurateemed-webfont.eot');
-  src: url('../Fonts/futurateemed-webfont.eot?#iefix') format('embedded-opentype'), url('../Fonts/futurateemed-webfont.woff') format('woff'), url('../Fonts/futurateemed-webfont.ttf') format('truetype'), url('../Fonts/futurateemed-webfont.svg#futurateemedregular') format('svg');
+  src: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed-webfont.eot');
+  src: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed-webfont.eot?#iefix') format('embedded-opentype'), url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed-webfont.woff') format('woff'), url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed-webfont.ttf') format('truetype'), url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Fonts/futurateemed-webfont.svg#futurateemedregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -5523,23 +5523,23 @@ button.close {
   float: left;
 }
 .social-links .mailto {
-  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/mail.png') no-repeat top left;
+  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/mail.png') no-repeat top left;
   width: 39px;
 }
 .social-links .facebook {
-  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/facebook.png') no-repeat top left;
+  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/facebook.png') no-repeat top left;
 }
 .social-links .twitter {
-  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/twitter.png') no-repeat top left;
+  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/twitter.png') no-repeat top left;
 }
 .social-links .instagram {
-  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/instagram.png') no-repeat top left;
+  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/instagram.png') no-repeat top left;
 }
 .social-links .youtube {
-  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/youtube.png') no-repeat top left;
+  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/youtube.png') no-repeat top left;
 }
 .social-links .vimeo {
-  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/vimeo.png') no-repeat top left;
+  background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/vimeo.png') no-repeat top left;
 }
 .copyright {
   text-align: center;
@@ -5564,13 +5564,13 @@ button.close {
   text-align: center;
 }
 .navbar-top #logo .front-logo {
-  background-image: url("../Images/millerntor_gallery.png");
+  background-image: url("/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/millerntor_gallery.png");
   display: block;
   height: 135px;
   width: 105px;
 }
 .navbar-top #logo .back-logo {
-  background-image: url("../Images/back_millerntor_gallery.png");
+  background-image: url("/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/back_millerntor_gallery.png");
   display: block;
   height: 135px;
   width: 105px;
@@ -5596,7 +5596,7 @@ button.close {
   position: absolute;
   top: 0px;
   right: 10px;
-  background: url("../Images/mtg_datum.png") bottom right no-repeat;
+  background: url("/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/mtg_datum.png") bottom right no-repeat;
   display: block;
   width: 180px;
   height: 133px;
@@ -5781,7 +5781,7 @@ div.csc-textpic div.csc-textpic-imagerow {
   width: 105px;
   height: 135px;
 }
-.flip_card {
+#f1_card {
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
@@ -5790,15 +5790,27 @@ div.csc-textpic div.csc-textpic-imagerow {
   -webkit-transition: all 1s linear;
   transition: all 1s linear;
 }
-.flip_container:hover .flip_card {
+.flip_container:hover #f1_card {
   -webkit-transform: rotateX(180deg);
   -ms-transform: rotateX(180deg);
   transform: rotateX(180deg);
 }
+.flip_card {
+  width: 100%;
+  height: 100%;
+  /*
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  .transition(all 1.0s linear);
+}
+
+.flip_container:hover .flip_card {
+	.rotateX(180deg);
+}
 .flip_container.vert:hover .flip_card {
-  -webkit-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
-  transform: rotateY(180deg);
+	.rotateY(180deg);
+*/
 }
 .face {
   position: absolute;
@@ -5820,16 +5832,14 @@ div.csc-textpic div.csc-textpic-imagerow {
 .face.back p {
   text-align: left;
 }
+/*
 .flip_container.vert:hover .flip_card {
-  -webkit-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
-  transform: rotateY(180deg);
+	.rotateY(180deg);
 }
 .vert .face.back {
-  -webkit-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
-  transform: rotateY(180deg);
+	.rotateY(180deg);
 }
+*/
 /**************
 * Social media verlinkung
 ***************/
@@ -6050,17 +6060,28 @@ ul.work-artists li a {
   padding: 4px;
   margin: 5px;
 }
-.list-view .Film {
-  background-color: #CE0E1E;
+.list-view .Film,
+.list-view .film {
+  background-color: #706f6f;
+  color: #fff;
 }
-.list-view .Music {
-  background-color: #CCC;
+.list-view .Music,
+.list-view .music {
+  background-color: #95C11F;
+  color: #fff;
 }
-.list-view .Culture {
-  background-color: #0EB21B;
+.list-view .Culture,
+.list-view .culture {
+  background-color: #ea5153;
+  color: #fff;
 }
-.list-view .Action {
-  background-color: #0098CA;
+.list-view .Action,
+.list-view .action {
+  background-color: #773B07;
+  color: #fff;
+}
+#locationgrid {
+  margin-top: 10px;
 }
 #locationgrid .locationgrid_item,
 #locationgrid .locationgrid_date {
@@ -6071,6 +6092,9 @@ ul.work-artists li a {
   box-sizing: border-box;
   height: 100%;
   min-height: 100%;
+}
+#locationgrid a {
+  color: #000;
 }
 @media (max-width: 991px) {
   #container .item {
@@ -6136,13 +6160,13 @@ ul.work-artists li a {
     text-align: center;
   }
   .navbar-top #logo .front-logo {
-    background-image: url("../Images/millerntor_gallery_small.png");
+    background-image: url("/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/millerntor_gallery_small.png");
     display: block;
     height: 68px;
     width: 53px;
   }
   .navbar-top #logo .back-logo {
-    background-image: url("../Images/back_millerntor_gallery_small.png");
+    background-image: url("/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/back_millerntor_gallery_small.png");
     display: block;
     height: 68px;
     width: 53px;
@@ -6159,7 +6183,7 @@ ul.work-artists li a {
     position: absolute;
     top: 20px;
     right: 15px;
-    background-image: url("../Images/mtg_datum_small.png");
+    background-image: url("/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/mtg_datum_small.png");
     display: block;
     width: 90px;
     height: 17px;
@@ -6176,23 +6200,23 @@ ul.work-artists li a {
     float: left;
   }
   .social-links .mailto {
-    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/mail_small.png') no-repeat top left;
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/mail_small.png') no-repeat top left;
     width: 28px;
   }
   .social-links .facebook {
-    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/facebook_small.png') no-repeat top left;
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/facebook_small.png') no-repeat top left;
   }
   .social-links .twitter {
-    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/twitter_small.png') no-repeat top left;
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/twitter_small.png') no-repeat top left;
   }
   .social-links .instagram {
-    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/instagram_small.png') no-repeat top left;
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/instagram_small.png') no-repeat top left;
   }
   .social-links .youtube {
-    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/youtube_small.png') no-repeat top left;
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/youtube_small.png') no-repeat top left;
   }
   .social-links .vimeo {
-    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public/Images/vimeo_small.png') no-repeat top left;
+    background: url('/typo3conf/ext/vca_millerntor_theme/Resources/Public//Images/vimeo_small.png') no-repeat top left;
   }
   .foot_logos {
     margin: 0 auto;

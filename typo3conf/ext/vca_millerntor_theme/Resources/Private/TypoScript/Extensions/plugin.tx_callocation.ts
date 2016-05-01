@@ -1,5 +1,10 @@
 plugin.tx_cal_controller {
 	view {
+		location { 
+			location { 
+				name.dataWrap = <div>|</div>
+			}	
+		}	
 		list {
 			event {
 				category.dataWrap = |
@@ -37,13 +42,13 @@ plugin.tx_cal_controller {
 				wrap = <div class="col-xs-2 locationgrid_header">|</div>
 			}
 			headerItem_stdWrap2 {
-				wrap = <div class="col-xs-1 col-xs-offset-1 locationgrid_header">|</div>
+				wrap = <div class="col-xs-2 col-xs-offset-1 locationgrid_header">|</div>
 			}
 			item_stdWrap {
 				wrap = <div class="col-xs-2 locationgrid_item">|</div>
 			}
 			date_stdWrap {
-				wrap = <div class="col-xs-1 col-xs-offset-1 locationgrid_date">|</div>
+				wrap = <div class="col-xs-2 col-xs-offset-1 locationgrid_date">|</div>
 			}
 			dateFormat = l d.m.
 		}
