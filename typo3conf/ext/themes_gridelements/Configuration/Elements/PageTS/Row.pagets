@@ -1,0 +1,20 @@
+tx_gridelements.setup.row {
+	title = LLL:EXT:themes_gridelements/Resources/Private/Language/Elements.xlf:row
+	description = LLL:EXT:themes_gridelements/Resources/Private/Language/Elements.xlf:row_description
+	icon = ../typo3conf/ext/themes_gridelements/Resources/Public/Icons/GridElements/new_content_el_Row.gif
+	horizontal = 1
+	config {
+		colCount = 1
+		rowCount = 1
+		rows {
+			1 {
+				columns {
+					1 {
+						name = LLL:EXT:themes_gridelements/Resources/Private/Language/Elements.xlf:row_content
+						colPos = 0
+					}
+				}
+			}
+		}
+	}
+}

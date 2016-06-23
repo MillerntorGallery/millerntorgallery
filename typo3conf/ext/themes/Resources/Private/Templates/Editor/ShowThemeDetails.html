@@ -1,0 +1,202 @@
+{namespace themes=KayStrobach\Themes\ViewHelpers}
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/CMS/Fluid/ViewHelpers">
+
+<f:layout name="Backend"/>
+
+<f:section name="Buttons">
+	<f:link.action action="index">
+		<span class="t3-icon t3-icon-actions t3-icon-actions-view t3-icon-view-go-back">&nbsp;</span>
+	</f:link.action>
+	<themes:ThemeEnabledCondition theme="{theme.extensionname}">
+		<f:then></f:then>
+		<f:else>
+			<f:link.action action="setTheme" arguments="{theme:theme.extensionName}">
+				<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-save">&nbsp;</span>
+			</f:link.action>
+		</f:else>
+	</themes:ThemeEnabledCondition>
+</f:section>
+
+<f:section name="Content">
+	
+	
+	<div class="row">
+		<div class="col-xs-12 col-md-6">
+
+			<div class="panel panel-default">
+				<div class="panel-heading">{theme.title} (Version: {theme.version})</div>
+				<div class="panel-body">
+					
+					<f:if condition="{theme.metaInformation.description}">
+						<p>{theme.metaInformation.description}</p><br />
+					</f:if>
+					<f:if condition="{theme.metaInformation.constants.availableCategories -> f:count()}">
+						<b>Possible settings</b><br />
+						<p>
+							<f:for each="{theme.metaInformation.constants.availableCategories}" as="categorie">
+								<span class="theme-tag theme-categorie">{categorie}</span>
+							</f:for>
+						</p><br />
+					</f:if>
+					<f:if condition="{theme.metaInformation.constants.availableCategories -> f:count()}">
+						<b>Tags</b><br />
+						<p>
+							<f:for each="{theme.metaInformation.keywords}" as="tag">
+								<span class="theme-tag">{tag}</span>
+							</f:for>
+						</p><br />
+					</f:if>
+					<p>
+						<themes:ThemeEnabledCondition theme="{theme.extensionname}">
+							<f:then>
+								<a href="#" onclick="return false" class=" btn btn-success btn-sm pull-right" style="cursor:not-allowed">
+									Active
+								</a>
+							</f:then>
+							<f:else>
+								<f:link.action action="setTheme" arguments="{theme:theme.extensionname}" class="t3-button t3-button-action-installtheme btn btn-success btn-sm pull-right">
+									<span class="t3-icon t3-icon-status t3-icon-status-dialog t3-icon-dialog-ok">&nbsp;</span>
+									Activate Theme
+								</f:link.action>
+							</f:else>
+						</themes:ThemeEnabledCondition>
+					</p>
+					
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-md-6">
+			<f:render partial="Meta/Screenshots" arguments="{screenshots:theme.metaInformation.screenshots}"/>
+		</div>
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-12 col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">Authors</div>
+				<div class="panel-body">
+								
+					<table class="t3-table">
+						<f:if condition="{theme.metaInformation.authors -> f:count()} > 0">
+
+							<thead>
+								<tr>
+									<th>Author name</th>
+									<th>Company</th>
+								</tr>
+							</thead>
+							<tbody>
+								<f:for each="{theme.metaInformation.authors}" as="author">
+									<tr class="db_list_normal">
+										<td>
+											<f:render partial="Meta/Author" arguments="{author:author}"/>
+										</td>
+										<td>
+											<f:render partial="Meta/Company" arguments="{uri:author.companyWebsite, name:author.company, logo: author.companyLogo}"/>
+										</td>
+									</tr>
+								</f:for>
+								<tr class="db_list_normal">
+									<td>
+										<f:render partial="Meta/Author" arguments="{author:theme.author}"/>
+									</td>
+									<td>
+										{theme.author.company}
+									</td>
+								</tr>
+							</tbody>
+						</f:if>
+					</table>
+
+				</div>
+			</div>
+		</div>
+		
+		<f:if condition="{theme.metaInformation.licenses}">
+			<f:then>
+
+				<div class="col-xs-12 col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">License Information</div>
+						<div class="panel-body">
+							
+							<table class="t3-table">
+								<thead>
+									<tr>
+										<th>License</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<f:for each="{theme.metaInformation.licenses}" as="license">
+										<tr class="db_list_normal">
+											<td>
+												<f:render partial="Meta/License" arguments="{name: license.license, uri:license.licenseUri}" />
+											</td>
+											<td>
+												<ul class="table-list">
+													<f:for each="{license.resources}" as="resource">
+														<li>{resource}</li>
+													</f:for>
+												</ul>
+											</td>
+										</tr>
+									</f:for>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+
+			</f:then>
+		</f:if>
+
+		<f:if condition="{theme.metaInformation.supportedExtensions}">
+			<f:then>
+
+				<div class="col-xs-12 col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">Supported Extensions</div>
+						<div class="panel-body">
+
+							<table class="t3-table">
+								<thead>
+									<tr>
+										<th>Extension</th>
+										<th>Description</th>
+									</tr>
+								</thead>
+								<tbody>
+									<f:for each="{theme.metaInformation.supportedExtensions}" as="extension" key="extensionName">
+										<tr class="db_list_normal">
+											<td>
+												<f:link.external uri="http://typo3.org/extensions/repository/view/{extensionName}" target="_blank">
+													{extensionName}
+													({extension.version})
+												</f:link.external>
+											</td>
+											<td>
+												<f:format.nl2br>{extension.description}</f:format.nl2br>
+											</td>
+										</tr>
+									</f:for>
+								</tbody>
+							</table>
+
+						</div>
+					</div>
+				</div>
+
+			</f:then>
+		</f:if>
+		
+		
+	</div>
+
+
+
+</f:section>
+</html>

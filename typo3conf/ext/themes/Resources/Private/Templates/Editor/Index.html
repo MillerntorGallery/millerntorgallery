@@ -1,0 +1,34 @@
+<f:layout name="Backend" />
+
+<f:section name="Buttons">
+	<f:if condition="{themeIsSelectable}">
+		<f:then>
+			<span class="t3-icon t3-icon-actions t3-icon-actions-document t3-icon-document-save">
+				<input type="button" name="_savedok" class="c-inputButton" title="Save document" id="saveIcon">
+			</span>
+			<f:link.action action="showTheme" pageUid="{nearestPageWithTheme}">
+				<span class="t3-icon t3-icon-actions t3-icon-actions-system t3-icon-system-list-open">&nbsp;</span>
+			</f:link.action>
+		</f:then>
+
+	</f:if>
+</f:section>
+
+<f:section name="Content">
+	<f:if condition="{themeIsSelectable}">
+		<f:then>
+			<f:if condition="{selectedTheme}">
+				<f:then>
+					<f:render partial="Themes/ThemeSelected" arguments="{selectedTheme:selectedTheme, categories:categories, categoriesFilterSettings:categoriesFilterSettings, pid:pid, nearestPageWithTheme:nearestPageWithTheme}"/>
+				</f:then>
+				<f:else>
+					<f:render partial="Errors/Error" arguments="{preparedMessage:'ErrorNoThemeSelected'}" />
+					<f:render partial="Themes/ThemeNotSelected" arguments="{selectedTheme:selectedTheme, categories:categories, pid:pid, nearestPageWithTheme:nearestPageWithTheme}"/>
+				</f:else>
+			</f:if>
+		</f:then>
+		<f:else>
+			<f:render partial="Errors/Error" arguments="{preparedMessage:'ErrorThemeNotPossible', redirectUid:nearestPageWithTheme}" />
+		</f:else>
+	</f:if>
+</f:section>

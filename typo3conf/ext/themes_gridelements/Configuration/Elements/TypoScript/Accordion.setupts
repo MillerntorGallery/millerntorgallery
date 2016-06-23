@@ -1,0 +1,23 @@
+lib.gridelements {
+	accordion {
+		setCurrent {
+			dataWrap = {field:tx_themes_behaviour},{field:tx_themes_variants},{field:tx_themes_responsive}
+			postUserFunc = KayStrobach\Themes\Frontend\CssClassMapper->mapGenericToFramework
+			postUserFunc {
+				responsiveMapping =< lib.content.cssMap.responsive
+				behaviourMapping =< lib.content.cssMap.behaviour
+				behaviourAccordionMapping =< lib.content.cssMap.behaviour.accordion
+				variantMapping =< lib.content.cssMap.variants
+			}
+		}
+		cObject = FLUIDTEMPLATE
+		cObject {
+			file = EXT:themes_gridelements/Resources/Private/Templates/Elements/Accordion.html
+		}
+		columns.0 {
+			renderObj =< tt_content
+		}
+	}
+}
+
+tt_content.gridelements_pi1.20.10.setup.accordion < lib.gridelements.accordion
