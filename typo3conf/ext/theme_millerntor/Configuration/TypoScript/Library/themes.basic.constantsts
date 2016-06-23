@@ -1,0 +1,58 @@
+#############################################
+# Basic: Basic constants
+#############################################
+
+# #customcategory=theme=Theme: Basic settings
+
+# General
+#############################################
+
+# cat=theme,basic//; type=string; label=LLL:EXT:themes_gridelements/Resources/Private/Language/Constants.xlf:site_name
+themes.configuration.siteName = Millerntor Gallery
+
+# cat=theme,basic//; type=string; label=LLL:EXT:themes_gridelements/Resources/Private/Language/Constants.xlf:baseurl
+themes.configuration.baseurl = /
+
+# cat=theme,basic//; type=string; label=LLL:EXT:themes_gridelements/Resources/Private/Language/Constants.xlf:baseurl_icon
+themes.configuration.baseurlIcon = http://demo.typo3-themes.org/typo3conf/ext/theme_bootstrap/Resources/Public/Icons/
+
+# cat=theme,basic//; type=string; label=LLL:EXT:themes_gridelements/Resources/Private/Language/Constants.xlf:baseurl_image
+themes.configuration.baseurlImage = http://demo.typo3-themes.org/typo3conf/ext/theme_bootstrap/Resources/Public/Images/
+
+# cat=theme,basic//; type=string; label=LLL:EXT:themes_gridelements/Resources/Private/Language/Constants.xlf:favicon
+themes.configuration.favicon = typo3conf/ext/theme_millerntor/Resources/Public/Icons/favicon.ico
+
+# cat=theme,basic//; type=string; label=Site slogan
+themes.configuration.siteSlogan = Art creates water
+
+
+# customsubcategory=spamProtect= SpamProtect
+
+# Spam protect email addresses constants
+#############################################
+
+# cat=theme,advanced/spamProtect/a; type=string; label= E-Mail spam protection: @ replacement
+themes.configuration.spamProtectEmailAddresses.atSubst = (at)
+
+# cat=theme,advanced/spamProtect/advanced/b; type=string; label= E-Mail spam protection: Last dot replacement
+themes.configuration.spamProtectEmailAddresses.lastDotSubst = (dot)
+
+
+
+# customsubcategory=javascript= JavaScript
+# customsubcategory=css= Stylesheets
+
+# Spam protect email addresses constants
+#############################################
+
+# cat=theme,advanced/javascript/; type=options[0,1]; label= Compress JavaScript files
+themes.configuration.javascript.compress = 0
+
+# cat=theme,advanced/javascript/; type=options[0,1]; label= Concatenate JavaScript files
+themes.configuration.javascript.concatenate = 0
+
+# cat=theme,advanced/css/; type=options[0,1]; label= Compress CSS files
+themes.configuration.css.compress = 0
+
+# cat=theme,advanced/css/; type=options[0,1]; label= Concatenate CSS files
+themes.configuration.css.concatenate = 0

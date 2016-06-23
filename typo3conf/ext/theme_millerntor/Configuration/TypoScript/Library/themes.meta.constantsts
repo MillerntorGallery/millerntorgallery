@@ -1,0 +1,30 @@
+
+# #customcategory=meta=Theme: Meta-Tag settings
+# customsubcategory=meta_default=Default settings
+
+# cat=meta,basic/meta_default/; type=string; label= Default abstract
+themes.configuration.meta.defaults.abstract = Millerntor Gallery
+
+# cat=meta,basic/meta_default/; type=string; label= Default keywords
+themes.configuration.meta.defaults.keywords = Millerntor Gallery, Viva con agua, st. pauli, hamburg, art creates water
+
+# cat=meta,basic/meta_default/; type=string; label= Default description
+themes.configuration.meta.defaults.description = Millerntor Gallery 
+
+# cat=meta,basic/meta_default/; type=string; label= Default author
+themes.configuration.meta.defaults.author = Millerntor Gallery Content Team
+
+# cat=meta,basic/meta_default/; type=string; label= Default author email
+themes.configuration.meta.defaults.authorEmail = info@millerntorgallery.org
+
+# cat=meta,basic//; type=string; label= Copyright
+themes.configuration.meta.copyright = Millerntor Gallery - millerntorgallery.org
+
+# cat=meta,advanced//; type=string; label= Robots (for example: noindex,nofollow or index,follow)
+themes.configuration.meta.robots = index,follow
+
+# cat=meta,advanced//; type=string; label= Revisit after (for example: 7 days)
+themes.configuration.meta.revisitAfter = 7 days
+
+# cat=meta,basic//; type=string; label= Application name
+themes.configuration.meta.applicationName = MillerntorGallery-Theme

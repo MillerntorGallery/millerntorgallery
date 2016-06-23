@@ -1,0 +1,18 @@
+
+plugin.tx_pbsocial {
+	view {
+		# cat=plugin.tx_pbsocial/file; type=string; label=Path to template root (FE)
+		templateRootPath = EXT:theme_millerntor/Resources/Private/Templates/Extensions/pb_social/Templates/
+		# cat=plugin.tx_pbsocial/file; type=string; label=Path to template partials (FE)
+		partialRootPath = EXT:theme_millerntor/Resources/Private/Templates/Extensions/pb_social/Partials/
+		# cat=plugin.tx_pbsocial/file; type=string; label=Path to template layouts (FE)
+		layoutRootPath = EXT:pb_social/Resources/Private/Layouts/
+	}
+	persistence {
+		# cat=plugin.tx_pbsocial//a; type=string; label=Default storage PID
+		storagePid =
+	}
+    settings{
+        load-jquery = 0
+    }
+}

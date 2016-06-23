@@ -1,0 +1,9 @@
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:theme_bootstrap/Configuration/TypoScript/setup.txt">
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:theme_millerntor/Configuration/Elements/TypoScript/" extensions="setupts">
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:theme_millerntor/Configuration/TypoScript/Library/" extensions="setupts">
+
+config {
+	debug = 1
+}
+
+# Extensions

@@ -1,0 +1,15 @@
+plugin.tx_cal_controller {
+	view { 
+		event { 
+			eventModelTemplate = EXT:theme_millerntor/Resources/Private/Templates/Extensions/cal/Partials/event_model.html
+			eventTemplate = EXT:theme_millerntor/Resources/Private/Templates/Extensions/cal/Partials/event.tmpl
+		}	
+		list.listTemplate = EXT:theme_millerntor/Resources/Private/Templates/Extensions/cal/Partials/list.tmpl
+		location { 
+			locationTemplate = EXT:theme_millerntor/Resources/Private/Templates/Extensions/cal/Partials/location.tmpl
+			locationModelTemplate = EXT:theme_millerntor/Resources/Private/Templates/Extensions/cal/Partials/location_model.tmpl
+		}	
+		timeFormat = %H:%M
+		dateFormat = %d.%m
+	}	
+}

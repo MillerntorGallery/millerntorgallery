@@ -1,0 +1,13 @@
+plugin.tx_themes {
+	view {
+		templateRootPaths {
+			400 = EXT:theme_millerntor/Resources/Private/Templates/
+		}
+		partialRootPaths {
+			400 = EXT:theme_millerntor/Resources/Private/Partials/
+		}
+		layoutRootPaths {
+			400 = EXT:theme_millerntor/Resources/Private/Layouts/
+		}
+	}
+}

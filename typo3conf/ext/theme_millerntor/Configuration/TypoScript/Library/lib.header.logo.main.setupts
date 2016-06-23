@@ -1,0 +1,43 @@
+lib.header.logo {
+	main = IMAGE
+	main.file = {$themes.configuration.header.logo.main.file}
+	main.file.width = {$themes.configuration.header.logo.main.width}
+	#main.file.height = {$themes.configuration.header.logo.main.height}
+	main.titleText = {$themes.configuration.siteName}
+	main.altText = {$themes.configuration.siteName}
+	main.stdWrap {
+		required = 1
+		typolink {
+			parameter = {$themes.configuration.pages.startsite}
+			parameter.insertData = 1
+			title = {$themes.configuration.siteName}
+			ATagParams = class="logo-main"
+		}
+	}
+	edition = IMAGE
+	edition { 
+		file = EXT:theme_millerntor/Resources/Public/Images/edition.png
+		file.width = 70
+	#main.file.height = {$themes.configuration.header.logo.main.height}
+		titleText = Edition #6
+		altText = Edition #6
+		wrap = <div class="edition">|</div>
+		
+	}
+	water = IMAGE
+	water { 
+		file = EXT:theme_millerntor/Resources/Public/Images/waterprooffin.png
+		file.width = 60
+	#main.file.height = {$themes.configuration.header.logo.main.height}
+		titleText = Waterproof
+		altText = Waterproof
+		wrap = <div class="waterproof">|</div>
+	}
+	slogan = TEXT
+	slogan.value = {$themes.configuration.header.logo.main.slogan}
+	slogan.wrap = <h4>|</h4>
+	date = TEXT
+	date.value = {$themes.configuration.header.logo.main.date}
+	date.wrap = <h3>|</h3>
+	
+}

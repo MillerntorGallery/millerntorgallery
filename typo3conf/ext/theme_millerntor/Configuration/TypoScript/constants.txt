@@ -1,0 +1,5 @@
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:theme_bootstrap/Configuration/TypoScript/constants.txt">
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:theme_millerntor/Configuration/TypoScript/Library/" extensions="constantsts">
+
+
+# Extensions
