@@ -11,10 +11,6 @@ page {
 		fontAwesome = EXT:t3sbootstrap/Resources/Public/Contrib/Fontawesome/css/font-awesome.min.css
 		fontAwesome.if.isTrue = {$plugin.t3sbootstrap_configuration.general.fontawesome}
 	}
-	includeJSFooter {
-		ekko = EXT:t3sbootstrap/Resources/Public/Contrib/Ekko/ekko-lightbox.min.js
-		ekko.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.colorbox.enable}		
-	}
 	# JS to be included
 	includeJSFooterlibs {
 		bootstrap = EXT:t3sbootstrap/Resources/Public/Contrib/Bootstrap/js/bootstrap.min.js

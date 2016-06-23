@@ -22,7 +22,6 @@ $dbFilePrefix = 'LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_db.xl
 	'textmedia',
 	'after'
 );
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
 	'tt_content',
 	'CType',
@@ -34,7 +33,6 @@ $dbFilePrefix = 'LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_db.xl
 	't3sbs_panel',
 	'after'
 );
-
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTcaSelectItem(
 	'tt_content',
 	'CType',
@@ -71,68 +69,199 @@ $dbFilePrefix = 'LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_db.xl
 
 /***************
  * New fields in table:tt_content
- */
-$tempContentColumns = array (
-	'tx_t3sbootstrap_imagestyle' => array (
+*/
+$tempContentColumns = [
+	'tx_t3sbootstrap_header_position' => array(
+		'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_position',
+		'exclude' => true,
+		'config' => array(
+			'type' => 'select',
+			'renderType' => 'selectSingle',
+			'items' => array(
+				array(
+					'LLL:EXT:lang/locallang_general.xlf:LGL.default_value',
+					''
+				),
+				array(
+					'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_position.I.1',
+					'center'
+				),
+				array(
+					'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_position.I.2',
+					'right'
+				),
+				array(
+					'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:header_position.I.3',
+					'left'
+				)
+			),
+			'default' => ''
+		)
+	),
+	'tx_t3sbootstrap_imagestyle' => [
 		'exclude' => 0,
 		'label' => 'LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_db.xlf:tt_content.tx_t3sbootstrap_image_style',
-		'config' => array (
+		'config' => [
 			'type' => 'select',
-			'items' => array(
-				array('Default', '0'),
-				array('Rounded', 'img-rounded'),
-				array('Circle', 'img-circle'),
-				array('Thumbnail', 'img-thumbnail'),
-			),
+			'items' => [
+				['Default', '0'],
+				['Rounded', 'img-rounded'],
+				['Circle', 'img-circle'],
+				['Thumbnail', 'img-thumbnail'],
+			],
 			'renderType' => 'selectSingle'
-		)
-	),
-	'tx_t3sbootstrap_content_slide' => array(
+		]
+	],
+	'tx_t3sbootstrap_content_slide' => [
 		'exclude' => 0,
 		'label' => 'LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_db.xlf:tt_content.tx_t3sbootstrap_content_slide',
-		'config' => array(
+		'config' => [
 			'type' => 'check',
 			'default' => '0'
-		)
-	),
-	'tx_t3sbootstrap_fontawesome_icon' => array(
+		]
+	],
+	'tx_t3sbootstrap_fontawesome_icon' => [
 		'label'   => 'LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_db.xlf:pages.tx_t3sbootstrap_fontawesome_icon',
-		'config' => array(
+		'config' => [
 			'type' => 'input',
 			'size' => '20',
-		)
-	),	
-	'tx_t3sbootstrap_flexform' => array(
+		]
+	],	
+	'tx_t3sbootstrap_flexform' => [
 		'l10n_display' => 'hideDiff',
 		'label' => 'LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:pi_flexform',
-		'config' => array(
+		'config' => [
 			'type' => 'flex',
-			'ds_pointerField' => 'list_type,CType',
-			'ds' => array(
+			'ds_pointerField' => 'tx_gridelements_backend_layout,CType',
+			'ds' => [
 				'default' => 'FILE:EXT:t3sbootstrap/Configuration/FlexForms/Bootstrap.xml',
 				'*,t3sbs_panel' => 'FILE:EXT:t3sbootstrap/Configuration/FlexForms/Panel.xml',
 				'*,table' => 'FILE:EXT:t3sbootstrap/Configuration/FlexForms/Table.xml',
-			)
-		)
-	),
-);
+				'tabs_tab,gridelements_pi1' => 'FILE:EXT:t3sbootstrap/Configuration/FlexForms/Nada.xml',
+				'*,t3sbs_thumbnails' => 'FILE:EXT:t3sbootstrap/Configuration/FlexForms/Nada.xml',
+			]
+		]
+	],
+	'tx_t3sbootstrap_animateCss' => [
+		'l10n_display' => 'hideDiff',
+		'label' => 'Animate.css:',
+		'config' => [
+			'type' => 'select',
+			'items' => [
+				['None', '0'],
+				['bounce', 'bounce'],
+				['flash', 'flash'],
+				['pulse', 'pulse'],
+				['rubberBand', 'rubberBand'],
+				['shake', 'shake'],
+				['headShake', 'headShake'],
+				['swing', 'swing'],
+				['tada', 'tada'],
+				['wobble', 'wobble'],
+				['jello', 'jello'],
+				['bounceIn', 'bounceIn'],
+				['bounceInDown', 'bounceInDown'],
+				['bounceInLeft', 'bounceInLeft'],
+				['bounceInRight', 'bounceInRight'],
+				['bounceInUp', 'bounceInUp'],
+				['bounceOut', 'bounceOut'],
+				['bounceOutDown', 'bounceOutDown'],
+				['bounceOutLeft', 'bounceOutLeft'],
+				['bounceOutRight', 'bounceOutRight'],
+				['bounceOutUp', 'bounceOutUp'],
+				['fadeIn', 'fadeIn'],
+				['fadeInDown', 'fadeInDown'],
+				['fadeInDownBig', 'fadeInDownBig'],
+				['fadeInLeft', 'fadeInLeft'],
+				['fadeInLeftBig', 'fadeInLeftBig'],
+				['fadeInRight', 'fadeInRight'],
+				['fadeInRightBig', 'fadeInRightBig'],
+				['fadeInUp', 'fadeInUp'],
+				['fadeInUpBig', 'fadeInUpBig'],
+				['fadeOut', 'fadeOut'],
+				['fadeOutDown', 'fadeOutDown'],
+				['fadeOutDownBig', 'fadeOutDownBig'],
+				['fadeOutLeft', 'fadeOutLeft'],
+				['fadeOutLeftBig', 'fadeOutLeftBig'],
+				['fadeOutRight', 'fadeOutRight'],
+				['fadeOutRightBig', 'fadeOutRightBig'],
+				['fadeOutUp', 'fadeOutUp'],
+				['fadeOutUpBig', 'fadeOutUpBig'],
+				['flipInX', 'flipInX'],
+				['flipInY', 'flipInY'],
+				['flipOutX', 'flipOutX'],
+				['flipOutY', 'flipOutY'],
+				['lightSpeedIn', 'lightSpeedIn'],
+				['lightSpeedOut', 'lightSpeedOut'],
+				['rotateIn', 'rotateIn'],
+				['rotateInDownLeft', 'rotateInDownLeft'],
+				['rotateInDownRight', 'rotateInDownRight'],
+				['rotateInUpLeft', 'rotateInUpLeft'],
+				['rotateInUpRight', 'rotateInUpRight'],
+				['rotateOut', 'rotateOut'],
+				['rotateOutDownLeft', 'rotateOutDownLeft'],
+				['rotateOutDownRight', 'rotateOutDownRight'],
+				['rotateOutUpLeft', 'rotateOutUpLeft'],
+				['rotateOutUpRight', 'rotateOutUpRight'],
+				['hinge', 'hinge'],
+				['rollIn', 'rollIn'],
+				['rollOut', 'rollOut'],
+				['zoomIn', 'zoomIn'],
+				['zoomInDown', 'zoomInDown'],
+				['zoomInLeft', 'zoomInLeft'],
+				['zoomInRight', 'zoomInRight'],
+				['zoomInUp', 'zoomInUp'],
+				['zoomOut', 'zoomOut'],
+				['zoomOutDown', 'zoomOutDown'],
+				['zoomOutLeft', 'zoomOutLeft'],
+				['zoomOutRight', 'zoomOutRight'],
+				['zoomOutUp', 'zoomOutUp'],
+				['slideInDown', 'slideInDown'],
+				['slideInLeft', 'slideInLeft'],
+				['slideInRight', 'slideInRight'],
+				['slideInUp', 'slideInUp'],
+				['slideOutDown', 'slideOutDown'],
+				['slideOutLeft', 'slideOutLeft'],
+				['slideOutRight', 'slideOutRight'],
+				['slideOutUp', 'slideOutUp'],
+			],
+			'renderType' => 'selectSingle'
+		]
+	],	
+	'tx_t3sbootstrap_animateCssRepeat' => [
+		'exclude' => 0,
+		'label' => 'Repeat (jQuery-viewport-checker option):',
+		'config' => [
+			'type' => 'check',
+			'default' => '1'
+		]
+	],
+	'tx_t3sbootstrap_animateCssDuration' => [
+		'label'   => 'Duration in seconds:',
+		'config' => [
+			'type' => 'input',
+			'eval' => 'int',
+			'size' => '3',
+		]
+	],	
+];
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns('tt_content',$tempContentColumns);
 unset($tempContentColumns);
 
 /***************
  * Header Layout sorting
  */
-$GLOBALS['TCA']['tt_content']['columns']['header_layout']['config']['items'] = array (
-	array($frontendLanguageFilePrefix . 'LGL.default_value', '0'),
-	array($languageFilePrefix .'tt_content.header_layout.ph1', '1'),
-	array($languageFilePrefix .'tt_content.header_layout.ph2', '6'),
-	array($languageFilePrefix .'tt_content.header_layout.2', '2'),
-	array($languageFilePrefix .'tt_content.header_layout.3', '3'),
-	array($languageFilePrefix .'tt_content.header_layout.4', '4'),
-	array($languageFilePrefix .'tt_content.header_layout.5', '5'),
-	array($languageFilePrefix .'tt_content.header_layout.6', '7'),
-	array($frontendLanguageFilePrefix . 'header_layout.I.6', '100')
-);
+$GLOBALS['TCA']['tt_content']['columns']['header_layout']['config']['items'] = [
+	[$frontendLanguageFilePrefix . 'LGL.default_value', '0'],
+	[$languageFilePrefix .'tt_content.header_layout.ph1', '1'],
+	[$languageFilePrefix .'tt_content.header_layout.ph2', '6'],
+	[$languageFilePrefix .'tt_content.header_layout.2', '2'],
+	[$languageFilePrefix .'tt_content.header_layout.3', '3'],
+	[$languageFilePrefix .'tt_content.header_layout.4', '4'],
+	[$languageFilePrefix .'tt_content.header_layout.5', '5'],
+	[$languageFilePrefix .'tt_content.header_layout.6', '7'],
+	[$frontendLanguageFilePrefix . 'header_layout.I.6', '100']
+];
 
 /***************
  * Header (add flexform)
@@ -184,8 +313,6 @@ $GLOBALS['TCA']['tt_content']['types']['t3sbs_thumbnails'] = [
 			--palette--;' . $frontendLanguageFilePrefix . 'palette.imagelinks;imagelinks,
 		--div--;' . $frontendLanguageFilePrefix . 'tabs.appearance,
 			layout;' . $frontendLanguageFilePrefix . 'layout_formlabel,
-			--palette--;' . $languageFilePrefix . 'tt_content.palette.mediaAdjustments;mediaAdjustments,
-			--palette--;' . $languageFilePrefix . 'tt_content.palette.gallerySettings;gallerySettings,
 			--palette--;' . $frontendLanguageFilePrefix . 'palette.appearanceLinks;appearanceLinks,
 		--div--;' . $frontendLanguageFilePrefix . 'tabs.access,
 			hidden;' . $frontendLanguageFilePrefix . 'field.default.hidden,
@@ -225,11 +352,11 @@ $GLOBALS['TCA']['tt_content']['types']['t3sbs_thumbnails']['showitem'] .= ',--di
  * Bullets
  */
 // add extra column
-$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][2] = array ('BS Inline list', 2);
-$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][3] = array ('BS Unstyled list',3);
-$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][4] = array ('BS Listengruppen',4);
-$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][5] = array ($fscLanguageFilePrefix . 'tt_content.bullets_type.2',5);
-$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][6] = array ('BS Definition list (horizontal)',6);
+$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][2] = ['BS Inline list', 2];
+$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][3] = ['BS Unstyled list',3];
+$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][4] = ['BS Listengruppen',4];
+$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][5] = [$fscLanguageFilePrefix . 'tt_content.bullets_type.2',5];
+$GLOBALS['TCA']['tt_content']['columns']['bullets_type']['config']['items'][6] = ['BS Definition list (horizontal)',6];
 
 // Add flexform
 $GLOBALS['TCA']['tt_content']['types']['bullets']['showitem'] .= ',--div--;Bootstrap,tx_t3sbootstrap_flexform';
@@ -268,6 +395,9 @@ $GLOBALS['TCA']['tt_content']['types']['gridelements_pi1']['columnsOverrides'] =
 	'media' => '__UNSET',
 	'frames' => '__UNSET'
 ];
+// Add flexform
+$GLOBALS['TCA']['tt_content']['types']['gridelements_pi1']['showitem'] .= ',--div--;Bootstrap,tx_t3sbootstrap_flexform';
+
 
 /***************
  * BS Carousel
@@ -341,7 +471,7 @@ $GLOBALS['TCA']['tt_content']['types']['t3sbs_gallery'] = [
 	',
 	'columnsOverrides' => [
 		'tx_t3sbootstrap_content_slide' => '__UNSET',
-		'target' => '__UNSET',
+		'target' => '__UNSET'
 	]
 ];
 // Add category tab when categories column exits
@@ -352,6 +482,20 @@ if (!empty($GLOBALS['TCA']['tt_content']['columns']['categories'])) {
 } 
 // Add flexform
 $GLOBALS['TCA']['tt_content']['types']['t3sbs_gallery']['showitem'] .= ',--div--;Bootstrap,tx_t3sbootstrap_flexform';
+
+# add header_position to palette header
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+	'tt_content',
+	'header',
+	'tx_t3sbootstrap_header_position',
+	'after:header_layout'
+);
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
+	'tt_content',
+	'headers',
+	'tx_t3sbootstrap_header_position',
+	'after:header_layout'
+);
 
 # add subheader to palette header
 \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addFieldsToPalette(
@@ -383,8 +527,33 @@ $GLOBALS['TCA']['tt_content']['types']['t3sbs_gallery']['showitem'] .= ',--div--
 	'after:imagelinks'
 );
 
+
 # Extension configuration
 $_EXTCONF = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);
+
+if ($_EXTCONF['animateCss']) {
+	# add animate.css
+	$showAnimateCss = ',--div--;Animate.css,tx_t3sbootstrap_animateCss,tx_t3sbootstrap_animateCssDuration,tx_t3sbootstrap_animateCssRepeat';
+
+	$GLOBALS['TCA']['tt_content']['types']['bullets']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['gridelements_pi1']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['header']['showitem'] .= $showAnimateCss;
+#	$GLOBALS['TCA']['tt_content']['types']['html']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['list']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['login']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['mailform']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['menu']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['shortcut']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['t3sbs_carousel']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['t3sbs_fluidtemplate']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['t3sbs_gallery']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['t3sbs_panel']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['t3sbs_thumbnails']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['table']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['textmedia']['showitem'] .= $showAnimateCss;
+	$GLOBALS['TCA']['tt_content']['types']['uploads']['showitem'] .= $showAnimateCss;
+	
+}
 
 if ($_EXTCONF['fontawesome']) {
 	# add tx_t3sbootstrap_fontawesome_icon

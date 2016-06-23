@@ -19,6 +19,7 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
 use TYPO3\CMS\Frontend\Resource\FileCollector;
 
+
 /**
  * This data processor can be used for processing data for record which contain
  * relations to sys_file records (e.g. sys_file_reference records) or for fetching
@@ -100,7 +101,7 @@ class BsImageGalleryProcessor implements DataProcessorInterface
         if ($sortingProperty) {
             $sortingDirection = $cObj->stdWrapValue(
                 'direction',
-                isset($processorConfiguration['sorting.']) ? $processorConfiguration['sorting.'] : array(),
+                isset($processorConfiguration['sorting.']) ? $processorConfiguration['sorting.'] : [],
                 'ascending'
             );
 

@@ -5,9 +5,24 @@
 <f:if condition="{be_layout} == 'pagets__t3sbootstrap_10'">
 	<span class="anchor" id="c{data.uid}"></span>
 </f:if>
-<div {f:if(condition:'{be_layout} == "pagets__t3sbootstrap_10"',else:'id="c{data.uid}"')}{f:if(condition: '{class}',then: ' class="{class}"')}{f:if(condition: '{style}',then: ' style="{style}"')}>
-	<f:render section="Main" />
-</div>
+<f:if condition="{settings.animateCss}">
+	<f:then>
+		<div {f:if(condition:'{be_layout} == "pagets__t3sbootstrap_10"',else:'id="c{data.uid}"')}
+			 {f:if(condition: '{class}',then: ' class="{class}"')}
+			 {f:if(condition: '{style}',then: ' style="{style}"')}
+			 {f:if(condition: '{data.tx_t3sbootstrap_animateCss}',then: ' data-vp-add-class="{data.tx_t3sbootstrap_animateCss}"')}
+			 {f:if(condition: '{data.tx_t3sbootstrap_animateCssRepeat}',then: ' data-vp-repeat="true"')}>
+			<f:render section="Main" />
+		</div>	
+	</f:then>
+	<f:else>
+		<div {f:if(condition:'{be_layout} == "pagets__t3sbootstrap_10"',else:'id="c{data.uid}"')}
+			 {f:if(condition: '{class}',then: ' class="{class}"')}
+			 {f:if(condition: '{style}',then: ' style="{style}"')}>
+			<f:render section="Main" />
+		</div>	
+	</f:else>
+</f:if>
 <f:if condition="{container}">
 	</div>
 </f:if>

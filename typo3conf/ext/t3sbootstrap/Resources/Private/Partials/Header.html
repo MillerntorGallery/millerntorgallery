@@ -10,6 +10,7 @@
 					fontawesome: data.tx_t3sbootstrap_fontawesome_icon,
 					subheader: data.subheader,
 					class: class,
+					header_position: data.tx_t3sbootstrap_header_position,
 					default: settings.defaultHeaderType}" />
 			</f:then>
 			<f:else> 
@@ -20,8 +21,8 @@
 					fontawesome: data.tx_t3sbootstrap_fontawesome_icon,
 					subheader: data.subheader,
 					class: class,
+					header_position: data.tx_t3sbootstrap_header_position,
 					default: settings.defaultHeaderType}" />
-
 			</f:else>
 		</f:if>			
 		<f:render partial="Header/Date" arguments="{_all}" />

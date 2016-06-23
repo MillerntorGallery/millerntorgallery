@@ -1,10 +1,6 @@
 <?php
 namespace T3SBS\T3sbootstrap\Controller;
 
-use \TYPO3\CMS\Core\Utility\GeneralUtility;
-use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
-use \TYPO3\CMS\Core\Messaging\AbstractMessage;
-
 /*
  * This file is part of the TYPO3 CMS project.
  *
@@ -17,6 +13,11 @@ use \TYPO3\CMS\Core\Messaging\AbstractMessage;
  *
  * The TYPO3 project - inspiring people to share!
  */
+
+use \TYPO3\CMS\Core\Utility\GeneralUtility;
+use \TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use \TYPO3\CMS\Core\Messaging\AbstractMessage;
+
 
 /**
  * Plugin class - Less controller
@@ -35,7 +36,7 @@ class LessController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 * Bootswatch array
 	 *
 	 */
-	public $bootswatch = array(
+	public $bootswatch = [
 		'cerulean' => 'Cerulean',
 		'cosmo' => 'Cosmo',
 		'cyborg' => 'Cyborg',
@@ -52,7 +53,7 @@ class LessController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 		'superhero' => 'Superhero',
 		'united' => 'United',
 		'yeti' => 'Yeti',
-	);
+	];
 
 
 	/**
@@ -63,11 +64,11 @@ class LessController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 	 */
 	public function indexAction($args = NULL) {
 
-		$this->view->assignMultiple(array(
+		$this->view->assignMultiple([
 			'args' => $this->request->getArguments(),
 			'copyExist' => self::copy_exist(),
 			'bootswatch' => $this->bootswatch,
-		));
+		]);
 	}
 
 
@@ -142,11 +143,11 @@ class LessController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
 			$this->addFlashMessage('The form is set to Bootswatch free Theme <strong>"'.ucfirst($bootswatchTheme).'"</strong> - you have to save the form!', '', AbstractMessage::INFO);
 		}
 
-		$this->view->assignMultiple(array(
+		$this->view->assignMultiple([
 			'args' => $args,
 			'copyExist' => self::copy_exist(),
 			'bootswatch' => $this->bootswatch,
-		));
+		]);
 
 	}
 

@@ -14,6 +14,8 @@ namespace T3SBS\T3sbootstrap\ViewHelpers;
  * The TYPO3 project - inspiring people to share!
  */
 
+use TYPO3\CMS\Core\Resource\FileReference;
+
 use TYPO3\CMS\Core\Resource\FileInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Service\TypoScriptService;
@@ -57,9 +59,9 @@ class ClickEnlargeViewHelper extends AbstractViewHelper
             true
         );
         $this->registerArgument(
-            'slideshow',
+            'lightboxGroup',
             'int',
-            'Integer,enable slideshow',
+            'Integer,enable lightbox group',
             false
         );
     }
@@ -70,8 +72,7 @@ class ClickEnlargeViewHelper extends AbstractViewHelper
      * @return string
      */
     public function render()
-    {
-	    
+    {	    
         return self::renderStatic(
             $this->arguments,
             $this->buildRenderChildrenClosure(),
@@ -94,7 +95,7 @@ class ClickEnlargeViewHelper extends AbstractViewHelper
             self::getContentObjectRenderer()->setCurrentFile($image);
 
         } else {
-	        // works with news media
+	        // works with images from news media
 			$image = \TYPO3\CMS\Core\Resource\ResourceFactory::getInstance()->getFileReferenceObject($image->getUid());	        
 	        if ($image instanceof FileInterface) {
 	            self::getContentObjectRenderer()->setCurrentFile($image);
@@ -103,16 +104,23 @@ class ClickEnlargeViewHelper extends AbstractViewHelper
 
         $configuration = self::getTypoScriptService()->convertPlainArrayToTypoScriptArray($arguments['configuration']);
 
-		if ($arguments['slideshow']){ 
+		if ($arguments['lightboxGroup']){ 
 			$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['97'] = 'TEXT';
-			$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['97.']['value'] = 'data-gallery="gallery-'.$arguments['uid'].'"';
+			$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['97.']['value'] = 'data-'.$arguments['configuration']['dataAttribute'].'="lightboxGroup-'.$arguments['uid'].'"';
+		} else {			
+			$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['97'] = 'TEXT';
+			$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['97.']['value'] = 'data-'.$arguments['configuration']['dataAttribute'].'="image-'.$image->getUid().'"';
 		}
-		$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['98'] = 'TEXT';
-		$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['98.']['value'] = 'data-title="'.$image->getTitle().'"';
-		
-		$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['99'] = 'TEXT';
-		$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['99.']['value'] = 'data-footer="'.$image->getDescription().'"';
 
+		if ($image instanceof FileReference) {
+			$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['98'] = 'TEXT';
+			$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['98.']['value'] = 'data-title="'.$image->getTitle().'"';
+		} else {
+			$imageProperties = $image->getProperties();
+			$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['98'] = 'TEXT';
+			$configuration['linkParams.']['ATagParams.']['stdWrap.']['cObject.']['98.']['value'] = 'data-title="'.$imageProperties['title'].'"';
+		}
+		
         $content = $renderChildrenClosure();
         $configuration['enable'] = true;
 
@@ -137,5 +145,6 @@ class ClickEnlargeViewHelper extends AbstractViewHelper
             $typoScriptService = GeneralUtility::makeInstance(TypoScriptService::class);
         }
         return $typoScriptService;
-    }
+    }    
+    
 }

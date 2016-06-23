@@ -37,15 +37,15 @@
 					</div>
 					<div class="col-md-4">
 						<f:for each="{newsItem.falMedia}" as="mediaElement">
-							<div  style="margin-bottom: 10px;">
+							<div class="thumbnail">
 								<f:if condition="{settings.lightbox.enable}">
 									<f:then>
-										<t3sbs:clickEnlarge image="{mediaElement}" configuration="{settings.media.popup}" uid="{newsItem.uid}">
-											<f:media file="{mediaElement}" class="img-responsive" />
+										<t3sbs:clickEnlarge image="{mediaElement}" configuration="{settings.media.popup}" uid="{newsItem.uid}" lightboxGroup="{settings.media.popup.lightboxGroup}">
+											<f:media file="{mediaElement}" width="{f:if(condition: '{settings.detail.media.image.maxWidth}',then: '{settings.detail.media.image.maxWidth}', else: '555')}" height="{f:if(condition: '{settings.detail.media.image.maxHeight}',then: '{settings.detail.media.image.maxHeight}c')}" class="img-responsive" />
 										</t3sbs:clickEnlarge>
 									</f:then>
 									<f:else>
-										<f:media file="{mediaElement}" class="img-responsive" />
+										<f:media file="{mediaElement}" width="{f:if(condition: '{settings.detail.media.image.maxWidth}',then: '{settings.detail.media.image.maxWidth}', else: '555')}" height="{f:if(condition: '{settings.detail.media.image.maxHeight}',then: '{settings.detail.media.image.maxHeight}c')}" class="img-responsive" />
 									</f:else>
 								</f:if>
 								<f:if condition="{mediaElement.description}">
@@ -59,7 +59,6 @@
 				</div>
 			</f:then>
 			<f:else>
-				<f:render section="headline" arguments="{_all}" />
 				<f:render section="inner-content" arguments="{_all}" />
 			</f:else>
 		</f:if>
@@ -116,7 +115,8 @@
 						 shortName="{settings.detail.disqusShortname}"
 						 link="{n:link(newsItem:newsItem, settings:settings, uriOnly:1, configuration:'{forceAbsoluteUrl:1}')}" />
 	</f:if>
-	
+
+
 	<f:if condition="{newsItem.allRelatedSorted}">
 		<!-- Related news records -->
 		<div class="news-related news-related-news">
@@ -150,9 +150,17 @@
 				<f:for each="{newsItem.falRelatedFiles}" as="relatedFile">
 					<li>
 						<span class="news-related-files-link">
-							<a href="{relatedFile.originalResource.publicUrl -> f:format.htmlspecialchars()}" target="_blank">
-								{f:if(condition:relatedFile.originalResource.title, then:relatedFile.originalResource.title, else:relatedFile.originalResource.name)}
-							</a>
+							<n:format.fileDownload file="{relatedFile.originalResource.publicUrl}" configuration="{settings.relatedFiles.download}">
+								<f:if condition="{relatedFile.originalResource.title}">
+									<f:comment><!-- Todo: Remove format.raw() if using title/name outside cObject context--></f:comment>
+									<f:then>
+										{relatedFile.originalResource.title -> f:format.raw()}
+									</f:then>
+									<f:else>
+										{relatedFile.originalResource.name -> f:format.raw()}
+									</f:else>
+								</f:if>
+							</n:format.fileDownload>
 						</span>
 						<span class="news-related-files-size"> {relatedFile.originalResource.size -> f:format.bytes()} </span>
 					</li>
@@ -180,3 +188,4 @@
 	</f:if>
 </f:section>
 </html>
+

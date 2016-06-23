@@ -48,7 +48,7 @@ class BgImageSizeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
 	 *
 	 * @return string The render template
 	 */
-	public function render($uid, $as = 'objects', $tableName = 'tt_content', $fieldName = 'assets', $data = array()) {
+	public function render($uid, $as = 'objects', $tableName = 'tt_content', $fieldName = 'assets', $data = []) {
 
 		$filesFromRepository = $this->fileRepository->findByRelation($tableName, $fieldName, $uid);
 
@@ -58,12 +58,12 @@ class BgImageSizeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractVie
 			$image = $this->imageService->getImage($fileFromRepository->getOriginalFile()->getUid(), $fileFromRepository->getOriginalFile(), 1);
 			$imageUri_orig = $this->imageService->getImageUri($image, false);
 	
-			$bgImages = array();
-			$mediaQueries = array(768,992,1200);
+			$bgImages = [];
+			$mediaQueries = [768,992,1200];
 	
 			foreach ($mediaQueries as $key=>$querie) {
 		
-				$processedImage = $this->imageService->applyProcessingInstructions($image, array('width' => $querie));
+				$processedImage = $this->imageService->applyProcessingInstructions($image, ['width' => $querie]);
 				$bgImages[$querie] = $this->imageService->getImageUri($processedImage, false);
 	
 				if ($key === 0) {

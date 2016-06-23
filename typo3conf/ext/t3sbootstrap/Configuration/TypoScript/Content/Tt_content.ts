@@ -1,7 +1,16 @@
 # **********************************************************
-# Header only
+# List
 # **********************************************************
 tt_content.list {
+	dataProcessing {
+		10 = T3SBS\T3sbootstrap\DataProcessing\BootstrapProcessor
+	}
+}
+
+# **********************************************************
+# Shortcut
+# **********************************************************
+tt_content.shortcut {
 	dataProcessing {
 		10 = T3SBS\T3sbootstrap\DataProcessing\BootstrapProcessor
 	}

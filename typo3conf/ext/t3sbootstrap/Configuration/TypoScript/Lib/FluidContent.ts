@@ -19,19 +19,23 @@ lib.fluidContent {
 				JSwindow = 0
 				directImageLink = 1
 				linkParams.ATagParams.dataWrap >
+
 				linkParams.ATagParams.stdWrap.cObject = COA
 				linkParams.ATagParams.stdWrap.cObject {
-					10 = TEXT
-					10.value = data-toggle="lightbox"
-					20 = TEXT
-					20.value = data-parent=".wrapper-parent"
+				    10 = TEXT
+				    10.value = class="lightbox-group"
+				    10.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.lightbox.group}
 				}
-				slideshow = {$plugin.t3sbootstrap_configuration.extensions.colorbox.slideshow}
-				if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.colorbox.enable}
+
+				dataAttribute = {$plugin.t3sbootstrap_configuration.extensions.lightbox.dataAttribute}
+				lightboxGroup = {$plugin.t3sbootstrap_configuration.extensions.lightbox.group}
+				if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.lightbox.enable}
 			}			
 		}
 		headertags.enable = {$plugin.t3sbootstrap_configuration.headertags.enable}
-		tabletags.enable = {$plugin.t3sbootstrap_configuration.tabletags.enable}		
+		tabletags.enable = {$plugin.t3sbootstrap_configuration.tabletags.enable}
+		# enable/disable in EMconfig
+		animateCss = {$plugin.t3sbootstrap_configuration.animateCss}
 	}
 	variables {
 		container-fluid = TEXT

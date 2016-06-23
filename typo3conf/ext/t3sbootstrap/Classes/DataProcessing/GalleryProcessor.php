@@ -379,7 +379,7 @@ class GalleryProcessor implements DataProcessorInterface
 		if ($this->galleryData['position']['vertical'] === 'intext' && $imageOnly === FALSE) {
 			$this->galleryData['width'] = $this->maxGalleryWidthInText;
 		} else {
-			$this->galleryData['width'] = $this->maxGalleryWidth;
+			$this->galleryData['width'] = (string)$this->maxGalleryWidth;
 		}
 	}
 
@@ -495,7 +495,6 @@ class GalleryProcessor implements DataProcessorInterface
 		// Automatic setting of width and height
 		} else {
 			$maxMediaWidth = (int)($galleryWidthMinusBorderAndSpacing / $this->galleryData['count']['columns']);
-
 			foreach ($this->fileObjects as $key => $fileObject) {
 				$mediaWidth = min($maxMediaWidth, $this->getCroppedDimensionalProperty($fileObject, 'width'));
 				$mediaHeight = floor(

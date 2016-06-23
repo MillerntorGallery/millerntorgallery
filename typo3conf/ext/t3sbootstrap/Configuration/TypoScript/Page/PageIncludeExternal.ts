@@ -16,13 +16,6 @@ page {
 		fontAwesome.excludeFromConcatenation = 1
 		fontAwesome.disableCompression = 1
 	}
-	includeJSFooter {
-		ekko = //cdnjs.com/libraries/ekko-lightbox
-		ekko.external = 1
-		ekko.excludeFromConcatenation = 1
-		ekko.disableCompression = 1		
-		ekko.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.colorbox.enable}		
-	}
 	# JS to be included
 	includeJSFooterlibs {
 		bootstrap = //maxcdn.bootstrapcdn.com/bootstrap/{$plugin.t3sbootstrap_configuration.bootstrap.version}/js/bootstrap.min.js

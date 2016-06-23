@@ -282,7 +282,7 @@ class ext_update
 				}
 			}
 
-		}
+		}	
 
 		// Check for errors
 		if ($this->databaseConnection->sql_error()) {

@@ -191,6 +191,34 @@
 							</config>
 						</TCEforms>
 					</bottomMargin>
+					<containerOverride>
+						<TCEforms type="array">
+							<label>LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:tt_content.containerOverride</label>
+							<config type="array">
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<items type="array">
+									<numIndex index="0" type="array">
+										<numIndex index="0">none</numIndex>
+										<numIndex index="1">0</numIndex>
+									</numIndex>
+									<numIndex index="1" type="array">
+										<numIndex index="0">container</numIndex>
+										<numIndex index="1">container</numIndex>
+									</numIndex>
+									<numIndex index="2" type="array">
+										<numIndex index="0">container-fluid</numIndex>
+										<numIndex index="1">container-fluid</numIndex>
+									</numIndex>
+									<numIndex index="3" type="array">
+										<numIndex index="0">no container class</numIndex>
+										<numIndex index="1">noContainer</numIndex>
+									</numIndex>
+								</items>
+								<default>0</default>
+							</config>
+						</TCEforms>
+					</containerOverride>
 				</el>
 			</ROOT>
 		</sDEF>

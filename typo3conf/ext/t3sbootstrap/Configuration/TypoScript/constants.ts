@@ -98,7 +98,7 @@ plugin.t3sbootstrap_configuration {
 		jumbotron.bgImg.maxWidth = 1920
 		# cat=t3sbootstrap/e-styles/08; type=int+; label=Jumbotron Bg Image max. Height:
 		jumbotron.bgImg.maxHeight = 400
-		# cat=t3sbootstrap/e-styles/10; type=boolean; label=Page-Header: Header (H1) with subheader (small) shown in the Jumbotron or on Top.
+		# cat=t3sbootstrap/e-styles/10; type=options[none=0, above=1, content=2]; label=Page-Header: Header (H1) with subheader (small) shown obove (jumbotron or on top) or in the "main-content".
 		bsHeader.enable = 1
 		# cat=t3sbootstrap/e-styles/20; type=boolean; label=NavBar Inverted:
 		navbar.style.inverse = 0
@@ -118,10 +118,10 @@ plugin.t3sbootstrap_configuration {
 		sticky.footer.body.padding.bottom = 200
 	}
 	extensions {
-		# cat=t3sbootstrap/f-extensions/05; type=boolean; label=Lightbox: Include "Lightbox for Bootstrap 3" and configuration
-		colorbox.enable = 1
-		# cat=t3sbootstrap/f-extensions/06; type=boolean; label=Lightbox slideshow: Enable slideshow in the lightbox.
-		colorbox.slideshow = 1
+		# cat=t3sbootstrap/f-extensions/05; type=boolean; label=Lightbox: Include "Lightbox by Lokesh Dhakar" and configuration
+		lightbox.enable = 1
+		# cat=t3sbootstrap/f-extensions/06; type=boolean; label=Lightbox group: If you have a group of related images that you would like to combine into a set.
+		lightbox.group = 1
 		# cat=t3sbootstrap/f-extensions/08; type=int+; label=Search Result Uid: indexed_search should be loaded
 		indexed_search.page =
 	}
@@ -130,8 +130,8 @@ plugin.t3sbootstrap_configuration {
 
 	# versions for cdn only
 	bootstrap.version = 3.3.5
-	jquery.version = 1.11.3
-	fontawesome.version = 4.5.0
+	jquery.version = 1.12.4
+	fontawesome.version = 4.6.3
 
 	navigation.affix.data-offset-top = 200
 	navigation.affix.data-offset-bottom = 100
@@ -174,6 +174,8 @@ plugin.t3sbootstrap_configuration {
 		imageHeight = 159
 		thumbnail = 0
 	}
+	# data attribute for the lightbox
+	extensions.lightbox.dataAttribute = lightbox
 
 }
 

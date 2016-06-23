@@ -8,7 +8,7 @@ tx_gridelements.setup.two_columns {
   	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.twoColumns.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.twoColumns.description
 	frame = 2
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/twoColumns.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/twoColumns.png
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/TwoColumns.xml
 	config {
 		colCount = 2
@@ -34,7 +34,7 @@ tx_gridelements.setup.three_columns {
   	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.threeColumns.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.threeColumns.description
 	frame = 2
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/threeColumns.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/threeColumns.png
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/ThreeColumns.xml
 	config {
 		colCount = 3
@@ -64,7 +64,7 @@ tx_gridelements.setup.four_columns {
   	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.fourColumns.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.fourColumns.description
 	frame = 2
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/fourColumns.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/fourColumns.png
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/FourColumns.xml
 	config {
 		colCount = 4
@@ -101,7 +101,7 @@ tx_gridelements.setup.four_columns {
 tx_gridelements.setup.tabs_container {
   	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.tabContainer.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.tabContainer.description
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/tabContainer.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/tabContainer.png
 	frame = 3
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/Tabs.xml
 	config {
@@ -126,7 +126,7 @@ tx_gridelements.setup.tabs_container {
 tx_gridelements.setup.tabs_tab {
 	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.tabElement.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.tabElement.description
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/tabElement.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/tabElement.png
 	frame = 2
 	config {
 		colCount = 1
@@ -151,8 +151,8 @@ tx_gridelements.setup.tabs_tab {
 tx_gridelements.setup.collapsible_container {
 	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.collapsibleContainer.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.collapsibleContainer.description
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/collapseContainer.gif
-	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/CollapsibleContainer.xml
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/accordion.png
+#	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/CollapsibleContainer.xml
 	frame = 3
 	config {
 		colCount = 1
@@ -175,7 +175,7 @@ tx_gridelements.setup.collapsible_container {
 tx_gridelements.setup.collapsible_accordion {
 	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.collapsibleElement.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.collapsibleElement.description
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/collapseElement.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/accordionElement.png
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/Collapse.xml
 	frame = 2
 	config {
@@ -200,7 +200,7 @@ tx_gridelements.setup.collapsible_accordion {
 tx_gridelements.setup.thumbnails_container {
 	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.thumbnailsContainer.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.thumbnailsContainer.description
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/thumbnails.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/thumbnails.png
 	frame = 1
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/Thumbnails.xml
 	config {
@@ -227,7 +227,7 @@ tx_gridelements.setup.modal {
 	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.modal.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.modal.description
 	frame = 3
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/modal.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/modal.png
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/Modal.xml
 	config {
 		colCount = 1
@@ -251,7 +251,7 @@ tx_gridelements.setup.modal {
 tx_gridelements.setup.carousel_container {
 	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.carouselContainer.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.carouselContainer.description
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/carousel.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/carousel.png
 	frame = 1
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/Carousel.xml
 	config {
@@ -278,7 +278,7 @@ tx_gridelements.setup.background_wrapper {
 	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.backgroundWrapper.title
 	description = Full width container with background color or - image
 	frame = 1
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/carousel.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/backgroundWrapper.png
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/BackgroundWrapper.xml
 	config {
 		colCount = 1
@@ -304,7 +304,9 @@ tx_gridelements.setup.parallax_wrapper {
 	title = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.parallaxWrapper.title
 	description = LLL:EXT:t3sbootstrap/Resources/Private/Language/locallang_be.xlf:gridelement.parallaxWrapper.description
 	frame = 1
-	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/carousel.gif
+	icon = EXT:t3sbootstrap/Resources/Public/Icons/GridElements/parallaxWrapper.png
+
+
 	flexformDS = FILE:EXT:t3sbootstrap/Configuration/FlexForms/Gridelements/ParallaxWrapper.xml
 	config {
 		colCount = 1
@@ -321,3 +323,4 @@ tx_gridelements.setup.parallax_wrapper {
 		}
 	}
 }
+

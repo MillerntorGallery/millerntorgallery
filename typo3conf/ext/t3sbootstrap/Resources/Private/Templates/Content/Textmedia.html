@@ -1,6 +1,5 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" 
-	xmlns:t3sbs="http://typo3.org/ns/T3SBS/T3sbootstrap/ViewHelpers" data-namespace-typo3-fluid="true">
-		
+	xmlns:t3sbs="http://typo3.org/ns/T3SBS/T3sbootstrap/ViewHelpers" data-namespace-typo3-fluid="true">	
 <f:layout name="Default" />
 <f:section name="Main">
 <f:render partial="Header" arguments="{settings : settings, data : data, class : '' }" />
@@ -8,14 +7,10 @@
 	<f:then>
 		<f:if condition="{gallery.position.vertical} == 'below'">
 			<f:render section="bodytext" arguments="{_all}" />
-			{f:if(condition: '{settings.media.popup.slideshow}',then: '<div class="wrapper-parent">')}
 			<f:render section="gallery" arguments="{_all}" />
-			{f:if(condition: '{settings.media.popup.slideshow}',then: '</div>')}
 		</f:if>
 		<f:if condition="{gallery.position.vertical} == 'above'">
-			{f:if(condition: '{settings.media.popup.slideshow}',then: '<div class="wrapper-parent">')}
 			<f:render section="gallery" arguments="{_all}" />
-			{f:if(condition: '{settings.media.popup.slideshow}',then: '</div>')}
 			<f:render section="bodytext" arguments="{_all}" />
 		</f:if>
 		<f:if condition="{gallery.position.vertical} == 'intext'">
@@ -35,7 +30,6 @@
 								</div>
 							</f:then>
 							<f:else>
-								{f:if(condition: '{settings.media.popup.slideshow}',then: '<div class="wrapper-parent">')}
 								<f:if condition="{gallery.count.columns} == 1">
 									<f:then>
 										<div class="row media-position-{gallery.position.horizontal}">
@@ -72,13 +66,12 @@
 										</f:if>
 									</f:else>					
 								</f:if>
-								{f:if(condition: '{settings.media.popup.slideshow}',then: '</div>')}
 							</f:else>
 						</f:if>
 					</f:then>
 					<f:else>						
 						<div class="inlineJs media-position-{gallery.position.horizontal} clearfix">
-							<div class="{f:if(condition: '{settings.media.popup.slideshow}',then: 'wrapper-parent ')}intext-pics pull-{gallery.position.horizontal}" 
+							<div class="intext-pics pull-{gallery.position.horizontal}" 
 								style="margin-{gallery.position.horizontal}: 0">		
 								<f:render section="galleryInText" arguments="{_all}" />
 							</div>
@@ -308,7 +301,7 @@
 </f:section>
 
 <f:section name="mediaType">
-	<figure class="center-block{f:if(condition: '{gallery.mediaClassCenter}',then: ' {gallery.mediaClassCenter}')}" style="margin-bottom: 10px;{f:if(condition: '{data.imagewidth}',then: ' max-width:{data.imagewidth}px;')}" >
+	<figure class="{f:if(condition: '{gallery.mediaClassCenter}',then: ' {gallery.mediaClassCenter}')}" style="margin-bottom: 10px;{f:if(condition: '{data.imagewidth}',then: ' max-width:{data.imagewidth}px;')}" >
 		<f:if condition="{media.type} == 2">
 			<f:render section="imageType" arguments="{_all}" />
 		</f:if>
@@ -331,7 +324,9 @@
 		<f:else>
 			<f:if condition="{data.image_zoom}">
 				<f:then>				
-					<t3sbs:clickEnlarge image="{media}" configuration="{settings.media.popup}" uid="{data.uid}" slideshow="{settings.media.popup.slideshow}">
+					<t3sbs:clickEnlarge image="{media}" 
+						configuration="{settings.media.popup}" 
+						uid="{data.uid}" lightboxGroup="{settings.media.popup.lightboxGroup}">
 						<f:render section="image" arguments="{_all}" />
 					</t3sbs:clickEnlarge>
 				</f:then>

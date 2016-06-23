@@ -16,11 +16,14 @@ if (!defined('TYPO3_MODE')) {
  * Register Icons
  */
 $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-$iconRegistry->registerIcon(
-	'bootstrap3',
-	\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-	['source' => 'EXT:t3sbootstrap/Resources/Public/Icons/bootstrap.png']
-);
+$icons = ['bootstrap, panel, thumbnailElement, carouselElement, fluidTemplate, imageGallery'];
+foreach ($icons as $icon) {
+	$iconRegistry->registerIcon(
+		$icon,
+		\TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+		['source' => 'EXT:t3sbootstrap/Resources/Public/Icons/Bootstrap/'.$icon.'.png']
+	);	
+}
 
 /***************
  * Register PageTSConfig Files
@@ -49,13 +52,13 @@ if ( \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('dyncss')
 		'tools',
 		'm1',
 		'',
-		array(
+		[
 			'Less' => 'index,create,reset,copy',
-		),
-		array(
+		],
+		[
 			'access' => 'admin',
 			'icon'   => 'EXT:' . $_EXTKEY . '/ext_icon.gif',
 			'labels'  => 'LLL:EXT:' . $_EXTKEY . '/Resources/Private/Language/locallang_mod.xlf',
-		)
+		]
 	);
 }

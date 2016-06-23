@@ -2,9 +2,10 @@
 	xmlns:t3sbs="http://typo3.org/ns/T3SBS/T3sbootstrap/ViewHelpers" data-namespace-typo3-fluid="true">		
 <f:layout name="Default" />
 <f:section name="Main">
+
 	<f:render partial="Header" arguments="{settings : settings, data : data, class : '' }" />
 	<f:if condition="{files}">
-		<div class="wrapper-parent" style="padding: 13px;">	
+		<div class="wrapper-parent" style="padding: 13px;">
 			<f:for each="{files}" as="row" iteration="fileIterator">
 				<div class="row">
 					<f:for each="{row}" as="file">
@@ -26,17 +27,28 @@
 						<f:if condition="{settings.galleryColumns} == 12">
 							<div class="col-xs-4 col-sm-3 col-md-2 col-lg-1" style="padding:2px;">
 						</f:if>
-						<a data-footer="{file.description}" data-title="{file.title}" 
-							 {f:if(condition: '{settings.media.popup.slideshow}',then: ' data-gallery="gallery-{data.uid}"')} 
-							 data-parent=".wrapper-parent" data-toggle="lightbox" href="fileadmin{file.identifier}">
-							<f:media file="{file}" class="img-responsive center-block{f:if(condition: '{settings.thumbnail}',then: ' img-thumbnail')}"
-							 width="{settings.imageWidth}" height="{settings.imageHeight}c" />
-						</a>		
+						<t3sbs:clickEnlarge image="{file}" 
+							configuration="{settings.media.popup}" 
+							uid="{data.uid}" 
+							lightboxGroup="{settings.media.popup.lightboxGroup}"> 
+							<f:render section="image" arguments="{_all}" />
+						</t3sbs:clickEnlarge>
 						</div>
 					</f:for>
 				</div>	
 			</f:for>						
 		</div>
 	</f:if>
+</f:section>
+
+<f:section name="image">
+	<f:media
+		file="{file}"
+		alt="{file.alternative}"
+		title="{f:if(condition: '{file.title}',then: '{file.title}')}"		
+		width="{f:if(condition: '{settings.imageWidth}',then: '{settings.imageWidth}', else: '{gallery.width}')}"
+		height="{f:if(condition: '{settings.imageHeight}',then: '{settings.imageHeight}c')}"
+		class="img-responsive center-block{f:if(condition: '{settings.thumbnail}',then: ' img-thumbnail')}"
+	/>	
 </f:section>	
 </html>

@@ -4,6 +4,7 @@
 	<f:if condition="{media}">
 		<f:then>
 			<div id="c{data.uid}" class="parallax bgImageSize {class}" data-speed="{data.flexform_speedFactor}" style="background-image: url('{media}');{f:if(condition: '{data.flexform_paddingTopBottom}', then: ' padding:{data.flexform_paddingTopBottom} 15px;', else: ' height:100vH;')}">			
+
 				<div class="{f:if(condition: '{container-fluid}',then: 'container-fluid', else: 'container')}{f:if(condition: '{data.flexform_paddingTopBottom}', else: ' vcenter')}">
 					<div style="background-color:{f:if(condition: '{data.flexform_bgColor}',then: '{data.flexform_bgColor}', else:'rgba(255,255,255,0.8)')}; padding:15px;">
 						<f:render partial="Header" arguments="{settings : settings, data : data, class : 'section-header' }" />

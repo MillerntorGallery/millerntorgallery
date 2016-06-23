@@ -40,7 +40,7 @@ class ChunkViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelpe
      */
     public function object_to_array($data) {
 
-	        $result = array();
+	        $result = [];
 	        foreach ($data as $key => $value) {
 	            $result[$key] = $value;
 	        }

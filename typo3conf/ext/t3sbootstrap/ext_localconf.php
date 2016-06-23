@@ -10,22 +10,22 @@ if ( $_EXTCONF ) {
 	$_EXTCONF = unserialize($_EXTCONF);
 } else {
 	# default setting
-	$_EXTCONF = array(
+	$_EXTCONF = [
 	   'rte_config' => '1',
 	   'fontawesome' => '1',
 	   'backendLayouts' => '1',
-	   'expandedContent' => '0'
-	);
+	   'expandedContent' => '0',
+	   'animateCss' => '0'
+	];
 }
 
-
 # Temporary bugfix #68045 (only after the record has been saved)
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['formDataGroup']['inlineParentRecord'][\TYPO3\CMS\Backend\Form\FormDataProvider\DatabaseEditRow::class] = array();
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['formDataGroup']['inlineParentRecord'][\TYPO3\CMS\Backend\Form\FormDataProvider\InitializeProcessedTca::class] = array(
-	'depends' => array(
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['formDataGroup']['inlineParentRecord'][\TYPO3\CMS\Backend\Form\FormDataProvider\DatabaseEditRow::class] = [];
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['formDataGroup']['inlineParentRecord'][\TYPO3\CMS\Backend\Form\FormDataProvider\InitializeProcessedTca::class] = [
+	'depends' => [
 		\TYPO3\CMS\Backend\Form\FormDataProvider\DatabaseEditRow::class,
-	)
-);
+	]
+];
 	
 // Register for hook to show preview of tt_content element of CType="t3sbs_thumbnails & t3sbs_carousel" in page module
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawItem']['t3sbs_thumbnails'] = \T3SBS\T3sbootstrap\Hooks\PreviewRenderer::class;
@@ -87,6 +87,14 @@ if ( \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('dyncss')
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants('plugin.t3sbootstrap_configuration.general.dyncss = 1');
 } else {
 	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants('plugin.t3sbootstrap_configuration.general.dyncss = 0');
+}
+
+ # Optional Animate.css
+if (array_key_exists('animateCss', $_EXTCONF) && $_EXTCONF['animateCss'] === '1') {
+	 # Contstant
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants('plugin.t3sbootstrap_configuration.animateCss = 1');
+} else {
+	\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTypoScriptConstants('plugin.t3sbootstrap_configuration.animateCss = 0');	
 }
 
 /***************

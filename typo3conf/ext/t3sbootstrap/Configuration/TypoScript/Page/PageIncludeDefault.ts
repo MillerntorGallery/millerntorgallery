@@ -1,13 +1,14 @@
-temp.colorbox.jsFooterInline = COA
-temp.colorbox.jsFooterInline {
+temp.lightbox.jsFooterInline = COA
+temp.lightbox.jsFooterInline {
 	10 = TEXT
 	10.value (
-		jQuery(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
-		    event.preventDefault();
-		    $(this).ekkoLightbox();
+		lightbox.option({
+		  'resizeDuration': 200,
+		  'wrapAround': true,
+		  'albumLabel' : 'Bild %1 von %2'
 		});
 	)
-	10.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.colorbox.enable}
+	10.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.lightbox.enable}
 }
 
 temp.textmedia.jsFooterInline = COA
@@ -71,9 +72,9 @@ temp.jsFooterInline {
 	30 = TEXT
 	30.value = jQuery('.page-content a').tooltip({placement:'{$plugin.t3sbootstrap_configuration.general.tooltip_placement}'});
 	30.if.isTrue = {$plugin.t3sbootstrap_configuration.general.tooltip}
-	# colorbox (lightbox)
-	50 < temp.colorbox.jsFooterInline
-	50.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.colorbox.enable}
+	# lightbox
+	50 < temp.lightbox.jsFooterInline
+	50.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.lightbox.enable}
 	# navBar hover
 	60 = TEXT
 	60.value (
@@ -96,6 +97,9 @@ temp.jsFooterInline {
 	70.if.value = {$plugin.t3sbootstrap_configuration.pages.sitemap.uidList}
 	80 = TEXT
 	80.value = if (location.hash) $(location.hash).collapse('show');
+	85 = TEXT
+	85.value = $('.animated').viewportChecker();
+	85.if.isTrue = {$plugin.t3sbootstrap_configuration.animateCss}	
 	98 < temp.textmedia.jsFooterInline
 	# closing 5.
 	99 = TEXT
@@ -126,8 +130,11 @@ page {
 		treed.if.isInList.data = TSFE:id
 		treed.if.value = {$plugin.t3sbootstrap_configuration.pages.sitemap.uidList}
 
-		ekko = EXT:t3sbootstrap/Resources/Public/Contrib/Ekko/ekko-lightbox.min.css
-		ekko.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.colorbox.enable}
+		lightbox = EXT:t3sbootstrap/Resources/Public/Contrib/Lightbox/css/lightbox.css
+		lightbox.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.lightbox.enable}
+				
+		animate = EXT:t3sbootstrap/Resources/Public/Contrib/Animate/animate.min.css
+		animate.if.isTrue = {$plugin.t3sbootstrap_configuration.animateCss}
 	}
 
 	# JS to be included
@@ -143,7 +150,12 @@ page {
 		onePage = EXT:t3sbootstrap/Resources/Public/Scripts/onePage.js
 		onePage.if.value = pagets__t3sbootstrap_10
 		onePage.if.equals.data = pagelayout
-		
+
+		lightbox = EXT:t3sbootstrap/Resources/Public/Contrib/Lightbox/js/lightbox.js
+		lightbox.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.lightbox.enable}		
+
+		viewportchecker = EXT:t3sbootstrap/Resources/Public/Contrib/Animate/jquery.viewportchecker.js
+		viewportchecker.if.isTrue = {$plugin.t3sbootstrap_configuration.animateCss}
 	}
 
 	jsFooterInline.5 < temp.jsFooterInline	
@@ -151,4 +163,5 @@ page {
 }
 
 temp.jsFooterInline >
-temp.colorbox.jsFooterInline >
+temp.textmedia.jsFooterInline >
+temp.lightbox.jsFooterInline >

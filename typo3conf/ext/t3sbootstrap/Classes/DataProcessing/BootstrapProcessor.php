@@ -19,7 +19,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\ContentObject\DataProcessorInterface;
 
 
-
 /**
  * This data processor can be used for processing data from pi_flexform
  */
@@ -39,51 +38,36 @@ class BootstrapProcessor implements DataProcessorInterface
 	public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration,  array $processedData)
 	{
 
-		$flexconf = array();
+		$frontendController = self::getFrontendController();
+
+		$pageId = $frontendController->id;
+
+		$flexconf = [];
+
+		$flexformService = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Service\\FlexFormService');
+		$flexconf = $flexformService->convertFlexFormContentToArray($processedData['data']['tx_t3sbootstrap_flexform']);
 
 		if ($processedData['data']['CType'] == 'gridelements_pi1') {
+			$class = 'gridelement ge_'. $processedData['data']['tx_gridelements_backend_layout'];
+
+			// gridelements w/o frame
 			if ( $processedData['data']['tx_gridelements_backend_layout'] == 'background_wrapper'
-			  || $processedData['data']['tx_gridelements_backend_layout'] == 'collapsible_accordion' 
-			  || $processedData['data']['tx_gridelements_backend_layout'] == 'tabs_tab') {
-			  	// do nothing!
-			} else {
-				$flexconf['frame'] = $processedData['data']['flexform_frame'];
+			  || $processedData['data']['tx_gridelements_backend_layout'] == 'parallax_wrapper') 
+			{
+			  	$flexconf['frame'] = NULL;
 			}
-			$flexconf['hiddenXs'] = $processedData['data']['flexform_hiddenXs'];
-			$flexconf['hiddenSm'] = $processedData['data']['flexform_hiddenSm'];
-			$flexconf['hiddenMd'] = $processedData['data']['flexform_hiddenMd'];
-			$flexconf['hiddenLg'] = $processedData['data']['flexform_hiddenLg'];
-			$flexconf['hiddenPrint'] = $processedData['data']['flexform_hiddenPrint'];  
-			$flexconf['rulerAfter'] = $processedData['data']['flexform_rulerAfter'];
-			$flexconf['rulerBefore'] = $processedData['data']['flexform_rulerBefore'];
-			$flexconf['indent'] = $processedData['data']['flexform_indent'];  
-			$flexconf['topMargin'] = $processedData['data']['flexform_topMargin'];
-			$flexconf['bottomMargin'] = $processedData['data']['flexform_bottomMargin'];  
-			$flexconf['containerOverride'] = $processedData['data']['flexform_containerOverride'];  
+		} else {			
+			$class = 'fsc-default '. $processedData['data']['CType'];
 
-		} else {
-
-			$this->readFlexformIntoConf($processedData['data']['tx_t3sbootstrap_flexform'], $flexconf); 
-
-		}
-
-		if ($processedData['data']['CType'] == 'table') {
-			$processedData['tableClass'] = $flexconf['table_class'];
-		}
-		if ($processedData['data']['CType'] == 't3sbs_panel') {
-			$processedData['panelState'] = $flexconf['panel_state'] ?: 'default';
-		}
-
-		$class = '';
-
-		if ($processedData['data']['CType'] == 'gridelements_pi1') {
-			$class = ' gridelement ge_'. $processedData['data']['tx_gridelements_backend_layout'];
-		} else {
-			$class = ' fsc-default '. $processedData['data']['CType'];
-		}
-
-		if ($processedData['data']['layout']) {
-			$class .= ' layout-'.$processedData['data']['layout'];
+			if ($processedData['data']['CType'] == 'table') 
+			{
+				$processedData['tableClass'] = $flexconf['table_class'];
+			}
+	
+			if ($processedData['data']['CType'] == 't3sbs_panel') 
+			{
+				$processedData['panelState'] = $flexconf['panel_state'] ?: 'default';
+			}
 		}
 
 		$class .= $flexconf['frame'] ? ' '.$flexconf['frame']:'';
@@ -91,28 +75,46 @@ class BootstrapProcessor implements DataProcessorInterface
 		$class .= $flexconf['hiddenSm'] ? ' hidden-sm':'';
 		$class .= $flexconf['hiddenMd'] ? ' hidden-md':'';
 		$class .= $flexconf['hiddenLg'] ? ' hidden-lg':'';
-		$class .= $flexconf['hiddenPrint'] ? ' hidden-print':'';
-		
+		$class .= $flexconf['hiddenPrint'] ? ' hidden-print':'';		
 		$class .= $flexconf['rulerAfter'] ? ' rulerAfter':'';
 		$class .= $flexconf['rulerBefore'] ? ' rulerBefore':'';
 		$class .= $flexconf['indent'] ? ' indent':'';
 
+		if ($processedData['data']['layout']) {
+			$pagesTSconfig = $frontendController->pagesTSconfig;			
+			if (isset($pagesTSconfig['TCEFORM.']['tt_content.']['layout.']['classes.'])) {
+				$layoutLabels = $pagesTSconfig['TCEFORM.']['tt_content.']['layout.']['classes.'];
+				$class .= ' '.strtolower($layoutLabels[(int)$processedData['data']['layout']]);
+			} elseif (isset($pagesTSconfig['TCEFORM.']['tt_content.']['layout.']['altLabels.'])) {
+				$layoutLabels = $pagesTSconfig['TCEFORM.']['tt_content.']['layout.']['altLabels.'];
+				$class .= ' '.str_replace(' ', '-', strtolower($layoutLabels[(int)$processedData['data']['layout']]));
+			} else {
+				$class .= ' layout-'.(int)$processedData['data']['layout'];
+			}
+		}
+
+		if ($processedData['data']['tx_t3sbootstrap_animateCss'] && $contentObjectConfiguration['settings.']['animateCss']) {
+			$class .= ' animated invisible '.$processedData['data']['tx_t3sbootstrap_animateCss'];
+		}
+
 		$processedData['class'] = trim($class);
 
-		$style = '';
 		$style = $flexconf['topMargin'] ? 'margin-top: '.$flexconf['topMargin'].'px;':'';
 		$style .= $flexconf['bottomMargin'] ? ' margin-bottom: '.$flexconf['bottomMargin'].'px;':'';
 
+		if ($processedData['data']['tx_t3sbootstrap_animateCssDuration'] && $contentObjectConfiguration['settings.']['animateCss']) {
+			$style .= ' animation-duration: '.$processedData['data']['tx_t3sbootstrap_animateCssDuration'].'s;';
+		}
+
 		$processedData['style'] = trim($style);
+
 		$colPos = (int)$processedData['data']['colPos'];
 		$beLayout = $processedData['be_layout'];		
 		$containerFluid = $processedData['container-fluid'];
 		$container = FALSE; 
 		$containerWrapping = TRUE;
-		// set in constatnts: List of PIDs
-		$preventFromContainerWrappingList = $processedData['preventFromContainerWrapping'];
 
-		if (GeneralUtility::inList($preventFromContainerWrappingList, $GLOBALS['TSFE']->id) || ($preventFromContainerWrappingList == 'all')) {
+		if (GeneralUtility::inList($processedData['preventFromContainerWrapping'], $pageId) || ($processedData['preventFromContainerWrapping'] == 'all')) {
 			$containerWrapping = FALSE;	
 		}
 
@@ -127,61 +129,37 @@ class BootstrapProcessor implements DataProcessorInterface
 
 				# if full-width-layout
 				if ($beLayout == 'pagets__t3sbootstrap_1' 
-				|| $beLayout == 'pagets__t3sbootstrap_4' 
-				|| $beLayout == 'pagets__t3sbootstrap_6' 
-				|| $beLayout == 'pagets__t3sbootstrap_10') {
+				 || $beLayout == 'pagets__t3sbootstrap_4' 
+				 || $beLayout == 'pagets__t3sbootstrap_6' 
+				 || $beLayout == 'pagets__t3sbootstrap_10') 
+				{
 					if ($containerWrapping)
 					$container = $containerFluid ? 'container-fluid' : 'container';	
 				}
 
 			}
 		}
-
-		$processedData['container'] = $flexconf['containerOverride'] ? $flexconf['containerOverride'] : $container;
 		
+		$processedData['container'] = $flexconf['containerOverride'] ? $flexconf['containerOverride'] : $container;
+		// no classes and container for shortcut references
+		if ($pageId !== (int)$processedData['data']['pid']) {
+			$processedData['class'] = FALSE;
+			$processedData['container'] = FALSE;
+		}
+				
 		return $processedData;
 	}
 
 
-	/**
-	 * Converts a given config in Flexform to a conf-Array
-	 * @param	string		 Flexform data
-	 * @param	array		 Array to write the data into, by reference
-	 * @param	boolean		is set if called recursive. Don't call function with this parameter, it's used inside the function only
-	 * @access	 public
-	 *
-	 */
-	public function readFlexformIntoConf($flexData, &$conf, $recursive=FALSE) {
-		if ($recursive === FALSE) {
-			$flexData = GeneralUtility::xml2array($flexData, 'T3');
-		}
+    /**
+     * Returns the frontend controller
+     *
+     * @return TypoScriptFrontendController
+     */
+    protected function getFrontendController()
+    {
+        return $GLOBALS['TSFE'];
+    }
 
-		if (is_array($flexData)) {
-			if (isset($flexData['data']['sDEF']['lDEF'])) {
-				$flexData = $flexData['data']['sDEF']['lDEF'];
-			}
-
-			foreach ($flexData as $key => $value) {
-				if (is_array($value['el']) && count($value['el']) > 0) {
-					foreach ($value['el'] as $ekey => $element) {
-						if (isset($element['vDEF'])) {
-							$conf[$ekey] =  $element['vDEF'];
-						} else {
-							if(is_array($element)) {
-								$this->readFlexformIntoConf($element, $conf[$key][key($element)][$ekey], TRUE);
-							} else {
-								$this->readFlexformIntoConf($element, $conf[$key][$ekey], TRUE);
-							}
-						}
-					}
-				} else {
-					$this->readFlexformIntoConf($value['el'], $conf[$key], TRUE);
-				}
-				if ($value['vDEF']) {
-					$conf[$key] = $value['vDEF'];
-				}
-			}
-		}
-	} 
 
 }

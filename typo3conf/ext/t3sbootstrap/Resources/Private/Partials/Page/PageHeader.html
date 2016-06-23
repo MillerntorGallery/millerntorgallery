@@ -1,6 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:format.raw>{jumbotron_variable}</f:format.raw>
-<f:if condition="{settings.styles.bsHeader.enable}">
+<f:if condition="{settings.styles.bsHeader.enable} == 1">
 	<div class="{f:if(condition: '{settings.styles.jumbotron.hidden.sm}',then: ' hidden-xs hidden-sm')}">
 		<header>
 			<f:cObject typoscriptObjectPath="lib.general.logo" />			

@@ -43,7 +43,9 @@
 
 
 <f:section name="thumbnail">
-<div class="thumbnail">
+<div class="thumbnail{f:if(condition: '{thumbnail.tx_t3sbootstrap_animateCss}',then: ' animated')}"
+	 {f:if(condition: '{thumbnail.tx_t3sbootstrap_animateCss}',then: ' data-vp-add-class="{thumbnail.tx_t3sbootstrap_animateCss}"')}
+	 {f:if(condition: '{thumbnail.tx_t3sbootstrap_animateCssRepeat}',then: ' data-vp-repeat="true"')}>
 	<t3sbs:fal uid="{thumbnail.uid}" as="media">
 		<f:if condition="{media}">
 			<f:if condition="{thumbnail.imageorient}">
@@ -114,7 +116,9 @@
 		<f:else>
 			<f:if condition="{thumbnail.image_zoom}">
 				<f:then>
-					<t3sbs:clickEnlarge image="{media.0}" configuration="{settings.media.popup}" uid="{data.uid}" slideshow="{settings.media.popup.slideshow}">
+					<t3sbs:clickEnlarge image="{media.0}" 
+						configuration="{settings.media.popup}" 
+						uid="{data.uid}" lightboxGroup="{settings.media.popup.lightboxGroup}">
 						<f:render section="media" arguments="{_all}" />
 					</t3sbs:clickEnlarge>
 				</f:then>
@@ -134,11 +138,11 @@
 
 <f:section name="media">
 	<f:media
-		file="{media.0}"
-		alt="{media.0.alternative}"
-		title="{media.0.title}"
-		width="{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{thumbnail.imagewidth}\',then: \'{thumbnail.imagewidth}\', else: \'320\')}')}"
-		height="{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{thumbnail.imageheight}\',then: \'{thumbnail.imageheight}c\')}')}"
+		file="{media.0}" 
+		alt="{media.0.alternative}" 
+		title="{media.0.title}" 
+		width="{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{data.flexform_width}\',then: \'{data.flexform_width}\', else: \'248\')}')}"
+		height="{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{data.flexform_height}\',then: \'{data.flexform_height}c\')}')}"
 		class="{f:if(condition: '{media.0.type} == 2',then: 'img-responsive', else: 'embed-responsive-item')}{f:if(condition: '{media.0.type} == 2',then: '{f:if(condition: \'{thumbnail.tx_t3sbootstrap_imagestyle}\',then: \' {thumbnail.tx_t3sbootstrap_imagestyle}\')}')}"
 	/>
 </f:section>

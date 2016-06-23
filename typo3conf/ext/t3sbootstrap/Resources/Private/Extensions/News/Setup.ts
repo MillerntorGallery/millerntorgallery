@@ -7,17 +7,14 @@ plugin.tx_news {
 		templateRootPaths {
 			2 = EXT:news/Resources/Private/Templates/Styles/Twb/Templates/
 			3 = EXT:t3sbootstrap/Resources/Private/Extensions/news/Templates/Styles/Twb/Templates/
-			4 = {$plugin.tx_news.view.twb.templateRootPath}
 		}
 		partialRootPaths {
 			2 = EXT:news/Resources/Private/Templates/Styles/Twb/Partials/
 			3 = EXT:t3sbootstrap/Resources/Private/Extensions/news/Templates/Styles/Twb/Partials/
-			4 = {$plugin.tx_news.view.twb.partialRootPath}
 		}
 		layoutRootPaths {
 			2 = EXT:news/Resources/Private/Templates/Styles/Twb/Layouts/
 			3 = EXT:t3sbootstrap/Resources/Private/Extensions/news/Templates/Styles/Twb/Layouts/
-			4 = {$plugin.tx_news.view.twb.layoutRootPath}
 		}
 	}
               
@@ -33,7 +30,7 @@ plugin.tx_news {
 			height = 100
 		}
 
-		lightbox.enable = {$plugin.t3sbootstrap_configuration.extensions.colorbox.enable}
+		lightbox.enable = {$plugin.t3sbootstrap_configuration.extensions.lightbox.enable}
 
 		media {
 			popup {
@@ -44,18 +41,19 @@ plugin.tx_news {
 				JSwindow = 0
 				directImageLink = 1
 				linkParams.ATagParams.dataWrap >
+
 				linkParams.ATagParams.stdWrap.cObject = COA
 				linkParams.ATagParams.stdWrap.cObject {
-					10 = TEXT
-					10.value = data-toggle="lightbox"
-					20 = TEXT
-#					20.field = uid
-#					20.noTrimWrap = | data-gallery="multiimages-|"|
+				    10 = TEXT
+				    10.value = class="gallery"
+				    10.if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.lightbox.group}
 				}
-			}      
-		}
-		
-		
+
+				dataAttribute = {$plugin.t3sbootstrap_configuration.extensions.lightbox.dataAttribute}
+				lightboxGroup = {$plugin.t3sbootstrap_configuration.extensions.lightbox.group}
+				if.isTrue = {$plugin.t3sbootstrap_configuration.extensions.lightbox.enable}
+			}			
+		}			
 	}
 }
 
