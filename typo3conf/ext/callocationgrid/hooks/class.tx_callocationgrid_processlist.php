@@ -46,12 +46,15 @@ class tx_callocationgrid_processlist {
         $ret = '';
 
         $retD=date($parent->conf['view.']['locationgrid.']['dateFormat'],strtotime($this->calyear.'-'.$this->calmonth.'-'.$this->calday));
-        $ret.=$parent->cObj->stdWrap($retD,$parent->conf['view.']['locationgrid.']['date_stdWrap.']);
+        $date_items = $parent->cObj->stdWrap($retD,$parent->conf['view.']['locationgrid.']['date_stdWrap.']);
+        $ret.=$parent->cObj->stdWrap($date_items,$parent->conf['view.']['locationgrid.']['date_outerWrap.']);
         $event_count = 0;
 
         // iterate over all defined locations
-        foreach ($this->locations as $loc) {
+        foreach ($this->locations as $index=>$loc) {
             $ret2='';
+            $ret2=$parent->cObj->stdWrap($this->locations_txt[$index],$parent->conf['view.']['locationgrid.']['headerItem_stdWrap.']);
+            
             foreach($this->callist as $anyEvent){
                 $renderedEvent = $this->renderEvents($anyEvent, $loc);
                 if ($renderedEvent != '') {
@@ -67,7 +70,7 @@ class tx_callocationgrid_processlist {
         }
         $content = $parent->cObj->stdWrap($ret,$parent->conf['view.']['locationgrid.']['row_stdWrap.']);
 
-        $hookObjectsArr = tx_cal_functions::getHookObjectsArray('tx_cal_base_model','searchForObjectMarker','model');
+        $hookObjectsArr = TYPO3\CMS\Cal\Utility\Functions::getHookObjectsArray('tx_cal_base_model','searchForObjectMarker','model');
 
         // Hook: postSearchForObjectMarker
         foreach ($hookObjectsArr as $hookObj) {
@@ -89,8 +92,8 @@ class tx_callocationgrid_processlist {
                 $corrected_sims[$aKey] = $sims[$aKey];
             }
         }
-        $pagepart = tx_cal_functions::substituteMarkerArrayNotCached($content, $corrected_sims, $rems, array ());
-
+        $pagepart = TYPO3\CMS\Cal\Utility\Functions::substituteMarkerArrayNotCached($content, $corrected_sims, $rems, array ());
+        
         $this->dayIterations++;
         return $pagepart;
     }
@@ -124,18 +127,22 @@ class tx_callocationgrid_processlist {
         $this->calmonth = $hookParams['cal_month'];
         $this->calyear = $hookParams['cal_year'];		
         $head = '';
-        $head.= $parent->cObj->stdWrap('&nbsp;',$parent->conf['view.']['locationgrid.']['headerItem_stdWrap2.']);
+        $head.= $parent->cObj->stdWrap('',$parent->conf['view.']['locationgrid.']['headerItem_stdWrap.']);
+        /*
+         
         foreach ($this->locations_txt as $loc) {
             $loc_head = $loc;
             $head.= $parent->cObj->stdWrap($loc_head,$parent->conf['view.']['locationgrid.']['headerItem_stdWrap.']);
         }
         $this->gOut = $parent->cObj->stdWrap($head,$parent->conf['view.']['locationgrid.']['row_stdWrap.']);
+        */
     }
     
     public function prepareOuterEventWrapper($parent, &$middle, $event, $calTimeObject, $firstTime, $hookParams, &$allowFurtherGrouping) {
         if(!$parent->conf['view.']['locationgrid.']['enable']){
             return;
         }
+        
 
         // if hook is invoked for the first time: render some type of heading
         if ($firstTime){
@@ -143,7 +150,6 @@ class tx_callocationgrid_processlist {
         } else {
             // if current event date is different from the previous one: render the list & reset the array
             if (($hookParams['cal_day']!=$this->calday)||($hookParams['cal_week']!=$this->calweek)) {
-            	
                 // render the events
                 $this->gOut.= $this->renderCalList($parent);
                 $this->callist = array();
