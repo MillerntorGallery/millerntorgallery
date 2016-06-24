@@ -154,7 +154,7 @@ class ItemController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController 
     }
 
     public function getFeeds($extConf, $settings, $itemRepository, $credentialRepository){
-
+        $this->logger = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\CMS\Core\Log\LogManager')->getLogger(__CLASS__);
         // Build configuration from plugin settings
         $adapterOptions = $this->getAdapterOptions($settings);
         $adapterOptions->devMod = $extConf['socialfeed.']['devmod'] == '1' ? true : false;

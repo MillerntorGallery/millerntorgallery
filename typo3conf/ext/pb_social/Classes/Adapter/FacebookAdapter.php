@@ -147,7 +147,7 @@ class FacebookAdapter extends SocialMediaAdapter {
             foreach ($result as $fb_feed) {
                 $rawFeeds[self::TYPE . '_' . $fb_feed->getCacheIdentifier() . '_raw'] = $fb_feed->getResult();
                 foreach ($fb_feed->getResult()->data as $rawFeed) {
-                    if ($options->onlyWithPicture && empty($rawFeed->picture)) {
+                    if ($options->onlyWithPicture && empty($rawFeed->full_picture)) {
                         continue;
                     }
 //                    error_log(json_encode($rawFeed));
@@ -155,7 +155,7 @@ class FacebookAdapter extends SocialMediaAdapter {
                     $feed = new Feed(self::TYPE , $rawFeed);
                     $feed->setId($rawFeed->id);
                     $feed->setText($this->trim_text($rawFeed->message, $options->textTrimLength, true));
-                    if(property_exists($rawFeed, 'picture')) $feed->setImage(urldecode($rawFeed->picture));
+                    if(property_exists($rawFeed, 'full_picture')) $feed->setImage(urldecode($rawFeed->full_picture));
                     // ouput link to facebook post instead of article
                     if ($options->settings['facebookLinktopost']) {
                         $feed->setLink('https://facebook.com/'.$rawFeed->id);
@@ -194,7 +194,7 @@ class FacebookAdapter extends SocialMediaAdapter {
             'GET',
             '/' . $searchId . '/'.$request,
             array(
-                'fields' => 'id,link,likes.limit(70),message,picture,comments.limit(70),created_time',
+                'fields' => 'id,link,likes.limit(70),message,full_picture,comments.limit(70),created_time',
                 'limit' => $limit
                 // 'include_hidden' => false,
                 // 'is_published' => true
