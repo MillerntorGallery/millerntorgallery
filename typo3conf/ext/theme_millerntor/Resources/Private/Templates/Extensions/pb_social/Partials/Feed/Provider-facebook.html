@@ -1,9 +1,9 @@
 <f:if condition="{0:feed.raw.type}!={0:'status'}">
 	<div class="pb-list-item item pb-list-item-facebook pb-hidden" data-type="{feed.raw.type}" data-id="{feed.id}" data-url="{feed.link}">
-		<f:if condition="{feed.raw.picture}">
+		<f:if condition="{feed.raw.full_picture}">
 			<f:then>
                 <!-- div class="image" data-image-id="{feed.raw.picture}" style="background-image: url({feed.raw.picture})"></div-->
-                <img  data-image-id="{feed.raw.picture}" src="{feed.raw.picture}" />
+                <img  data-image-id="{feed.raw.full_picture}" src="{feed.raw.full_picture}" />
 			</f:then>
 			<f:else>
                 <div class="image placeholder-image"></div>
