@@ -37,3 +37,5 @@
 /typo3conf/ext/cal_introduction
 /typo3conf/ext/dm_simplecalendar
 /typo3conf/ext/jcc_appointments
+/typo3conf/ext/static_info_tables
+/typo3conf/ext/phpmyadmin
