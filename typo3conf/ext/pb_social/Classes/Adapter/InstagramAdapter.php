@@ -7,6 +7,10 @@ use PlusB\PbSocial\Domain\Model\Item;
 use TYPO3\CMS\Core\FormProtection\Exception;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 
+$extensionPath = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('pb_social') . 'Resources/Private/Libs/';
+require $extensionPath . 'instagram/src/Instagram.php';
+
+
 /***************************************************************
  *
  *  Copyright notice
