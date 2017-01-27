@@ -1,0 +1,17 @@
+<div class="pdf-image-navigation-wrapper" xmlns:f="http://xsd.helmut-hummel.de/ns/TYPO3/CMS/Fluid/ViewHelpers">
+    <div class="pdf-image-navigation {pdf.imageNavigation.position}">
+        <div class="scrolls {pdf.imageNavigation.position}">
+            <div class="imagelist"
+                 style="height: {pdf.imageNavigation.height}px; max-height: {pdf.imageNavigation.height}px; width: {pdf.imageNavigation.scrolls.width}px;">
+                <f:for each="{pdf.imageNavigation.images}" as="image" key="key">
+                    <f:link.action action="show" arguments="{uid: ttContentUid, page: key}">
+                        <img src="{image.img}" width="{image.width}px" height="{image.height}px" title="{key}/{pdf.endpage}"
+                             alt="{f:translate(key: 'page')} {key} {f:translate(key: 'of')} {pdf.endpage}"
+                             style="margin: {pdf.imageNavigation.image.margin.topBottom}px {pdf.imageNavigation.image.margin.rightLeft}px"
+                             {image.additionalparams}/>
+                    </f:link.action>
+                </f:for>
+            </div>
+        </div>
+    </div>
+</div>
