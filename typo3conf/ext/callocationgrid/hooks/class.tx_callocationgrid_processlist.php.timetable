@@ -21,7 +21,7 @@ class tx_callocationgrid_processlist {
     /*
      * function to render all events within a set of locations
      */
-    private function renderEvents($event, array $location) {
+    private function renderEvents($event, array $location,$loc_text='ort') {
         $tmp_loc = array();
         $rendering = '';
         
@@ -34,7 +34,9 @@ class tx_callocationgrid_processlist {
         }
 
         if (count(array_intersect($tmp_loc,$location))>0){
-                $rendering=$event->renderEventForList();
+                //$rendering=$event->renderEventForList();
+                $rendering = "timetable.addEvent('".$event->getTitle()."', '".$loc_text."', new Date(".$event->getStart()->format("%Y,7,%d,%H,0")."), new Date(".$event->getEnd()->format ("%Y,7,%d,%H,30")."), '#');";
+            
         }    
         return $rendering;
     }
@@ -54,23 +56,27 @@ class tx_callocationgrid_processlist {
         // iterate over all defined locations
         foreach ($this->locations as $index=>$loc) {
             $ret2='';
-            $ret2=$parent->cObj->stdWrap($this->locations_txt[$index],$parent->conf['view.']['locationgrid.']['headerItem_stdWrap.']);
+            //$ret2=$parent->cObj->stdWrap($this->locations_txt[$index],$parent->conf['view.']['locationgrid.']['headerItem_stdWrap.']);
             
             foreach($this->callist as $anyEvent){
-                $renderedEvent = $this->renderEvents($anyEvent, $loc);
+                $renderedEvent = $this->renderEvents($anyEvent, $loc,$this->locations_txt[$index]);
+                
                 if ($renderedEvent != '') {
                     $ret2.=$renderedEvent; 
                     $event_count++;
                 }
             }
-            $ret.=$parent->cObj->stdWrap($ret2,$parent->conf['view.']['locationgrid.']['item_stdWrap.']);
+            //$ret.=$parent->cObj->stdWrap($ret2,$parent->conf['view.']['locationgrid.']['item_stdWrap.']);
+            $ret.=$ret2;
         }
         // If no events were rendered: reset to blank
         if ($event_count == 0) {
             $ret = '';
         }
-        $content = $parent->cObj->stdWrap($head,$parent->conf['view.']['locationgrid.']['row_stdWrap.']);
-        $content .= $parent->cObj->stdWrap($ret,$parent->conf['view.']['locationgrid.']['row_stdWrap.']);
+        //$content = $parent->cObj->stdWrap($head,$parent->conf['view.']['locationgrid.']['row_stdWrap.']);
+        //$content .= $parent->cObj->stdWrap($ret,$parent->conf['view.']['locationgrid.']['row_stdWrap.']);
+        $content = $ret;
+        
 
         $hookObjectsArr = TYPO3\CMS\Cal\Utility\Functions::getHookObjectsArray('tx_cal_base_model','searchForObjectMarker','model');
 
@@ -180,11 +186,24 @@ class tx_callocationgrid_processlist {
 
     public function applyOuterEventWrapper($parent, &$middle, $event, &$allowFurtherGrouping) {
         $allowFurtherGrouping = false;
+        $out .= "<div class='timetable'></div>
+
+    <script>
+      var timetable = new Timetable();
+
+      timetable.setScope(9,2)
+
+      timetable.addLocations(['".implode("','",$this->locations_txt)."']);";
+$out.= $this->gOut;
         if (count($this->callist)>0) {
-            $this->gOut.=$this->renderCalList($parent);
+            $out.=$this->renderCalList($parent);
         }
 
-        $middle.=$parent->cObj->stdWrap($this->gOut,$parent->conf['view.']['locationgrid.']);
+        $out.= "var renderer = new Timetable.Renderer(timetable);
+      renderer.draw('.timetable');
+    </script>";
+        //$middle.=$parent->cObj->stdWrap($out,$parent->conf['view.']['locationgrid.']);
+        $middle.=$out;
     }
 } 
 

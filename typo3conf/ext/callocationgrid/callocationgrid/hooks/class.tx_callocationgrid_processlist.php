@@ -44,10 +44,11 @@ class tx_callocationgrid_processlist {
         $rems = array();
 
         $ret = '';
-
+        /*
         $retD=date($parent->conf['view.']['locationgrid.']['dateFormat'],strtotime($this->calyear.'-'.$this->calmonth.'-'.$this->calday));
         $date_items = $parent->cObj->stdWrap($retD,$parent->conf['view.']['locationgrid.']['date_stdWrap.']);
         $ret.=$parent->cObj->stdWrap($date_items,$parent->conf['view.']['locationgrid.']['date_outerWrap.']);
+        */
         $event_count = 0;
 
         // iterate over all defined locations
