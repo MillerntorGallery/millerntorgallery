@@ -1,27 +1,16 @@
 <?php
-/***************************************************************
-*  Copyright notice
-*
-*  (c) 2014 Claus Due <claus@namelesscoder.net>
-*
-*  All rights reserved
-*
-*  This script is part of the TYPO3 project. The TYPO3 project is
-*  free software; you can redistribute it and/or modify
-*  it under the terms of the GNU General Public License as published by
-*  the Free Software Foundation; either version 2 of the License, or
-*  (at your option) any later version.
-*
-*  The GNU General Public License can be found at
-*  http://www.gnu.org/copyleft/gpl.html.
-*
-*  This script is distributed in the hope that it will be useful,
-*  but WITHOUT ANY WARRANTY; without even the implied warranty of
-*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-*  GNU General Public License for more details.
-*
-*  This copyright notice MUST APPEAR in all copies of the script!
-***************************************************************/
+namespace FluidTYPO3\Vhs\ViewHelpers\Iterator;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\Traits\BasicViewHelperTrait;
+use FluidTYPO3\Vhs\Traits\TemplateVariableViewHelperTrait;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Explode ViewHelper
@@ -32,7 +21,10 @@
  * @package Vhs
  * @subpackage ViewHelpers\Iterator
  */
-class Tx_Vhs_ViewHelpers_Iterator_ExplodeViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ExplodeViewHelper extends AbstractViewHelper {
+
+	use BasicViewHelperTrait;
+	use TemplateVariableViewHelperTrait;
 
 	/**
 	 * @var string
@@ -45,9 +37,9 @@ class Tx_Vhs_ViewHelpers_Iterator_ExplodeViewHelper extends \TYPO3\CMS\Fluid\Cor
 	 * @return void
 	 */
 	public function initializeArguments() {
-		$this->registerArgument('content', 'string', 'String to be exploded by glue)', FALSE, '');
+		$this->registerAsArgument();
+		$this->registerArgument('content', 'string', 'String to be exploded by glue', FALSE, NULL);
 		$this->registerArgument('glue', 'string', 'String used as glue in the string to be exploded. Use glue value of "constant:NAMEOFCONSTANT" (fx "constant:LF" for linefeed as glue)', FALSE, ',');
-		$this->registerArgument('as', 'string', 'Template variable name to assign. If not specified returns the result array instead');
 	}
 
 	/**
@@ -56,21 +48,10 @@ class Tx_Vhs_ViewHelpers_Iterator_ExplodeViewHelper extends \TYPO3\CMS\Fluid\Cor
 	 * @return mixed
 	 */
 	public function render() {
-		$content = $this->arguments['content'];
-		$as = $this->arguments['as'];
+		$content = $this->getArgumentFromArgumentsOrTagContent('content');
 		$glue = $this->resolveGlue();
-		$contentWasSource = FALSE;
-		if (TRUE === empty($content)) {
-			$content = $this->renderChildren();
-			$contentWasSource = TRUE;
-		}
 		$output = call_user_func_array($this->method, array($glue, $content));
-		if (TRUE === empty($as) || TRUE === $contentWasSource) {
-			return $output;
-		}
-		$variables = array($as => $output);
-		$content = Tx_Vhs_Utility_ViewHelperUtility::renderChildrenWithVariables($this, $this->templateVariableContainer, $variables);
-		return $content;
+		return $this->renderChildrenWithVariableOrReturnInput($output);
 	}
 
 	/**

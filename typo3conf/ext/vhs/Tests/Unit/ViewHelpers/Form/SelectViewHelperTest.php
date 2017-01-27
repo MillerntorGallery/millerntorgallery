@@ -1,122 +1,100 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\Tests\Unit\ViewHelpers\Form;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\Tests\Fixtures\Domain\Model\Foo;
+use FluidTYPO3\Vhs\Tests\Fixtures\Domain\Model\Bar;
+use FluidTYPO3\Vhs\Tests\Unit\ViewHelpers\AbstractViewHelperTest;
 
 /**
  * @protection off
  * @author Claus Due <claus@namelesscoder.net>
  * @package Vhs
+ * @subpackage ViewHelpers\Form
  */
-class Tx_Vhs_ViewHelpers_Form_SelectViewHelperTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class SelectViewHelperTest extends AbstractViewHelperTest {
 
 	/**
-	 * @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @dataProvider getRenderTestValues
+	 * @param array $arguments
+	 * @param string $expected
 	 */
-	protected $objectManager;
-
-	/**
-	 * @param $objectManager \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
-	 * @return void
-	 */
-	protected function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
+	public function testRender(array $arguments, $expected) {
+		$result = $this->executeViewHelper($arguments);
+		$this->assertEquals($expected, $result);
 	}
 
 	/**
-	 * @return Tx_Vhs_ViewHelpers_Form_SelectViewHelper
-	 * @support
+	 * @return array
 	 */
-	protected function getPreparedInstance() {
-		$viewHelperClassName = 'Tx_Vhs_ViewHelpers_Form_SelectViewHelper';
-		$arguments = array();
-		$nodeClassName = (FALSE !== strpos($viewHelperClassName, '_') ? 'Tx_Fluid_Core_Parser_SyntaxTree_ViewHelperNode' : '\\TYPO3\\CMS\\Fluid\\Core\\Parser\\SyntaxTree\\ViewHelperNode');
-		$renderingContextClassName = (FALSE !== strpos($viewHelperClassName, '_') ? 'Tx_Fluid_Core_Rendering_RenderingContext' : '\\TYPO3\\CMS\\Fluid\\Core\\Rendering\\RenderingContext');
-		$controllerContextClassName = (FALSE !== strpos($viewHelperClassName, '_') ? 'Tx_Extbase_MVC_Controller_ControllerContext' : '\\TYPO3\\CMS\\Extbase\\MVC\\Controller\\ControllerContext');
-		$requestClassName = (FALSE !== strpos($viewHelperClassName, '_') ? 'Tx_Extbase_MVC_Web_Request' : '\\TYPO3\\CMS\\Extbase\\MVC\\Web\\Request');
-
-		/** @var Tx_Extbase_MVC_Web_Request $request */
-		$request = $this->objectManager->get($requestClassName);
-		/** @var $viewHelperInstance \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper */
-		$viewHelperInstance = $this->objectManager->get($viewHelperClassName);
-		/** @var Tx_Fluid_Core_Parser_SyntaxTree_ViewHelperNode $node */
-		$node = $this->objectManager->get($nodeClassName, $viewHelperInstance, $arguments);
-		/** @var Tx_Extbase_MVC_Controller_ControllerContext $controllerContext */
-		$controllerContext = $this->objectManager->get($controllerContextClassName);
-		$controllerContext->setRequest($request);
-		/** @var Tx_Fluid_Core_Rendering_RenderingContext $renderingContext */
-		$renderingContext = $this->objectManager->get($renderingContextClassName);
-		$renderingContext->setControllerContext($controllerContext);
-
-		$viewHelperInstance->setRenderingContext($renderingContext);
-		$viewHelperInstance->setViewHelperNode($node);
-		return $viewHelperInstance;
-	}
-
-	/**
-	 * @test
-	 */
-	public function canCreateViewHelperClassInstance() {
-		$instance = $this->getPreparedInstance();
-		$this->assertInstanceOf('Tx_Vhs_ViewHelpers_Form_SelectViewHelper', $instance);
-	}
-
-	/**
-	 * @test
-	 */
-	public function canInitializeViewHelper() {
-		$instance = $this->getPreparedInstance();
-		$instance->initialize();
-	}
-
-	/**
-	 * @test
-	 */
-	public function canPrepareViewHelperArguments() {
-		$instance = $this->getPreparedInstance();
-		$this->assertInstanceOf('Tx_Vhs_ViewHelpers_Form_SelectViewHelper', $instance);
-		$arguments = $instance->prepareArguments();
-		$constraint = new PHPUnit_Framework_Constraint_IsType('array');
-		$this->assertThat($arguments, $constraint);
-	}
-
-	/**
-	 * @test
-	 */
-	public function canSetViewHelperNode() {
-		$instance = $this->getPreparedInstance();
-		$arguments = $instance->prepareArguments();
-		$node = new \TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\ViewHelperNode($instance, $arguments);
-		$instance->setViewHelperNode($node);
-	}
-
-	/**
-	 * @test
-	 */
-	public function canRenderWithoutProvidedArguments() {
-		$instance = $this->getPreparedInstance();
-		$this->assertInstanceOf('Tx_Vhs_ViewHelpers_Form_SelectViewHelper', $instance);
-		$instance->render();
+	public function getRenderTestValues() {
+		$model1 = new Foo();
+		$model1->setName('Model1');
+		$model2 = new Bar();
+		$model2->setName('Model2');
+		$model1id = spl_object_hash($model1);
+		$model2id = spl_object_hash($model2);
+		$model1name = 'FluidTYPO3\\Vhs\\Tests\\Fixtures\\Domain\\Model\\Foo:';
+		$model2name = 'FluidTYPO3\\Vhs\\Tests\\Fixtures\\Domain\\Model\\Bar:';
+		return array(
+			array(array(), '<select name="" />'),
+			array(array('name' => 'test'), '<select name="test" />'),
+			array(
+				array('name' => 'test', 'multiple' => TRUE),
+				'<input type="hidden" name="test" value="" /><select name="test[]" multiple="multiple" />'
+			),
+			array(
+				array('name' => 'test', 'multiple' => TRUE, 'selectAllbyDefault' => TRUE, 'value' => 'test'),
+				'<input type="hidden" name="test" value="" /><select name="test[]" multiple="multiple" />'
+			),
+			array(
+				array(
+					'name' => 'test', 'multiple' => TRUE, 'selectAllbyDefault' => TRUE, 'value' => array($model1id, $model1id),
+					'optionLabelField' => 'name'
+				),
+				'<input type="hidden" name="test" value="" /><select name="test[]" multiple="multiple" />'
+			),
+			array(
+				array('name' => 'foobar', 'options' => array('foo' => 'bar')),
+				'<select name="foobar"><option value="foo">bar</option>' . PHP_EOL . '</select>'
+			),
+			array(
+				array('name' => 'foobar', 'options' => array('foo' => 'bar'), 'value' => 'foo'),
+				'<select name="foobar"><option value="foo" selected="selected">bar</option>' . PHP_EOL . '</select>'
+			),
+			array(
+				array('name' => 'foobar', 'options' => array($model1)),
+				'<select name="foobar"><option value="' . $model1id . '">' . $model1name . '</option>' . PHP_EOL . '</select>'
+			),
+			array(
+				array('name' => 'foobar', 'options' => array($model1), 'value' => $model1),
+				'<select name="foobar[__identity]"><option value="' . $model1id . '" selected="selected">'
+				. $model1name .'</option>' . PHP_EOL . '</select>'
+			),
+			array(
+				array('name' => 'foobar', 'options' => array($model1, $model2)),
+				'<select name="foobar"><option value="' . $model1id . '">' . $model1name . '</option>' . PHP_EOL
+				. '<option value="' . $model2id . '">' . $model2name . '</option>' . PHP_EOL . '</select>'
+			),
+			array(
+				array('name' => 'foobar', 'options' => array($model1), 'optionLabelField' => 'name'),
+				'<select name="foobar"><option value="' . $model1id . '">' . $model1->getName() . '</option>' . PHP_EOL . '</select>'
+			),
+			array(
+				array('name' => 'foobar', 'options' => array($model1), 'optionLabelField' => 'bar'),
+				'<select name="foobar"><option value="' . $model1id . '">baz</option>' . PHP_EOL . '</select>'
+			),
+			array(
+				array('name' => 'foobar', 'options' => array($model1), 'optionValueField' => 'bar'),
+				'<select name="foobar"><option value="baz">' . $model1name . '</option>' . PHP_EOL . '</select>'
+			),
+		);
 	}
 
 }

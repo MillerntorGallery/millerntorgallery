@@ -1,27 +1,16 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Form;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Fluid\Core\ViewHelper\Exception;
+use TYPO3\CMS\Fluid\ViewHelpers\Form\AbstractFormFieldViewHelper;
 
 /**
  * Select ViewHelper (with support for Optgroup and Option subnodes)
@@ -30,7 +19,7 @@
  * @package Vhs
  * @subpackage ViewHelpers\Form
  */
-class Tx_Vhs_ViewHelpers_Form_SelectViewHelper extends Tx_Fluid_ViewHelpers_Form_AbstractFormFieldViewHelper {
+class SelectViewHelper extends AbstractFormFieldViewHelper {
 
 	/**
 	 * @var string
@@ -83,14 +72,14 @@ class Tx_Vhs_ViewHelpers_Form_SelectViewHelper extends Tx_Fluid_ViewHelpers_Form
 			}
 			$this->tag->setContent($this->renderOptionTags($options));
 		} else {
-			$this->viewHelperVariableContainer->add('Tx_Vhs_ViewHelpers_Form_SelectViewHelper', 'options', array());
-			$this->viewHelperVariableContainer->add('Tx_Vhs_ViewHelpers_Form_SelectViewHelper', 'value', $this->getValue());
+			$this->viewHelperVariableContainer->add('FluidTYPO3\Vhs\ViewHelpers\Form\SelectViewHelper', 'options', array());
+			$this->viewHelperVariableContainer->add('FluidTYPO3\Vhs\ViewHelpers\Form\SelectViewHelper', 'value', $this->getValue());
 			$tagContent = $this->renderChildren();
-			$options = $this->viewHelperVariableContainer->get('Tx_Vhs_ViewHelpers_Form_SelectViewHelper', 'options');
+			$options = $this->viewHelperVariableContainer->get('FluidTYPO3\\Vhs\\ViewHelpers\\Form\\SelectViewHelper', 'options');
 			$this->tag->setContent($tagContent);
-			$this->viewHelperVariableContainer->remove('Tx_Vhs_ViewHelpers_Form_SelectViewHelper', 'options');
-			if (TRUE === $this->viewHelperVariableContainer->exists('Tx_Vhs_ViewHelpers_Form_SelectViewHelper', 'value')) {
-				$this->viewHelperVariableContainer->remove('Tx_Vhs_ViewHelpers_Form_SelectViewHelper', 'value');
+			$this->viewHelperVariableContainer->remove('FluidTYPO3\\Vhs\\ViewHelpers\\Form\\SelectViewHelper', 'options');
+			if (TRUE === $this->viewHelperVariableContainer->exists('FluidTYPO3\\Vhs\\ViewHelpers\\Form\\SelectViewHelper', 'value')) {
+				$this->viewHelperVariableContainer->remove('FluidTYPO3\\Vhs\\ViewHelpers\\Form\\SelectViewHelper', 'value');
 			}
 		}
 
@@ -136,25 +125,24 @@ class Tx_Vhs_ViewHelpers_Form_SelectViewHelper extends Tx_Fluid_ViewHelpers_Form
 	/**
 	 * Render the option tags.
 	 *
-	 * @throws Tx_Fluid_Core_ViewHelper_Exception
+	 * @throws Exception
 	 * @return array
 	 */
 	protected function getOptions() {
-		if (FALSE === is_array($this->arguments['options']) && FALSE === ($this->arguments['options'] instanceof Traversable)) {
+		if (FALSE === is_array($this->arguments['options']) && FALSE === $this->arguments['options'] instanceof \Traversable) {
 			return array();
 		}
 		$options = array();
 		$optionsArgument = $this->arguments['options'];
 		foreach ($optionsArgument as $key => $value) {
-			if (is_object($value)) {
-
+			if (TRUE === is_object($value)) {
 				if (TRUE === isset($this->arguments['optionValueField']) && FALSE === empty($this->arguments['optionValueField'])) {
-					$key = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getProperty($value, $this->arguments['optionValueField']);
+					$key = ObjectAccess::getProperty($value, $this->arguments['optionValueField']);
 					if (TRUE === is_object($key)) {
 						if (TRUE === method_exists($key, '__toString')) {
 							$key = (string) $key;
 						} else {
-							throw new Tx_Fluid_Core_ViewHelper_Exception('Identifying value for object of class "' . get_class($value) . '" was an object.', 1247827428);
+							throw new Exception('Identifying value for object of class "' . get_class($value) . '" was an object.', 1247827428);
 						}
 					}
 				} elseif (NULL !== $this->persistenceManager->getBackend()->getIdentifierByObject($value)) {
@@ -162,16 +150,16 @@ class Tx_Vhs_ViewHelpers_Form_SelectViewHelper extends Tx_Fluid_ViewHelpers_Form
 				} elseif (TRUE === method_exists($value, '__toString')) {
 					$key = (string) $value;
 				} else {
-					throw new Tx_Fluid_Core_ViewHelper_Exception('No identifying value for object of class "' . get_class($value) . '" found.', 1247826696);
+					throw new Exception('No identifying value for object of class "' . get_class($value) . '" found.', 1247826696);
 				}
 
 				if (TRUE === isset($this->arguments['optionLabelField']) && FALSE === empty($this->arguments['optionLabelField'])) {
-					$value = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getProperty($value, $this->arguments['optionLabelField']);
+					$value = ObjectAccess::getProperty($value, $this->arguments['optionLabelField']);
 					if (TRUE === is_object($value)) {
 						if (TRUE === method_exists($value, '__toString')) {
 							$value = (string) $value;
 						} else {
-							throw new Tx_Fluid_Core_ViewHelper_Exception('Label value for object of class "' . get_class($value) . '" was an object without a __toString() method.', 1247827553);
+							throw new Exception('Label value for object of class "' . get_class($value) . '" was an object without a __toString() method.', 1247827553);
 						}
 					}
 				} elseif (TRUE === method_exists($value, '__toString')) {
@@ -200,7 +188,7 @@ class Tx_Vhs_ViewHelpers_Form_SelectViewHelper extends Tx_Fluid_ViewHelpers_Form
 			return TRUE;
 		}
 		if (TRUE === isset($this->arguments['multiple']) && FALSE === empty($this->arguments['multiple'])) {
-			if (TRUE === is_null($selectedValue) && TRUE === (boolean) $this->arguments['selectAllByDefault']) {
+			if (NULL === $selectedValue && TRUE === (boolean) $this->arguments['selectAllByDefault']) {
 				return TRUE;
 			} elseif (TRUE === is_array($selectedValue) && TRUE === in_array($value, $selectedValue)) {
 				return TRUE;
@@ -219,9 +207,9 @@ class Tx_Vhs_ViewHelpers_Form_SelectViewHelper extends Tx_Fluid_ViewHelpers_Form
 		if (FALSE === isset($this->arguments['optionValueField']) || TRUE === empty($this->arguments['optionValueField'])) {
 			return $value;
 		}
-		if (FALSE === is_array($value) && FALSE === ($value instanceof Iterator)) {
+		if (FALSE === is_array($value) && FALSE === $value instanceof \Iterator) {
 			if (TRUE === is_object($value)) {
-				return \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getProperty($value, $this->arguments['optionValueField']);
+				return ObjectAccess::getProperty($value, $this->arguments['optionValueField']);
 			} else {
 				return $value;
 			}
@@ -229,7 +217,7 @@ class Tx_Vhs_ViewHelpers_Form_SelectViewHelper extends Tx_Fluid_ViewHelpers_Form
 		$selectedValues = array();
 		foreach ($value as $selectedValueElement) {
 			if (TRUE === is_object($selectedValueElement)) {
-				$selectedValues[] = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getProperty($selectedValueElement, $this->arguments['optionValueField']);
+				$selectedValues[] = ObjectAccess::getProperty($selectedValueElement, $this->arguments['optionValueField']);
 			} else {
 				$selectedValues[] = $selectedValueElement;
 			}
@@ -254,4 +242,5 @@ class Tx_Vhs_ViewHelpers_Form_SelectViewHelper extends Tx_Fluid_ViewHelpers_Form
 
 		return $output;
 	}
+
 }

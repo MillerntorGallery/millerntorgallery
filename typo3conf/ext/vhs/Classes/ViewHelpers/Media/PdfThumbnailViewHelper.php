@@ -1,27 +1,15 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Media;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2013 Björn Fromme <fromme@dreipunktnull.com>, dreipunktnull
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Core\Utility\CommandUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Converts the provided PDF file into a PNG thumbnail and renders
@@ -33,7 +21,7 @@
  * @package Vhs
  * @subpackage ViewHelpers\Media
  */
-class Tx_Vhs_ViewHelpers_Media_PdfThumbnailViewHelper extends Tx_Fluid_ViewHelpers_ImageViewhelper {
+class PdfThumbnailViewHelper extends ImageViewHelper {
 
 	/**
 	 * @return void
@@ -41,8 +29,6 @@ class Tx_Vhs_ViewHelpers_Media_PdfThumbnailViewHelper extends Tx_Fluid_ViewHelpe
 	public function initializeArguments() {
 		parent::initializeArguments();
 		$this->registerArgument('path', 'string', 'Path to PDF source file');
-		$this->registerArgument('width', 'integer', 'Width of resulting thumbnail image. See imgResource.width for possible options', FALSE, NULL);
-		$this->registerArgument('height', 'integer', 'Height of resulting thumbnail image. See imgResource.width for possible options', FALSE, NULL);
 		$this->registerArgument('minWidth', 'integer', 'Minimum width of resulting thumbnail image', FALSE, NULL);
 		$this->registerArgument('minHeight', 'integer', 'Minimum height of resulting thumbnail image', FALSE, NULL);
 		$this->registerArgument('maxWidth', 'integer', 'Maximum width of resulting thumbnail image', FALSE, NULL);
@@ -58,7 +44,7 @@ class Tx_Vhs_ViewHelpers_Media_PdfThumbnailViewHelper extends Tx_Fluid_ViewHelpe
 	 * @return string
 	 */
 	public function render() {
-		$path = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($this->arguments['path']);
+		$path = GeneralUtility::getFileAbsFileName($this->arguments['path']);
 		if (FALSE === file_exists($path)) {
 			return NULL;
 		}
@@ -76,7 +62,7 @@ class Tx_Vhs_ViewHelpers_Media_PdfThumbnailViewHelper extends Tx_Fluid_ViewHelpe
 		$filename = basename($path);
 		$pageArgument = $page > 0 ? $page - 1 : 0;
 		$colorspace = TRUE === isset($GLOBALS['TYPO3_CONF_VARS']['GFX']['colorspace']) ? $GLOBALS['TYPO3_CONF_VARS']['GFX']['colorspace'] : 'RGB';
-		$destination = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName('typo3temp/vhs-pdf-' . $filename . '-page' . $page . '.png');
+		$destination = GeneralUtility::getFileAbsFileName('typo3temp/vhs-pdf-' . $filename . '-page' . $page . '.png');
 		if (FALSE === file_exists($destination) || TRUE === $forceOverwrite) {
 			$arguments = '-colorspace ' . $colorspace;
 			if (0 < intval($density)) {
@@ -90,8 +76,8 @@ class Tx_Vhs_ViewHelpers_Media_PdfThumbnailViewHelper extends Tx_Fluid_ViewHelpe
 				$arguments .= ' -background "' . $background . '" -flatten';
 			}
 			$arguments .= ' "' . $destination . '"';
-			$command = \TYPO3\CMS\Core\Utility\CommandUtility::imageMagickCommand('convert', $arguments);
-			\TYPO3\CMS\Core\Utility\CommandUtility::exec($command);
+			$command = CommandUtility::imageMagickCommand('convert', $arguments);
+			CommandUtility::exec($command);
 		}
 		$image = substr($destination, strlen(PATH_site));
 		return parent::render($image, $width, $height, $minWidth, $minHeight, $maxWidth, $maxHeight);

@@ -1,113 +1,79 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\Tests\Unit\ViewHelpers\Once;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\Tests\Unit\ViewHelpers\AbstractViewHelperTest;
+use TYPO3\CMS\Extbase\Mvc\Controller\ControllerContext;
+use TYPO3\CMS\Extbase\Mvc\Web\Request;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContext;
 
 /**
  * @protection on
  * @author Claus Due <claus@namelesscoder.net>
  * @package Vhs
  */
-class Tx_Vhs_ViewHelpers_Once_InstanceViewHelperTest extends Tx_Extbase_Tests_Unit_BaseTestCase {
+class InstanceViewHelperTest extends AbstractViewHelperTest {
 
 	/**
-	 * @var $objectManager \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @dataProvider getIdentifierTestValues
+	 * @param string|NULL $identifierArgument
+	 * @param string $expectedIdentifier
 	 */
-	protected $objectManager;
+	public function testGetIdentifier($identifierArgument, $expectedIdentifier) {
+		$instance = $this->createInstance();
+		$instance->setArguments(array('identifier' => $identifierArgument));
+		$renderingContext = new RenderingContext();
+		$controllerContext = new ControllerContext();
+		$request = new Request();
+		$request->setControllerActionName('p1');
+		$request->setControllerName('p2');
+		$request->setPluginName('p3');
+		$request->setControllerExtensionName('p4');
+		$controllerContext->setRequest($request);
+		$renderingContext->setControllerContext($controllerContext);
+		$instance->setRenderingContext($renderingContext);
+		$result = $this->callInaccessibleMethod($instance, 'getIdentifier');
+		$this->assertEquals($expectedIdentifier, $result);
+	}
 
 	/**
-	 * @param $objectManager \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
+	 * @return array
+	 */
+	public function getIdentifierTestValues() {
+		return array(
+			array(NULL, 'p1_p2_p3_p4'),
+			array('test', 'test'),
+			array('test2', 'test2'),
+		);
+	}
+
+	/**
 	 * @return void
 	 */
-	protected function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
-		$this->objectManager = $objectManager;
+	public function testStoreIdentifier() {
+		$instance = $this->createInstance();
+		$instance->setArguments(array('identifier' => 'test'));
+		$this->callInaccessibleMethod($instance, 'storeIdentifier');
+		$this->assertTrue($GLOBALS[get_class($instance)]['test']);
+		unset($GLOBALS[get_class($instance)]['test']);
 	}
 
 	/**
-	 * @return Tx_Vhs_ViewHelpers_Once_InstanceViewHelper
-	 * @support
+	 * @return void
 	 */
-	protected function getPreparedInstance() {
-		$viewHelperClassName = 'Tx_Vhs_ViewHelpers_Once_InstanceViewHelper';
-		$arguments = array();
-		$nodeClassName = (FALSE !== strpos($viewHelperClassName, '_') ? 'Tx_Fluid_Core_Parser_SyntaxTree_ViewHelperNode' : '\\TYPO3\\CMS\\Fluid\\Core\\Parser\\SyntaxTree\\ViewHelperNode');
-		$renderingContextClassName = (FALSE !== strpos($viewHelperClassName, '_') ? 'Tx_Fluid_Core_Rendering_RenderingContext' : '\\TYPO3\\CMS\\Fluid\\Core\\Rendering\\RenderingContext');
-		$controllerContextClassName = (FALSE !== strpos($viewHelperClassName, '_') ? 'Tx_Extbase_MVC_Controller_ControllerContext' : '\\TYPO3\\CMS\\Extbase\\MVC\\Controller\\ControllerContext');
-		$requestClassName = (FALSE !== strpos($viewHelperClassName, '_') ? 'Tx_Extbase_MVC_Web_Request' : '\\TYPO3\\CMS\\Extbase\\MVC\\Web\\Request');
-
-		/** @var Tx_Extbase_MVC_Web_Request $request */
-		$request = $this->objectManager->get($requestClassName);
-		/** @var $viewHelperInstance \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper */
-		$viewHelperInstance = $this->objectManager->get($viewHelperClassName);
-		/** @var Tx_Fluid_Core_Parser_SyntaxTree_ViewHelperNode $node */
-		$node = $this->objectManager->get($nodeClassName, $viewHelperInstance, $arguments);
-		/** @var Tx_Extbase_MVC_Controller_ControllerContext $controllerContext */
-		$controllerContext = $this->objectManager->get($controllerContextClassName);
-		$controllerContext->setRequest($request);
-		/** @var Tx_Fluid_Core_Rendering_RenderingContext $renderingContext */
-		$renderingContext = $this->objectManager->get($renderingContextClassName);
-		$renderingContext->setControllerContext($controllerContext);
-
-		$viewHelperInstance->setRenderingContext($renderingContext);
-		$viewHelperInstance->setViewHelperNode($node);
-		return $viewHelperInstance;
-	}
-
-	/**
-	 * @test
-	 */
-	public function canCreateViewHelperClassInstance() {
-		$instance = $this->getPreparedInstance();
-		$this->assertInstanceOf('Tx_Vhs_ViewHelpers_Once_InstanceViewHelper', $instance);
-	}
-
-	/**
-	 * @test
-	 */
-	public function canInitializeViewHelper() {
-		$instance = $this->getPreparedInstance();
-		$instance->initialize();
-	}
-
-	/**
-	 * @test
-	 */
-	public function canPrepareViewHelperArguments() {
-		$instance = $this->getPreparedInstance();
-		$this->assertInstanceOf('Tx_Vhs_ViewHelpers_Once_InstanceViewHelper', $instance);
-		$arguments = $instance->prepareArguments();
-		$constraint = new PHPUnit_Framework_Constraint_IsType('array');
-		$this->assertThat($arguments, $constraint);
-	}
-
-	/**
-	 * @test
-	 */
-	public function canSetViewHelperNode() {
-		$instance = $this->getPreparedInstance();
-		$arguments = $instance->prepareArguments();
-		$node = new \TYPO3\CMS\Fluid\Core\Parser\SyntaxTree\ViewHelperNode($instance, $arguments);
-		$instance->setViewHelperNode($node);
+	public function testAssertShouldSkip() {
+		$instance = $this->createInstance();
+		$instance->setArguments(array('identifier' => 'test'));
+		$this->assertFalse($this->callInaccessibleMethod($instance, 'assertShouldSkip'));
+		$GLOBALS[get_class($instance)]['test'] = TRUE;
+		$this->assertTrue($this->callInaccessibleMethod($instance, 'assertShouldSkip'));
+		unset($GLOBALS[get_class($instance)]['test']);
 	}
 
 }

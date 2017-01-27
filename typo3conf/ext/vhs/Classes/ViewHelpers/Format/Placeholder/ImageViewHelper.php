@@ -1,27 +1,14 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Format\Placeholder;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * Placeholder Image ViewHelper
@@ -32,7 +19,7 @@
  * @package Vhs
  * @subpackage ViewHelpers\Format\Placeholder
  */
-class Tx_Vhs_ViewHelpers_Format_Placeholder_ImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class ImageViewHelper extends AbstractTagBasedViewHelper {
 
 	/**
 	 * @var string
@@ -58,17 +45,18 @@ class Tx_Vhs_ViewHelpers_Format_Placeholder_ImageViewHelper extends \TYPO3\CMS\F
 	 * @return string
 	 */
 	public function render($text = NULL) {
-		if ($text === NULL) {
+		if (NULL === $text) {
 			$text = $this->renderChildren();
 		}
-		$height =  ($this->arguments['height'] != $this->arguments['width'] ? $this->arguments['height'] : NULL);
+		$height = $this->arguments['height'] != $this->arguments['width'] ? $this->arguments['height'] : NULL;
+		$addHeight = FALSE === empty($height) ? 'x' . $height : NULL;
 		$url = array(
 			'http://placehold.it',
-			$this->arguments['width'] . ($height ? 'x' . $height : NULL),
+			$this->arguments['width'] . $addHeight,
 			$this->arguments['backgroundColor'],
 			$this->arguments['textColor'],
 		);
-		if ($text) {
+		if (FALSE === empty($text)) {
 			array_push($url, '&text=' . urlencode($text));
 		}
 		$imageUrl = implode('/', $url);
@@ -76,7 +64,8 @@ class Tx_Vhs_ViewHelpers_Format_Placeholder_ImageViewHelper extends \TYPO3\CMS\F
 		$this->tag->addAttribute('src', $imageUrl);
 		$this->tag->addAttribute('alt', $imageUrl);
 		$this->tag->addAttribute('width', $this->arguments['width']);
-		$this->tag->addAttribute('height', $height ? $height : $this->arguments['width']);
+		$this->tag->addAttribute('height', FALSE === empty($height) ? $height : $this->arguments['width']);
 		return $this->tag->render();
 	}
+
 }

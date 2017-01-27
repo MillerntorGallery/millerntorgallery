@@ -1,27 +1,15 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Page\Header;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Georg Ringer <typo3@ringerge.org>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\Traits\TagViewHelperTrait;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * ViewHelper used to render a meta tag
@@ -33,10 +21,12 @@
  * @package Vhs
  * @subpackage ViewHelpers\Page\Header
  */
-class Tx_Vhs_ViewHelpers_Page_Header_MetaViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+class MetaViewHelper extends AbstractTagBasedViewHelper {
+
+	use TagViewHelperTrait;
 
 	/**
-	 * @var	string
+	 * @var    string
 	 */
 	protected $tagName = 'meta';
 
@@ -47,6 +37,7 @@ class Tx_Vhs_ViewHelpers_Page_Header_MetaViewHelper extends \TYPO3\CMS\Fluid\Cor
 	 */
 	public function initializeArguments() {
 		$this->registerTagAttribute('name', 'string', 'Name property of meta tag');
+		$this->registerTagAttribute('property', 'string', 'Property of meta tag');
 		$this->registerTagAttribute('content', 'string', 'Content of meta tag');
 		$this->registerTagAttribute('http-equiv', 'string', 'Property: http-equiv');
 		$this->registerTagAttribute('scheme', 'string', 'Property: scheme');
@@ -58,13 +49,14 @@ class Tx_Vhs_ViewHelpers_Page_Header_MetaViewHelper extends \TYPO3\CMS\Fluid\Cor
 	 * Render method
 	 *
 	 * @return void
-	*/
+	 */
 	public function render() {
-		if (TYPO3_MODE == 'BE') {
+		if ('BE' === TYPO3_MODE) {
 			return;
 		}
-		if (isset($this->arguments['content']) && !empty($this->arguments['content'])) {
-			$GLOBALS['TSFE']->getPageRenderer()->addMetaTag($this->tag->render());
+		if (TRUE === isset($this->arguments['content']) && FALSE === empty($this->arguments['content'])) {
+			$GLOBALS['TSFE']->getPageRenderer()
+				->addMetaTag($this->renderTag($this->tagName, NULL, array('content' => $this->arguments['content'])));
 		}
 	}
 

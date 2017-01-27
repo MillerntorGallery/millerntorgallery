@@ -1,27 +1,12 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Once;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
 
 /**
  * Once: Cookie
@@ -42,13 +27,13 @@
  * @package Vhs
  * @subpackage ViewHelpers\Once
  */
-class Tx_Vhs_ViewHelpers_Once_CookieViewHelper extends Tx_Vhs_ViewHelpers_Once_AbstractOnceViewHelper {
+class CookieViewHelper extends AbstractOnceViewHelper {
 	/**
 	 * @return void
 	 */
 	protected function storeIdentifier() {
 		$identifier = $this->getIdentifier();
-		$domain = isset($this->arguments['lockToDomain']) && $this->arguments['lockToDomain'] ? $_SERVER['HTTP_HOST'] : NULL;
+		$domain = TRUE === isset($this->arguments['lockToDomain']) && TRUE === $this->arguments['lockToDomain'] ? $_SERVER['HTTP_HOST'] : NULL;
 		setcookie($identifier, '1', time() + $this->arguments['ttl'], NULL, $domain);
 	}
 
@@ -57,7 +42,7 @@ class Tx_Vhs_ViewHelpers_Once_CookieViewHelper extends Tx_Vhs_ViewHelpers_Once_A
 	 */
 	protected function assertShouldSkip() {
 		$identifier = $this->getIdentifier();
-		return (isset($_COOKIE[$identifier]) === TRUE);
+		return (TRUE === isset($_COOKIE[$identifier]));
 	}
 
 	/**
@@ -65,11 +50,19 @@ class Tx_Vhs_ViewHelpers_Once_CookieViewHelper extends Tx_Vhs_ViewHelpers_Once_A
 	 */
 	protected function removeIfExpired() {
 		$identifier = $this->getIdentifier();
-		$existsInCookie = (isset($_COOKIE[$identifier]) === TRUE);
-		if ($existsInCookie === TRUE) {
-			unset($_SESSION[$identifier]);
-			setcookie($identifier, NULL, time() - 1);
+		$existsInCookie = (boolean) (TRUE === isset($_COOKIE[$identifier]));
+		if (TRUE === $existsInCookie) {
+			$this->removeCookie();
 		}
+	}
+
+	/**
+	 * @return void
+	 */
+	protected function removeCookie() {
+		$identifier = $this->getIdentifier();
+		unset($_SESSION[$identifier], $_COOKIE[$identifier]);
+		setcookie($identifier, NULL, time() - 1);
 	}
 
 }

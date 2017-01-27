@@ -1,38 +1,38 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Extension;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
+use FluidTYPO3\Vhs\Traits\ConditionViewHelperTrait;
 
 /**
  * ### Extension: Loaded (Condition) ViewHelper
  *
  * Condition to check if an extension is loaded.
  *
+ * ### Example:
+ *
+ *     {v:extension.loaded(extensionName: 'news', then: 'yes', else: 'no')}
+ *
+ *     <v:extension.loaded extensionName="news">
+ *         ...
+ *     </v:extension.loaded>
+ *
  * @author Claus Due <claus@namelesscoder.net>
  * @package Vhs
  * @subpackage ViewHelpers\Extension
  */
-class Tx_Vhs_ViewHelpers_Extension_LoadedViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
+class LoadedViewHelper extends AbstractConditionViewHelper {
+
+	use ConditionViewHelperTrait;
 
 	/**
 	 * Initialize arguments
@@ -43,19 +43,16 @@ class Tx_Vhs_ViewHelpers_Extension_LoadedViewHelper extends \TYPO3\CMS\Fluid\Cor
 	}
 
 	/**
-	 * Render method
+	 * This method decides if the condition is TRUE or FALSE. It can be overriden in extending viewhelpers to adjust functionality.
 	 *
-	 * @return string
+	 * @param array $arguments ViewHelper arguments to evaluate the condition for this ViewHelper, allows for flexiblity in overriding this method.
+	 * @return bool
 	 */
-	public function render() {
-		$extensionName = $this->arguments['extensionName'];
-		$extensionKey = \TYPO3\CMS\Core\Utility\GeneralUtility::camelCaseToLowerCaseUnderscored($extensionName);
-		$isLoaded = \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded($extensionKey);
-		if ($isLoaded !== FALSE) {
-			return $this->renderThenChild();
-		} else {
-			return $this->renderElseChild();
-		}
+	static protected function evaluateCondition($arguments = NULL) {
+		$extensionName = $arguments['extensionName'];
+		$extensionKey = GeneralUtility::camelCaseToLowerCaseUnderscored($extensionName);
+		$isLoaded = ExtensionManagementUtility::isLoaded($extensionKey);
+		return TRUE === $isLoaded;
 	}
 
 }

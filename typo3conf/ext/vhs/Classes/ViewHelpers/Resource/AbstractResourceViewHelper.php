@@ -1,27 +1,16 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Resource;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Danilo Bürger <danilo.buerger@hmspl.de>, Heimspiel GmbH
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\Utility\ResourceUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper;
 
 /**
  * Base class for resource related view helpers
@@ -30,7 +19,7 @@
  * @package Vhs
  * @subpackage ViewHelpers\Resource
  */
-abstract class Tx_Vhs_ViewHelpers_Resource_AbstractResourceViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractTagBasedViewHelper {
+abstract class AbstractResourceViewHelper extends AbstractTagBasedViewHelper {
 
 	/**
 	 * Initialize arguments.
@@ -50,7 +39,9 @@ abstract class Tx_Vhs_ViewHelpers_Resource_AbstractResourceViewHelper extends \T
 	 *
 	 * @param boolean $onlyProperties
 	 * @param mixed $identifier
+	 * @param mixed $categories
 	 * @return array|NULL
+	 * @throws \RuntimeException
 	 */
 	public function getFiles($onlyProperties = FALSE, $identifier = NULL, $categories = NULL) {
 		$identifier = $this->arrayForMixedArgument($identifier, 'identifier');
@@ -59,7 +50,7 @@ abstract class Tx_Vhs_ViewHelpers_Resource_AbstractResourceViewHelper extends \T
 		$treatIdAsReference = (boolean) $this->arguments['treatIdAsReference'];
 
 		if (TRUE === $treatIdAsUid && TRUE === $treatIdAsReference) {
-			throw new RuntimeException('The arguments "treatIdAsUid" and "treatIdAsReference" may not both be TRUE.', 1384604695);
+			throw new \RuntimeException('The arguments "treatIdAsUid" and "treatIdAsReference" may not both be TRUE.', 1384604695);
 		}
 
 		if (TRUE === empty($identifier) && TRUE === empty($categories)) {
@@ -67,7 +58,7 @@ abstract class Tx_Vhs_ViewHelpers_Resource_AbstractResourceViewHelper extends \T
 		}
 
 		$files = array();
-		$resourceFactory = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\ResourceFactory');
+		$resourceFactory = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Resource\\ResourceFactory');
 
 		if (FALSE === empty($categories)) {
 			$sqlCategories = implode(',', $GLOBALS['TYPO3_DB']->fullQuoteArray($categories, 'sys_category_record_mm'));
@@ -85,11 +76,11 @@ abstract class Tx_Vhs_ViewHelpers_Resource_AbstractResourceViewHelper extends \T
 						$file = $resourceFactory->getFileObject($fileUid);
 
 						if (TRUE === $onlyProperties) {
-							$file = $file->getProperties();
+							$file = ResourceUtility::getFileArray($file);
 						}
 
 						$files[] = $file;
-					} catch (Exception $e) {
+					} catch (\Exception $e) {
 						continue;
 					}
 				}
@@ -114,11 +105,11 @@ abstract class Tx_Vhs_ViewHelpers_Resource_AbstractResourceViewHelper extends \T
 				}
 
 				if (TRUE === $onlyProperties) {
-					$file = $file->getProperties();
+					$file = ResourceUtility::getFileArray($file);
 				}
 
 				$files[] = $file;
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				continue;
 			}
 		}
@@ -138,10 +129,10 @@ abstract class Tx_Vhs_ViewHelpers_Resource_AbstractResourceViewHelper extends \T
 			$argument = $this->arguments[$name];
 		}
 
-		if (TRUE === $argument instanceof Traversable) {
+		if (TRUE === $argument instanceof \Traversable) {
 			$argument = iterator_to_array($argument);
 		} elseif (TRUE === is_string($argument)) {
-			$argument = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $argument, TRUE);
+			$argument = GeneralUtility::trimExplode(',', $argument, TRUE);
 		} else {
 			$argument = (array) $argument;
 		}

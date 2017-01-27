@@ -1,27 +1,15 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Extension\Path;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\ViewHelpers\Extension\AbstractExtensionViewHelper;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 /**
  * ### Path: Absolute Extension Folder Path
@@ -32,7 +20,7 @@
  * @package Vhs
  * @subpackage ViewHelpers\Extension\Path
  */
-class Tx_Vhs_ViewHelpers_Extension_Path_AbsoluteViewHelper extends Tx_Vhs_ViewHelpers_Extension_AbstractExtensionViewHelper {
+class AbsoluteViewHelper extends AbstractExtensionViewHelper {
 
 	/**
 	 * @return void
@@ -49,7 +37,7 @@ class Tx_Vhs_ViewHelpers_Extension_Path_AbsoluteViewHelper extends Tx_Vhs_ViewHe
 	 */
 	public function render() {
 		$extensionKey = $this->getExtensionKey();
-		return \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($extensionKey, isset($this->arguments['path']) === TRUE ? $this->arguments['path'] : NULL);
+		return ExtensionManagementUtility::extPath($extensionKey, TRUE === isset($this->arguments['path']) ? $this->arguments['path'] : NULL);
 	}
 
 }

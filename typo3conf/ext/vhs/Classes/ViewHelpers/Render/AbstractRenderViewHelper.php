@@ -1,27 +1,17 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Render;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Object\ObjectManagerInterface;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ### Base class for all rendering ViewHelpers.
@@ -33,7 +23,7 @@
  * @package Vhs
  * @subpackage ViewHelpers\Render
  */
-abstract class Tx_Vhs_ViewHelpers_Render_AbstractRenderViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+abstract class AbstractRenderViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @var \TYPO3\CMS\Extbase\Object\ObjectManagerInterface
@@ -49,7 +39,7 @@ abstract class Tx_Vhs_ViewHelpers_Render_AbstractRenderViewHelper extends \TYPO3
 	 * @param \TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager
 	 * @return void
 	 */
-	public function injectObjectManager(\TYPO3\CMS\Extbase\Object\ObjectManagerInterface $objectManager) {
+	public function injectObjectManager(ObjectManagerInterface $objectManager) {
 		$this->objectManager = $objectManager;
 	}
 
@@ -57,7 +47,7 @@ abstract class Tx_Vhs_ViewHelpers_Render_AbstractRenderViewHelper extends \TYPO3
 	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
-	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
+	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 	}
 
@@ -84,7 +74,7 @@ abstract class Tx_Vhs_ViewHelpers_Render_AbstractRenderViewHelper extends \TYPO3
 	}
 
 	/**
-	 * @return Tx_Fluid_View_StandaloneView
+	 * @return \TYPO3\CMS\Fluid\View\StandaloneView
 	 */
 	protected function getPreparedClonedView() {
 		$view = $this->getPreparedView();
@@ -95,23 +85,23 @@ abstract class Tx_Vhs_ViewHelpers_Render_AbstractRenderViewHelper extends \TYPO3
 	}
 
 	/**
-	 * @return Tx_Fluid_View_StandaloneView
+	 * @return \TYPO3\CMS\Fluid\View\StandaloneView
 	 */
 	protected function getPreparedView() {
-		/** @var $view Tx_Fluid_View_StandaloneView */
-		$view = $this->objectManager->get('Tx_Fluid_View_StandaloneView');
+		/** @var $view \TYPO3\CMS\Fluid\View\StandaloneView */
+		$view = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 		return $view;
 	}
 
 	/**
-	 * @param Tx_Extbase_MVC_View_ViewInterface $view
-	 * @throws Exception
+	 * @param \TYPO3\CMS\Extbase\Mvc\View\ViewInterface $view
+	 * @throws \Exception
 	 * @return string
 	 */
-	protected function renderView(Tx_Extbase_MVC_View_ViewInterface $view) {
+	protected function renderView(ViewInterface $view) {
 		try {
 			$content = $view->render();
-		} catch (Exception $error) {
+		} catch (\Exception $error) {
 			if (!$this->arguments['graceful']) {
 				throw $error;
 			}

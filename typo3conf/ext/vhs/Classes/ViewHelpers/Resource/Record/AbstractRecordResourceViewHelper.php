@@ -1,34 +1,27 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Resource\Record;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2013 Danilo Bürger <danilo.buerger@hmspl.de>, Heimspiel GmbH
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\Traits\TemplateVariableViewHelperTrait;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Fluid\Core\ViewHelper\Exception;
 
 /**
  * @author Danilo Bürger <danilo.buerger@hmspl.de>, Heimspiel GmbH
  * @package Vhs
  * @subpackage ViewHelpers\Resource\Record
  */
-abstract class Tx_Vhs_ViewHelpers_Resource_Record_AbstractRecordResourceViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper implements Tx_Vhs_ViewHelpers_Resource_Record_RecordResourceViewHelperInterface {
+abstract class AbstractRecordResourceViewHelper extends AbstractViewHelper implements RecordResourceViewHelperInterface {
+
+	use TemplateVariableViewHelperTrait;
 
 	/**
 	 * @var string
@@ -54,7 +47,7 @@ abstract class Tx_Vhs_ViewHelpers_Resource_Record_AbstractRecordResourceViewHelp
 	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
-	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
+	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 	}
 
@@ -67,10 +60,8 @@ abstract class Tx_Vhs_ViewHelpers_Resource_Record_AbstractRecordResourceViewHelp
 	public function initializeArguments() {
 		$this->registerArgument('table', 'string', 'The table to lookup records.', TRUE);
 		$this->registerArgument('field', 'string', 'The field of the table associated to resources.', TRUE);
-
 		$this->registerArgument('record', 'array', 'The actual record. Alternatively you can use the "uid" argument.', FALSE, NULL);
 		$this->registerArgument('uid', 'integer', 'The uid of the record. Alternatively you can use the "record" argument.', FALSE, NULL);
-
 		$this->registerArgument('as', 'string', 'If specified, a template variable with this name containing the requested data will be inserted instead of returning it.', FALSE, NULL);
 	}
 
@@ -85,23 +76,25 @@ abstract class Tx_Vhs_ViewHelpers_Resource_Record_AbstractRecordResourceViewHelp
 	/**
 	 * @param array $record
 	 * @return array
+	 * @throws Exception
 	 */
 	public function getResources($record) {
 		$field = $this->getField();
 
 		if (FALSE === isset($record[$field])) {
-			throw new Tx_Fluid_Core_ViewHelper_Exception('The "field" argument was not found on the selected record.', 1384612728);
+			throw new Exception('The "field" argument was not found on the selected record.', 1384612728);
 		}
 
 		if (TRUE === empty($record[$field])) {
 			return array();
 		}
 
-		return \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $record[$field]);
+		return GeneralUtility::trimExplode(',', $record[$field]);
 	}
 
 	/**
 	 * @return string
+	 * @throws Exception
 	 */
 	public function getTable() {
 		$table = $this->arguments['table'];
@@ -110,7 +103,7 @@ abstract class Tx_Vhs_ViewHelpers_Resource_Record_AbstractRecordResourceViewHelp
 		}
 
 		if (TRUE === empty($table) || FALSE === is_string($table)) {
-			throw new Tx_Fluid_Core_ViewHelper_Exception('The "table" argument must be specified and must be a string.', 1384611336);
+			throw new Exception('The "table" argument must be specified and must be a string.', 1384611336);
 		}
 
 		return $table;
@@ -118,6 +111,7 @@ abstract class Tx_Vhs_ViewHelpers_Resource_Record_AbstractRecordResourceViewHelp
 
 	/**
 	 * @return string
+	 * @throws Exception
 	 */
 	public function getField() {
 		$field = $this->arguments['field'];
@@ -126,7 +120,7 @@ abstract class Tx_Vhs_ViewHelpers_Resource_Record_AbstractRecordResourceViewHelp
 		}
 
 		if (TRUE === empty($field) || FALSE === is_string($field)) {
-			throw new Tx_Fluid_Core_ViewHelper_Exception('The "field" argument must be specified and must be a string.', 1384611355);
+			throw new Exception('The "field" argument must be specified and must be a string.', 1384611355);
 		}
 
 		return $field;
@@ -155,6 +149,7 @@ abstract class Tx_Vhs_ViewHelpers_Resource_Record_AbstractRecordResourceViewHelp
 
 	/**
 	 * @return mixed
+	 * @throws Exception
 	 */
 	public function render() {
 		$record = $this->arguments['record'];
@@ -169,19 +164,22 @@ abstract class Tx_Vhs_ViewHelpers_Resource_Record_AbstractRecordResourceViewHelp
 		}
 
 		if (NULL === $record) {
-			throw new Tx_Fluid_Core_ViewHelper_Exception('No record was found. The "record" or "uid" argument must be specified.', 1384611413);
+			throw new Exception('No record was found. The "record" or "uid" argument must be specified.', 1384611413);
 		}
 
-		$resources = $this->getResources($record);
-
-		$as = $this->arguments['as'];
-		if (TRUE === empty($as)) {
-			return $resources;
+		// attempt to load resources. If any Exceptions happen, transform them to
+		// ViewHelperExceptions which render as an inline text error message.
+		try {
+			$resources = $this->getResources($record);
+		} catch (\Exception $error) {
+			// we are doing the pokemon-thing and catching the very top level
+			// of Exception because the range of Exceptions that are possibly
+			// thrown by the getResources() method in subclasses are not
+			// extended from a shared base class like RuntimeException. Thus,
+			// we are forced to "catch them all" - but we also output them.
+			throw new Exception($error->getMessage(), $error->getCode());
 		}
-
-		$variables = array($as => $resources);
-		$output = Tx_Vhs_Utility_ViewHelperUtility::renderChildrenWithVariables($this, $this->templateVariableContainer, $variables);
-		return $output;
+		return $this->renderChildrenWithVariableOrReturnInput($resources);
 	}
 
 }

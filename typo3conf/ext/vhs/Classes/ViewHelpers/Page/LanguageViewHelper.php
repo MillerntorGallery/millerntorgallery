@@ -1,27 +1,16 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Page;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Danilo Bürger <danilo.buerger@hmspl.de>, Heimspiel GmbH
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\Service\PageSelectService;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Returns the current language from languages depending on l18n settings.
@@ -30,18 +19,18 @@
  * @package Vhs
  * @subpackage ViewHelpers\Page
  */
-class Tx_Vhs_ViewHelpers_Page_LanguageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class LanguageViewHelper extends AbstractViewHelper {
 
 	/**
-	 * @var Tx_Vhs_Service_PageSelectService
+	 * @var PageSelectService
 	 */
 	protected $pageSelect;
 
 	/**
-	 * @param Tx_Vhs_Service_PageSelectService $pageSelectService
+	 * @param PageSelectService $pageSelectService
 	 * @return void
 	 */
-	public function injectPageSelectService(Tx_Vhs_Service_PageSelectService $pageSelectService) {
+	public function injectPageSelectService(PageSelectService $pageSelectService) {
 		$this->pageSelect = $pageSelectService;
 	}
 
@@ -61,14 +50,14 @@ class Tx_Vhs_ViewHelpers_Page_LanguageViewHelper extends \TYPO3\CMS\Fluid\Core\V
 	 */
 	public function render() {
 		if ('BE' === TYPO3_MODE) {
-			return;
+			return '';
 		}
 
 		$languages = $this->arguments['languages'];
-		if (TRUE === $languages instanceof Traversable) {
+		if (TRUE === $languages instanceof \Traversable) {
 			$languages = iterator_to_array($languages);
 		} elseif (TRUE === is_string($languages)) {
-			$languages = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $languages, TRUE);
+			$languages = GeneralUtility::trimExplode(',', $languages, TRUE);
 		} else {
 			$languages = (array) $languages;
 		}
@@ -86,7 +75,7 @@ class Tx_Vhs_ViewHelpers_Page_LanguageViewHelper extends \TYPO3\CMS\Fluid\Core\V
 			$languageUid = $currentLanguageUid;
 		} elseif (0 !== $currentLanguageUid) {
 			if (TRUE === $this->pageSelect->hidePageForLanguageUid($pageUid, 0, $normalWhenNoLanguage)) {
-				return;
+				return '';
 			}
 		}
 

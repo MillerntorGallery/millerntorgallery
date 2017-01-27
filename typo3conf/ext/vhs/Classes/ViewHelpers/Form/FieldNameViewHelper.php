@@ -1,27 +1,15 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Form;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Form Field Name View Helper
@@ -34,17 +22,17 @@
  * @package Vhs
  * @subpackage ViewHelpers\Form
  */
-class Tx_Vhs_ViewHelpers_Form_FieldNameViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class FieldNameViewHelper extends AbstractViewHelper {
 
 	/**
-	 * @var Tx_Extbase_Persistence_Manager
+	 * @var PersistenceManagerInterface
 	 */
 	protected $persistenceManager;
 
 	/**
-	 * @param Tx_Extbase_Persistence_Manager $persistenceManager
+	 * @param PersistenceManagerInterface $persistenceManager
 	 */
-	public function injectPersistenceManager(Tx_Extbase_Persistence_Manager $persistenceManager) {
+	public function injectPersistenceManager(PersistenceManagerInterface $persistenceManager) {
 		$this->persistenceManager = $persistenceManager;
 	}
 
@@ -61,10 +49,9 @@ class Tx_Vhs_ViewHelpers_Form_FieldNameViewHelper extends \TYPO3\CMS\Fluid\Core\
 	 * @return string
 	 */
 	public function render() {
-		$variableNameSpace = $this->getVariableNameSpace();
-		if ($this->isObjectAccessorMode()) {
-			$formObjectName = $this->viewHelperVariableContainer->get($variableNameSpace, 'formObjectName');
-			if (!empty($formObjectName)) {
+		if (TRUE === $this->isObjectAccessorMode()) {
+			$formObjectName = $this->viewHelperVariableContainer->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\FormViewHelper', 'formObjectName');
+			if (FALSE === empty($formObjectName)) {
 				$propertySegments = explode('.', $this->arguments['property']);
 				$propertyPath = '';
 				foreach ($propertySegments as $segment) {
@@ -77,33 +64,28 @@ class Tx_Vhs_ViewHelpers_Form_FieldNameViewHelper extends \TYPO3\CMS\Fluid\Core\
 		} else {
 			$name = $this->arguments['name'];
 		}
-		if ($this->hasArgument('value') && is_object($this->arguments['value'])) {
-			if (NULL !== $this->persistenceManager->getIdentifierByObject($this->arguments['value'])) {
-				$name .= '[__identity]';
-			}
-		}
 		if (NULL === $name || '' === $name) {
 			return '';
 		}
-		if (FALSE === $this->viewHelperVariableContainer->exists($variableNameSpace, 'fieldNamePrefix')) {
+		if (FALSE === $this->viewHelperVariableContainer->exists('TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper', 'fieldNamePrefix')) {
 			return $name;
 		}
-		$fieldNamePrefix = (string) $this->viewHelperVariableContainer->get($variableNameSpace, 'fieldNamePrefix');
+		$fieldNamePrefix = (string) $this->viewHelperVariableContainer->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\FormViewHelper', 'fieldNamePrefix');
 		if ('' === $fieldNamePrefix) {
 			return $name;
 		}
 		$fieldNameSegments = explode('[', $name, 2);
 		$name = $fieldNamePrefix . '[' . $fieldNameSegments[0] . ']';
-		if (count($fieldNameSegments) > 1) {
+		if (1 < count($fieldNameSegments)) {
 			$name .= '[' . $fieldNameSegments[1];
 		}
-		if ($this->viewHelperVariableContainer->exists($variableNameSpace, 'formFieldNames')) {
-			$formFieldNames = $this->viewHelperVariableContainer->get($variableNameSpace, 'formFieldNames');
+		if (TRUE === $this->viewHelperVariableContainer->exists('TYPO3\\CMS\\Fluid\\ViewHelpers\\FormViewHelper', 'formFieldNames')) {
+			$formFieldNames = $this->viewHelperVariableContainer->get('TYPO3\\CMS\\Fluid\\ViewHelpers\\FormViewHelper', 'formFieldNames');
 		} else {
 			$formFieldNames = array();
 		}
 		$formFieldNames[] = $name;
-		$this->viewHelperVariableContainer->addOrUpdate($variableNameSpace, 'formFieldNames', $formFieldNames);
+		$this->viewHelperVariableContainer->addOrUpdate('TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper', 'formFieldNames', $formFieldNames);
 		return $name;
 	}
 
@@ -111,17 +93,7 @@ class Tx_Vhs_ViewHelpers_Form_FieldNameViewHelper extends \TYPO3\CMS\Fluid\Core\
 	 * @return boolean
 	 */
 	protected function isObjectAccessorMode() {
-		$variableNameSpace = $this->getVariableNameSpace();
-		return TRUE === $this->hasArgument('property') && TRUE === $this->viewHelperVariableContainer->exists($variableNameSpace, 'formObjectName');
+		return (boolean) (TRUE === $this->hasArgument('property') && TRUE === $this->viewHelperVariableContainer->exists('TYPO3\CMS\Fluid\ViewHelpers\FormViewHelper', 'formObjectName'));
 	}
 
-	/**
-	 * @return string
-	 */
-	protected function getVariableNameSpace() {
-		if (TRUE === $this->viewHelperVariableContainer->exists('TYPO3\\CMS\\Fluid\\ViewHelpers\\FormViewHelper', 'formFieldNames')) {
-			return 'TYPO3\\CMS\\Fluid\\ViewHelpers\\FormViewHelper';
-		}
-		return 'Tx_Fluid_ViewHelpers_FormViewHelper';
-	}
 }

@@ -1,27 +1,14 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Content\Random;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- * ************************************************************* */
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\ViewHelpers\Content\Random\RenderViewHelper;
 
 /**
  * ViewHelper for fetching a random content element in Fluid page templates
@@ -30,19 +17,14 @@
  * @package Vhs
  * @subpackage ViewHelpers\Content\Random
  */
-class Tx_Vhs_ViewHelpers_Content_Random_GetViewHelper extends Tx_Vhs_ViewHelpers_Content_AbstractContentViewHelper {
+class GetViewHelper extends RenderViewHelper {
 
 	/**
-	 * Render method
-	 *
-	 * @return mixed
+	 * Initialize ViewHelper arguments
 	 */
-	public function render() {
-		if (TYPO3_MODE == 'BE') {
-			return '';
-		}
-		$contentRecords = $this->getContentRecords(1, 'RAND()');
-		return $contentRecords;
+	public function initializeArguments() {
+		parent::initializeArguments();
+		$this->overrideArgument('render', 'boolean', 'Optional returning variable as original table rows', FALSE, FALSE);
 	}
 
 }

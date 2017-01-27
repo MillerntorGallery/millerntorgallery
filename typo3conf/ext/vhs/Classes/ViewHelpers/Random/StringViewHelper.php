@@ -1,27 +1,14 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Random;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ### Random: String Generator
@@ -37,7 +24,7 @@
  * @package Vhs
  * @subpackage ViewHelpers\Random
  */
-class Tx_Vhs_ViewHelpers_Random_StringViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class StringViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @param integer $length
@@ -51,13 +38,10 @@ class Tx_Vhs_ViewHelpers_Random_StringViewHelper extends \TYPO3\CMS\Fluid\Core\V
 		$maximumLength = intval($maximumLength);
 		$length = ($minimumLength != $maximumLength ? rand($minimumLength, $maximumLength) : ($length !== NULL ? $length : $minimumLength));
 		$string = '';
-		for ($i = 0; $i < $length && $length > 0; $i++) {
-			$randomIndex = rand(0, strlen($characters));
+		for ($i = 0; $i < $length; $i++) {
+			$randomIndex = mt_rand(0, strlen($characters) - 1);
 			$string .= $characters{$randomIndex};
 		}
-		$characters = preg_replace('/([^a-z]+)/i', '', $characters);
-		$randomIndex = rand(0, strlen($characters) - 1);
-		$string{0} = $characters{$randomIndex};
 		return $string;
 	}
 

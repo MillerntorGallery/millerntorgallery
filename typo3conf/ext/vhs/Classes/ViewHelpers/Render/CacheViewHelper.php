@@ -1,27 +1,15 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Render;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\DomainObject\DomainObjectInterface;
 
 /**
  * ### Cache Rendering ViewHelper
@@ -59,12 +47,14 @@
  * @package Vhs
  * @subpackage ViewHelpers\Render
  */
-class Tx_Vhs_ViewHelpers_Render_CacheViewHelper extends Tx_Vhs_ViewHelpers_Render_AbstractRenderViewHelper {
+class CacheViewHelper extends AbstractRenderViewHelper {
+
+	const ID_PREFIX = 'vhs-render-cache-viewhelper';
 
 	const ID_SEPARATOR = '-';
 
 	/**
-	 * @var \TYPO3\CMS\Core\Cache\Frontend\VariableFrontend
+	 * @var \TYPO3\CMS\Core\Cache\Frontend\StringFrontend
 	 */
 	protected $cache;
 
@@ -72,7 +62,8 @@ class Tx_Vhs_ViewHelpers_Render_CacheViewHelper extends Tx_Vhs_ViewHelpers_Rende
 	 * @return void
 	 */
 	public function initialize() {
-		$this->cache = $GLOBALS['typo3CacheManager']->getCache('extbase_object');
+		$cacheManager = isset($GLOBALS['typo3CacheManager']) ? $GLOBALS['typo3CacheManager'] : GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Cache\\CacheManager');
+		$this->cache = $cacheManager->getCache('vhs_main');
 	}
 
 	/**
@@ -81,25 +72,29 @@ class Tx_Vhs_ViewHelpers_Render_CacheViewHelper extends Tx_Vhs_ViewHelpers_Rende
 	 * @param mixed $identity Identifier for the cached content (usage preferred)
 	 * @param mixed $content Value to be cached
 	 * @return mixed
-	 * @throws RuntimeException
+	 * @throws \RuntimeException
 	 */
 	public function render($identity, $content = NULL) {
-		if (ctype_alnum(preg_replace('/[\-_]/i', '', $identity)) === FALSE) {
-			if ($identity instanceof Tx_Extbase_DomainObject_DomainObjectInterface) {
+		if (FALSE === ctype_alnum(preg_replace('/[\-_]/i', '', $identity))) {
+			if (TRUE === $identity instanceof DomainObjectInterface) {
 				$identity = get_class($identity) . self::ID_SEPARATOR . $identity->getUid();
-			} elseif (method_exists($identity, '__toString')) {
+			} elseif (TRUE === method_exists($identity, '__toString')) {
 				$identity = (string) $identity;
 			} else {
-				throw new RuntimeException(
+				throw new \RuntimeException(
 					'Parameter $identity for Render/CacheViewHelper was not a string or a string-convertible object',
 					1352581782
 				);
 			}
 		}
-		if ($this->has($identity)) {
+
+		// Hash the cache-key to circumvent disallowed chars
+		$identity = sha1($identity);
+
+		if (TRUE === $this->has($identity)) {
 			return $this->retrieve($identity);
 		}
-		if ($content === NULL) {
+		if (NULL === $content) {
 			$content = $this->renderChildren();
 		}
 		$this->store($content, $identity);
@@ -111,7 +106,7 @@ class Tx_Vhs_ViewHelpers_Render_CacheViewHelper extends Tx_Vhs_ViewHelpers_Rende
 	 * @return boolean
 	 */
 	protected function has($id) {
-		return $this->cache->has(get_class($this) . self::ID_SEPARATOR . $id);
+		return (boolean) $this->cache->has(self::ID_PREFIX . self::ID_SEPARATOR . $id);
 	}
 
 	/**
@@ -120,7 +115,7 @@ class Tx_Vhs_ViewHelpers_Render_CacheViewHelper extends Tx_Vhs_ViewHelpers_Rende
 	 * @return void
 	 */
 	protected function store($value, $id) {
-		$this->cache->set(get_class($this) . self::ID_SEPARATOR . $id, $value);
+		$this->cache->set(self::ID_PREFIX . self::ID_SEPARATOR . $id, $value);
 	}
 
 	/**
@@ -128,8 +123,8 @@ class Tx_Vhs_ViewHelpers_Render_CacheViewHelper extends Tx_Vhs_ViewHelpers_Rende
 	 * @return mixed
 	 */
 	protected function retrieve($id) {
-		if ($this->cache->has(get_class($this) . self::ID_SEPARATOR . $id)) {
-			return $this->cache->get(get_class($this) . self::ID_SEPARATOR . $id);
+		if ($this->cache->has(self::ID_PREFIX . self::ID_SEPARATOR . $id)) {
+			return $this->cache->get(self::ID_PREFIX . self::ID_SEPARATOR . $id);
 		}
 		return NULL;
 	}

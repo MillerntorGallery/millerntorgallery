@@ -1,27 +1,15 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\Traits\TemplateVariableViewHelperTrait;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
  * ### Try ViewHelper
@@ -60,7 +48,7 @@
  *         <!-- assume that the variable {badJson} contains the string "DontDecodeMe"
  *              which if course is invalid JSON and cannot be decoded. The default
  *              behavior is to simply output a simple "cannot decode" string. -->
- *         <v:var.set name="decodedBadJson" value="{badJson -> v:format.json.decode()}" />
+ *         <v:variable.set name="decodedBadJson" value="{badJson -> v:format.json.decode()}" />
  *         Displayed only if the JSON decode worked. Much more code and many more
  *         ViewHelpers can go here. Now, imagine that this block spans so much code
  *         that potentially there could come an Exception from many additional places
@@ -98,7 +86,9 @@
  * @package Vhs
  * @subpackage ViewHelpers
  */
-class Tx_Vhs_ViewHelpers_TryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
+class TryViewHelper extends AbstractConditionViewHelper {
+
+	use TemplateVariableViewHelperTrait;
 
 	/**
 	 * @return mixed
@@ -109,9 +99,8 @@ class Tx_Vhs_ViewHelpers_TryViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\
 			if (TRUE === empty($content)) {
 				$content = $this->renderChildren();
 			}
-		} catch (Exception $error) {
-			$variables = array('exception' => $error);
-			$content = Tx_Vhs_Utility_ViewHelperUtility::renderChildrenWithVariables($this, $this->templateVariableContainer, $variables);
+		} catch (\Exception $error) {
+			$content = $this->renderChildrenWithVariables(array('exception' => $error));
 		}
 		return $content;
 	}

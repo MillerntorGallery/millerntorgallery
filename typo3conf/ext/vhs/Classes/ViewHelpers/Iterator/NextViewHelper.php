@@ -1,27 +1,15 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Iterator;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use FluidTYPO3\Vhs\ViewHelpers\Condition\Iterator\ContainsViewHelper;
+use TYPO3\CMS\Fluid\Core\Rendering\RenderingContextInterface;
 
 /**
  * Returns next element in array $haystack from position of $needle
@@ -30,16 +18,32 @@
  * @package Vhs
  * @subpackage ViewHelpers\Iterator
  */
-class Tx_Vhs_ViewHelpers_Iterator_NextViewHelper extends Tx_Vhs_ViewHelpers_If_Iterator_ContainsViewHelper {
+class NextViewHelper extends ContainsViewHelper {
 
 	/**
-	 * Render method
+	 * Render
 	 *
 	 * @return string
 	 */
 	public function render() {
-		parent::render();
-		return $this->getNeedleAtIndex($this->evaluation !== FALSE ? $this->evaluation + 1 : - 1);
+		return static::renderStatic(
+			$this->arguments,
+			$this->buildRenderChildrenClosure(),
+			$this->renderingContext
+		);
+	}
+
+	/**
+	 * Default implementation for use in compiled templates
+	 *
+	 * @param array $arguments
+	 * @param \Closure $renderChildrenClosure
+	 * @param RenderingContextInterface $renderingContext
+	 * @return mixed
+	 */
+	static public function renderStatic(array $arguments, \Closure $renderChildrenClosure, RenderingContextInterface $renderingContext) {
+		$evaluation = self::assertHaystackHasNeedle($arguments['haystack'], $arguments['needle'], $arguments);
+		return self::getNeedleAtIndex($evaluation !== FALSE ? $evaluation + 1 : -1, $arguments);
 	}
 
 }

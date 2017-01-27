@@ -1,27 +1,15 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Danilo Bürger <danilo.buerger@hmspl.de>, Heimspiel GmbH
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * If content is empty use alternative text (can also be LLL:labelname shortcut or LLL:EXT: file paths).
@@ -30,7 +18,7 @@
  * @package Vhs
  * @subpackage ViewHelpers
  */
-class Tx_Vhs_ViewHelpers_OrViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class OrViewHelper extends AbstractViewHelper {
 
 	/**
 	 * Initialize
@@ -38,7 +26,7 @@ class Tx_Vhs_ViewHelpers_OrViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\A
 	 * @return void
 	 */
 	public function initializeArguments() {
-		$this->registerArgument('alternative', 'mixed', 'Alternative if content is empty, can use LLL: shortcut', FALSE, '');
+		$this->registerArgument('alternative', 'mixed', 'Alternative if content is empty, can use LLL: shortcut', FALSE);
 		$this->registerArgument('arguments', 'array', 'Arguments to be replaced in the resulting string', FALSE, NULL);
 		$this->registerArgument('extensionName', 'string', 'UpperCamelCase extension name without vendor prefix', FALSE, NULL);
 	}
@@ -48,43 +36,37 @@ class Tx_Vhs_ViewHelpers_OrViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\A
 	 * @return string
 	 */
 	public function render($content = NULL) {
-		$alternative = $this->arguments['alternative'];
-
 		if (NULL === $content) {
 			$content = $this->renderChildren();
 		}
-
-		if (FALSE === empty($content)) {
-			return $content;
+		if (TRUE === empty($content)) {
+			$content = $this->getAlternativeValue();
 		}
-
-		if (FALSE === is_string($alternative) || 0 !== strpos($alternative, 'LLL:')) {
-			return $alternative;
-		}
-
-		if (0 !== strpos($alternative, 'LLL:EXT:')) {
-			// Trim off LLL: from shorthand LLL:labelname syntax so only label is passed to translate function
-			$translate = substr($alternative, 4);
-		}
-
-		$arguments = $this->arguments['arguments'];
-		$extensionName = $this->arguments['extensionName'];
-
-		if (NULL === $extensionName) {
-			if (TRUE === method_exists($this, 'getControllerContext')) {
-				$request = $this->getControllerContext()->getRequest();
-			} else {
-				$request = $this->controllerContext->getRequest();
-			}
-			$extensionName = $request->getControllerExtensionName();
-		}
-
-		$content = Tx_Extbase_Utility_Localization::translate($translate, $extensionName, $arguments);
-		if (NULL === $content) {
-			$content = $alternative;
-		}
-
 		return $content;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	protected function getAlternativeValue() {
+		$alternative = $this->arguments['alternative'];
+		$arguments = (array) $this->arguments['arguments'];
+		if (0 === count($arguments)) {
+			$arguments = NULL;
+		}
+		if (0 === strpos($alternative, 'LLL:EXT:')) {
+			$alternative = LocalizationUtility::translate($alternative, NULL, $arguments);
+		} elseif (0 === strpos($alternative, 'LLL:')) {
+			$extensionName = $this->arguments['extensionName'];
+			if (NULL === $extensionName) {
+				$extensionName = $this->controllerContext->getRequest()->getControllerExtensionName();
+			}
+			$translatedAlternative = LocalizationUtility::translate(substr($alternative, 4), $extensionName, $arguments);
+			if (NULL !== $translatedAlternative) {
+				$alternative = $translatedAlternative;
+			}
+		}
+		return NULL !== $arguments && FALSE === empty($alternative) ? vsprintf($alternative, $arguments) : $alternative;
 	}
 
 }

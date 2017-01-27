@@ -3,7 +3,7 @@
 /***************************************************************
  * Extension Manager/Repository config file for ext "vhs".
  *
- * Auto generated 21-05-2014 18:16
+ * Auto generated 24-06-2016 19:24
  *
  * Manual updates:
  * Only the data in the array - everything else is removed by next
@@ -11,43 +11,33 @@
  ***************************************************************/
 
 $EM_CONF[$_EXTKEY] = array (
-	'title' => 'VHS: Fluid ViewHelpers',
-	'description' => 'A collection of ViewHelpers to perform rendering tasks which are not natively supported by Fluid - for example: advanced formatters, math calculators, specialized conditions and Iterator/Array calculators and processors',
-	'category' => 'misc',
-	'shy' => 0,
-	'version' => '1.8.5',
-	'dependencies' => '',
-	'conflicts' => '',
-	'priority' => '',
-	'loadOrder' => '',
-	'module' => '',
-	'state' => 'stable',
-	'uploadfolder' => 0,
-	'createDirs' => '',
-	'modify_tables' => '',
-	'clearcacheonload' => 0,
-	'lockType' => '',
-	'author' => 'FluidTYPO3 Team',
-	'author_email' => 'claus@namelesscoder.net',
-	'author_company' => '',
-	'CGLcompliance' => NULL,
-	'CGLcompliance_note' => NULL,
-	'constraints' => 
-	array (
-		'depends' => 
-		array (
-			'typo3' => '4.5.0-6.2.99',
-			'cms' => '',
-			'extbase' => '',
-			'fluid' => '',
-		),
-		'conflicts' => 
-		array (
-		),
-		'suggests' => 
-		array (
-		),
-	),
+  'title' => 'VHS: Fluid ViewHelpers',
+  'description' => 'A collection of ViewHelpers to perform rendering tasks which are not natively supported by Fluid - for example: advanced formatters, math calculators, specialized conditions and Iterator/Array calculators and processors',
+  'category' => 'misc',
+  'author' => 'FluidTYPO3 Team',
+  'author_email' => 'claus@namelesscoder.net',
+  'author_company' => '',
+  'state' => 'stable',
+  'uploadfolder' => true,
+  'createDirs' => '',
+  'clearCacheOnLoad' => 0,
+  'version' => '2.4.0',
+  'constraints' => 
+  array (
+    'depends' => 
+    array (
+      'php' => '5.4.0-5.6.99',
+      'typo3' => '6.2.0-7.6.99',
+      'cms' => '',
+    ),
+    'conflicts' => 
+    array (
+    ),
+    'suggests' => 
+    array (
+    ),
+  ),
+  '_md5_values_when_last_written' => '',
+  'clearcacheonload' => true,
 );
 
-?>

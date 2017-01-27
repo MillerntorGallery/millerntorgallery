@@ -1,27 +1,16 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Iterator;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Andreas Lappe <nd@kaeufli.ch>, kaeufli.ch
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * ### Iterator / Extract VieWHelper
@@ -38,7 +27,7 @@
  * #### Input from extbase version of indexed_search">
  *
  *     array(
- *	       0 => array(
+ *           0 => array(
  *             'sword' => 'firstWord',
  *             'oper' => 'AND'
  *         ),
@@ -79,31 +68,45 @@
  *
  *     {anArray->v:iterator.extract(path: 'childProperty.secondNestedChildObject')->v:iterator.sort(direction: 'DESC', sortBy: 'propertyOnSecondChild')->v:iterator.slice(length: 10)->v:iterator.extract(key: 'uid')}
  *
+ * #### Single return value
+ *
+ *     Outputs the "uid" value of the first record in variable $someRecords without caring if there are more than
+ *     one records. Always extracts the first value and then stops. Equivalent of chaning -> v:iterator.first().
+ *     {someRecords -> v:iterator.extract(key: 'uid', single: TRUE)}
+ *
  * @author Andreas Lappe <nd@kaeufli.ch>
  * @package Vhs
  * @subpackage ViewHelpers\Iterator
  */
-class Tx_Vhs_ViewHelpers_Iterator_ExtractViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class ExtractViewHelper extends AbstractViewHelper {
 
 	/**
-	 * @param string $key
-	 * @param Traversable $content
-	 * @param boolean $recursive
+	 * @param string $key The name of the key from which you wish to extract the value
+	 * @param mixed $content The array or Iterator that contains either the value or arrays of values
+	 * @param boolean $recursive If TRUE, attempts to extract the key from deep nested arrays
+	 * @param boolean $single If TRUE, returns only one value - always the first one - instead of an array of values
 	 * @return array
 	 */
-	public function render($key, $content = NULL, $recursive = TRUE) {
+	public function render($key, $content = NULL, $recursive = TRUE, $single = FALSE) {
 		if (NULL === $content) {
 			$content = $this->renderChildren();
 		}
 		try {
+			// extraction from Iterators could potentially use a getter method which throws
+			// exceptions - although this would be bad practice. Catch the exception here
+			// and turn it into a WARNING log message so that output does not break.
 			if (TRUE === (boolean) $recursive) {
 				$result = $this->recursivelyExtractKey($content, $key);
 			} else {
 				$result = $this->extractByKey($content, $key);
 			}
-		} catch (Exception $error) {
-			\TYPO3\CMS\Core\Utility\GeneralUtility::sysLog($error->getMessage(), 'vhs', \TYPO3\CMS\Core\Utility\GeneralUtility::SYSLOG_SEVERITY_WARNING);
+		} catch (\Exception $error) {
+			GeneralUtility::sysLog($error->getMessage(), 'vhs', GeneralUtility::SYSLOG_SEVERITY_WARNING);
 			$result = array();
+		}
+
+		if (TRUE === (boolean) $single) {
+			return reset($result);
 		}
 
 		return $result;
@@ -112,17 +115,17 @@ class Tx_Vhs_ViewHelpers_Iterator_ExtractViewHelper extends \TYPO3\CMS\Fluid\Cor
 	/**
 	 * Extract by key
 	 *
-	 * @param Traversable $iterator
+	 * @param \Traversable $iterator
 	 * @param string $key
 	 * @return mixed NULL or whatever we found at $key
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function extractByKey($iterator, $key) {
-		if (FALSE === is_array($iterator) && FALSE === $iterator instanceof Traversable) {
-			throw new Exception('Traversable object or array expected but received ' . gettype($iterator), 1361532490);
+		if (FALSE === is_array($iterator) && FALSE === $iterator instanceof \Traversable) {
+			throw new \Exception('Traversable object or array expected but received ' . gettype($iterator), 1361532490);
 		}
 
-		$result = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getPropertyPath($iterator, $key);
+		$result = ObjectAccess::getPropertyPath($iterator, $key);
 
 		return $result;
 	}
@@ -130,20 +133,20 @@ class Tx_Vhs_ViewHelpers_Iterator_ExtractViewHelper extends \TYPO3\CMS\Fluid\Cor
 	/**
 	 * Recursively extract the key
 	 *
-	 * @param Traversable $iterator
+	 * @param \Traversable $iterator
 	 * @param string $key
 	 * @return string
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function recursivelyExtractKey($iterator, $key) {
 		$content = array();
 
-		foreach ($iterator as $k => $v) {
+		foreach ($iterator as $v) {
 			// Lets see if we find something directly:
-			$result = \TYPO3\CMS\Extbase\Reflection\ObjectAccess::getPropertyPath($v, $key);
+			$result = ObjectAccess::getPropertyPath($v, $key);
 			if (NULL !== $result) {
 				$content[] = $result;
-			} elseif (TRUE === is_array($v) || TRUE === $v instanceof Traversable) {
+			} elseif (TRUE === is_array($v) || TRUE === $v instanceof \Traversable) {
 				$content[] = $this->recursivelyExtractKey($v, $key);
 			}
 		}
@@ -162,7 +165,7 @@ class Tx_Vhs_ViewHelpers_Iterator_ExtractViewHelper extends \TYPO3\CMS\Fluid\Cor
 	 */
 	public function flattenArray(array $content, $flattened = NULL) {
 		foreach ($content as $sub) {
-			if (is_array($sub)) {
+			if (TRUE === is_array($sub)) {
 				$flattened = $this->flattenArray($sub, $flattened);
 			} else {
 				$flattened[] = $sub;

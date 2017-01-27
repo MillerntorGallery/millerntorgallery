@@ -1,27 +1,18 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Security;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup;
+use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
  * ### Base class: Security ViewHelpers
@@ -30,18 +21,25 @@
  * @package Vhs
  * @subpackage ViewHelpers\Security
  */
-abstract class Tx_Vhs_ViewHelpers_Security_AbstractSecurityViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractConditionViewHelper {
+abstract class AbstractSecurityViewHelper extends AbstractConditionViewHelper {
 
 	/**
-	 * @var Tx_Extbase_Domain_Repository_FrontendUserRepository
+	 * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
 	 */
 	protected $frontendUserRepository;
 
 	/**
-	 * @param Tx_Extbase_Domain_Repository_FrontendUserRepository $frontendUserRepository
+	 * @return NULL
+	 */
+	public function render() {
+		return NULL;
+	}
+
+	/**
+	 * @param \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $frontendUserRepository
 	 * @return void
 	 */
-	public function injectFrontendUserRepository(Tx_Extbase_Domain_Repository_FrontendUserRepository $frontendUserRepository) {
+	public function injectFrontendUserRepository(FrontendUserRepository $frontendUserRepository) {
 		$this->frontendUserRepository = $frontendUserRepository;
 		$query = $this->frontendUserRepository->createQuery();
 		$querySettings = $query->getQuerySettings();
@@ -56,10 +54,10 @@ abstract class Tx_Vhs_ViewHelpers_Security_AbstractSecurityViewHelper extends \T
 	public function initializeArguments() {
 		$this->registerArgument('anyFrontendUser', 'boolean', 'If TRUE, allows any FrontendUser unless other arguments disallows each specific FrontendUser', FALSE, FALSE);
 		$this->registerArgument('anyFrontendUserGroup', 'boolean', 'If TRUE, allows any FrontendUserGroup unless other arguments disallows each specific FrontendUser', FALSE, FALSE);
-		$this->registerArgument('frontendUser', 'Tx_Extbase_Domain_Model_FrontendUser', 'The FrontendUser to allow/deny');
-		$this->registerArgument('frontendUsers', '<Tx_Extbase_Persistence_ObjectStorage>Tx_Extbase_Domain_Model_FrontendUser', 'The FrontendUsers ObjectStorage to allow/deny');
-		$this->registerArgument('frontendUserGroup', 'Tx_Extbase_Domain_Model_FrontendUserGroup', 'The FrontendUserGroup to allow/deny');
-		$this->registerArgument('frontendUserGroups', '<Tx_Extbase_Persistence_ObjectStorage>Tx_Extbase_Domain_Model_FrontendUserGroup', 'The FrontendUserGroups ObjectStorage to allow/deny');
+		$this->registerArgument('frontendUser', 'TYPO3\CMS\Extbase\Domain\Model\FrontendUser', 'The FrontendUser to allow/deny');
+		$this->registerArgument('frontendUsers', '<TYPO3\CMS\Extbase\Persistence\ObjectStorage>\TYPO3\CMS\Extbase\Domain\Model\FrontendUser', 'The FrontendUsers ObjectStorage to allow/deny');
+		$this->registerArgument('frontendUserGroup', 'TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', 'The FrontendUserGroup to allow/deny');
+		$this->registerArgument('frontendUserGroups', '<TYPO3\CMS\Extbase\Persistence\ObjectStorage>\TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup', 'The FrontendUserGroups ObjectStorage to allow/deny');
 		$this->registerArgument('anyBackendUser', 'boolean', 'If TRUE, allows any backend user unless other arguments disallows each specific backend user', FALSE, FALSE);
 		$this->registerArgument('backendUser', 'integer', 'The uid of a backend user to allow/deny');
 		$this->registerArgument('backendUsers', 'mixed', 'The backend users list to allow/deny. If string, CSV of uids is assumed, if array, array of uids is assumed');
@@ -78,95 +76,112 @@ abstract class Tx_Vhs_ViewHelpers_Security_AbstractSecurityViewHelper extends \T
 	protected function evaluateArguments() {
 		$evaluationType = $this->arguments['evaluationType'];
 		$evaluations = array();
-		if ($this->arguments['anyFrontendUser']) {
+		if (TRUE === (boolean) $this->arguments['anyFrontendUser']) {
 			$evaluations['anyFrontendUser'] = intval($this->assertFrontendUserLoggedIn());
 		}
-		if ($this->arguments['anyFrontendUserGroup']) {
+		if (TRUE === (boolean) $this->arguments['anyFrontendUserGroup']) {
 			$evaluations['anyFrontendUserGroup'] = intval($this->assertFrontendUserGroupLoggedIn());
 		}
-		if ($this->arguments['frontendUser']) {
+		if (TRUE === isset($this->arguments['frontendUser'])) {
 			$evaluations['frontendUser'] = intval($this->assertFrontendUserLoggedIn($this->arguments['frontendUser']));
 		}
-		if ($this->arguments['frontendUserGroup']) {
+		if (TRUE === isset($this->arguments['frontendUsers'])) {
+			$evaluations['frontendUsers'] = intval($this->assertFrontendUsersLoggedIn($this->arguments['frontendUsers']));
+		}
+		if (TRUE === isset($this->arguments['frontendUserGroup'])) {
 			$evaluations['frontendUserGroup'] = intval($this->assertFrontendUserGroupLoggedIn($this->arguments['frontendUserGroup']));
 		}
-		if ($this->arguments['frontendUserGroups']) {
+		if (TRUE === isset($this->arguments['frontendUserGroups'])) {
 			$evaluations['frontendUserGroups'] = intval($this->assertFrontendUserGroupLoggedIn($this->arguments['frontendUserGroups']));
 		}
-		if ($this->arguments['anyBackendUser']) {
+		if (TRUE === (boolean) $this->arguments['anyBackendUser']) {
 			$evaluations['anyBackendUser'] = intval($this->assertBackendUserLoggedIn());
 		}
-		if ($this->arguments['anyBackendUserGroup']) {
+		if (TRUE === (boolean) $this->arguments['anyBackendUserGroup']) {
 			$evaluations['anyBackendUserGroup'] = intval($this->assertBackendUserGroupLoggedIn());
 		}
-		if ($this->arguments['backendUser']) {
+		if (TRUE === isset($this->arguments['backendUser'])) {
 			$evaluations['backendUser'] = intval($this->assertBackendUserLoggedIn($this->arguments['backendUser']));
 		}
-		if ($this->arguments['backendUsers']) {
+		if (TRUE === isset($this->arguments['backendUsers'])) {
 			$evaluations['backendUsers'] = intval($this->assertBackendUserLoggedIn($this->arguments['backendUsers']));
 		}
-		if ($this->arguments['backendUserGroup']) {
+		if (TRUE === isset($this->arguments['backendUserGroup'])) {
 			$evaluations['backendUserGroup'] = intval($this->assertBackendUserGroupLoggedIn($this->arguments['backendUserGroup']));
 		}
-		if ($this->arguments['backendUserGroups']) {
+		if (TRUE === isset($this->arguments['backendUserGroups'])) {
 			$evaluations['backendUserGroups'] = intval($this->assertBackendUserGroupLoggedIn($this->arguments['backendUserGroups']));
 		}
-		if ($this->arguments['admin']) {
+		if (TRUE === (boolean) $this->arguments['admin']) {
 			$evaluations['admin'] = intval($this->assertAdminLoggedIn());
 		}
-		if ($evaluationType === 'AND') {
-			return (count($evaluations) === array_sum($evaluations));
-		} else {
-			return (array_sum($evaluations) > 0);
-		}
+		$sum = array_sum($evaluations);
+		return (boolean) ('AND' === $evaluationType ? count($evaluations) === $sum : $sum > 0);
 	}
 
 	/**
 	 * Returns TRUE only if a FrontendUser is currently logged in. Use argument
 	 * to return TRUE only if the FrontendUser logged in must be that specific user.
 	 *
-	 * @param Tx_Extbase_Domain_Model_FrontendUser $frontendUser
+	 * @param FrontendUser $frontendUser
 	 * @return boolean
 	 * @api
 	 */
-	public function assertFrontendUserLoggedIn(Tx_Extbase_Domain_Model_FrontendUser $frontendUser = NULL) {
+	public function assertFrontendUserLoggedIn(FrontendUser $frontendUser = NULL) {
 		$currentFrontendUser = $this->getCurrentFrontendUser();
-		if (!$currentFrontendUser) {
+		if (FALSE === $currentFrontendUser instanceof FrontendUser) {
 			return FALSE;
 		}
-		if ($frontendUser && $currentFrontendUser) {
+		if (TRUE === $frontendUser instanceof FrontendUser && TRUE === $currentFrontendUser instanceof FrontendUser) {
 			if ($currentFrontendUser->getUid() === $frontendUser->getUid()) {
 				return TRUE;
 			} else {
 				return FALSE;
 			}
 		}
-		return is_object($currentFrontendUser);
+		return (boolean) (TRUE === is_object($currentFrontendUser));
+	}
+
+	/**
+	 * Returns TRUE only if currently logged in frontend user is in list.
+	 *
+	 * @param ObjectStorage $frontendUsers
+	 * @return boolean
+	 * @api
+	 */
+	public function assertFrontendUsersLoggedIn(ObjectStorage $frontendUsers = NULL) {
+		foreach ($frontendUsers as $frontendUser) {
+			if (TRUE === $this->assertFrontendUserLoggedIn($frontendUser)) {
+				return TRUE;
+			}
+		}
+		return FALSE;
 	}
 
 	/**
 	 * Returns TRUE if a FrontendUserGroup (specific given argument, else not) is logged in
 	 *
-	 * @param mixed $groups One Tx_Extbase_Domain_Model_FrontendUsergroup or ObjectStorage containing same
+	 * @param mixed $groups One \TYPO3\CMS\Extbase\Domain\Model\FrontendUserGroup or ObjectStorage containing same
 	 * @return boolean
 	 * @api
 	 */
 	public function assertFrontendUserGroupLoggedIn($groups = NULL) {
 		$currentFrontendUser = $this->getCurrentFrontendUser();
-		if (!$currentFrontendUser) {
+		if (FALSE === $currentFrontendUser instanceof FrontendUser) {
 			return FALSE;
 		}
 		$currentFrontendUserGroups = $currentFrontendUser->getUsergroup();
-		if ($groups) {
-			if ($groups instanceof Tx_Extbase_Domain_Model_FrontendUserGroup) {
-				return $currentFrontendUserGroups->contains($groups);
-			} elseif ($groups instanceof Tx_Extbase_Persistence_ObjectStorage) {
-				$currentFrontendUserGroupsClone = clone $currentFrontendUserGroups;
-				$currentFrontendUserGroupsClone->removeAll($groups);
-				return ($currentFrontendUserGroups->count() !== $currentFrontendUserGroupsClone->count());
-			}
+		if (NULL === $groups) {
+			return (boolean) (0 < $currentFrontendUserGroups->count());
+		} elseif (TRUE === $groups instanceof FrontendUserGroup) {
+			return $currentFrontendUserGroups->contains($groups);
+		} elseif (TRUE === $groups instanceof ObjectStorage) {
+			$currentFrontendUserGroupsClone = clone $currentFrontendUserGroups;
+			$currentFrontendUserGroupsClone->removeAll($groups);
+			return ($currentFrontendUserGroups->count() !== $currentFrontendUserGroupsClone->count());
+		} else {
+			return FALSE;
 		}
-		return ($currentFrontendUserGroups->count() > 0);
 	}
 
 	/**
@@ -179,14 +194,14 @@ abstract class Tx_Vhs_ViewHelpers_Security_AbstractSecurityViewHelper extends \T
 	 */
 	public function assertBackendUserLoggedIn($backendUser = NULL) {
 		$currentBackendUser = $this->getCurrentBackendUser();
-		if ($backendUser) {
-			if ($currentBackendUser['uid'] === $backendUser) {
+		if (NULL !== $backendUser) {
+			if ((integer) $currentBackendUser['uid'] === (integer) $backendUser) {
 				return TRUE;
 			} else {
 				return FALSE;
 			}
 		}
-		return is_array($currentBackendUser);
+		return (boolean) (TRUE === is_array($currentBackendUser));
 	}
 
 	/**
@@ -199,19 +214,21 @@ abstract class Tx_Vhs_ViewHelpers_Security_AbstractSecurityViewHelper extends \T
 	 * @api
 	 */
 	public function assertBackendUserGroupLoggedIn($groups = NULL) {
-		if (!$this->assertBackendUserLoggedIn()) {
+		if (FALSE === $this->assertBackendUserLoggedIn()) {
 			return FALSE;
 		}
 		$currentBackendUser = $this->getCurrentBackendUser();
-		$userGroups = explode(',', $currentBackendUser['usergroup']);
-		if (count($userGroups) === 0) {
+		$currentUserGroups = trim($currentBackendUser['usergroup'], ',');
+		$userGroups = FALSE === empty($currentUserGroups) ? explode(',', $currentUserGroups) : array();
+		if (0 === count($userGroups)) {
 			return FALSE;
 		}
-		if (is_string($groups)) {
-			$groups = explode(',', $groups);
+		if (TRUE === is_string($groups)) {
+			$groups = trim($groups, ',');
+			$groups = FALSE === empty($groups) ? explode(',', $groups) : array();
 		}
-		if (count($groups) > 0) {
-			return (count(array_intersect($userGroups, $groups)) > 0);
+		if (0 < count($groups)) {
+			return (boolean) (0 < count(array_intersect($userGroups, $groups)));
 		}
 		return FALSE;
 	}
@@ -224,7 +241,7 @@ abstract class Tx_Vhs_ViewHelpers_Security_AbstractSecurityViewHelper extends \T
 	 * @api
 	 */
 	public function assertAdminLoggedIn() {
-		if (!$this->assertBackendUserLoggedIn()) {
+		if (FALSE === $this->assertBackendUserLoggedIn()) {
 			return FALSE;
 		}
 		$currentBackendUser = $this->getCurrentBackendUser();
@@ -234,10 +251,13 @@ abstract class Tx_Vhs_ViewHelpers_Security_AbstractSecurityViewHelper extends \T
 	/**
 	 * Gets the currently logged in Frontend User
 	 *
-	 * @return Tx_Extbase_Domain_Model_FrontendUser
+	 * @return FrontendUser|NULL
 	 * @api
 	 */
 	public function getCurrentFrontendUser() {
+		if (TRUE === empty($GLOBALS['TSFE']->loginUser)) {
+			return NULL;
+		}
 		return $this->frontendUserRepository->findByUid($GLOBALS['TSFE']->fe_user->user['uid']);
 	}
 
@@ -265,8 +285,17 @@ abstract class Tx_Vhs_ViewHelpers_Security_AbstractSecurityViewHelper extends \T
 	 * @api
 	 */
 	protected function renderThenChild() {
-		$GLOBALS['TSFE']->no_cache = 1;
+		if (TRUE === $this->isFrontendContext()) {
+			$GLOBALS['TSFE']->no_cache = 1;
+		}
 		return parent::renderThenChild();
+	}
+
+	/**
+	 * @return boolean
+	 */
+	protected function isFrontendContext() {
+		return 'FE' === TYPO3_MODE;
 	}
 
 }

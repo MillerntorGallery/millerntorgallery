@@ -1,27 +1,14 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Format;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
  * Tidy-processes a string (HTML source), applying proper
@@ -31,7 +18,7 @@
  * @package Vhs
  * @subpackage ViewHelpers\Format
  */
-class Tx_Vhs_ViewHelpers_Format_TidyViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class TidyViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @var boolean
@@ -49,19 +36,20 @@ class Tx_Vhs_ViewHelpers_Format_TidyViewHelper extends \TYPO3\CMS\Fluid\Core\Vie
 	 * Trims content, then trims each line of content
 	 *
 	 * @param string $content
-	 * @throws Exception
+	 * @param string $encoding
+	 * @throws \RuntimeException
 	 * @return string
 	 */
-	public function render($content = NULL) {
+	public function render($content = NULL, $encoding = 'utf8') {
 		if (NULL === $content) {
 			$content = $this->renderChildren();
 		}
 		if (TRUE === $this->hasTidy) {
-			$tidy = tidy_parse_string($content);
+			$tidy = tidy_parse_string($content, array(), $encoding);
 			$tidy->cleanRepair();
 			return (string) $tidy;
 		}
-		throw new RuntimeException('TidyViewHelper requires the PHP extension "tidy" which is not installed or not loaded.', 1352059753);
+		throw new \RuntimeException('TidyViewHelper requires the PHP extension "tidy" which is not installed or not loaded.', 1352059753);
 	}
 
 }

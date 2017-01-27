@@ -1,27 +1,17 @@
 <?php
-/***************************************************************
- *  Copyright notice
+namespace FluidTYPO3\Vhs\ViewHelpers\Format\Placeholder;
+
+/*
+ * This file is part of the FluidTYPO3/Vhs project under GPLv2 or later.
  *
- *  (c) 2014 Claus Due <claus@namelesscoder.net>
- *
- *  All rights reserved
- *
- *  This script is part of the TYPO3 project. The TYPO3 project is
- *  free software; you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation; either version 2 of the License, or
- *  (at your option) any later version.
- *
- *  The GNU General Public License can be found at
- *  http://www.gnu.org/copyleft/gpl.html.
- *
- *  This script is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  This copyright notice MUST APPEAR in all copies of the script!
- ***************************************************************/
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /**
  * Lipsum ViewHelper
@@ -32,7 +22,7 @@
  * @package Vhs
  * @subpackage ViewHelpers\Format\Placeholder
  */
-class Tx_Vhs_ViewHelpers_Format_Placeholder_LipsumViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+class LipsumViewHelper extends AbstractViewHelper {
 
 	/**
 	 * @var string
@@ -40,12 +30,12 @@ class Tx_Vhs_ViewHelpers_Format_Placeholder_LipsumViewHelper extends \TYPO3\CMS\
 	protected $lipsum;
 
 	/**
-	 * @var	\TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer
+	 * @var	ContentObjectRenderer
 	 */
 	protected $contentObject;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @var ConfigurationManagerInterface
 	 */
 	protected $configurationManager;
 
@@ -57,10 +47,10 @@ class Tx_Vhs_ViewHelpers_Format_Placeholder_LipsumViewHelper extends \TYPO3\CMS\
 	}
 
 	/**
-	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+	 * @param ConfigurationManagerInterface $configurationManager
 	 * @return void
 	 */
-	public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
+	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
 		$this->configurationManager = $configurationManager;
 		$this->contentObject = $this->configurationManager->getContentObject();
 	}
@@ -89,13 +79,13 @@ class Tx_Vhs_ViewHelpers_Format_Placeholder_LipsumViewHelper extends \TYPO3\CMS\
 			$lipsum = $this->lipsum;
 		}
 		if ((strlen($lipsum) < 255 && !preg_match('/[^a-z0-9_\.\:\/]/i', $lipsum)) || 0 === strpos($lipsum, 'EXT:')) {
-				// argument is most likely a file reference.
-			$sourceFile = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($lipsum);
+			// argument is most likely a file reference.
+			$sourceFile = GeneralUtility::getFileAbsFileName($lipsum);
 			if (file_exists($sourceFile) === TRUE) {
 				$lipsum = file_get_contents($sourceFile);
 			} else {
-				\TYPO3\CMS\Core\Utility\GeneralUtility::sysLog('Vhs LipsumViewHelper was asked to load Lorem Ipsum from a file which does not exist. ' .
-					'The file was: ' . $sourceFile, 'Vhs');
+				GeneralUtility::sysLog('Vhs LipsumViewHelper was asked to load Lorem Ipsum from a file which does not exist. ' .
+					'The file was: ' . $sourceFile, 'vhs', GeneralUtility::SYSLOG_SEVERITY_WARNING);
 				$lipsum = $this->lipsum;
 			}
 		}
@@ -125,15 +115,14 @@ class Tx_Vhs_ViewHelpers_Format_Placeholder_LipsumViewHelper extends \TYPO3\CMS\
 	 * @return string
 	 */
 	protected function getDefaultLoremIpsum() {
-			// Note: this MAY look suspicious but it really is just a whole lot of Lipsum
-			// in a compressed state. Just to make sure that you trust the block, we run
-			// strip_tags and htmlentities on the string before it is returned. This is not
-			// done on custom Lipsum - but it is done here at no risk, since we know the
-			// Lipsum to contain zero HTML and zero special characters, 100% ASCII. Source
-			// of the Lipsum text is http://www.lipsum.com set at 20 paragraphs, compressed
-			// through a small shell script.
-		$lipsum = <<<LIPSUM
-eJy1WsuO7MYN3c9X6AOE+YGsDDsBDNhGAuNmX6PW9FSgR1tSzfeHr0Oyeu4iiOHFxe3plupBHh4esuqX/ZjXoT7Otg63fdmP4azXUNb5Godp3855uuarHUO51Uc9p7rdh3
+		// Note: this MAY look suspicious but it really is just a whole lot of Lipsum
+		// in a compressed state. Just to make sure that you trust the block, we run
+		// strip_tags and htmlentities on the string before it is returned. This is not
+		// done on custom Lipsum - but it is done here at no risk, since we know the
+		// Lipsum to contain zero HTML and zero special characters, 100% ASCII. Source
+		// of the Lipsum text is http://www.lipsum.com set at 20 paragraphs, compressed
+		// through a small shell script.
+		$lipsum = 'eJy1WsuO7MYN3c9X6AOE+YGsDDsBDNhGAuNmX6PW9FSgR1tSzfeHr0Oyeu4iiOHFxe3plupBHh4esuqX/ZjXoT7Otg63fdmP4azXUNb5Godp3855uuarHUO51Uc9p7rdh3
 mp1+vw96uWdVgKvT9fw+f8Uae2lKG06dqP1+E3+vFWp4uG5ecHeYY/PPazzcfMg9/b/Dr8Pt+Ga14f7RzO8qjzNsx3enir5zLMrZ7rfhsavVyOSo/st7oPa7muer4O//wo
 57ws9HXdhm3+o83Dox3tHIcyXHWb6q1t17BWneTkidpBuxiKjF+HtixlnfbjMR/Dg0aat2s+eRhZwh80+zCfl75eV3rqVul7Xi3ZiXcz8r5u9U6jnXWlKejfvix1qle70a
 J4iNfhJx6o+37dFxq4zthy5eXxBK8vL2w5Ms6trrQcMt/joxzzdZRhPvZz+KxXmfHw8O/6WVba/9tS6IVreCfz1zcx5b2qkX7eho8y0b83evM8yURLueZizuHdYZBsjRut
@@ -171,8 +160,7 @@ w//zJYV0JmKy+R5nex12FPqMEdiWPnM9YhYV5glOZgGEtVlHypulSnk1t2dQz0UuMSkYjEtW8sascCnZ
 xQyF57QiZeNxsP50nYUxx+zH6agEAxRHnEqsH8BqIBVNokKRmb2lT1YdZNpwNiMFNvzg3al2OAoUHoN6MsueG0z5Ui2vbeIuLjKpFPT9TenUd9OVDB9QUKqe4cqL/xFGdi
 eoLJ4Ep5rXVoFu0culfUkx6M5TL9+9eRSN6k7qIfMQASX3oQXVGMtmPSfLjuBzGGeNjszJMznOLW8FUMbkptifPaZV13sSQyF0qOdN9Rk+hobN164Wdc6m4V8RrHTGxXQp
 N3EXiZfUJDMIQpga2uYYtOVQwtd838NhauhXzLF9AYQu16hr9u1C42SO8/kznuFkuu8wtkKoFbuoDxm3Cvn8OMziHcxkfZKgc+egBghffP+bZb9GrsmjORQPza31VR4fKl
-BugvORmsyOJaRIQ8yH3I1EG2Y/+/6jqtrg4/xnazRv4v3i04aA==
-LIPSUM;
+BugvORmsyOJaRIQ8yH3I1EG2Y/+/6jqtrg4/xnazRv4v3i04aA==';
 		$uncompressed = gzuncompress(base64_decode($lipsum));
 		$safe = htmlentities(strip_tags($uncompressed));
 		return $safe;
