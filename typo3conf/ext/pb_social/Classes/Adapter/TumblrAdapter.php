@@ -1,9 +1,10 @@
 <?php
 
 namespace PlusB\PbSocial\Adapter;
-use Tumblr\API\Client;
+
 use PlusB\PbSocial\Domain\Model\Feed;
 use PlusB\PbSocial\Domain\Model\Item;
+use Tumblr\API\Client;
 
 /***************************************************************
  *
@@ -30,23 +31,23 @@ use PlusB\PbSocial\Domain\Model\Item;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-class TumblrAdapter extends SocialMediaAdapter {
+class TumblrAdapter extends SocialMediaAdapter
+{
 
     const TYPE = 'tumblr';
 
     private $api;
 
-    public function __construct($apiId, $apiSecret, $token, $tokenSecret, $itemRepository){
-
+    public function __construct($apiId, $apiSecret, $token, $tokenSecret, $itemRepository)
+    {
         parent::__construct($itemRepository);
 
         $this->api =  new Client($apiId, $apiSecret);
         $this->api->setToken($token, $tokenSecret);
-
     }
 
-    public function getResultFromApi($options){
-
+    public function getResultFromApi($options)
+    {
         $result = array();
 
         // search for users
@@ -59,7 +60,7 @@ class TumblrAdapter extends SocialMediaAdapter {
                         $feed->setDate(new \DateTime('now'));
                         $posts = $this->getPosts($blogName, $options);
                         $feed->setResult($posts);
-                        $this->itemRepository->update($feed);
+                        $this->itemRepository->updateFeed($feed);
                     } catch (\Exception $e) {
                         $this->logger->error(self::TYPE . ' feeds cant be updated', array('data' => $e->getMessage()));
                     }
@@ -78,7 +79,6 @@ class TumblrAdapter extends SocialMediaAdapter {
                 // save to DB and return current feed
                 $this->itemRepository->saveFeed($feed);
                 $result[] = $feed;
-
             } catch (\Exception $e) {
                 $this->logger->error('initial load for ' . self::TYPE . ' feeds failed', array('data' => $e->getMessage()));
             }
@@ -87,9 +87,8 @@ class TumblrAdapter extends SocialMediaAdapter {
         return $this->getFeedItemsFromApiRequest($result, $options);
     }
 
-    function getFeedItemsFromApiRequest($result, $options)
+    public function getFeedItemsFromApiRequest($result, $options)
     {
-
         $rawFeeds = array();
         $feedItems = array();
 
@@ -102,17 +101,24 @@ class TumblrAdapter extends SocialMediaAdapter {
                     }
                     $feed = new Feed(self::TYPE, $rawFeed);
                     $feed->setId($rawFeed->id);
+                    $text = '';
                     if ($rawFeed->caption) {
-                        $feed->setText($this->trim_text(strip_tags($rawFeed->caption), $options->textTrimLength, true));
-                    } else if ($rawFeed->body) {
-                        $feed->setText($this->trim_text(strip_tags($rawFeed->body), $options->textTrimLength, true));
+                        $text = $rawFeed->caption;
+                    } elseif ($rawFeed->body) {
+                        $text = $rawFeed->body;
+                    } elseif ($rawFeed->description) {
+                        $text = $rawFeed->description;
+                    } elseif ($rawFeed->text) {
+                        $text = $rawFeed->text;
+                    } elseif ($rawFeed->summary) {
+                        $text = $rawFeed->summary;
                     }
+                    $feed->setText($this->trim_text(strip_tags($text), $options->textTrimLength, true));
                     if ($rawFeed->photos[0]->original_size->url) {
                         $feed->setImage($rawFeed->photos[0]->original_size->url);
-                    } else if ($rawFeed->thumbnail_url) {
+                    } elseif ($rawFeed->thumbnail_url) {
                         $feed->setImage($rawFeed->thumbnail_url);
                     }
-
                     $feed->setLink($rawFeed->post_url);
                     $feed->setTimeStampTicks($rawFeed->timestamp);
                     $feedItems[] = $feed;
@@ -123,14 +129,14 @@ class TumblrAdapter extends SocialMediaAdapter {
         return array('rawFeeds' => $rawFeeds, 'feedItems' => $feedItems);
     }
 
-    function getPosts($blogName, $options){
-
+    public function getPosts($blogName, $options)
+    {
         $posts = '';
 
         if ($blogName == 'MYDASHBOARD') {
             if ($options->tumblrShowOnlyImages) {
                 $posts = (json_encode($this->api->getDashboardPosts(array('limit' => $options->feedRequestLimit, 'type' => 'photo'))));
-            } else{
+            } else {
                 $posts = (json_encode($this->api->getDashboardPosts(array('limit' => $options->feedRequestLimit))));
             }
         } else {
@@ -152,6 +158,5 @@ class TumblrAdapter extends SocialMediaAdapter {
         }
 
         return $posts;
-
     }
 }
