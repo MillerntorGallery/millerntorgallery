@@ -1,0 +1,854 @@
+//@millerntor-brown: #673e16;
+@millerntor-brown: #000;
+@black: #000;
+@white: #fff;
+
+@font-family-sans-serif:  "futurateemedregular", Helvetica, Arial, sans-serif;
+@font-size-base:          15px;
+
+@tooltip-color: #fff;
+@tooltip-bg: @millerntor-brown;
+@border-radius-base: 0px;
+
+@baseurl: '/typo3conf/ext/theme_widerkunst/Resources/Public/';
+//@baseurl: 'http://localhost:8888/millerntor/typo3conf/ext/theme_widerkunst/Resources/Public';
+
+.borderImage() {
+	background: none repeat scroll 0 0 #FFF;
+	border: 2px solid @black;
+	border-radius: 0px 0px 0px 0px;
+	box-shadow: 6px 6px 1px rgba(0, 0, 0, 0.85);
+	width: 100%;
+	height: 100%;
+} 
+
+@font-face {
+    font-family: "Futura LT Medium";
+    src: url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.eot');
+    src: url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.eot?#iefix') format('embedded-opentype'),
+    url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.svg#Futura LT Medium') format('svg'),
+    url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.woff') format('woff'),
+    url('@{baseurl}/Fonts/Futura-LT-Heavy-Oblique.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'futurateemedoblique';
+    src: url('@{baseurl}/Fonts/futurateemed_oblique-webfont.eot');
+    src: url('@{baseurl}/Fonts/futurateemed_oblique-webfont.eot?#iefix') format('embedded-opentype'),
+         url('@{baseurl}/Fonts/futurateemed_oblique-webfont.woff') format('woff'),
+         url('@{baseurl}/Fonts/futurateemed_oblique-webfont.ttf') format('truetype'),
+         url('@{baseurl}/Fonts/futurateemed_oblique-webfont.svg#futurateemedoblique') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'futurateemedregular';
+    src: url('@{baseurl}/Fonts/futurateemed-webfont.eot');
+    src: url('@{baseurl}/Fonts/futurateemed-webfont.eot?#iefix') format('embedded-opentype'),
+         url('@{baseurl}/Fonts/futurateemed-webfont.woff') format('woff'),
+         url('@{baseurl}/Fonts/futurateemed-webfont.ttf') format('truetype'),
+         url('@{baseurl}/Fonts/futurateemed-webfont.svg#futurateemedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+	background: url('@{baseurl}/Images/widerkunst_background.png') repeat top left;
+}
+
+.navbar-brand {
+	height: auto;
+	float: none;
+	
+	> img {
+		display: inline;
+	}
+}
+
+#areaLogo {
+	margin-top: 20px;
+	text-align: center;
+}
+
+
+#mainNavigation {
+	border-top: 5px solid @millerntor-brown;
+	
+}
+
+#menuMain {
+    min-height: 0px;
+}
+
+.menu-footer {
+	float:right;
+	clear:both;
+}
+
+.navbar-millerntor {
+    background-color: #ffffff;
+    border-color: #ffffff;
+}
+
+
+#logoWrapper {
+	a {
+		display: inline;
+		height: auto;
+	}
+	
+	.waterproof {
+		display: inline-block;
+		vertical-align: top;
+		width: 100px;
+	}
+	.edition {
+		display: inline-block;
+		vertical-align: top;
+		width: 100px;
+	}
+	
+	margin-right: 0px;
+	margin-bottom: 30px;
+	h4 {
+		text-transform: uppercase;
+		margin: 20px 0 0px;
+		font-size: 12px;
+		letter-spacing: 0.2em;
+	}
+	h3 {
+		font-size: 20px;
+	    font-weight: bold;
+	    margin: 10px 0 5px;
+	    text-transform: uppercase;
+	}
+}
+
+.csc-default.row {
+	margin-bottom: 20px;
+}	
+
+.artist_select {
+	float: left;
+	margin-top: 10px;
+	margin-right: 6px;
+	
+	select,
+	select:focus {
+		width: 150px;
+		border-radius: 0;
+		border:1px solid black;
+    	box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
+    	color: black;
+    	text-transform: uppercase;
+    	padding: 6px;
+	}
+}
+
+.navbar-main {
+	padding-top: 0px;
+	&.nav > li > a {
+		
+		padding:7px 15px;
+		color: #000;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+	&.nav > li > a:hover, 
+	&.nav > li > a:focus {
+		background-color: transparent;
+	} 
+	&.nav > li.dropdown > a:hover, 
+	&.nav > li.dropdown > a:focus,
+	&.nav > li > a:hover, 
+	&.nav > li > a:focus,
+	&.nav > li.active > a,
+	&.nav > li.dropdown.open > a,
+	&.nav .open > a,
+	&.nav .open > a:hover,
+	&.nav .open > a:focus {
+		background-color: @millerntor-brown;
+		color: #fff;
+	} 
+	li.dropdown {
+		position:relative;
+	}
+	
+	.dropdown-menu {
+		background-color: @millerntor-brown;
+    	border: 0px solid rgba(0, 0, 0, 0.15);
+    	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.65);
+    	border-radius: 0px;
+    	margin: 0px;
+    	font-size: 13px;
+    	min-width: 220px;
+    	
+    	li {
+    		width: 100%;
+    	}
+    	
+    	> li > a {
+    		color: #fff;
+    		text-transform: uppercase;
+    		padding: 3px 14px;
+    	}
+    	> li > a:hover,
+    	> li.active > a,
+    	> li > a:focus {
+    		background-color: transparent;
+    		text-decoration: underline;
+    	}
+	}
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    background-color: @millerntor-brown;
+ }
+ 
+ .main-content {
+ 	margin-bottom: 40px;
+ }
+ 
+ .footerNav {
+ 	text-align: right;
+ 	
+ 	li > a {
+		margin-top: ;
+		padding:5px 15px 10px 15px;
+		color: #000;
+		text-transform: uppercase;
+		font-weight: bold;
+	}
+ }
+ 
+ .nav-justified > li > a {
+    margin-bottom: 0;
+ }    
+ 
+ .navbar-toggle {
+ 	border: 2px solid @black;
+ 	box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
+ 	.icon-bar {
+ 		background-color: @black;
+ 	}	
+ }
+ 
+ 
+ .meta-section .stopper {
+ 	border-top: 5px solid @millerntor-brown;
+ 	margin-bottom: 15px;
+ }
+ 
+ 
+ .well {
+    background-color: #FFFFFF;
+    border: 2px solid @black;
+    border-radius: 0px 0px 0px 0px;
+    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
+    margin-bottom: 20px;
+    padding: 19px;
+}
+
+.blackwell {
+	color: #fff;
+    background-color: #000;
+    border: 2px solid #000000;
+    border-radius: 0;
+    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
+    margin-bottom: 20px;
+    margin-top: 10px;
+    padding: 10px;
+    h3 a,p,a {
+    	color: #fff;
+    }
+}
+
+.container .jumbotron,
+.jumbotron {
+	border: 2px solid @black;
+    border-radius: 0px 0px 0px 0px;
+    box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
+    background-color: #FFFFFF;
+    color: inherit;
+    margin-bottom: 30px;
+}
+
+.page-header {
+	border-bottom: 0px solid #000000;
+	padding-bottom: 2px;
+	margin: 40px 0 10px;
+}
+
+h1 {
+	font-size: 30px;
+	text-transform: uppercase;
+}
+
+h2 {
+	font-size: 26px;
+}
+
+h3 {
+	font-size: 20px;
+	margin: 40px 0 5px;
+}
+
+h4 {
+	font-weight: bold;
+	margin: 5px 0 5px;
+}
+
+
+h1 a,
+h2 a,
+h3 a {
+	color: #000;
+}
+
+
+
+div.csc-textpic .csc-textpic-imagewrap .csc-textpic-image {
+	margin: 5px;
+}
+
+.csc-frame-frame1 {
+	div.csc-textpic {
+		.csc-textpic-imagewrap {
+			padding-right: 5px;
+			img {
+				.borderImage();
+			}
+		}
+		.csc-textpic-center-inner {
+			.csc-textpic-imagerow {
+				.csc-textpic-imagecolumn.csc-textpic-lastcol {
+					margin-right: 5px;
+				}
+			}
+		}
+	}
+	
+	div.csc-textpic.csc-textpic-intext-left {
+		.csc-textpic-imagewrap {
+			margin-right: 15px;
+		}	
+	}
+
+}
+
+div.csc-textpic-border {
+	padding-bottom: 5px;
+	div.csc-textpic-imagewrap img {
+		.borderImage();
+	}
+}
+div.ce-border {
+	
+	div.ce-media img {
+		.borderImage();
+	}
+}
+
+div.csc-textpic div.csc-textpic-imagerow {
+	overflow: visible;
+}
+
+.csc-mailform {
+	 margin: 60px 0 20px;
+	 
+	 legend {
+	    color: #000000;
+	    font-size: 30px;
+	    font-weight: 500;
+	    margin-left: 1em;
+	    text-transform: uppercase;
+	}	
+}
+
+
+
+
+/* Start: Recommended Isotope styles */
+
+/**** Isotope Filtering ****/
+
+.isotope-item {
+  z-index: 2;
+}
+
+.isotope-hidden.isotope-item {
+  pointer-events: none;
+  z-index: 1;
+}
+
+/**** Isotope CSS3 transitions ****/
+
+.isotope,
+.isotope .isotope-item {
+	.transition-duration(0.8s);
+}
+
+.isotope {
+	-webkit-transition-property: height, width;
+          transition-property: height, width;
+}
+
+.isotope .isotope-item {
+	-webkit-transition-property: transform, opacity;
+          transition-property: transform, opacity;
+}
+
+/**** disabling Isotope CSS3 transitions ****/
+
+.isotope.no-transition,
+.isotope.no-transition .isotope-item,
+.isotope .isotope-item.no-transition {
+	.transition-duration(0s);
+}
+
+/* End: Recommended Isotope styles */
+
+
+
+/* disable CSS transitions for containers with infinite scrolling*/
+.isotope.infinite-scrolling {
+	.transition(none);
+}
+
+#container {
+	margin: 10px auto;
+.item {
+    float: left;
+    margin: 15px;
+    padding:0px;
+    width: 300px;
+    overflow: visible;
+    margin-bottom: 20px;
+	text-align: center;
+	padding-right: 5px;
+	.img-link {
+		display: block;
+		margin-right: 5px;
+	}
+	
+	.well {
+		margin-right: 5px;
+		height: 100%;
+		overflow:hidden;
+	}
+	img,iframe {
+		background: none repeat scroll 0 0 #FFF;
+    	border: 2px solid @black;
+		border-radius: 0px 0px 0px 0px;
+		.box-shadow(4px 4px 1px rgba(0, 0, 0, 0.85));
+		width: 100%;
+		height: 100%;
+	}
+/*	
+	h3 {
+	margin: 0px;
+	}
+	h3 a {
+		font-size: 14px;
+		text-transform: uppercase;
+		margin: 0px;
+		display:block;
+		padding:10px;
+	}
+*/	
+}
+}
+
+.flip_content {
+	text-align:left;
+}
+
+img.well {
+	padding:0px;
+	margin:0px;
+	
+}
+
+.artists-logo img.well {
+	margin-top: 10px;
+}
+
+.modal-content {
+    box-shadow: 5px 8px 8px rgba(0, 0, 0, 0.9);
+    border-radius: 0px;
+    border: 2px solid #000000;
+}
+.modal-body {
+	padding: 0px;
+	
+	button.close {
+	    background: transparent none repeat scroll 0 0;
+	    border: 0 none;
+	    cursor: pointer;
+	    padding: 0;
+	    position: absolute;
+	    right: 20px;
+	    top: 10px;
+	    opacity: 1;
+	    color: #fff;
+	    text-shadow: 0 1px 0 #333;
+	}
+	
+	button.close:hover,
+	button.close:focus {
+		cursor: pointer;
+		opacity: 0.6;
+		color: #000;
+	}
+}
+
+.well {
+	header.page-header {
+		margin: 0 0 20px;
+		h1 {
+			margin-top: 0px;
+		}
+	}
+}
+
+#filter,#filter-years,#filter-categories {
+	padding: 0px;
+	.btn-default {
+		border-color: #ffffff;
+	}
+	.btn-default:hover,
+	.btn-default:focus,
+	.btn-default.active {
+		background-color: @millerntor-brown;
+    	border-color: #000000;
+    	box-shadow: 0 5px 5px #000000;
+    	color: #FFFFFF;
+	 }
+	
+}
+
+
+/*********
+* Carousel
+*********/
+
+.carousel-control { 
+	&.right {
+		background: none;
+	}
+	&.left {
+		background: none;
+	}
+}	 
+
+.carousel-control {
+	z-index: 10001;
+	opacity: 1;
+	text-shadow: 2px 1px 0 rgba(0, 0, 0, 1);
+}
+
+.item {
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+
+	h3 a {
+		color: #000;
+	}
+	
+}
+/*
+.carousel-caption h3 {
+	top: 50%;
+	transform: translateY(-50%);
+	bottom: initial;
+	display: block;
+}
+*/
+
+.carousel-caption {
+  background: rgba(219, 219, 219, 0.7);
+  bottom: 0;
+  color: white;
+  font-size: 1em;
+  left: 0;
+  opacity: 0;
+  overflow: hidden;
+  
+  margin: 7px 7px 11px;
+  position: absolute;
+  text-align: center;
+  top: 0;
+  right: 0;
+  -webkit-transition: 0.6s;
+  transition: 0.6s;
+}
+
+.carousel-caption.kuenstler {
+	margin: 2px 7px;
+}
+.carousel-caption.flip-list {
+	margin: 2px 12px 2px 2px;
+}
+
+.carousel-caption:hover { opacity: 1; }
+
+
+
+
+.carousel-caption h3 { margin: 0px; }
+.carousel-caption h2 { margin: 0px; }
+
+.carousel-caption h1,
+.carousel-caption h2,
+.carousel-caption  a,
+.carousel-caption h3 {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 100%;
+}
+.carousel-caption p { margin-bottom: 1.5em; }
+
+.vcamillerntor-kuenstler-teaser {
+	margin: 5px;
+	display: table;
+	img {
+		.borderImage();
+	}
+}
+
+.ce-border {
+	.ce-media {
+		margin:5px;
+	}
+.embed-responsive  {
+	.borderImage();
+}
+}
+/***********
+* Ausstellung
+**/
+
+ul.work-artists {
+	list-style: none;
+	padding: 0px;
+	li {
+		float: left;
+		
+		a {
+			display: block;
+			background-color: @millerntor-brown;
+			color: white;
+			padding: 3px 5px;
+			margin: 2px;
+			text-transform: uppercase;
+		}
+	}
+	
+	
+}
+
+.list-view {
+	.legend {
+		
+		
+		.unit {
+			float:left;
+			width: 60px;
+			text-align: center;
+			border: 1px solid black;
+			padding: 4px;
+			margin: 5px;
+			
+			
+		}
+	}
+	
+	.Film,.film {
+		background-color: #706f6f;
+		color:#fff;
+	}
+	
+	.Music, .music, .Musik, .musik {
+		background-color: #e2001a;
+		color:#fff;
+	}
+	
+	.Culture, .culture, .Kultur, .kultur {
+		background-color: #604734;
+		color:#fff;
+	}
+	.Action, .action, .Kunst, .kunst {
+		background-color: #000;
+		color:#fff;
+	}
+	.anmeldung {
+		position: relative;
+	}
+
+	.anmeldung:before {
+		content: "\f005";// <--- this is your text. You can also use UTF-8 character codes as I do here
+    	font-family: 'FontAwesome';
+    	font-size: 14px;
+    	right:10px;
+    	position:absolute;
+    	top:5px;
+	}
+	span.anmeldung:before {
+    	top:-5px;
+	}
+	
+}
+
+#locationgrid {
+	
+	margin-top: 10px;
+	
+	.vevent.well {
+		padding: 9px;
+	}
+	
+	.locationgrid_item  {
+		border-top: 1px solid black;
+		padding-top: 10px;	
+	}
+	.locationgrid_dates {
+		border-top: 2px solid black;
+		padding-top: 20px;	
+		font-weight: bold;
+		margin-top: 0px;
+    	padding-bottom: 10px;
+    	padding-top: 10px;
+	}
+	.locationgrid_date {
+		box-sizing:border-box;
+		height: 100%;
+		min-height: 100%;
+	}
+	.grid-dates {
+		margin-top:10px;
+	}
+	
+	.collapse .well {
+		padding: 9px;
+		color: @text-color;
+	}
+	
+	a {
+		color:#fff;
+	}
+	.Action a, .action a, .Kunst a, .kunst a {
+		color:#fff;
+	}
+	a.btn-default {
+		 background-color: #000;
+		 color: #fff;
+		 border-radius: 0px;
+		 box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
+		 border-color: #333;
+	}
+}
+
+.embed-responsive  {
+	min-height: 1200px;
+}
+
+#c475 h3 {
+	margin: 20px 0 20px;
+}
+
+@media(max-width: @screen-sm-max) { 
+	#container {
+.item {
+    float: left;
+    margin: 15px;
+    padding:0px;
+    width: 200px;
+    overflow: hidden;
+    margin-bottom: 20px;
+	text-align: center;
+	padding-right: 5px;
+	.img-link {
+		display: block;
+		margin-right: 5px;
+	}
+	.well {
+		margin-right: 5px;
+		height: 100%;
+		overflow:hidden;
+	}
+
+	
+}
+}
+
+.embed-responsive  {
+	height: 700px;
+}
+	
+	
+}
+
+
+/*
+  Bootstrap Carousel Fade Transition (for Bootstrap 3.3.x)
+  CSS from:       http://codepen.io/transportedman/pen/NPWRGq
+  and:            http://stackoverflow.com/questions/18548731/bootstrap-3-carousel-fading-to-new-slide-instead-of-sliding-to-new-slide
+  Inspired from:  http://codepen.io/Rowno/pen/Afykb 
+*/
+.carousel-fade .carousel-inner .item {
+  opacity: 0;
+  transition-property: opacity;
+}
+
+.carousel-fade .carousel-inner .active {
+  opacity: 1;
+}
+
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  opacity: 0;
+  z-index: 1;
+}
+
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+
+.carousel-fade .carousel-control {
+  z-index: 2;
+}
+
+/*
+  WHAT IS NEW IN 3.3: "Added transforms to improve carousel performance in modern browsers."
+  Need to override the 3.3 new styles for modern browsers & apply opacity
+*/
+@media all and (transform-3d), (-webkit-transform-3d) {
+    .carousel-fade .carousel-inner > .item.next,
+    .carousel-fade .carousel-inner > .item.active.right {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+    .carousel-fade .carousel-inner > .item.prev,
+    .carousel-fade .carousel-inner > .item.active.left {
+      opacity: 0;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+    .carousel-fade .carousel-inner > .item.next.left,
+    .carousel-fade .carousel-inner > .item.prev.right,
+    .carousel-fade .carousel-inner > .item.active {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+}

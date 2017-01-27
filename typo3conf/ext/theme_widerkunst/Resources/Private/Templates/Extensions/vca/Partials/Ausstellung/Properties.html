@@ -1,0 +1,14 @@
+<div id="container">
+	<div class="item well">  	 
+		<!-- f:image src="fileadmin/millerntor/assets/image/logo.png" alt="{ausstellung.title}" width='500' /-->
+        	
+        <h3>{ausstellung.title}
+        <small>{ausstellung.start -> f:format.date()} - {ausstellung.end -> f:format.date()}</small>
+        </h3>
+        <f:format.html>{ausstellung.description}</f:format.html>
+
+    </div>
+
+	<!-- f:render partial="Werk/Items" arguments="{werks:ausstellung.werke}" /-->
+		<f:render partial="Kuenstler/Items" arguments="{kuenstlers:ausstellung.kuenstler}" />
+</div>		    

@@ -1,0 +1,61 @@
+lib.footer.logo {
+	
+	main = COA_INT
+	main.wrap = <div class="inspired">|</div>
+	main {
+		10 = TEXT
+		10.value = {$themes.configuration.footer.logo.main.claim}
+		10.wrap = <h4>|</h4>
+		20 = IMAGE
+		20.file = {$themes.configuration.footer.logo.main.file}
+		20.file.width = {$themes.configuration.footer.logo.main.width}
+		#main.file.height = {$themes.configuration.footer.logo.main.height}
+		20.titleText = {$themes.configuration.footer.logo.main.title}
+		20.altText = {$themes.configuration.footer.logo.main.title}
+		20.stdWrap.typolink {
+			parameter = {$themes.configuration.footer.logo.main.linkUid}
+			parameter.insertData = 1
+			title = {$themes.configuration.footer.logo.main.title}
+			target = {$themes.configuration.footer.logo.main.linkTarget}
+		}
+	}
+
+	vca = COA
+	vca.wrap = <div class="hosted">|</div>
+	vca {
+		10 = TEXT
+		10.value = {$themes.configuration.footer.logo.vca.claim}
+		10.wrap = <h4>|</h4>
+		20 = IMAGE
+		20.file = {$themes.configuration.footer.logo.vca.file}
+		20.file.width = {$themes.configuration.footer.logo.vca.width}
+		20.titleText = {$themes.configuration.footer.logo.vca.title}
+		20.altText = {$themes.configuration.footer.logo.vca.title}
+		20.stdWrap.typolink {
+			parameter = {$themes.configuration.footer.logo.vca.linkUid}
+			parameter.insertData = 1
+			title = {$themes.configuration.footer.logo.vca.title}
+			target = {$themes.configuration.footer.logo.vca.linkTarget}
+		}
+	}
+
+	mg = COA
+	mg.wrap = <div class="hosted">|</div>
+	mg {
+		10 = TEXT
+		10.value = {$themes.configuration.footer.logo.mg.claim}
+		10.wrap = <h4>|</h4>
+		20 = IMAGE
+		20.file = {$themes.configuration.footer.logo.mg.file}
+		20.file.width = {$themes.configuration.footer.logo.mg.width}
+		#hoster.file.height = {$themes.configuration.footer.logo.mg.height}
+		20.titleText = {$themes.configuration.footer.logo.mg.title}
+		20.altText = {$themes.configuration.footer.logo.mg.title}
+		20.stdWrap.typolink {
+			parameter = {$themes.configuration.footer.logo.mg.linkUid}
+			parameter.insertData = 1
+			title = {$themes.configuration.footer.logo.mg.title}
+			target = {$themes.configuration.footer.logo.mg.linkTarget}
+		}
+	}
+}

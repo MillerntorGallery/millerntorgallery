@@ -1,0 +1,39 @@
+
+
+lib.menu.main {
+	wrap = <ul class="nav nav-justified navbar-main">|</ul>
+	
+	1 {
+		IFSUB < .NO
+		IFSUB {
+			wrapItemAndSub.insertData = 1
+			wrapItemAndSub = <li class="dropdown state-ifsub uid-{field:uid} point-{register:count_MENUOBJ} first">{$themes.configuration.menu.main.prefixFirstLevel}|</li>|*|<li class="dropdown state-ifsub uid-{field:uid} point-{register:count_MENUOBJ} middle">{$themes.configuration.menu.main.prefixFirstLevel}|</li>|*|<li class="dropdown state-ifsub uid-{field:uid} point-{register:count_MENUOBJ} last">{$themes.configuration.menu.main.prefixFirstLevel}|</li>
+			
+			doNotLinkIt = {$themes.configuration.menu.main.doNotLinkFirstLevelPagesWithSubPages}
+			
+			stdWrap.innerWrap = |<b class="caret"></b>
+      ATagParams = class="dropdown-toggle disabled" data-toggle="dropdown" data-hover="dropdown"
+      
+		}
+		ACTIFSUB < .ACT
+		ACTIFSUB {
+			wrapItemAndSub.insertData = 1
+			wrapItemAndSub = <li class="dropdown state-actifsub active uid-{field:uid} point-{register:count_MENUOBJ} first">{$themes.configuration.menu.main.prefixFirstLevel}|</li>|*|<li class="dropdown state-actifsub active uid-{field:uid} point-{register:count_MENUOBJ} middle">{$themes.configuration.menu.main.prefixFirstLevel}|</li>|*|<li class="dropdown state-actifsub active uid-{field:uid} point-{register:count_MENUOBJ} last">{$themes.configuration.menu.main.prefixFirstLevel}|</li>
+			
+			stdWrap.innerWrap = |<b class="caret"></b>
+      ATagParams = class="dropdown-toggle disabled" data-toggle="dropdown" data-hover="dropdown"
+      
+			doNotLinkIt = {$themes.configuration.menu.main.doNotLinkFirstLevelPagesWithSubPages}
+		}
+	}
+}
+
+
+
+lib.top_menu.main = COA
+lib.top_menu.main.wrap = <ul class="nav nav-justified navbar-main">|</ul>
+lib.top_menu.main.items < .lib.menu.main
+lib.top_menu.main.items.wrap >
+lib.top_menu.main.language = TEXT
+lib.top_menu.main.language.value = <li>english</li>
+
