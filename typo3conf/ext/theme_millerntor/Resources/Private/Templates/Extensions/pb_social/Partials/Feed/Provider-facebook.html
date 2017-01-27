@@ -9,8 +9,9 @@
                 <div class="image placeholder-image"></div>
             </f:else>
 		</f:if>
+		<div class="blackwell">
 		<f:if condition="{feed.text}">
-			<span class="text">{feed.text}</span>
+			<div class="text">{feed.text}</div>
 		</f:if>
 		<div class="icon"></div>
 		<a class="additional-info info-1" href="{feed.link}">
@@ -21,6 +22,7 @@
 			<f:count>{feed.raw.comments.data}</f:count>
 			<f:if condition="{feed.raw.comments.data -> f:count()} > 69"><f:then>+</f:then></f:if>
 		</a>
+	</div>
 		<f:if condition="{0:feed.raw.type}=={0:'video'}">
 			<img class="video-overlay" src="/typo3conf/ext/pb_social/Resources/Public/Icons/play_icon.png"/>
 		</f:if>

@@ -1,3 +1,5 @@
+
+
 lib.menu.main {
 	wrap = <ul class="nav nav-justified navbar-main">|</ul>
 	
@@ -25,3 +27,45 @@ lib.menu.main {
 		}
 	}
 }
+
+
+
+lib.top_menu.main = COA
+lib.top_menu.main.wrap = <ul class="nav nav-justified navbar-main navbar-top-menu">|</ul>
+lib.top_menu.main.10 < .lib.menu.main
+lib.top_menu.main.10.wrap >
+
+lib.top_menu.main.20 = HMENU
+lib.top_menu.main.20 {
+	wrap = <li>|</li>
+	special = language
+    special.value = 0,1
+    special.normalWhenNoLanguage = 0
+    1 = TMENU
+    1 {
+        noBlur = 1
+ 
+        NO = 1
+        NO {
+            linkWrap = <span>|</span>|*|<span>/</span><span>|</span>
+            stdWrap.override = de || en
+        }
+ 
+        ACT < .NO
+        ACT {
+            ATagParams = class="actLang"
+        }
+ 
+        USERDEF1 < .NO
+        USERDEF1 {
+            doNotLinkIt = 1
+        }
+ 
+        USERDEF2 < .ACT
+        USERDEF2 {
+            doNotLinkIt = 1
+        }
+    }
+
+}
+

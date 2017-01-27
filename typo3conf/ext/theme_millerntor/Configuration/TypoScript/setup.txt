@@ -6,4 +6,13 @@ config {
 	debug = 1
 }
 
+[globalVar = GP:L = 1]
+	config {
+		language = en
+		locale_all = en_GB.UTF-8
+		sys_language_uid = 1
+		htmlTag_langKey = en
+	}
+[global]	
+
 # Extensions

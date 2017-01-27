@@ -8,6 +8,13 @@ plugin.tx_cal_controller {
 		list {
 			event {
 				category.dataWrap = |
+				category.stdWrap.case = lower
+				category.stdWrap.replacement {
+					10 {
+						search = ,
+      					replace.char = 32
+					}
+				}
 			}
 		}
 		event {

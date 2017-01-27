@@ -149,12 +149,18 @@ body {
 
 .navbar-main {
 	padding-top: 0px;
-	&.nav > li > a {
+	&.nav > li > a,
+	&.nav > li > span > a,
+	 {
 		
-		padding:7px 15px;
+		padding:7px 7px;
 		color: #000;
 		text-transform: uppercase;
 		font-weight: bold;
+	}
+	&.nav > li > span > a.actLang {
+		text-decoration: underline;
+		color: #333;
 	}
 	&.nav > li > a:hover, 
 	&.nav > li > a:focus {
@@ -172,6 +178,7 @@ body {
 		background-color: @millerntor-brown;
 		color: #fff;
 	} 
+
 	li.dropdown {
 		position:relative;
 	}
@@ -260,7 +267,7 @@ body {
     box-shadow: 4px 4px 1px rgba(0, 0, 0, 0.85);
     margin-bottom: 20px;
     margin-top: 10px;
-    padding: 0px;
+    padding: 10px;
     h3 a,p,a {
     	color: #fff;
     }
@@ -306,6 +313,11 @@ h1 a,
 h2 a,
 h3 a {
 	color: #000;
+}
+
+.csc-default a {
+	text-decoration: underline;
+	text-decoration-style: dotted; 
 }
 
 
@@ -556,7 +568,7 @@ img.well {
 	transform-style: preserve-3d;
 
 	h3 a {
-		color: #fff;
+		color: #000;
 	}
 	
 }
@@ -674,20 +686,34 @@ ul.work-artists {
 		color:#fff;
 	}
 	
-	.Music, .music {
-		background-color: #95C11F;
+	.Music, .music, .Musik, .musik {
+		background-color: #e2001a;
 		color:#fff;
 	}
 	
-	.Culture, .culture {
-		background-color: #ea5153;
+	.Culture, .culture, .Kultur, .kultur {
+		background-color: #604734;
 		color:#fff;
 	}
-	.Action, .action {
-		background-color: #773B07;
+	.Action, .action, .Kunst, .kunst {
+		background-color: #000;
 		color:#fff;
 	}
-	
+	.anmeldung {
+		position: relative;
+	}
+
+	.anmeldung:before {
+		content: "\f005";// <--- this is your text. You can also use UTF-8 character codes as I do here
+    	font-family: 'FontAwesome';
+    	font-size: 14px;
+    	right:10px;
+    	position:absolute;
+    	top:5px;
+	}
+	span.anmeldung:before {
+    	top:-5px;
+	}
 	
 }
 
@@ -726,7 +752,10 @@ ul.work-artists {
 	}
 	
 	a {
-		color:#000;
+		color:#fff;
+	}
+	.Action a, .action a, .Kunst a, .kunst a {
+		color:#fff;
 	}
 	a.btn-default {
 		 background-color: #000;
@@ -737,6 +766,13 @@ ul.work-artists {
 	}
 }
 
+.embed-responsive  {
+	min-height: 1200px;
+}
+
+#c475 h3 {
+	margin: 20px 0 20px;
+}
 
 @media(max-width: @screen-sm-max) { 
 	#container {
@@ -761,6 +797,10 @@ ul.work-artists {
 
 	
 }
+}
+
+.embed-responsive  {
+	height: 700px;
 }
 	
 	
