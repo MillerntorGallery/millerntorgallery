@@ -1,19 +1,22 @@
 lib.header.logo {
-	main = IMAGE
-	main.file = {$themes.configuration.header.logo.main.file}
-	main.file.width = {$themes.configuration.header.logo.main.width}
-	#main.file.height = {$themes.configuration.header.logo.main.height}
-	main.titleText = {$themes.configuration.siteName}
-	main.altText = {$themes.configuration.siteName}
-	main.stdWrap {
-		required = 1
-		typolink {
-			parameter = {$themes.configuration.pages.startsite}
-			parameter.insertData = 1
-			title = {$themes.configuration.siteName}
-			ATagParams = class="logo-main"
+	main_miami = IMAGE
+	main_miami {
+		file = {$themes.configuration.header.logo.main.file}
+		file.height = 203
+
+		titleText = {$themes.configuration.siteName}
+		altText = {$themes.configuration.siteName}
+		stdWrap {
+			required = 1
+			typolink {
+				parameter = {$themes.configuration.pages.startsite}
+				parameter.insertData = 1
+				title = {$themes.configuration.siteName}
+				ATagParams = class="logo-main"
+			}
 		}
 	}
+		/*
 	edition = IMAGE
 	edition { 
 		file = EXT:theme_millerntor/Resources/Public/Images/edition.png
@@ -24,10 +27,16 @@ lib.header.logo {
 		wrap = <div class="edition">|</div>
 		
 	}
+	*/
+	edition = TEXT
+	edition {
+		wrap = <div class="edition">|</div>
+		value = 
+	}
 	water = IMAGE
 	water { 
-		file = EXT:theme_millerntor/Resources/Public/Images/waterprooffin.png
-		file.width = 60
+		file = EXT:theme_millerntor/Resources/Public/Images/water_is_like_art_new.png
+		file.width = 160
 	#main.file.height = {$themes.configuration.header.logo.main.height}
 		titleText = Waterproof
 		altText = Waterproof
