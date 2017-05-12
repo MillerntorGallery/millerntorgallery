@@ -5,6 +5,7 @@
 # #customcategory=header=Theme: Header settings
 # customsubcategory=header_logo_main=Main Logo of the header
 # customsubcategory=header_logo_special=Special Logo of the header
+# customsubcategory=header_edition=Edition Logo of the header
 
 # cat=header,basic//; type=string; label= Header phonenumber
 themes.configuration.header.phone = +49 1234 56789
@@ -31,6 +32,21 @@ themes.configuration.header.logo.main.slogan = Inspired by Viva con Agua
 
 # cat=header,expert/header_logo_main/; type=string; label= Header-Date: Date net gallery
 themes.configuration.header.logo.main.date = 14.-17. Juli 2016, Millerntor Stadion, Hamburg
+
+# Edition
+#############################################
+
+# cat=header,advanced/header_edition/; type=string; label= Edition-Logo: Path and filename (fileadmin/.../logo.png)
+themes.configuration.header.edition.main.file = EXT:theme_millerntor/Resources/Public/Images/edition.png
+
+# cat=header,expert/header_edition/; type=int+; label= Edition-Logo: Width
+themes.configuration.header.edition.main.width = 70
+
+# cat=header,expert/header_edition/; type=int+; label= Edition-Logo: Height (not used)
+themes.configuration.header.edition.main.height =
+
+# cat=header,expert/header_edition/; type=string; label= Edition-Slogan: Title/Alt text
+themes.configuration.header.edition.main.titletext = Edition #6
 
 
 # Logo special

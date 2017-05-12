@@ -1,6 +1,6 @@
 lib.header.logo {
-	main_miami = IMAGE
-	main_miami {
+	main = IMAGE
+	main {
 		file = {$themes.configuration.header.logo.main.file}
 		file.height = 203
 
@@ -16,27 +16,27 @@ lib.header.logo {
 			}
 		}
 	}
-		/*
+	
 	edition = IMAGE
 	edition { 
-		file = EXT:theme_millerntor/Resources/Public/Images/edition.png
-		file.width = 70
+		file = {$themes.configuration.header.edition.main.file} 
+		file.width = {$themes.configuration.header.edition.main.width} 
 	#main.file.height = {$themes.configuration.header.logo.main.height}
-		titleText = Edition #6
-		altText = Edition #6
+		titleText = {$themes.configuration.header.edition.main.titletext}
+		altText = {$themes.configuration.header.edition.main.titletext}
 		wrap = <div class="edition">|</div>
-		
 	}
-	*/
+	/*
 	edition = TEXT
 	edition {
 		wrap = <div class="edition">|</div>
 		value = 
 	}
+	*/
 	water = IMAGE
 	water { 
-		file = EXT:theme_millerntor/Resources/Public/Images/water_is_like_art_new.png
-		file.width = 160
+		file = EXT:theme_millerntor/Resources/Public/Images/waterprooffin.png
+		file.width = 60
 	#main.file.height = {$themes.configuration.header.logo.main.height}
 		titleText = Waterproof
 		altText = Waterproof

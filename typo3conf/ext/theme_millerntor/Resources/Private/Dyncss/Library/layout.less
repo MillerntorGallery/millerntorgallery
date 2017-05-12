@@ -60,7 +60,7 @@
 }
 
 body {
-	//background: url('@{baseurl}/Images/background_miami_s.jpg') repeat fixed center center;	
+	background: url('@{baseurl}/Images/background2.jpg') repeat fixed center center;	
 	
 }
 
@@ -74,8 +74,14 @@ body {
 }
 
 #areaLogo {
-	margin-top: 70px;
+	display: block;
+	margin-top: 40px;
 	text-align: center;
+	#logoWrapper {
+		.edition, .logo-main, .waterproof {
+				display: none;
+		}
+	}
 }
 
 
@@ -94,8 +100,8 @@ body {
 }
 
 .navbar-millerntor {
-    background-color: white;
-    border-color: white;
+    background-color: #ffffff;
+    border-color: #ffffff;
 }
 
 
@@ -780,7 +786,23 @@ ul.work-artists {
 	margin: 20px 0 20px;
 }
 
+@media only screen and (min-width : 480px) {
+	#areaLogo {
+		display: block;
+		margin-top: 70px;
+		text-align: center;
+		#logoWrapper {
+			.edition, .logo-main, .waterproof {
+				display: inline;
+			}
+		}
+	}
+
+}
+
+
 @media(max-width: @screen-sm-max) { 
+
 	#container {
 .item {
     float: left;
