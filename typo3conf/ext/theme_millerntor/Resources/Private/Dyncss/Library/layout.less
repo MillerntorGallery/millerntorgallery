@@ -1,4 +1,4 @@
-//@millerntor-brown: #673e16;
+//@black: #673e16;
 @millerntor-brown: #000;
 @black: #000;
 @white: #fff;
@@ -10,7 +10,7 @@
 @font-size-base:          15px;
 
 @tooltip-color: #fff;
-@tooltip-bg: @millerntor-brown;
+@tooltip-bg: @black;
 @border-radius-base: 0px;
 
 @baseurl: '/typo3conf/ext/theme_millerntor/Resources/Public/';
@@ -24,6 +24,16 @@
 	box-shadow: 6px 6px 1px rgba(0, 0, 0, 0.65);
 	width: 100%;
 	height: 100%;
+	
+	.theme-black & {
+		border: 2px solid @white;
+		box-shadow: 6px 6px 1px rgba(255, 255, 255, 1);
+	}
+	.theme-white & {
+		border: 2px solid @black;
+		box-shadow: 6px 6px 1px rgba(243, 152, 200, 0.65);
+	}
+	
 } 
 
 @font-face {
@@ -64,6 +74,18 @@ body {
 	
 }
 
+body.theme-black, body.theme-white {
+	background:none;
+}
+body.theme-black {
+	background-color: @black;
+	color: @white;
+}
+body.theme-white {
+	background-color: @white;
+	color: @black;
+}
+
 .navbar-brand {
 	height: auto;
 	float: none;
@@ -84,11 +106,6 @@ body {
 	}
 }
 
-
-#mainNavigation {
-	border-top: 5px solid @millerntor-brown;
-	
-}
 
 #menuMain {
     min-height: 0px;
@@ -159,14 +176,20 @@ body {
 	}
 }
 
+#navbar-main.navbar-collapse.in {
+	overflow-y: hidden;
+}
 .navbar-main {
+	
+	
+	
 	padding-top: 0px;
 	&.nav > li > a,
 	&.nav > li > span > a,
 	 {
 		
 		padding:7px 7px;
-		color: #000;
+		color: @black;
 		text-transform: uppercase;
 		font-weight: bold;
 	}
@@ -187,7 +210,7 @@ body {
 	&.nav .open > a,
 	&.nav .open > a:hover,
 	&.nav .open > a:focus {
-		background-color: @millerntor-brown;
+		background-color: @black;
 		color: #fff;
 	} 
 
@@ -196,7 +219,7 @@ body {
 	}
 	
 	.dropdown-menu {
-		background-color: @millerntor-brown;
+		background-color: @black;
     	border: 0px solid rgba(0, 0, 0, 0.15);
     	box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.65);
     	border-radius: 0px;
@@ -224,7 +247,7 @@ body {
 
 .dropdown:hover .dropdown-menu {
     display: block;
-    background-color: @millerntor-brown;
+    background-color: @black;
  }
  
  .main-content {
@@ -235,7 +258,6 @@ body {
  	text-align: right;
  	
  	li > a {
-		margin-top: ;
 		padding:5px 15px 10px 15px;
 		color: #000;
 		text-transform: uppercase;
@@ -257,7 +279,7 @@ body {
  
  
  .meta-section .stopper {
- 	border-top: 5px solid @millerntor-brown;
+ 	border-top: 5px solid @black;
  	margin-bottom: 15px;
  }
  
@@ -384,7 +406,7 @@ div.csc-textpic div.csc-textpic-imagerow {
 	 margin: 60px 0 20px;
 	 
 	 legend {
-	    color: #000000;
+	    color: @black;
 	    font-size: 30px;
 	    font-weight: 500;
 	    margin-left: 1em;
@@ -464,7 +486,7 @@ div.csc-textpic div.csc-textpic-imagerow {
 		overflow:hidden;
 	}
 	img,iframe {
-		background: none repeat scroll 0 0 #FFF;
+		background: none repeat scroll 0 0 @white;
     	border: 2px solid @black;
 		border-radius: 0px 0px 0px 0px;
 		.box-shadow(4px 4px 1px rgba(0, 0, 0, 0.85));
@@ -503,7 +525,7 @@ img.well {
 .modal-content {
     box-shadow: 5px 8px 8px rgba(0, 0, 0, 0.9);
     border-radius: 0px;
-    border: 2px solid #000000;
+    border: 2px solid @black;
 }
 .modal-body {
 	padding: 0px;
@@ -517,7 +539,7 @@ img.well {
 	    right: 20px;
 	    top: 10px;
 	    opacity: 1;
-	    color: #fff;
+	    color: @white;
 	    text-shadow: 0 1px 0 #333;
 	}
 	
@@ -525,7 +547,7 @@ img.well {
 	button.close:focus {
 		cursor: pointer;
 		opacity: 0.6;
-		color: #000;
+		color: @black;
 	}
 }
 
@@ -541,15 +563,15 @@ img.well {
 #filter,#filter-years,#filter-categories {
 	padding: 0px;
 	.btn-default {
-		border-color: #ffffff;
+		border-color: @white;
 	}
 	.btn-default:hover,
 	.btn-default:focus,
 	.btn-default.active {
-		background-color: @millerntor-brown;
-    	border-color: #000000;
-    	box-shadow: 0 5px 5px #000000;
-    	color: #FFFFFF;
+		background-color: @black;
+    	border-color: @black;
+    	box-shadow: 0 5px 5px @black;
+    	color: @white;
 	 }
 	
 }
@@ -580,7 +602,7 @@ img.well {
 	transform-style: preserve-3d;
 
 	h3 a {
-		color: #000;
+		color: @black;
 	}
 	
 }
@@ -596,7 +618,7 @@ img.well {
 .carousel-caption {
   background: rgba(219, 219, 219, 0.7);
   bottom: 0;
-  color: white;
+  color: @white;
   font-size: 1em;
   left: 0;
   opacity: 0;
@@ -666,7 +688,7 @@ ul.work-artists {
 		
 		a {
 			display: block;
-			background-color: @millerntor-brown;
+			background-color: @black;
 			color: white;
 			padding: 3px 5px;
 			margin: 2px;

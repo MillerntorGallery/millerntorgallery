@@ -15,4 +15,12 @@ config {
 	}
 [global]	
 
+# Theme 
+page.bodyTagCObject.20.20 = TEXT
+page.bodyTagCObject.20.20 {
+	noTrimWrap = |theme-| | 
+	value = {$themes.configuration.colors.theme}
+}
+
+}
 # Extensions

@@ -1,3 +1,5 @@
+lib.footer.copyright.noTrimWrap = |<span> &copy;&nbsp;|  Art creates water</span>
+
 lib.footer.logo {
 	
 	main = COA_INT

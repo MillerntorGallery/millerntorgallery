@@ -3,9 +3,16 @@
 #############################################
 
 # #customcategory=colors=Theme: Color settings
+# customsubcategory=colors_theme=General theme layout
 # customsubcategory=colors_general=General colors
 # customsubcategory=colors_gray=Gray colors
 # customsubcategory=colors_message=Message colors
+
+# General theme layout
+#############################################
+
+# cat=colors,basic/colors_theme/; type=options[black,white,default]; label= Primary layout theme
+themes.configuration.colors.theme = black
 
 # General colors
 #############################################

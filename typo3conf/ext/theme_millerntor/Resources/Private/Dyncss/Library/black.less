@@ -1,0 +1,335 @@
+.theme-black {
+    
+    a {
+        color:@white; 
+    }
+    
+    .navbar-millerntor {
+        background-color: @black;
+        border-color: transparent;
+    }
+    
+    .navbar-main {
+    	padding-top: 0px;
+    	&.nav > li > a,
+    	&.nav > li > span > a,
+    	 {
+    		color: @white;
+    		text-transform: lowercase;
+    	}
+    	&.nav > li > span > a.actLang {
+    		text-decoration: underline;
+    		color: @white;
+    	}
+    	&.nav > li > a:hover, 
+    	&.nav > li > a:focus {
+    		background-color: transparent;
+    	} 
+    	&.nav > li.dropdown > a:hover, 
+    	&.nav > li.dropdown > a:focus,
+    	&.nav > li > a:hover, 
+    	&.nav > li > a:focus,
+    	&.nav > li.active > a,
+    	&.nav > li.dropdown.open > a,
+    	&.nav .open > a,
+    	&.nav .open > a:hover,
+    	&.nav .open > a:focus {
+    		background-color: @white;
+    		color: @black;
+    	} 
+    	
+    	.dropdown-menu {
+    		background-color: @black;
+        	border: 1px solid rgba(255, 255, 255, 1);
+        	box-shadow: 2px 2px 2px rgba(255, 255, 255, 1);
+            font-size: 15px;
+        	> li > a {
+        		color: @white;
+        		text-transform: lowercase;
+        	}
+        	> li > a:hover,
+        	> li.active > a,
+        	> li > a:focus {
+        		background-color: transparent;
+        		text-decoration: underline;
+        	}
+    	}
+    }
+
+    .dropdown:hover .dropdown-menu {
+        background-color: @black;
+     }
+     
+     #logoWrapper {
+     	h4,
+     	h3 {
+     	    text-transform: lowercase;
+     	}
+        h4 {
+    		margin: 10px 0 5px;
+    	}
+    	h3 {
+    	    margin: 20px 0 0px;
+    	}
+     }
+     
+     .footerNav {
+     	li > a {
+    		color: @white;
+    		text-transform: lowercase;
+    	}
+     }
+     
+     .navbar-toggle {
+     	border: 2px solid @white;
+     	box-shadow: 4px 4px 1px rgba(255, 255, 255, 1);
+     	.icon-bar {
+     		background-color: @white;
+     	}	
+     }
+     
+     
+     .meta-section .stopper {
+     	border-top: 5px solid @white;
+     }
+     
+     
+     .well {
+        background-color: @black;
+        border: 2px solid @white;
+        border-radius: 0px 0px 0px 0px;
+        box-shadow: 4px 4px 1px rgba(255, 255, 255, 1);
+    }
+    .container .jumbotron,
+    .jumbotron {
+    	border: 2px solid @white;
+        border-radius: 0px 0px 0px 0px;
+        box-shadow: 4px 4px 1px rgba(255, 255, 255, 1);
+        background-color: @black;
+    }
+    h1,
+    h2,
+    h3,
+    h4 {
+        text-transform: lowercase;
+    }
+    
+    h1 a,
+    h2 a,
+    h3 a {
+    	color: @white;
+    }
+    
+    .csc-mailform {    	 
+    	 legend {
+    	    color: @white;
+    	    text-transform: lowercase;
+    	}	
+    }
+    #container {
+    .item {
+    	img,iframe {
+    		background: none repeat scroll 0 0 @black;
+        	border: 2px solid @white;
+    		border-radius: 0px 0px 0px 0px;
+    		.box-shadow(4px 4px 1px rgba(255, 255, 255, 1));
+    	}
+        }
+    }
+    
+    .modal-content {
+        box-shadow: 5px 8px 8px rgba(255, 255, 255, 1);
+        border: 2px solid @white;
+    }
+    .modal-body {    	
+    	button.close {
+    	    color: @black;
+    	    text-shadow: 0 1px 0 #333;
+    	}
+    	
+    	button.close:hover,
+    	button.close:focus {
+    		color: @white;
+    	}
+    }
+    
+    #filter,#filter-years,#filter-categories {
+    	.btn-default {
+    		border-color: @black;
+    	}
+    	.btn-default:hover,
+    	.btn-default:focus,
+    	.btn-default.active {
+    		background-color: @white;
+        	border-color: @white;
+        	box-shadow: 0 5px 5px @white;
+        	color: @black;
+    	 }
+    	
+    }
+    .item {
+    	h3 a {
+    		color: @white;
+    	}
+    	
+    }
+    
+    .carousel-caption {
+      background: rgba(219, 219, 219, 0.7);
+      color: @black;
+    }
+    ul.work-artists {
+    	li {
+    		a {
+    			background-color: @white;
+    			color: @black;
+    			text-transform: lowercase;
+    		}
+    	}
+    }
+
+    .list-view {
+    	.legend {
+    		.unit {
+    			border: 1px solid @white;
+    		}
+    	}
+    }
+    #locationgrid {
+    	    	
+    	.locationgrid_item  {
+    		border-top: 1px solid @white;
+    	}
+    	.locationgrid_dates {
+    		border-top: 2px solid @white;
+    	}
+    	.collapse .well {
+    		color: @text-color;
+    	}
+    	
+    	a {
+    		color: @black;
+    	}
+    	.Action a, .action a, .Kunst a, .kunst a {
+    		color: @black;
+    	}
+    	a.btn-default {
+    		 background-color: @white;
+    		 color: @black;
+    		 box-shadow: 4px 4px 1px rgba(255, 255, 255, 1);
+    		 border-color: #333;
+    	}
+    }
+    
+    #areaFooter {
+      .container {
+        .menu-special-wrapper {
+          ul {
+            color: @white;
+            li {
+              .menu-heading {
+                color: @white;
+            
+              }
+              li {
+                a {
+                  color: @white;
+                }
+              }
+            }
+          }
+        }
+        .menu-footer-wrapper {
+          ul {
+            li {
+              a {
+                color: @white;
+                text-transform: lowercase;
+              }
+            }
+            li.point-1 {
+              a:hover {
+                background-color: transparent;
+              }
+              background-color: transparent;
+            }
+            li.point-2 {
+              a:hover {
+                background-color: transparent;
+              }
+              background-color: transparent;
+            }
+          }
+        }
+        
+        .footer-line {
+          color: @white;
+        }
+      }
+    }
+    .partial-socialmedia-list {
+      .socialmedia-list {
+        li {
+          // general styles
+          a {
+            background-color: @white;
+            color: @black;
+          }
+        }
+        // Twitter style
+        .partial-socialmedia-followTwitter a {
+          background-color: @white;
+        }
+        // RSS style
+        .partial-socialmedia-followRss a {
+          background-color: @white;
+        }
+        // Faacebook style
+        .partial-socialmedia-followFacebook a {
+          background-color: @white;
+        }
+        // Google+ style
+        .partial-socialmedia-followGooglePlus a {
+          background-color: @white;
+        }
+        // instagram style
+        .partial-socialmedia-followInstagram a {
+          background-color: @white;
+          color: @black;
+        }
+        // vimeo style
+        .partial-socialmedia-followVimeo a {
+          background-color: @white;
+          
+        }
+        // vimeo style
+        .partial-socialmedia-followYoutube a {
+          background-color: @white;
+          
+        }
+      }
+    }
+
+
+    .tx-pb-social{
+      .pb-list-item {
+        .text{
+        
+        background-color: @black;
+        color: @white;
+        
+        }
+
+        .additional-info{
+          color: @white;
+          text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+      }
+    }
+
+
+
+
+
+
+}
