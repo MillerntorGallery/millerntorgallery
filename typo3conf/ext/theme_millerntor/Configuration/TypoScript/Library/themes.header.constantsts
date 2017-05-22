@@ -19,7 +19,7 @@ themes.configuration.header.email = info@millerntorgallery.org
 #############################################
 
 # cat=header,advanced/header_logo_main/; type=string; label= Header-Logo: Path and filename (fileadmin/.../logo.png)
-themes.configuration.header.logo.main.file = EXT:theme_millerntor/Resources/Public/Images/millerntor_gallery.png
+themes.configuration.header.logo.main.file = EXT:theme_millerntor/Resources/Public/Images/mtg7_skull_transparent.png
 
 # cat=header,expert/header_logo_main/; type=int+; label= Header-Logo: Width
 themes.configuration.header.logo.main.width = 106
@@ -37,7 +37,7 @@ themes.configuration.header.logo.main.date = 14.-17. Juli 2016, Millerntor Stadi
 #############################################
 
 # cat=header,advanced/header_edition/; type=string; label= Edition-Logo: Path and filename (fileadmin/.../logo.png)
-themes.configuration.header.edition.main.file = EXT:theme_millerntor/Resources/Public/Images/edition.png
+themes.configuration.header.edition.main.file = EXT:theme_millerntor/Resources/Public/Images/blank.png
 
 # cat=header,expert/header_edition/; type=int+; label= Edition-Logo: Width
 themes.configuration.header.edition.main.width = 70
@@ -53,7 +53,7 @@ themes.configuration.header.edition.main.titletext = Edition #6
 #############################################
 
 # cat=header,advanced/header_logo_special/; type=string; label= Special-Logo: Path and filename (fileadmin/.../logo.png)
-themes.configuration.header.logo.special.file = EXT:theme_bootstrap/Resources/Public/Images/logo.png
+themes.configuration.header.logo.special.file = EXT:theme_millerntor/Resources/Public/Images/blank.png
 
 # cat=header,expert/header_logo_special/; type=int+; label= Special-Logo: Width
 themes.configuration.header.logo.special.width = 40

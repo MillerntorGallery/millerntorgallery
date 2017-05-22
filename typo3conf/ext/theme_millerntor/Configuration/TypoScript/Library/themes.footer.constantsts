@@ -33,7 +33,7 @@ themes.configuration.footer.copyright.rightLabel = &nbsp;&copy; Art creates wate
 #############################################
 
 # cat=footer,advanced/footer_logo_main/; type=string; label= Footer logo: Path and filename (fileadmin/.../logo.png)
-themes.configuration.footer.logo.main.file = EXT:theme_millerntor/Resources/Public/Images/vca_logo.png
+themes.configuration.footer.logo.main.file = EXT:theme_millerntor/Resources/Public/Images/logo_vca_white.png
 
 # cat=footer,expert/footer_logo_main/; type=int+; label= Footer logo: Width
 themes.configuration.footer.logo.main.width = 97
@@ -51,13 +51,13 @@ themes.configuration.footer.logo.main.linkTarget = _blank
 themes.configuration.footer.logo.main.title = Viva con Agua de Sankt Pauli
 
 # cat=footer,advanced/footer_logo_main/; type=string; label= Footer logo: Claim footer logo
-themes.configuration.footer.logo.main.claim = Inspired by
+themes.configuration.footer.logo.main.claim = 
 
 # Logo hoster
 #############################################
 
 # cat=footer,advanced/footer_logo_main/; type=string; label= Footer logo: Path and filename (fileadmin/.../logo.png)
-themes.configuration.footer.logo.hoster.file = EXT:theme_millerntor/Resources/Public/Images/fcstpauli_logo.png
+themes.configuration.footer.logo.hoster.file = EXT:theme_millerntor/Resources/Public/Images/logo_fcsp_white.png
 
 # cat=footer,expert/footer_logo_main/; type=int+; label= Footer logo: Width
 themes.configuration.footer.logo.hoster.width = 50
@@ -75,4 +75,4 @@ themes.configuration.footer.logo.hoster.linkTarget = _blank
 themes.configuration.footer.logo.hoster.title = FC Sankt Pauli
 
 # cat=footer,advanced/footer_logo_main/; type=string; label= Footer logo: Claim footer logo
-themes.configuration.footer.logo.hoster.claim = Hosted by
+themes.configuration.footer.logo.hoster.claim = 

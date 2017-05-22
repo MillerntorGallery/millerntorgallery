@@ -26,13 +26,13 @@ lib.header.logo {
 		altText = {$themes.configuration.header.edition.main.titletext}
 		wrap = <div class="edition">|</div>
 	}
-	/*
+	
 	edition = TEXT
 	edition {
 		wrap = <div class="edition">|</div>
 		value = 
 	}
-	*/
+	
 	water = IMAGE
 	water { 
 		file = EXT:theme_millerntor/Resources/Public/Images/waterprooffin.png
@@ -42,11 +42,17 @@ lib.header.logo {
 		altText = Waterproof
 		wrap = <div class="waterproof">|</div>
 	}
+	water = TEXT
+	water {
+		wrap = <div class="waterproof">|</div>
+		value = 
+	}
+	
 	slogan = TEXT
 	slogan.value = {$themes.configuration.header.logo.main.slogan}
-	slogan.wrap = <h4>|</h4>
+	slogan.wrap = <h3>|</h3>
 	date = TEXT
 	date.value = {$themes.configuration.header.logo.main.date}
-	date.wrap = <h3>|</h3>
+	date.wrap = <h4>|</h4>
 	
 }
