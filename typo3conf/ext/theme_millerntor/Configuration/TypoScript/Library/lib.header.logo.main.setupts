@@ -2,7 +2,6 @@ lib.header.logo {
 	main = IMAGE
 	main {
 		file = {$themes.configuration.header.logo.main.file}
-		file.height = 203
 
 		titleText = {$themes.configuration.siteName}
 		altText = {$themes.configuration.siteName}
