@@ -42,6 +42,9 @@ class YoutubeAdapter extends SocialMediaAdapter
     // get items from playlist api call
     const YT_SEARCH_PLAYLIST = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=';
 
+    // get items from channel api call
+    const YT_SEARCH_CHANNEL = 'https://www.googleapis.com/youtube/v3/search?channelId=';
+
     private $appKey;
 
     public function __construct($appKey, $itemRepository)
@@ -77,6 +80,9 @@ class YoutubeAdapter extends SocialMediaAdapter
         if ($options->youtubePlaylist) {
             $searchTerms = explode(',', $options->youtubePlaylist);
         }
+        if ($options->youtubeChannel) {
+            $searchTerms = explode(',', $options->youtubeChannel);
+        }
 
         foreach ($searchTerms as $searchString) {
             $searchString = trim(urlencode($searchString));
@@ -90,7 +96,7 @@ class YoutubeAdapter extends SocialMediaAdapter
                         $this->itemRepository->updateFeed($feed);
                         $result[] = $feed;
                     } catch (\Exception $e) {
-                        $this->logger->error(self::TYPE . ' feeds cant be updated', array('data' => $e->getMessage()));
+                        $this->logError("feeds can't be updated - " . $e->getMessage());
                     }
                 }
                 continue;
@@ -104,8 +110,7 @@ class YoutubeAdapter extends SocialMediaAdapter
                 $this->itemRepository->saveFeed($feed);
                 $result[] = $feed;
             } catch (\Exception $e) {
-                error_log('catched ' . $e->getMessage());
-                $this->logger->warning('initial load for ' . self::TYPE . ' feeds failed. Please check the log file typo3temp/log/typo3.log for further information.');
+                $this->logError('initial load for feed failed - ' . $e->getMessage());
             }
         }
 
@@ -120,11 +125,8 @@ class YoutubeAdapter extends SocialMediaAdapter
         if (!empty($result)) {
             foreach ($result as $yt_feed) {
                 $rawFeeds[self::TYPE . '_' . $yt_feed->getCacheIdentifier() . '_raw'] = $yt_feed->getResult();
-//                error_log(json_encode($yt_feed->getResult()));
                 foreach ($yt_feed->getResult()->items as $rawFeed) {
                     $feed = new Feed(self::TYPE, $rawFeed);
-//                    error_log(json_encode($rawFeed));
-
                     if ($options->youtubePlaylist) {
                         $id = $rawFeed->snippet->resourceId->videoId;
                     } else {
@@ -154,14 +156,15 @@ class YoutubeAdapter extends SocialMediaAdapter
     {
         $headers = array('Content-Type: application/json');
 
-        // use different api call for playlist
-        if ($options->youtubePlaylist) {
+        // use different api call for channel
+        if ($options->youtubeChannel) {
+            $url = self::YT_SEARCH_CHANNEL . $searchString . '&' . http_build_query($fields);
+        } // use different api call for playlist
+        else if ($options->youtubePlaylist) {
             $url = self::YT_SEARCH_PLAYLIST . $searchString . '&' . http_build_query($fields);
         } else {
             $url = self::YT_SEARCH . $searchString . '&' . http_build_query($fields);
         }
-
-//        error_log($url);
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);

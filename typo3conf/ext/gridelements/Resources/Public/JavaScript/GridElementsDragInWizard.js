@@ -47,7 +47,7 @@ define(['jquery', 'TYPO3/CMS/Gridelements/GridElementsDragDrop', 'jquery-ui/sort
 			originalWizardUrl = $newCeLink.attr('href').split('\&', 4);
 		}
 		if (typeof originalWizardUrl !== 'undefined') {
-			DragInWizard.wizardUrl = '\/typo3\/index.php?route=%2Frecord%2Fcontent%2Fnew&' + originalWizardUrl[1] + '&' + originalWizardUrl[2];
+			DragInWizard.wizardUrl = originalWizardUrl[0] + '&' + originalWizardUrl[1] + '&' + originalWizardUrl[2];
 		}
 	};
 
@@ -95,7 +95,7 @@ define(['jquery', 'TYPO3/CMS/Gridelements/GridElementsDragDrop', 'jquery-ui/sort
 	 * make wizard items sortable so they can be dragged into content columns
 	 */
 	DragInWizard.makeItemsSortable = function () {
-		$('#' + DragInWizard.wizardIdentifier + ' .panel-body .media').attr('language-uid', 0).find('.media-left img').addClass('t3js-page-ce-draghandle').parent().addClass('t3-page-ce-dragitem').closest('.media').addClass('t3js-page-ce t3js-page-ce-sortable');
+		$('#' + DragInWizard.wizardIdentifier + ' .panel-body .media').attr('language-uid', 0).find('.media-left img').addClass('t3js-page-ce-draghandle').parent().addClass('t3-page-ce-dragitem t3-page-ce-header-draggable').closest('.media').addClass('t3js-page-ce t3js-page-ce-sortable');
 		DragDrop.initialize();
 	};
 
@@ -106,18 +106,17 @@ define(['jquery', 'TYPO3/CMS/Gridelements/GridElementsDragDrop', 'jquery-ui/sort
 		var panel = $('#' + DragInWizard.wizardIdentifier + ' .t3js-tabs');
 		var CType;
 		$('#' + DragInWizard.wizardIdentifier + ' .media').each(function () {
-			var CTypeCheck = $(this).find('input').attr('value').match(/^([^_]*?)_(.*)$/);
-			CTypeCheck.shift();
-			if (CTypeCheck[0] === 'gridelements') {
-				CType = 'gridelements_pi1';
-				var txGridelementsBackendLayout = CTypeCheck[1];
-				$(this).find('.media-left').addClass('t3-ctype-identifier').attr('data-gridtype', txGridelementsBackendLayout);
-			} else {
-				CType = CTypeCheck[1];
-			}
-			$(this).find('.media-left').addClass('t3-ctype-identifier').attr('data-ctype', CType);
-
-			var description = $(this).find('.media-body');
+            var CTypeCheck = $(this).find('input').attr('value').match(/^([^_]*?)_(.*)$/);
+            CTypeCheck.shift();
+            if (CTypeCheck[0] === 'gridelements') {
+                CType = 'gridelements_pi1';
+                var txGridelementsBackendLayout = CTypeCheck[1];
+                $(this).find('.media-left').addClass('t3-ctype-identifier').attr('data-gridtype', txGridelementsBackendLayout);
+            } else {
+                CType = CTypeCheck[1];
+            }
+            $(this).find('.media-left').addClass('t3-ctype-identifier').attr('data-ctype', CType);
+            var description = $(this).find('.media-body');
 			description = description.appendTo($(this).parent()).hide();
 			$(this).find('.media-left').on('mouseenter', function () {
 				description.show()

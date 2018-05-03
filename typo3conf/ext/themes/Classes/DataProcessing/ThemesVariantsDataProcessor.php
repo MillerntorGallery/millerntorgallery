@@ -32,9 +32,6 @@ class ThemesVariantsDataProcessor implements DataProcessorInterface {
 	 * @throws ContentRenderingException
 	 */
 	public function process(ContentObjectRenderer $cObj, array $contentObjectConfiguration, array $processorConfiguration, array $processedData) {
-		
-		//\TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($processedData);
-		
 		$keys = GeneralUtility::trimExplode(',', $processedData['data']['tx_themes_variants'], TRUE);
 		$processedData['themes']['variants']['css'] = array();
 		$processedData['themes']['variants']['css2key'] = array();
@@ -55,8 +52,10 @@ class ThemesVariantsDataProcessor implements DataProcessorInterface {
 						}
 					}
 					else if(in_array($key, $keys)) {
-						$processedData['themes']['variants']['css'][$cssClass] = $cssClass;
-						$processedData['themes']['variants']['css2key'][$cssClass] = $key;
+						if($cssClass !== '') {
+							$processedData['themes']['variants']['css'][$cssClass] = $cssClass;
+							$processedData['themes']['variants']['css2key'][$cssClass] = $key;
+						}
 					}
 				}
 			}

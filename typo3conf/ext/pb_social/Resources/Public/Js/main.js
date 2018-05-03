@@ -13,7 +13,7 @@ window.onload = function() {
 
 function documentReady(){
 
-    jQuery('a.likes,a.comments,a.plus,a.replies').click(function(){
+    jQuery('a.likes,a.comments,a.plus,a.replies').unbind('click').click(function(){
         window.open(this.href,'_blank','width=1200,height=800');
         return false;
     });
@@ -21,7 +21,7 @@ function documentReady(){
     //
     // ANY CLICK REDIRECT TO SOURCE OBJECT PAGE
     //
-    jQuery('.pb-list-item .image, .pb-list-item .icon, .pb-list-item img, .pb-list-item .text').click(function(e){
+    jQuery('.pb-list-item .image, .pb-list-item .icon, .pb-list-item img, .pb-list-item .text').unbind('click').click(function(e){
         var _Url = jQuery(this).closest('.pb-list-item').data('url');
         window.open(_Url,'_blank','width=1200,height=800');
         return false;
@@ -45,19 +45,21 @@ function initLoadMore(){
     // generate list of already shown posts
     jQuery('.pb-list-item').each(function(){ _postUrls.push(jQuery(this).data('url')); });
     // request new posts
-    jQuery.ajax({ url: _Url }).done(function( data ) {
-        var _pb_list = jQuery(data).find('.pb-list');
-        _pb_list.find('.pb-list-item').each(function(){
-            if(jQuery.inArray(jQuery(this).data('url'), _postUrls) == -1){
-                var _post = jQuery(this);
-                _post.addClass('pb-hide-initial');
-                jQuery('.pb-list').append(_post);
-            }
+    if(_Url){
+        jQuery.ajax({ url: _Url }).done(function( data ) {
+            var _pb_list = jQuery(data).find('.pb-list');
+            _pb_list.find('.pb-list-item').each(function(){
+                if(jQuery.inArray(jQuery(this).data('url'), _postUrls) == -1){
+                    var _post = jQuery(this);
+                    _post.addClass('pb-hide-initial');
+                    jQuery('.pb-list').append(_post);
+                }
+            });
+            // ladeanimation beenden
+            documentReady();
+            _button.removeClass('loading');
         });
-        // ladeanimation beenden
-        documentReady();
-        _button.removeClass('loading');
-    });
+    }
 
     // show loaded posts on click
     _button.click(function(){

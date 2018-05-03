@@ -3,9 +3,9 @@
   "description": "This extension integrates the grid layout concept to regular content elements.",
   "type": "typo3-cms-extension",
   "keywords": ["TYPO3 CMS", "Grids", "Gridelements"],
-  "homepage": "https://git.typo3.org/TYPO3CMS/Extensions/gridelements.git",
-  "license": "GPL-2.0+",
-  "version": "7.0.5",
+  "homepage": "https://forge.typo3.org/projects/extension-gridelements2",
+  "license": "GPL-2.0-or-later",
+  "version": "7.4.0",
   "support": {
     "issues": "https://forge.typo3.org/"
   },
@@ -17,9 +17,8 @@
       "GridElementsTeam\\Gridelements\\": "Classes/"
     }
   },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "7.0.5"
-    }
+  "replace": {
+    "gridelements": "self.version",
+    "typo3-ter/gridelements": "self.version"
   }
 }

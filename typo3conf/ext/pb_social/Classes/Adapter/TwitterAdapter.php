@@ -40,18 +40,20 @@ class TwitterAdapter extends SocialMediaAdapter
 
     private $api;
 
-    private $api_url = 'search/tweets';
+    //private $api_url = 'statuses/user_timeline';
 
     public function __construct($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret, $itemRepository)
     {
         parent::__construct($itemRepository);
 
         $this->api =  new TwitterOAuth($consumerKey, $consumerSecret, $accessToken, $accessTokenSecret);
+        $this->api->setTimeouts(10, 10);
     }
 
     public function getResultFromApi($options)
     {
         $result = array();
+        $apiMethod = '';
 
         // because of the amount of data twitter is sending, the database can only carry 20 tweets.
         // 20 Tweets = ~86000 Character
@@ -67,21 +69,23 @@ class TwitterAdapter extends SocialMediaAdapter
         }
 
         if ($options->twitterSearchFieldValues) {
+            $this->api_url = 'search/tweets';
+
             foreach (explode(',', $options->twitterSearchFieldValues) as $searchValue) {
                 $searchValue = trim($searchValue);
                 $feeds = $this->itemRepository->findByTypeAndCacheIdentifier(self::TYPE, $searchValue);
 
-                $tweets = $this->getPosts($apiParameters, $options, $searchValue);
 
                 if ($feeds && $feeds->count() > 0) {
                     $feed = $feeds->getFirst();
                     if ($options->devMod || ($feed->getDate()->getTimestamp() + $options->refreshTimeInMin * 60) < time()) {
                         try {
+                            $tweets = $this->getPosts($apiParameters, $options, $searchValue);
                             $feed->setDate(new \DateTime('now'));
                             $feed->setResult($tweets);
                             $this->itemRepository->updateFeed($feed);
                         } catch (\Exception $e) {
-                            $this->logger->error(self::TYPE . ' feeds can\'t be updated', array('data' => $e->getMessage()));
+                            $this->logError("feeds can't be updated - " . $e->getMessage());
                         }
                     }
                     $result[] = $feed;
@@ -89,6 +93,7 @@ class TwitterAdapter extends SocialMediaAdapter
                 }
 
                 try {
+                    $tweets = $this->getPosts($apiParameters, $options, $searchValue);
                     $feed = new Item(self::TYPE);
                     $feed->setCacheIdentifier($searchValue);
                     $feed->setResult($tweets);
@@ -97,12 +102,14 @@ class TwitterAdapter extends SocialMediaAdapter
                     $this->itemRepository->saveFeed($feed);
                     $result[] = $feed;
                 } catch (\Exception $e) {
-                    $this->logger->error('initial load for ' . self::TYPE . ' feeds failed', array('data' => $e->getMessage()));
+                    $this->logError('initial load for feed failed - ' . $e->getMessage());
                 }
             }
         }
 
         if ($options->twitterProfilePosts) {
+            $this->api_url = 'statuses/user_timeline';
+
             foreach (explode(',', $options->twitterProfilePosts) as $searchValue) {
                 $searchValue = trim($searchValue);
                 $feeds = $this->itemRepository->findByTypeAndCacheIdentifier(self::TYPE, $searchValue);
@@ -110,17 +117,18 @@ class TwitterAdapter extends SocialMediaAdapter
                 //https://dev.twitter.com/rest/reference/get/search/tweets
                 //include_entities=false => The entities node will be disincluded when set to false.
 
-                $tweets = $this->getPosts($apiParameters, $options, $searchValue);
+                $apiParameters['screen_name'] = $searchValue;
 
                 if ($feeds && $feeds->count() > 0) {
                     $feed = $feeds->getFirst();
                     if ($options->devMod || ($feed->getDate()->getTimestamp() + $options->refreshTimeInMin * 60) < time()) {
                         try {
+                            $tweets = $this->getPosts($apiParameters, $options, $searchValue);
                             $feed->setDate(new \DateTime('now'));
                             $feed->setResult($tweets);
                             $this->itemRepository->updateFeed($feed);
                         } catch (\Exception $e) {
-                            $this->logger->error(self::TYPE . ' feeds can\'t be updated', array('data' => $e->getMessage()));
+                            $this->logError("feeds can't be updated - " . $e->getMessage());
                         }
                     }
                     $result[] = $feed;
@@ -128,6 +136,7 @@ class TwitterAdapter extends SocialMediaAdapter
                 }
 
                 try {
+                    $tweets = $this->getPosts($apiParameters, $options, $searchValue);
                     $feed = new Item(self::TYPE);
                     $feed->setCacheIdentifier($searchValue);
                     $feed->setResult($tweets);
@@ -136,7 +145,7 @@ class TwitterAdapter extends SocialMediaAdapter
                     $this->itemRepository->saveFeed($feed);
                     $result[] = $feed;
                 } catch (\Exception $e) {
-                    $this->logger->error('initial load for ' . self::TYPE . ' feeds failed', array('data' => $e->getMessage()));
+                    $this->logError('initial load for feed failed - ' . $e->getMessage());
                 }
             }
         }
@@ -153,21 +162,31 @@ class TwitterAdapter extends SocialMediaAdapter
 
         if (!empty($result)) {
             foreach ($result as $twt_feed) {
-                if (empty($twt_feed->getResult()->statuses)) {
-                    error_log('empty status @TwitterAdapter');
+                if ($this->api_url == 'search/tweets') {
+                    $twitterResult = $twt_feed->getResult()->statuses;
+                } else {
+                    $twitterResult = $twt_feed->getResult();
+                }
+
+                if (empty($twitterResult)) {
+                    $this->logError("status empty");
                     break;
                 }
                 $rawFeeds[self::TYPE . '_' . $twt_feed->getCacheIdentifier() . '_raw'] = $twt_feed->getResult();
-                foreach ($twt_feed->getResult()->statuses as $rawFeed) {
+                foreach ($twitterResult as $rawFeed) {
                     if ($options->twitterShowOnlyImages && null == $rawFeed->entities->media) {
                         continue;
                     }
                     $feed = new Feed($twt_feed->getType(), $rawFeed);
                     $feed->setId($rawFeed->id);
-                    $feed->setText($this->trim_text($rawFeed->text, $options->textTrimLength, true));
+                    $feed->setText($this->trim_text($rawFeed->full_text, $options->textTrimLength, true));
 //                    $feed->setImage($placeholder);
                     if ($rawFeed->entities->media[0]->type == 'photo') {
-                        $feed->setImage($rawFeed->entities->media[0]->media_url);
+                        if ($options->twitterHTTPS) {
+                            $feed->setImage($rawFeed->entities->media[0]->media_url_https);
+                        } else {
+                            $feed->setImage($rawFeed->entities->media[0]->media_url);
+                        }
                     }
                     if ($rawFeed->entities->media[0]->url) {
                         $feed->setLink($rawFeed->entities->media[0]->url);
@@ -203,6 +222,7 @@ class TwitterAdapter extends SocialMediaAdapter
             $requestParameters['include_entities'] = 'true';
         }
 
+        $requestParameters['tweet_mode'] = 'extended';
         $requestParameters['q'] = $searchValue;
         $requestParameters['count'] = $options->feedRequestLimit;
         $tweets = json_encode($this->api->get($this->api_url, $requestParameters));

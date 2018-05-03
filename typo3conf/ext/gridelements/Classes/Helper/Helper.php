@@ -21,6 +21,8 @@ namespace GridElementsTeam\Gridelements\Helper;
 
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Backend\View\BackendLayoutView;
 
 /**
  * Gridelements helper class
@@ -31,12 +33,6 @@ use TYPO3\CMS\Core\SingletonInterface;
  */
 class Helper implements SingletonInterface
 {
-
-    /**
-     * @var DatabaseConnection
-     */
-    protected static $databaseConnection;
-
     /**
      * Local instance of the helper
      *
@@ -45,17 +41,21 @@ class Helper implements SingletonInterface
     protected static $instance = null;
 
     /**
+     * @var DatabaseConnection
+     */
+    protected $databaseConnection;
+
+    /**
      * Get instance from the class.
      *
-     * @static
-     * @return    Helper
+     * @return Helper
      */
     public static function getInstance()
     {
         if (!self::$instance instanceof Helper) {
             self::$instance = new self();
+            self::$instance->setDatabaseConnection($GLOBALS['TYPO3_DB']);
         }
-        self::setDatabaseConnection($GLOBALS['TYPO3_DB']);
 
         return self::$instance;
     }
@@ -64,31 +64,27 @@ class Helper implements SingletonInterface
      * setter for databaseConnection object
      *
      * @param DatabaseConnection $databaseConnection
-     *
-     * @return void
      */
-    public static function setDatabaseConnection(DatabaseConnection $databaseConnection)
+    public function setDatabaseConnection(DatabaseConnection $databaseConnection)
     {
-        self::$databaseConnection = $databaseConnection;
+        $this->databaseConnection = $databaseConnection;
     }
-
+    
     /**
      * @param string $table
      * @param int $uid
+     * @param int $pid
      * @param string $sortingField
      * @param int $sortRev
      * @param string $selectFieldList
-     *
      * @return array
      */
-    public function getChildren($table = '', $uid = 0, $sortingField = '', $sortRev = 0, $selectFieldList)
+    public function getChildren($table = '', $uid = 0, $pid = 0, $sortingField = '', $sortRev = 0, $selectFieldList)
     {
         $retVal = array();
 
         if (trim($table) === 'tt_content' && $uid > 0) {
-
-            $children = self::getDatabaseConnection()->exec_SELECTgetRows($selectFieldList, 'tt_content',
-                'tx_gridelements_container = ' . (int)$uid . ' AND deleted = 0', '');
+            $children = self::getDatabaseConnection()->exec_SELECTgetRows($selectFieldList, 'tt_content', 'tx_gridelements_container = ' . (int)$uid . ' AND pid = ' . (int)$pid . ' AND deleted = 0', '');
 
             foreach ($children as $child) {
                 if (trim($sortingField) && isset($child[$sortingField]) && $sortingField !== 'sorting') {
@@ -96,8 +92,7 @@ class Helper implements SingletonInterface
                 } else {
                     $sortField = sprintf('%1$011d', $child['sorting']);
                 }
-                $sortKey = sprintf('%1$011d',
-                        $child['tx_gridelements_columns']) . '.' . $sortField . ':' . sprintf('%1$011d', $child['uid']);
+                $sortKey = sprintf('%1$011d', $child['tx_gridelements_columns']) . '.' . $sortField . ':' . sprintf('%1$011d', $child['uid']);
 
                 $retVal[$sortKey] = $child;
             }
@@ -112,32 +107,17 @@ class Helper implements SingletonInterface
     }
 
     /**
-     * converts a negative tt_content uid into a positive pid
+     * converts a tt_content uid into a pid
      *
-     * @param int $negativeUid the negative uid value of a tt_content record
+     * @param int $uid the uid value of a tt_content record
      *
      * @return int
      */
-    public function getPidFromNegativeUid($negativeUid = 0)
+    public function getPidFromUid($uid = 0)
     {
-        if ($negativeUid >= 0) {
-            return $negativeUid;
-        } else {
-            $triggerElement = self::$databaseConnection->exec_SELECTgetSingleRow('pid', 'tt_content',
-                'uid = ' . abs($negativeUid));
-            $pid = (int)$triggerElement['pid'];
-            return is_array($triggerElement) && $pid ? $pid : 0;
-        }
-    }
-
-    /**
-     * getter for databaseConnection
-     *
-     * @return DatabaseConnection databaseConnection
-     */
-    public function getDatabaseConnection()
-    {
-        return self::$databaseConnection;
+        $triggerElement = $this->databaseConnection->exec_SELECTgetSingleRow('pid', 'tt_content', 'uid = ' . abs($uid));
+        $pid = (int)$triggerElement['pid'];
+        return is_array($triggerElement) && $pid ? $pid : 0;
     }
 
     /**
@@ -147,7 +127,7 @@ class Helper implements SingletonInterface
      *
      * @param array $record Overlaid record data
      *
-     * @return integer
+     * @return int[]
      */
     public function getSpecificIds(array $record)
     {
@@ -164,6 +144,49 @@ class Helper implements SingletonInterface
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function getSelectedBackendLayout($id) {
+        $backendLayoutData = GeneralUtility::callUserFunction(BackendLayoutView::class . '->getSelectedBackendLayout', $id, $this);
+        // add allowed CTypes to the columns, since this is not done by the native core methods
+        if (!empty($backendLayoutData['__items'])) {
+            if (!empty($backendLayoutData['__config']['backend_layout.']['rows.'])) {
+                foreach ($backendLayoutData['__config']['backend_layout.']['rows.'] as $row) {
+                    if (!empty($row['columns.'])) {
+                        foreach ($row['columns.'] as $column) {
+                            $backendLayoutData['columns'][$column['colPos']] = $column['allowed'] ? $column['allowed'] : '*';
+                            $backendLayoutData['columns']['allowed'] .= $backendLayoutData['columns']['allowed']
+                                ? ',' . $backendLayoutData['columns'][$column['colPos']]
+                                : $backendLayoutData['columns'][$column['colPos']];
+                            if ($column['allowedGridTypes']) {
+                                $backendLayoutData['columns']['allowedGridTypes'][$column['colPos']] .= $backendLayoutData['columns']['allowedGridTypes'][$column['colPos']]
+                                    ? ',' . $column['allowedGridTypes']
+                                    : $column['allowedGridTypes'];
+                            }
+                        }
+                    }
+                }
+            }
+            foreach ($backendLayoutData['__items'] as $key => $item) {
+                $backendLayoutData['__items'][$key][3] = $backendLayoutData['columns'][$item[1]];
+            }
+        };
+
+        return $backendLayoutData;
+    }
+
+    /**
+     * getter for databaseConnection
+     *
+     * @return DatabaseConnection databaseConnection
+     */
+    public function getDatabaseConnection()
+    {
+        return $this->databaseConnection;
+    }
+
+    /**
      * Gets the current backend user.
      *
      * @return \TYPO3\CMS\Core\Authentication\BackendUserAuthentication
@@ -172,5 +195,4 @@ class Helper implements SingletonInterface
     {
         return $GLOBALS['BE_USER'];
     }
-
 }

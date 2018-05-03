@@ -1,15 +1,6 @@
 <?php
 namespace GridElementsTeam\Gridelements\DataHandler;
 
-/**
- * Class/Function which offers TCE main hook functions.
- *
- * @author         Jo Hasenau <info@cybercraft.de>
- * @package        TYPO3
- * @subpackage     tx_gridelements
- */
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 /***************************************************************
  *  Copyright notice
  *  (c) 2013 Jo Hasenau <info@cybercraft.de>
@@ -28,21 +19,29 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  *  GNU General Public License for more details.
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
+
+use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
+/**
+ * Class/Function which offers TCE main hook functions.
+ *
+ * @author         Jo Hasenau <info@cybercraft.de>
+ * @package        TYPO3
+ * @subpackage     tx_gridelements
+ */
 class ProcessCmdmap extends AbstractDataHandler
 {
-
     /**
      * Function to process the drag & drop copy action
      *
-     * @param string $command : The command to be handled by the command map
-     * @param string $table : The name of the table we are working on
-     * @param int $id : The id of the record that is going to be copied
-     * @param string $value : The value that has been sent with the copy command
-     * @param boolean $commandIsProcessed : A switch to tell the parent object, if the record has been copied
-     * @param \TYPO3\CMS\Core\DataHandling\DataHandler $parentObj : The parent object that triggered this hook
-     * @param array|boolean $pasteUpdate : Values to be updated after the record is pasted
-     *
-     * @return    void
+     * @param string $command The command to be handled by the command map
+     * @param string $table The name of the table we are working on
+     * @param int $id The id of the record that is going to be copied
+     * @param string $value The value that has been sent with the copy command
+     * @param bool $commandIsProcessed A switch to tell the parent object, if the record has been copied
+     * @param DataHandler $parentObj The parent object that triggered this hook
+     * @param array|bool $pasteUpdate Values to be updated after the record is pasted
      */
     public function execute_processCmdmap(
         $command,
@@ -50,45 +49,54 @@ class ProcessCmdmap extends AbstractDataHandler
         $id,
         $value,
         &$commandIsProcessed,
-        \TYPO3\CMS\Core\DataHandling\DataHandler &$parentObj = null,
+        DataHandler $parentObj = null,
         $pasteUpdate
     ) {
-
         $this->init($table, $id, $parentObj);
         $reference = (int)GeneralUtility::_GET('reference');
 
         if ($command === 'copy' && $reference === 1 && !$commandIsProcessed && $table === 'tt_content' && !$this->getTceMain()->isImporting) {
 
-            $copyAfterDuplicationFields = $GLOBALS['TCA']['tt_content']['ctrl']['copyAfterDuplFields'];
-            $GLOBALS['TCA']['tt_content']['ctrl']['copyAfterDuplFields'] .= ',tx_gridelements_container,tx_gridelements_columns';
-
-            $overrideArray = array(
+            $dataArray = array(
+                'pid' => $value,
                 'CType' => 'shortcut',
                 'records' => $id,
-                'header' => 'Reference',
+                'header' => 'Reference'
             );
 
             // used for overriding container and column with real target values
             if (is_array($pasteUpdate) && !empty($pasteUpdate)) {
-                $overrideArray = array_merge($overrideArray, $pasteUpdate);
+                $dataArray = array_merge($dataArray, $pasteUpdate);
             }
 
             $clipBoard = GeneralUtility::_GET('CB');
             if (!empty($clipBoard)) {
                 $updateArray = $clipBoard['update'];
                 if (!empty($updateArray)) {
-                    $overrideArray = array_merge($overrideArray, $updateArray);
+                    $dataArray = array_merge($dataArray, $updateArray);
                 }
             }
 
+            $data = array();
+            $data['tt_content']['NEW234134'] = $dataArray;
 
-            $this->getTceMain()->copyRecord($table, $id, $value, 1, $overrideArray);
+            $this->getTceMain()->start($data, array());
+            $this->getTceMain()->process_datamap();
 
+            $parentObj->registerDBList = null;
+            $parentObj->remapStack = null;
             $commandIsProcessed = true;
-
-            $GLOBALS['TCA']['tt_content']['ctrl']['copyAfterDuplFields'] = $copyAfterDuplicationFields;
 
         }
 
+        if ($command === 'delete' && $table === 'tt_content') {
+            $containerUpdateArray = array();
+            $originalContainer = $this->databaseConnection->exec_SELECTgetSingleRow('tx_gridelements_container, sys_language_uid',
+                'tt_content', 'uid=' . $id);
+            if (!empty($originalContainer)) {
+                $containerUpdateArray[$originalContainer['tx_gridelements_container']] = -1;
+                $this->doGridContainerUpdate($containerUpdateArray);
+            }
+        }
     }
 }

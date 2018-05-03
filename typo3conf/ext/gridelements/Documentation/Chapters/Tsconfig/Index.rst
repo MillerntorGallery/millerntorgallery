@@ -1,5 +1,3 @@
-
-
 .. ==================================================
 .. FOR YOUR INFORMATION
 .. --------------------------------------------------
@@ -35,25 +33,21 @@ Grid Elements completely without grid records:
 
 .. ### BEGIN~OF~TABLE ###
 
-.. container:: table-row
+.. _tsconfig:
 
-   Property
-         Property:
+tx\_gridelements
+^^^^^^^^
 
-   Data type
-         Data type:
 
-   Description
-         Description:
+.. _tsconfig-tx-gridelements-setup:
 
-   Default
-         N/A
-
+tx\_gridelements.setup
+""""""""""""""""
 
 .. container:: table-row
 
    Property
-         tx\_gridelements.setup
+         setup
 
    Data type
          Grid TS structure
@@ -64,6 +58,10 @@ Grid Elements completely without grid records:
    Default
          N/A
 
+.. _tsconfig-tx-gridelements-setup-123:
+
+tx\_gridelements.setup.123
+""""""""""""""""
 
 .. container:: table-row
 
@@ -81,6 +79,10 @@ Grid Elements completely without grid records:
    Default
          N/A
 
+.. _tsconfig-tx-gridelements-overrulerecords:
+
+tx\_gridelements.overruleRecords
+""""""""""""""""
 
 .. container:: table-row
 
@@ -97,6 +99,10 @@ Grid Elements completely without grid records:
    Default
          0
 
+.. _tsconfig-tx-gridelements-excludelayoutids:
+
+tx\_gridelements.excludeLayoutIds
+""""""""""""""""
 
 .. container:: table-row
 
@@ -104,7 +110,7 @@ Grid Elements completely without grid records:
          tx\_gridelements.excludeLayoutIds
 
    Data type
-         List of integers
+         List of strings
 
    Description
          A list of IDs of layouts that should not be available in this branch
@@ -113,12 +119,15 @@ Grid Elements completely without grid records:
    Default
          N/A
 
+.. _tsconfig-TCEFORM-tt-content-tx-gridelements-backend-layout-PAGE-TSCONFIG-ID:
+
+TCEFORM.tt\_content.tx\_gridelements\_backend\_layout.PAGE\_TSCONFIG\_ID
+""""""""""""""""
 
 .. container:: table-row
 
    Property
-         TCEFORM.tt\_content.tx\_gridelements\_backend\_layout.PAGE\_TSCONFIG\_
-         ID
+         TCEFORM.tt\_content.tx\_gridelements\_backend\_layout.PAGE\_TSCONFIG\_ID
 
    Data type
          Integer
@@ -131,5 +140,3 @@ Grid Elements completely without grid records:
 
 
 .. ###### END~OF~TABLE ######
-
-

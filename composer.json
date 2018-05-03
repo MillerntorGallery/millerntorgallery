@@ -1,0 +1,32 @@
+{   "repositories": [
+        { "type": "composer", "url": "https://composer.typo3.org/" },
+        { "type": "vcs", "url": "https://github.com/typo3-themes/themes"},
+        { "type": "vcs", "url": "https://github.com/TYPO3-extensions/gridelements"},
+        { "type": "vcs", "url": "https://bitbucket.org/plus-b/pb_social.git"}
+    ],
+    "name": "vca/millerntorgallery",
+    "description": "Site-Package for millerntorgallery.org",
+    "type": "project",
+    "require": {
+        "typo3/cms": "7.6.6",
+        "typo3-ter/theme-bootstrap": "7.0.0",
+        "plusb/pb_social": "1.3.1"
+    },
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Sebastian Fuchs",
+            "email": "sfuchs@projektkater.de"
+        }
+    ],
+    "minimum-stability": "RC",
+    "extra": {
+        "typo3/cms": {
+            "cms-package-dir": "{$vendor-dir}/typo3/cms",
+            "web-dir": ""
+        }
+    },
+    "config": {
+        "cafile": "/usr/local/etc/openssl/cert.pem"
+    }
+}

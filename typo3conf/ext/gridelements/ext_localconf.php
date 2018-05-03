@@ -16,3 +16,6 @@ $_EXTCONF = unserialize($_EXTCONF);
 if ($_EXTCONF['nestingInListModule']) {
     $GLOBALS['TYPO3_CONF_VARS']['SYS']['Objects']['TYPO3\\CMS\\Recordlist\\RecordList\\DatabaseRecordList'] = array('className' => 'GridElementsTeam\\Gridelements\\Xclass\\DatabaseRecordList',);
 }
+
+$signalSlotDispatcher = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\SignalSlot\Dispatcher::class);
+$signalSlotDispatcher->connect(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::class, 'tcaIsBeingBuilt', \GridElementsTeam\Gridelements\Slots\ExtTablesInclusionPostProcessing::class, 'processData');

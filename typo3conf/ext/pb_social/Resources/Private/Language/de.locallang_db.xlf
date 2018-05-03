@@ -49,8 +49,8 @@
                 <target state="translated">Ausgabe aktiviert</target>
             </trans-unit>
             <trans-unit id="flexform.tab.facebook.searchID">
-                <source>Facebook search IDs (Page that helps to find the ID: http://findmyfacebookid.com/). Use commas to show more than one ID</source>
-                <target state="translated">Facebook IDs der Seiten, die angezeigt werden sollen (Hilfeseite zu den IDs: http://blog.niklaskoehler.de/facebook-tools/facebook-id-ermitteln). Verwende Kommas, um mehrere Seiten anzuzeigen</target>
+                <source>Facebook search IDs (Page that helps to find the ID: http://findmyfbid.com/). Use commas to show more than one ID</source>
+                <target state="translated">Facebook IDs der Seiten, die angezeigt werden sollen (Hilfeseite zu den IDs: http://findmyfbid.com/). Verwende Kommas, um mehrere Seiten anzuzeigen</target>
             </trans-unit>
              <trans-unit id="flexform.tab.facebook.edge">
                 <source>Facebook edge (feed shows everything incl. tagged posts and links, posts filters only posts)</source>
@@ -114,6 +114,31 @@
             <trans-unit id="flexform.tab.instagram.hashtag">
                 <source>Output most up to date Images with a specific hashtag. Use commas to show more than one.</source>
                 <target state="translated">Die aktuellsten Bilder mit einem bestimmten Hashtag anzeigen. Verwende Kommas, um mehrere anzuzeigen</target>
+            </trans-unit>
+
+            <trans-unit id="flexform.tab.linkedin.caption">
+                <source>LinkedIn</source>
+                <target state="translated">LinkedIn</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.linkedin.active">
+                <source>Active</source>
+                <target state="translated">Ausgabe aktiviert</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.linkedin.companyIds">
+                <source>LinkedIn company ID. !! you need to be administrator of the given company page(s) !!</source>
+                <target state="translated">LinkedIn Unternehmens-ID. !! Sie müssen Administrator der LinkedIn-Unternehmensseite(n) sein !!</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.linkedin.jobPostings">
+                <source>Show job postings</source>
+                <target state="translated">Job-Postings anzeigen</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.linkedin.newProducts">
+                <source>Show product postings</source>
+                <target state="translated">Produkt-Postings anzeigen</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.linkedin.statusUpdates">
+                <source>Show status updates</source>
+                <target state="translated">Status-Updates anzeigen</target>
             </trans-unit>
 
             <trans-unit id="flexform.tab.pinterest.caption">
@@ -186,6 +211,10 @@
                 <source>(Optional) Returns tweets by users located within a given radius of the given latitude/longitude. Example value: "37.781157,-122.398720,1mi". the last parameter is the radius ("1mi" stands for one mile, use "km" for kilometers). Use http://mygeoposition.com/ to find your preferred geolocation</source>
                 <target state="translated">(Optional) Zeige Tweets nach der Geolocation innerhalb eines bestimmten Radius an. Z.B.: "37.781157,-122.398720,1mi". Der letzte Parameter ist der Radius ("1mi" steht für 1 Meile. Benutze "km" für Kilometer). Um eine Geolocation herauszufinden, nutze z.B. http://mygeoposition.com/</target>
             </trans-unit>
+            <trans-unit id="flexform.tab.twitter.https">
+                <source>Include images with https</source>
+                <target state="translated">Einbinden der Bilder URLs mit https</target>
+            </trans-unit>
 
             <trans-unit id="socialfeed_wizard.title">
                 <source>Social Media Streams</source>
@@ -211,6 +240,10 @@
             <trans-unit id="flexform.tab.youtube.playlist">
                 <source>Youtube playlist. If set, searchword will be ignored</source>
                 <target state="translated">Youtube playlist. Wenn gesetzt wird das Suchwort ignoriert</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.youtube.channel">
+                <source>Youtube channel-id. If set, searchword &amp; playlist will be ignored</source>
+                <target state="translated">Youtube Channel-ID. Wenn gesetzt wird das Suchwort &amp; die Playlist ignoriert</target>
             </trans-unit>
             <trans-unit id="flexform.tab.youtube.lang">
                 <source>(Optional) Show videos in a specific language (for example: use "de" for videos in german language). For a list look at the ISO 639-1 codes on http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes</source>
@@ -274,6 +307,27 @@
                 <target state="translated">Filter</target>
             </trans-unit> -->
 
+            <!-- tx_news -->
+            <trans-unit id="flexform.tab.news.caption">
+                <source>News</source>
+                <target state="translated">News</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.news.active">
+                <source>Active</source>
+                <target state="translated">Ausgabe aktiviert</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.news.useHttps">
+                <source>Generate https links (check if your site uses https protocol)</source>
+                <target state="translated">Links mit https generieren (auswählen, wenn Ihre Webseite https nutzt)</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.news.newsDetailPageUid">
+                <source>uid of news detail page</source>
+                <target state="translated">uid der News-Detailseite</target>
+            </trans-unit>
+            <trans-unit id="flexform.tab.news.categories">
+                <source>Define the category of news. Please provide the category's pid (hover over category name). Leaving this empty will output all news.</source>
+                <target state="translated">News-Kategorie. Bitte die pid der jeweiligen Kategorie angeben (hover über den Namen der Kategorie) -  Bleibt dieses Feld leer, werden alle News ausgegeben.</target>
+            </trans-unit>
 
         </body>
     </file>

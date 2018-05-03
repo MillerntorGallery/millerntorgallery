@@ -40,3 +40,6 @@
 /typo3conf/ext/static_info_tables
 /typo3conf/ext/phpmyadmin
 /typo3conf/ext/vhs
+/typo3conf/ext/pb_social_back
+
+/vendor/

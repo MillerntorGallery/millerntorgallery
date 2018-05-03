@@ -1,4 +1,5 @@
 <?php
+
 namespace GridElementsTeam\Gridelements\DataHandler;
 
 /***************************************************************
@@ -21,7 +22,6 @@ namespace GridElementsTeam\Gridelements\DataHandler;
 
 use GridElementsTeam\Gridelements\Backend\LayoutSetup;
 use GridElementsTeam\Gridelements\Helper\Helper;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -35,9 +35,14 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 abstract class AbstractDataHandler
 {
-
+    /**
+     * @var string
+     */
     protected $table;
 
+    /**
+     * @var int
+     */
     protected $pageUid;
 
     /**
@@ -59,8 +64,6 @@ abstract class AbstractDataHandler
      * inject layout setup
      *
      * @param LayoutSetup $layoutSetup
-     *
-     * @return void
      */
     public function injectLayoutSetup(LayoutSetup $layoutSetup)
     {
@@ -71,22 +74,20 @@ abstract class AbstractDataHandler
      * initializes this class
      *
      * @param string $table : The name of the table the data should be saved to
-     * @param integer $pageUid : The uid of the page we are currently working on
+     * @param integer $uidPid : The uid of the record or page we are currently working on
      * @param DataHandler $dataHandler
-     *
-     * @return void
      */
-    public function init($table, $pageUid, DataHandler $dataHandler)
+    public function init($table, $uidPid, DataHandler $dataHandler)
     {
         $this->setTable($table);
-        $this->setPageUid($pageUid);
+        if ($table === 'tt_content') {
+            $uidPid = Helper::getInstance()->getPidFromUid($uidPid);
+        }
+        $this->setPageUid($uidPid);
         $this->setTceMain($dataHandler);
         $this->setDatabaseConnection($GLOBALS['TYPO3_DB']);
         if (!$this->layoutSetup instanceof LayoutSetup) {
-            if ($pageUid < 0) {
-                $pageUid = Helper::getInstance()->getPidFromNegativeUid($pageUid);
-            }
-            $this->injectLayoutSetup(GeneralUtility::makeInstance(LayoutSetup::class)->init($pageUid));
+            $this->injectLayoutSetup(GeneralUtility::makeInstance(LayoutSetup::class)->init($uidPid));
         }
     }
 
@@ -94,8 +95,6 @@ abstract class AbstractDataHandler
      * setter for table
      *
      * @param string $table
-     *
-     * @return void
      */
     public function setTable($table)
     {
@@ -116,8 +115,6 @@ abstract class AbstractDataHandler
      * setter for pageUid
      *
      * @param integer $pageUid
-     *
-     * @return void
      */
     public function setPageUid($pageUid)
     {
@@ -138,8 +135,6 @@ abstract class AbstractDataHandler
      * setter for dataHandler object
      *
      * @param DataHandler $dataHandler
-     *
-     * @return void
      */
     public function setTceMain(DataHandler $dataHandler)
     {
@@ -160,8 +155,6 @@ abstract class AbstractDataHandler
      * setter for databaseConnection object
      *
      * @param DatabaseConnection $databaseConnection
-     *
-     * @return void
      */
     public function setDatabaseConnection(DatabaseConnection $databaseConnection)
     {
@@ -182,8 +175,6 @@ abstract class AbstractDataHandler
      * Function to handle record actions between different grid containers
      *
      * @param array $containerUpdateArray
-     *
-     * @return void
      */
     public function doGridContainerUpdate($containerUpdateArray = array())
     {
@@ -198,32 +189,71 @@ abstract class AbstractDataHandler
     }
 
     /**
-     * Function to handle record actions for children of translated grid containers
+     * Function to handle record actions for current or former children of translated grid containers
+     * as well as translated references
      *
-     * @param array $containerUpdateArray
-     *
-     * @return void
+     * @param int $uid
      */
-    public function checkAndUpdateTranslatedChildren($containerUpdateArray = array())
+    public function checkAndUpdateTranslatedElements($uid)
     {
-        if (is_array($containerUpdateArray) && !empty($containerUpdateArray)) {
-            foreach ($containerUpdateArray as $containerUid => $newElement) {
-                if ((int)$containerUid > 0) {
-                    $translatedContainers = $this->databaseConnection->exec_SELECTgetRows('uid,sys_language_uid',
-                        'tt_content',
-                        'l18n_parent = ' . (int)$containerUid . BackendUtility::deleteClause('tt_content'));
-                    if (!empty($translatedContainers)) {
-                        foreach ($translatedContainers as $languageArray) {
-                            $targetContainer = BackendUtility::getRecordWSOL('tt_content', $languageArray['uid']);
-                            $fieldArray['tx_gridelements_container'] = $targetContainer['uid'];
-                            $where = 'tx_gridelements_container = ' . (int)$containerUid . ' AND sys_language_uid = ' . (int)$targetContainer['sys_language_uid'];
-                            $this->databaseConnection->exec_UPDATEquery('tt_content', $where, $fieldArray,
-                                'tx_gridelements_container');
-                            $this->getTceMain()->updateRefIndex('tt_content', (int)$targetContainer['uid']);
-                        }
-                    }
-                }
+        if ($uid <= 0) {
+            return;
+        }
+        $currentValues = $this->databaseConnection->exec_SELECTgetSingleRow(
+            'uid,tx_gridelements_container,tx_gridelements_columns,sys_language_uid,colPos,l18n_parent',
+            'tt_content', 'deleted = 0 AND uid=' . (int)$uid
+        );
+        if (!empty($currentValues['l18n_parent'])) {
+            $currentValues = $this->databaseConnection->exec_SELECTgetSingleRow(
+                'uid,tx_gridelements_container,tx_gridelements_columns,sys_language_uid,colPos,l18n_parent',
+                'tt_content', 'deleted = 0 AND uid=' . (int)$currentValues['l18n_parent']
+            );
+        }
+        if (empty($currentValues['uid'])) {
+            return;
+        }
+        $translatedElements = $this->databaseConnection->exec_SELECTgetRows(
+            'uid,tx_gridelements_container,tx_gridelements_columns,sys_language_uid,colPos,l18n_parent',
+            'tt_content', 'deleted = 0 AND l18n_parent=' . (int)$currentValues['uid'], '', '', '', 'uid'
+        );
+        if (empty($translatedElements)) {
+            return;
+        }
+        if ($currentValues['tx_gridelements_container'] > 0) {
+            $translatedContainers = $this->databaseConnection->exec_SELECTgetRows(
+                'uid,sys_language_uid',
+                'tt_content', 'deleted = 0 AND l18n_parent=' . (int)$currentValues['tx_gridelements_container'], '', '',
+                '', 'sys_language_uid'
+            );
+        }
+        $containerUpdateArray = array();
+        foreach ($translatedElements as $translatedUid => $translatedElement) {
+            $updateArray = array();
+            if (isset($translatedContainers[$translatedElement['sys_language_uid']])) {
+                $updateArray['tx_gridelements_container'] = (int)$translatedContainers[$translatedElement['sys_language_uid']]['uid'];
+                $updateArray['tx_gridelements_columns'] = (int)$currentValues['tx_gridelements_columns'];
+            } else if ($translatedElement['tx_gridelements_container'] == $currentValues['tx_gridelements_container']) {
+                $updateArray['tx_gridelements_container'] = (int)$currentValues['tx_gridelements_container'];
+                $updateArray['tx_gridelements_columns'] = (int)$currentValues['tx_gridelements_columns'];
+            } else {
+                $updateArray['tx_gridelements_container'] = 0;
+                $updateArray['tx_gridelements_columns'] = 0;
             }
+            $updateArray['colPos'] = (int)$currentValues['colPos'];
+            $this->databaseConnection->exec_UPDATEquery('tt_content', 'uid=' . (int)$translatedUid,
+                $updateArray,
+                'tx_gridelements_container,tx_gridelements_columns,colPos'
+            );
+
+            if ($translatedElement['tx_gridelements_container'] !== $updateArray['tx_gridelements_container']) {
+                $containerUpdateArray[$translatedElement['tx_gridelements_container']] -= 1;
+                $containerUpdateArray[$updateArray['tx_gridelements_container']] += 1;
+                $this->getTceMain()->updateRefIndex('tt_content', $translatedElement['tx_gridelements_container']);
+                $this->getTceMain()->updateRefIndex('tt_content', $updateArray['tx_gridelements_container']);
+            }
+        }
+        if (!empty($containerUpdateArray)) {
+            $this->doGridContainerUpdate($containerUpdateArray);
         }
     }
 }

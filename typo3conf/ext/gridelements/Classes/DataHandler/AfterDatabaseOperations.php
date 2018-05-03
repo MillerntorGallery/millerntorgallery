@@ -20,6 +20,8 @@ namespace GridElementsTeam\Gridelements\DataHandler;
  ***************************************************************/
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\View\BackendLayoutView;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -31,7 +33,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class AfterDatabaseOperations extends AbstractDataHandler
 {
-
     /**
      * Function to set the colPos of an element depending on
      * whether it is a child of a parent container or not
@@ -41,19 +42,20 @@ class AfterDatabaseOperations extends AbstractDataHandler
      * -2 = non used elements column
      * changes are applied to the field array of the parent object by reference
      *
-     * @param array $fieldArray : The array of fields and values that have been saved to the datamap
-     * @param string $table : The name of the table the data should be saved to
-     * @param integer $id : The parent uid of either the page or the container we are currently working on
-     * @param \TYPO3\CMS\Core\DataHandling\DataHandler $parentObj : The parent object that triggered this hook
-     *
-     * @return void
+     * @param array $fieldArray The array of fields and values that have been saved to the datamap
+     * @param string $table The name of the table the data should be saved to
+     * @param int $uid the ID of the record
+     * @param DataHandler $parentObj The parent object that triggered this hook
      */
-    public function execute_afterDatabaseOperations(&$fieldArray, $table, $id, &$parentObj)
+    public function execute_afterDatabaseOperations(array &$fieldArray, $table, $uid, DataHandler $parentObj)
     {
-        if ($table === 'tt_content') {
-            $this->init($table, $id, $parentObj);
+        if ($table === 'tt_content' || $table === 'pages') {
+            $this->init($table, $uid, $parentObj);
             if (!$this->getTceMain()->isImporting) {
                 $this->saveCleanedUpFieldArray($fieldArray);
+                if ((int)$uid > 0) {
+                    $this->checkAndUpdateTranslatedElements($uid);
+                }
             }
         }
     }
@@ -62,13 +64,14 @@ class AfterDatabaseOperations extends AbstractDataHandler
      * save cleaned up field array
      *
      * @param array $changedFieldArray
-     *
-     * @return array cleaned up field array
      */
     public function saveCleanedUpFieldArray(array $changedFieldArray)
     {
         unset($changedFieldArray['pi_flexform']);
-        if ((isset($changedFieldArray['tx_gridelements_backend_layout']) && $this->getTable() === 'tt_content') || (isset($changedFieldArray['backend_layout']) && $this->getTable() == 'pages') || (isset($changedFieldArray['backend_layout_next_level']) && $this->getTable() == 'pages')) {
+        if (isset($changedFieldArray['tx_gridelements_backend_layout']) && $this->getTable() === 'tt_content'
+            || isset($changedFieldArray['backend_layout']) && $this->getTable() === 'pages'
+            || isset($changedFieldArray['backend_layout_next_level']) && $this->getTable() === 'pages'
+        ) {
             $this->setUnusedElements($changedFieldArray);
         }
     }
@@ -76,10 +79,9 @@ class AfterDatabaseOperations extends AbstractDataHandler
     /**
      * Function to move elements to/from the unused elements column while changing the layout of a page or a grid element
      *
-     * @param array $fieldArray : The array of fields and values that have been saved to the datamap
-     * return void
+     * @param array $fieldArray The array of fields and values that have been saved to the datamap
      */
-    public function setUnusedElements(&$fieldArray)
+    public function setUnusedElements(array &$fieldArray)
     {
         $changedGridElements = array();
         $changedElements = array();
@@ -93,7 +95,7 @@ class AfterDatabaseOperations extends AbstractDataHandler
                 $this->getPageUid());
             if (!empty($availableColumns) || $availableColumns === '0') {
                 $childElementsInUnavailableColumns = array_keys($this->databaseConnection->exec_SELECTgetRows('uid',
-                    'tt_content', 'tx_gridelements_container = ' . $this->getPageUid() . '
+                    'tt_content', 'tx_gridelements_container > 0 AND tx_gridelements_container = ' . $this->getPageUid() . '
 					AND tx_gridelements_columns NOT IN (' . $availableColumns . ')', '', '', '', 'uid'));
                 if (!empty($childElementsInUnavailableColumns)) {
                     $this->databaseConnection->sql_query('
@@ -105,7 +107,7 @@ class AfterDatabaseOperations extends AbstractDataHandler
                 }
 
                 $childElementsInAvailableColumns = array_keys($this->databaseConnection->exec_SELECTgetRows('uid',
-                    'tt_content', 'tx_gridelements_container = ' . $this->getPageUid() . '
+                    'tt_content', 'tx_gridelements_container > 0 AND tx_gridelements_container = ' . $this->getPageUid() . '
 						AND tx_gridelements_columns IN (' . $availableColumns . ')', '', '', '', 'uid'));
                 if (!empty($childElementsInAvailableColumns)) {
                     $this->databaseConnection->sql_query('
@@ -220,8 +222,7 @@ class AfterDatabaseOperations extends AbstractDataHandler
                             $subPageElementsInAvailableColumns = array();
                         }
 
-                        $changedPageElements = array_merge($subPageElementsInUnavailableColumns,
-                            $subPageElementsInAvailableColumns);
+                        $changedPageElements = array_merge($subPageElementsInUnavailableColumns, $subPageElementsInAvailableColumns);
                         $changedSubPageElements = array_merge($changedSubPageElements, $changedPageElements);
                     }
                 }
@@ -239,16 +240,16 @@ class AfterDatabaseOperations extends AbstractDataHandler
     /**
      * gets all subpages of the current page and traverses recursively unless backend_layout_next_level is set or unset (!= 0)
      *
-     * @param $pageUid
-     * @param $subpages
-     *
-     * @internal param int $id : the uid of the parent page
-     * @return array $subpages : Reference to a list of all subpages
+     * @param int $pageUid
+     * @param array $subpages
      */
-    public function getSubpagesRecursively($pageUid, &$subpages)
+    public function getSubpagesRecursively($pageUid, array &$subpages)
     {
-        $childPages = $this->databaseConnection->exec_SELECTgetRows('uid, backend_layout, backend_layout_next_level',
-            'pages', 'pid = ' . (int)$pageUid);
+        $childPages = $this->databaseConnection->exec_SELECTgetRows(
+            'uid, backend_layout, backend_layout_next_level',
+            'pages',
+            'pid = ' . (int)$pageUid
+        );
 
         if (!empty($childPages)) {
             foreach ($childPages as $page) {
@@ -265,21 +266,21 @@ class AfterDatabaseOperations extends AbstractDataHandler
     /**
      * fetches all available columns for a certain grid container based on TCA settings and layout records
      *
-     * @param string $layout : The selected backend layout of the grid container or the page
-     * @param string $table : The name of the table to get the layout for
-     * @param int $id : the uid of the parent container - being the page id for the table "pages"
+     * @param string $layout The selected backend layout of the grid container or the page
+     * @param string $table The name of the table to get the layout for
+     * @param int $id he uid of the parent container - being the page id for the table "pages"
      *
-     * @return string $tcaColumns : The columns available for the selected layout as CSV list
+     * @return string The columns available for the selected layout as CSV list
      */
     public function getAvailableColumns($layout = '', $table = '', $id = 0)
     {
-        $tcaColumns = array();
+        $tcaColumns = '';
 
         if ($layout && $table === 'tt_content') {
             $tcaColumns = $this->layoutSetup->getLayoutColumns($layout);
-            $tcaColumns = $tcaColumns['CSV'];
-        } else if ($table === 'pages') {
-            $tcaColumns = GeneralUtility::callUserFunction('TYPO3\\CMS\\Backend\\View\\BackendLayoutView->getColPosListItemsParsed',
+            $tcaColumns = '-2,-1,' . $tcaColumns['CSV'];
+        } elseif ($table === 'pages') {
+            $tcaColumns = GeneralUtility::callUserFunction(BackendLayoutView::class . '->getColPosListItemsParsed',
                 $id, $this);
             $temp = array();
             foreach ($tcaColumns AS $item) {
@@ -288,10 +289,9 @@ class AfterDatabaseOperations extends AbstractDataHandler
                 }
             }
             // Implode into a CSV string as BackendLayoutView->getColPosListItemsParsed returns an array
-            $tcaColumns = '-2,-1,' . implode(',', $temp);
+            $tcaColumns = rtrim('-2,-1,' . implode(',', $temp), ',');
         }
 
         return $tcaColumns;
     }
-
 }
