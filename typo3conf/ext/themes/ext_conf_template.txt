@@ -1,4 +1,0 @@
-# cat=basic; type=string; label=Categories which should be shown
-categoriesToShow = theme,languages,socialmedia,forms,extension,bootstrap,colors,font,meta,metaDefaults,pages,container,menu,header,footer
-# cat=basic; type=string; label=constants to hide
-constantsToHide = dateFormat,timeFormat,dateTimeFormat

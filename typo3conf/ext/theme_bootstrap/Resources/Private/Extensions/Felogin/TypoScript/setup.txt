@@ -1,5 +1,0 @@
-plugin.tx_felogin_pi1 {
-
-	#storagePid - where are the user records? use single value or a comma separated list
-	storagePid = {$themes.configuration.container.frontendUser}
-}

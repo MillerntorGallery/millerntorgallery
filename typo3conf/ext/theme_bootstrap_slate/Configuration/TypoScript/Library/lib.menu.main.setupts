@@ -1,3 +1,0 @@
-lib.menu.main {
-	wrap = <ul class="nav navbar-nav additional-css-class"> | </ul>
-}
