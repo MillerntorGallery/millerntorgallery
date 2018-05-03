@@ -1,3 +1,0 @@
-## Theme-Millerntor Change-Log
-
-
