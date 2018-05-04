@@ -1,7 +1,9 @@
 {   "repositories": [
         { "type": "composer", "url": "https://composer.typo3.org/" },
         { "type": "vcs", "url": "https://github.com/MillerntorGallery/theme_millerntor"},
+        { "type": "vcs", "url": "https://github.com/MillerntorGallery/vca_millerntor"},
         { "type": "vcs", "url": "https://github.com/typo3-themes/themes"},
+        { "type": "vcs", "url": "https://github.com/typo3-themes/theme_bootstrap"},
         { "type": "vcs", "url": "https://github.com/TYPO3-extensions/gridelements"},
         { "type": "vcs", "url": "https://bitbucket.org/plus-b/pb_social.git"}
     ],
@@ -10,9 +12,14 @@
     "type": "project",
     "require": {
         "typo3/cms": "7.6.6",
-        "typo3-ter/theme-bootstrap": "7.0.0",
         "plusb/pb_social": "1.3.1",
-        "vca/theme-millerntor": "dev-master as 7.0.0"
+        "vca/theme-millerntor": "dev-master as 7.0.0",
+        "vca/vca-millerntor": "dev-master as 7.0.0"
+    },
+    "support": {
+        "issues": "https://github.com/MillerntorGallery/millerntorgallery/issues",
+        "source": "https://github.com/MillerntorGallery/millerntorgallery",
+        "docs": "https://github.com/MillerntorGallery/millerntorgallery/blob/master/README.md"
     },
     "license": "GPL",
     "authors": [
@@ -21,7 +28,6 @@
             "email": "sfuchs@projektkater.de"
         }
     ],
-    "minimum-stability": "RC",
     "extra": {
         "typo3/cms": {
             "cms-package-dir": "{$vendor-dir}/typo3/cms",

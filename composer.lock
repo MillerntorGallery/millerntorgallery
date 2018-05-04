@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "457ad28408087621cc67601e1fd86a04",
+    "content-hash": "c2b89de928c5248c879212f043841c9f",
     "packages": [
         {
             "name": "cogpowered/finediff",
@@ -844,10 +844,10 @@
         },
         {
             "name": "typo3-ter/theme-bootstrap",
-            "version": "7.0.0",
+            "version": "7.0.1",
             "dist": {
                 "type": "zip",
-                "url": "https://extensions.typo3.org/extension/download/theme_bootstrap/7.0.0/zip/",
+                "url": "https://extensions.typo3.org/extension/download/theme_bootstrap/7.0.1/zip/",
                 "reference": null,
                 "shasum": null
             },
@@ -881,7 +881,7 @@
                 }
             ],
             "description": "Theme to use Twitter Bootstrap",
-            "time": "2016-04-09T20:57:20+00:00"
+            "time": "2016-09-01T20:09:23+00:00"
         },
         {
             "name": "typo3-ter/themes",
@@ -952,6 +952,39 @@
                 }
             ],
             "time": "2016-04-11T10:50:23+00:00"
+        },
+        {
+            "name": "typo3-ter/vhs",
+            "version": "3.1.0",
+            "dist": {
+                "type": "zip",
+                "url": "https://extensions.typo3.org/extension/download/vhs/3.1.0/zip/",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "php": ">= 5.5.0, <= 7.0.99",
+                "typo3/cms-core": ">= 7.6.0, <= 8.4.99"
+            },
+            "replace": {
+                "vhs": "self.version"
+            },
+            "type": "typo3-cms-extension",
+            "autoload": {
+                "psr-4": {
+                    "FluidTYPO3\\Vhs\\": "Classes/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "FluidTYPO3 Team",
+                    "email": "claus@namelesscoder.net",
+                    "company": "",
+                    "username": "fluidtypo3"
+                }
+            ],
+            "description": "A collection of ViewHelpers to perform rendering tasks which are not natively supported by Fluid - for example: advanced formatters, math calculators, specialized conditions and Iterator/Array calculators and processors",
+            "time": "2016-10-18T15:46:15+00:00"
         },
         {
             "name": "typo3/class-alias-loader",
@@ -1279,12 +1312,69 @@
                 "typo3"
             ],
             "time": "2017-12-04T15:30:33+00:00"
+        },
+        {
+            "name": "vca/vca-millerntor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MillerntorGallery/vca_millerntor.git",
+                "reference": "2cd5b60ff781d5176e84e9bdf61e2f46732a069d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MillerntorGallery/vca_millerntor/zipball/2cd5b60ff781d5176e84e9bdf61e2f46732a069d",
+                "reference": "2cd5b60ff781d5176e84e9bdf61e2f46732a069d",
+                "shasum": ""
+            },
+            "require": {
+                "typo3-ter/vhs": "^3.1",
+                "typo3/cms": "^7.6"
+            },
+            "replace": {
+                "typo3-ter/vca_millerntor": "self.version",
+                "vca/vca_millerntor": "self.version",
+                "vca_millerntor": "self.version"
+            },
+            "type": "typo3-cms-extension",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "TYPO3 Plugin to manage exibitions and artists for millerntorgallery.org",
+            "homepage": "http://millerntorgallery.org",
+            "keywords": [
+                "EXTBASE",
+                "FLUID",
+                "TYPO3 CMS",
+                "TYPO3 PLUGIN"
+            ],
+            "support": {
+                "issues": "https://github.com/MillerntorGALLERY/vca_millerntor/issues",
+                "source": "https://github.com/MillerntorGallery/vca_millerntor/tree/master"
+            },
+            "time": "2018-05-04T14:11:57+00:00"
         }
     ],
     "packages-dev": [],
-    "aliases": [],
-    "minimum-stability": "RC",
-    "stability-flags": [],
+    "aliases": [
+        {
+            "alias": "7.0.0",
+            "alias_normalized": "7.0.0.0",
+            "version": "9999999-dev",
+            "package": "vca/theme-millerntor"
+        },
+        {
+            "alias": "7.0.0",
+            "alias_normalized": "7.0.0.0",
+            "version": "9999999-dev",
+            "package": "vca/vca-millerntor"
+        }
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "vca/theme-millerntor": 20,
+        "vca/vca-millerntor": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
