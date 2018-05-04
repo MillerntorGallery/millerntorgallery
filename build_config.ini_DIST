@@ -1,2 +1,0 @@
-build.chown=www-data:www-data
-build.chmod=770
