@@ -1578,46 +1578,45 @@
             "time": "2017-12-04T15:30:33+00:00"
         },
         {
-            "name": "vca/theme-millerntor",
+            "name": "vca/vca-millerntor",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/MillerntorGallery/theme_millerntor.git",
-                "reference": "662dc4c74cd3b68fd47971c486d5f1c222a21f6b"
+                "url": "https://github.com/MillerntorGallery/vca_millerntor.git",
+                "reference": "2cd5b60ff781d5176e84e9bdf61e2f46732a069d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/662dc4c74cd3b68fd47971c486d5f1c222a21f6b",
-                "reference": "662dc4c74cd3b68fd47971c486d5f1c222a21f6b",
+                "url": "https://api.github.com/repos/MillerntorGallery/vca_millerntor/zipball/2cd5b60ff781d5176e84e9bdf61e2f46732a069d",
+                "reference": "2cd5b60ff781d5176e84e9bdf61e2f46732a069d",
                 "shasum": ""
             },
             "require": {
-                "typo3-ter/theme-bootstrap": "7.0.1"
+                "typo3-ter/vhs": "^3.1",
+                "typo3/cms": "^7.6"
             },
             "replace": {
-                "theme_millerntor": "self.version",
-                "typo3-ter/themes_millerntor": "self.version",
-                "vca/themes_millerntor": "self.version"
+                "typo3-ter/vca_millerntor": "self.version",
+                "vca/vca_millerntor": "self.version",
+                "vca_millerntor": "self.version"
             },
             "type": "typo3-cms-extension",
             "license": [
                 "GPL-2.0+"
             ],
-            "description": "TYPO3 THEMES for millerntorgallery.org",
+            "description": "TYPO3 Plugin to manage exibitions and artists for millerntorgallery.org",
             "homepage": "http://millerntorgallery.org",
             "keywords": [
-                "BOOSTRAP",
-                "CUSTOMIZE",
+                "EXTBASE",
                 "FLUID",
-                "THEMES",
                 "TYPO3 CMS",
-                "TYPO3 THEMES"
+                "TYPO3 PLUGIN"
             ],
             "support": {
-                "issues": "https://github.com/MillerntorGALLERY/theme_millerntor/issues",
-                "source": "https://github.com/MillerntorGallery/theme_millerntor/tree/master"
+                "issues": "https://github.com/MillerntorGALLERY/vca_millerntor/issues",
+                "source": "https://github.com/MillerntorGallery/vca_millerntor/tree/master"
             },
-            "time": "2018-05-04T08:26:37+00:00"
+            "time": "2018-05-04T14:11:57+00:00"
         }
     ],
     "packages-dev": [],

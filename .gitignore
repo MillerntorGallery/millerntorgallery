@@ -41,5 +41,19 @@
 /typo3conf/ext/phpmyadmin
 /typo3conf/ext/vhs
 /typo3conf/ext/pb_social_back
+/typo3conf/ext/cal
+/typo3conf/ext/pb_social
+/typo3conf/ext/realurl
+/typo3conf/ext/rlmp_language_detection
+/typo3conf/ext/rx_shariff
+/typo3conf/ext/seo_basics
+/typo3conf/ext/theme_bootstrap
+/typo3conf/ext/themes
+/typo3conf/ext/themes_gridelements
+/typo3conf/ext/gridelements
+/typo3conf/ext/dyncss
+/typo3conf/ext/dyncss_less
+/typo3conf/ext/jh_opengraphprotocol
+
 
 /vendor/
