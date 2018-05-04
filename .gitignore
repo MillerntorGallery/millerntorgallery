@@ -54,6 +54,8 @@
 /typo3conf/ext/dyncss
 /typo3conf/ext/dyncss_less
 /typo3conf/ext/jh_opengraphprotocol
+/typo3conf/ext/mediace
+/typo3conf/ext/lfeditor
 
 
 /vendor/

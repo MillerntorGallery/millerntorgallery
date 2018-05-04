@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a2bc0398e612e45d7a086901cb33998",
+    "content-hash": "f5a87865f83984fecbd741ab21aaecf0",
     "packages": [
         {
             "name": "b13/seo_basics",
@@ -257,21 +257,21 @@
         },
         {
             "name": "pear/http_request2",
-            "version": "v2.2.1",
+            "version": "v2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/HTTP_Request2.git",
-                "reference": "d6c81670c504045248c1afdf896bb9a3288158de"
+                "reference": "3599cf0fe455a4e281da464f6510bfc5c2ce54c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pear/HTTP_Request2/zipball/d6c81670c504045248c1afdf896bb9a3288158de",
-                "reference": "d6c81670c504045248c1afdf896bb9a3288158de",
+                "url": "https://api.github.com/repos/pear/HTTP_Request2/zipball/3599cf0fe455a4e281da464f6510bfc5c2ce54c4",
+                "reference": "3599cf0fe455a4e281da464f6510bfc5c2ce54c4",
                 "shasum": ""
             },
             "require": {
-                "pear/net_url2": ">=2.0.0",
-                "pear/pear_exception": "*",
+                "pear/net_url2": "^2.2.0",
+                "pear/pear_exception": "^1.0.0",
                 "php": ">=5.2.0"
             },
             "suggest": {
@@ -281,20 +281,27 @@
                 "lib-openssl": "Allows handling SSL requests when not using cURL."
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-trunk": "2.2-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "HTTP_Request2": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "./"
+            ],
             "license": [
                 "BSD-3-Clause"
             ],
             "authors": [
                 {
                     "name": "Alexey Borzov",
-                    "email": "avb@php.net",
-                    "role": "Developer HTML_Common2"
+                    "email": "avb@php.net"
                 }
             ],
             "description": "Provides an easy way to perform HTTP requests.",
@@ -305,7 +312,7 @@
                 "http",
                 "request"
             ],
-            "time": "2014-01-16T17:27:21+00:00"
+            "time": "2016-02-13T20:20:39+00:00"
         },
         {
             "name": "pear/net_url2",
@@ -716,36 +723,37 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.7.46",
+            "version": "v2.8.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "27874602b1a3089cb99c427cc24fa99a10b27a58"
+                "reference": "932d1e4f7f33ee37d3534f5f452474daa66283c2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/27874602b1a3089cb99c427cc24fa99a10b27a58",
-                "reference": "27874602b1a3089cb99c427cc24fa99a10b27a58",
+                "url": "https://api.github.com/repos/symfony/console/zipball/932d1e4f7f33ee37d3534f5f452474daa66283c2",
+                "reference": "932d1e4f7f33ee37d3534f5f452474daa66283c2",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.9",
-                "symfony/debug": "^2.7.2"
+                "symfony/debug": "^2.7.2|~3.0.0",
+                "symfony/polyfill-mbstring": "~1.0"
             },
             "require-dev": {
                 "psr/log": "~1.0",
-                "symfony/event-dispatcher": "~2.1",
-                "symfony/process": "~2.1"
+                "symfony/event-dispatcher": "~2.1|~3.0.0",
+                "symfony/process": "~2.1|~3.0.0"
             },
             "suggest": {
-                "psr/log": "For using the console logger",
+                "psr/log-implementation": "For using the console logger",
                 "symfony/event-dispatcher": "",
                 "symfony/process": ""
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -772,7 +780,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-22T05:55:13+00:00"
+            "time": "2018-04-30T01:21:07+00:00"
         },
         {
             "name": "symfony/debug",
@@ -833,16 +841,16 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v2.7.46",
+            "version": "v2.8.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "79fe1ed67eda99c2d4282d8c52f6d9220bf00740"
+                "reference": "423746fc18ccf31f9abec43e4f078bb6e024b2d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/79fe1ed67eda99c2d4282d8c52f6d9220bf00740",
-                "reference": "79fe1ed67eda99c2d4282d8c52f6d9220bf00740",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/423746fc18ccf31f9abec43e4f078bb6e024b2d5",
+                "reference": "423746fc18ccf31f9abec43e4f078bb6e024b2d5",
                 "shasum": ""
             },
             "require": {
@@ -851,7 +859,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -878,7 +886,66 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-04T06:34:32+00:00"
+            "time": "2018-04-04T13:38:31+00:00"
+        },
+        {
+            "name": "symfony/polyfill-mbstring",
+            "version": "v1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-mbstring.git",
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
+                "reference": "3296adf6a6454a050679cde90f95350ad604b171",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Mbstring\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "typo3-ter/cal",
@@ -924,15 +991,15 @@
         },
         {
             "name": "typo3-ter/dyncss",
-            "version": "0.7.9",
+            "version": "0.8.3",
             "dist": {
                 "type": "zip",
-                "url": "https://extensions.typo3.org/extension/download/dyncss/0.7.9/zip/",
+                "url": "https://extensions.typo3.org/extension/download/dyncss/0.8.3/zip/",
                 "reference": null,
                 "shasum": null
             },
             "require": {
-                "typo3/cms-core": ">= 6.2.10, <= 7.6.99"
+                "typo3/cms-core": ">= 7.6.15, <= 8.7.99"
             },
             "replace": {
                 "dyncss": "self.version"
@@ -952,20 +1019,20 @@
                 }
             ],
             "description": "Compile your CSS dynamically with DynCss Adapters.",
-            "time": "2016-08-18T19:10:08+00:00"
+            "time": "2018-01-05T08:11:00+00:00"
         },
         {
             "name": "typo3-ter/dyncss-less",
-            "version": "0.7.7",
+            "version": "0.7.9",
             "dist": {
                 "type": "zip",
-                "url": "https://extensions.typo3.org/extension/download/dyncss_less/0.7.7/zip/",
+                "url": "https://extensions.typo3.org/extension/download/dyncss_less/0.7.9/zip/",
                 "reference": null,
                 "shasum": null
             },
             "require": {
-                "typo3-ter/dyncss": "*",
-                "typo3/cms-core": "*"
+                "typo3-ter/dyncss": ">= 0.8.0, <= 0.8.99",
+                "typo3/cms-core": ">= 7.6.15, <= 8.7.99"
             },
             "replace": {
                 "dyncss_less": "self.version",
@@ -973,15 +1040,9 @@
             },
             "type": "typo3-cms-extension",
             "autoload": {
-                "classmap": [
-                    ""
-                ],
-                "exclude-from-classmap": [
-                    "Migrations",
-                    "Tests",
-                    "tests",
-                    "class.ext_update.php"
-                ]
+                "psr-4": {
+                    "KayStrobach\\DyncssLess\\": "Classes/"
+                }
             },
             "authors": [
                 {
@@ -992,7 +1053,7 @@
                 }
             ],
             "description": "DynCss-Parser",
-            "time": "2016-04-09T18:33:18+00:00"
+            "time": "2017-04-11T20:38:30+00:00"
         },
         {
             "name": "typo3-ter/gridelements",
@@ -1029,6 +1090,73 @@
             ],
             "description": "This extension integrates the grid layout concept also to regular content elements - the grid elements.\r\nIt offers a lot of new features like advanced drag & drop or real references, that improve the usability of the page and list module to speed up the daily work with the backend.",
             "time": "2018-04-03T18:32:54+00:00"
+        },
+        {
+            "name": "typo3-ter/lfeditor",
+            "version": "4.2.4",
+            "dist": {
+                "type": "zip",
+                "url": "https://extensions.typo3.org/extension/download/lfeditor/4.2.4/zip/",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "typo3/cms-core": ">= 7.6.12, <= 8.7.99"
+            },
+            "replace": {
+                "lfeditor": "self.version"
+            },
+            "suggest": {
+                "typo3-ter/tinymce": ">= 4.2.8"
+            },
+            "type": "typo3-cms-extension",
+            "autoload": {
+                "psr-4": {
+                    "SGalinski\\Lfeditor\\": "Classes/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Stefan Galinski, Damjan Komlenac",
+                    "email": "stefan@sgalinski.de",
+                    "company": "sgalinski Internet Services",
+                    "username": "sgalinsk"
+                }
+            ],
+            "description": "This module serves several functions for editing of language files.\nThe extension differs between editors and administrators with appropriate privileges.\nNormal users are allowed to edit only languages for which they have permission.\nFollowing functions are implemented in this module:\n\t Formats: PHP, XML and XLF\n\t Enhanced insert types (resizable text area, TinyMCE)\n\t Conversion of formats\n\t Splitting and merging of language files\n\t Override mode\n\t Editing L10n folder content\n\t Simple editing of constants and languages (edit/add/rename/delete constants)\n\t Flexible search and view of constants and values\n\t Tree view of constants\n\t Meta information handling\n\t Backups, recovering and diff view",
+            "time": "2018-04-04T18:14:31+00:00"
+        },
+        {
+            "name": "typo3-ter/mediace",
+            "version": "7.6.4",
+            "dist": {
+                "type": "zip",
+                "url": "https://extensions.typo3.org/extension/download/mediace/7.6.4/zip/",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "typo3/cms-core": ">= 7.6.0, <= 7.6.99"
+            },
+            "replace": {
+                "mediace": "self.version"
+            },
+            "type": "typo3-cms-extension",
+            "autoload": {
+                "psr-4": {
+                    "FoT3\\Mediace\\": "Classes/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Friends of TYPO3",
+                    "email": "friendsof@typo3.org",
+                    "company": "",
+                    "username": "benni"
+                }
+            ],
+            "description": "The media functionality from TYPO3 6.2 and earlier can be found here. This extension provides ContentObjects and Content Elements.",
+            "time": "2017-03-30T11:59:46+00:00"
         },
         {
             "name": "typo3-ter/realurl",
@@ -1310,38 +1438,45 @@
         },
         {
             "name": "typo3/cms",
-            "version": "7.6.6",
+            "version": "v7.6.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3/TYPO3.CMS.git",
-                "reference": "7a6112192ecdb3f82f59a1d89e075406546b5988"
+                "reference": "22d0da3af76bb7aa2cf1ce31851370be7c47acb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/7a6112192ecdb3f82f59a1d89e075406546b5988",
-                "reference": "7a6112192ecdb3f82f59a1d89e075406546b5988",
+                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/22d0da3af76bb7aa2cf1ce31851370be7c47acb2",
+                "reference": "22d0da3af76bb7aa2cf1ce31851370be7c47acb2",
                 "shasum": ""
             },
             "require": {
                 "cogpowered/finediff": "~0.3.1",
                 "doctrine/instantiator": "~1.0.4",
-                "ext-fileinfo": "*",
                 "ext-json": "*",
                 "ext-pcre": "*",
                 "ext-session": "*",
                 "ext-xml": "*",
                 "mso/idna-convert": "^0.9.1",
-                "pear/http_request2": "~2.2.1",
+                "pear/http_request2": "~2.3.0",
                 "php": ">=5.5.0",
                 "psr/http-message": "~1.0",
-                "psr/log": "1.0.*@dev",
-                "swiftmailer/swiftmailer": "~5.4.1",
-                "symfony/console": "~2.7.0",
-                "symfony/finder": "~2.7.0",
+                "psr/log": "~1.0.0",
+                "swiftmailer/swiftmailer": "~5.4.5",
+                "symfony/console": "^2.7",
+                "symfony/debug": "^2.7",
+                "symfony/finder": "^2.7",
                 "typo3/class-alias-loader": "^1.0",
-                "typo3/cms-composer-installers": "^1.2.5"
+                "typo3/cms-composer-installers": "^1.2.8"
+            },
+            "conflict": {
+                "symfony/finder": "2.7.44 || 2.8.37"
             },
             "replace": {
+                "typo3-ter/adodb": "*",
+                "typo3-ter/dbal": "*",
+                "typo3-ter/func": "*",
+                "typo3-ter/rtehtmlarea": "*",
                 "typo3/cms-about": "self.version",
                 "typo3/cms-aboutmodules": "self.version",
                 "typo3/cms-adodb": "self.version",
@@ -1398,10 +1533,19 @@
                 "typo3/cms-workspaces": "self.version"
             },
             "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.2",
                 "mikey179/vfsstream": "1.6.0",
-                "phpunit/phpunit": "~4.8.0"
+                "phpunit/phpunit": "~4.8.0",
+                "symfony/event-dispatcher": "^2.8",
+                "symfony/filesystem": "^2.8",
+                "symfony/options-resolver": "^2.8",
+                "symfony/polyfill-mbstring": "~1.0",
+                "symfony/process": "^2.8",
+                "symfony/stopwatch": "^2.8",
+                "symfony/yaml": "^2.8"
             },
             "suggest": {
+                "ext-fileinfo": "Used for proper file type detection in the file abstraction layer",
                 "ext-gd": "GDlib/Freetype is required for building images with text (GIFBUILDER) and can also be used to scale images",
                 "ext-mysqli": "",
                 "ext-openssl": "",
@@ -1415,7 +1559,7 @@
                     "always-add-alias-loader": true
                 },
                 "branch-alias": {
-                    "dev-master": "7.x-dev"
+                    "dev-TYPO3_7-6": "7.x-dev"
                 }
             },
             "autoload": {
@@ -1472,30 +1616,27 @@
                     "TYPO3\\CMS\\Workspaces\\": "typo3/sysext/workspaces/Classes/"
                 },
                 "classmap": [
-                    "typo3/sysext/core/Resources/PHP/"
+                    "typo3/sysext/core/Resources/PHP/",
+                    "typo3/sysext/fluid/Resources/PHP/"
                 ],
                 "files": [
                     "typo3/sysext/core/Resources/PHP/GlobalDebugFunctions.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "vendor/pear/http_request2/",
-                "vendor/pear/net_url2/"
-            ],
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
-                {
-                    "name": "TYPO3 CMS Core Team",
-                    "homepage": "http://forge.typo3.org/projects/typo3cms-core",
-                    "role": "Developer"
-                },
                 {
                     "name": "The TYPO3 Community",
                     "homepage": "https://typo3.org/community/",
                     "role": "Contributor"
+                },
+                {
+                    "name": "TYPO3 CMS Core Team",
+                    "homepage": "https://forge.typo3.org/projects/typo3cms-core",
+                    "role": "Developer"
                 }
             ],
             "description": "TYPO3 CMS is a free open source Content Management Framework initially created by Kasper Skaarhoj and licensed under GNU/GPL.",
@@ -1506,7 +1647,7 @@
                 "extbase",
                 "typo3"
             ],
-            "time": "2016-04-26T09:42:35+00:00"
+            "time": "2018-04-17T08:09:51+00:00"
         },
         {
             "name": "typo3/cms-composer-installers",
@@ -1578,45 +1719,46 @@
             "time": "2017-12-04T15:30:33+00:00"
         },
         {
-            "name": "vca/vca-millerntor",
+            "name": "vca/theme-millerntor",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/MillerntorGallery/vca_millerntor.git",
-                "reference": "2cd5b60ff781d5176e84e9bdf61e2f46732a069d"
+                "url": "https://github.com/MillerntorGallery/theme_millerntor.git",
+                "reference": "662dc4c74cd3b68fd47971c486d5f1c222a21f6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MillerntorGallery/vca_millerntor/zipball/2cd5b60ff781d5176e84e9bdf61e2f46732a069d",
-                "reference": "2cd5b60ff781d5176e84e9bdf61e2f46732a069d",
+                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/662dc4c74cd3b68fd47971c486d5f1c222a21f6b",
+                "reference": "662dc4c74cd3b68fd47971c486d5f1c222a21f6b",
                 "shasum": ""
             },
             "require": {
-                "typo3-ter/vhs": "^3.1",
-                "typo3/cms": "^7.6"
+                "typo3-ter/theme-bootstrap": "7.0.1"
             },
             "replace": {
-                "typo3-ter/vca_millerntor": "self.version",
-                "vca/vca_millerntor": "self.version",
-                "vca_millerntor": "self.version"
+                "theme_millerntor": "self.version",
+                "typo3-ter/themes_millerntor": "self.version",
+                "vca/themes_millerntor": "self.version"
             },
             "type": "typo3-cms-extension",
             "license": [
                 "GPL-2.0+"
             ],
-            "description": "TYPO3 Plugin to manage exibitions and artists for millerntorgallery.org",
+            "description": "TYPO3 THEMES for millerntorgallery.org",
             "homepage": "http://millerntorgallery.org",
             "keywords": [
-                "EXTBASE",
+                "BOOSTRAP",
+                "CUSTOMIZE",
                 "FLUID",
+                "THEMES",
                 "TYPO3 CMS",
-                "TYPO3 PLUGIN"
+                "TYPO3 THEMES"
             ],
             "support": {
-                "issues": "https://github.com/MillerntorGALLERY/vca_millerntor/issues",
-                "source": "https://github.com/MillerntorGallery/vca_millerntor/tree/master"
+                "issues": "https://github.com/MillerntorGALLERY/theme_millerntor/issues",
+                "source": "https://github.com/MillerntorGallery/theme_millerntor/tree/master"
             },
-            "time": "2018-05-04T14:11:57+00:00"
+            "time": "2018-05-04T08:26:37+00:00"
         }
     ],
     "packages-dev": [],
