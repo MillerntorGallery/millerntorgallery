@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5a87865f83984fecbd741ab21aaecf0",
+    "content-hash": "5659b4230c79dd56346cdb9b50362129",
     "packages": [
         {
             "name": "b13/seo_basics",
@@ -1784,5 +1784,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": []
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "5.6.32"
+    }
 }

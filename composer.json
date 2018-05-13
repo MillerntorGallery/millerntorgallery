@@ -44,7 +44,14 @@
             "web-dir": ""
         }
     },
+    "autoload": {
+        "psr-4": {
+          "VCA\\VcaMillerntor\\": "typo3conf/ext/vca_millerntor/Classes/"
+        }
+    },
     "config": {
-        "cafile": "/usr/local/etc/openssl/cert.pem"
+        "platform": {
+            "php": "5.6.32"
+        }
     }
 }
