@@ -14,13 +14,8 @@
 /NEWS.txt
 /README.txt
 /RELEASE_NOTES.txt
-/fileadmin/_processed_
-/fileadmin/_migrated
-/fileadmin/_temp_
-/fileadmin/user_upload
-/fileadmin/content_uploads
-/fileadmin/default
-/fileadmin/media
+/fileadmin
+/composer.phar
 /_.htaccess
 /build_config.ini
 /typo3conf/LocalConfiguration.php
@@ -56,6 +51,8 @@
 /typo3conf/ext/jh_opengraphprotocol
 /typo3conf/ext/mediace
 /typo3conf/ext/lfeditor
+/typo3conf/ext/vca_millerntor
+/typo3conf/ext/theme_millerntor
 
 
 /vendor/
