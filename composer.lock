@@ -1724,12 +1724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MillerntorGallery/theme_millerntor.git",
-                "reference": "2bff75dfc17fcc196f77dd8ba45099ad62424a3a"
+                "reference": "b3c4053a17ce2fe0f9a065665c6c186077d5b67f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/2bff75dfc17fcc196f77dd8ba45099ad62424a3a",
-                "reference": "2bff75dfc17fcc196f77dd8ba45099ad62424a3a",
+                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/b3c4053a17ce2fe0f9a065665c6c186077d5b67f",
+                "reference": "b3c4053a17ce2fe0f9a065665c6c186077d5b67f",
                 "shasum": ""
             },
             "require": {
@@ -1758,7 +1758,7 @@
                 "issues": "https://github.com/MillerntorGALLERY/theme_millerntor/issues",
                 "source": "https://github.com/MillerntorGallery/theme_millerntor/tree/master"
             },
-            "time": "2018-05-14T08:11:30+00:00"
+            "time": "2018-05-14T08:37:06+00:00"
         }
     ],
     "packages-dev": [],
