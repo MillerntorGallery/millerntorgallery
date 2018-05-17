@@ -1,12 +1,12 @@
 {   "repositories": [
         { "type": "composer", "url": "https://composer.typo3.org/" },
         { "type": "vcs", "url": "https://github.com/MillerntorGallery/theme_millerntor"},
-        { "type": "vcs", "url": "https://github.com/MillerntorGallery/vca_millerntor"},
         { "type": "vcs", "url": "https://github.com/typo3-themes/themes"},
         { "type": "vcs", "url": "https://github.com/typo3-themes/theme_bootstrap"},
         { "type": "vcs", "url": "https://github.com/TYPO3-extensions/gridelements"},
         { "type": "vcs", "url": "https://bitbucket.org/plus-b/pb_social.git"},
         { "type": "vcs", "url": "https://github.com/b13/t3ext-seo_basics"},
+        { "type": "vcs", "url": "https://github.com/MillerntorGallery/vca_millerntor"},
         { "type": "vcs", "url": "https://github.com/jonathanheilmann/ext-jh_opengraphprotocol"}
     ],
     "name": "vca/millerntorgallery",
@@ -15,8 +15,7 @@
     "require": {
         "typo3/cms": "^7.6",
         "plusb/pb_social": "1.3.1",
-        "vca/theme-millerntor": "dev-master as 7.0.0",
-        "vca/vca-millerntor": "dev-master as 7.0.0",
+        "vca/theme-millerntor": "dev-master as 7.0.1",
         "typo3-ter/realurl": "^2.3",
         "b13/seo_basics": "^0.9",
         "typo3-ter/cal": "^1.11",
@@ -24,6 +23,7 @@
         "rlmp/rlmp-language-detection": "^7.0",
         "reelworx/rx-shariff": "^10.3",
         "typo3-ter/lfeditor": "^4.2",
+        "vca/vca-millerntor": "dev-master as 7.0.0",
         "typo3-ter/mediace": "^7.6"
     },
     "support": {

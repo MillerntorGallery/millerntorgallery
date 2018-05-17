@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5659b4230c79dd56346cdb9b50362129",
+    "content-hash": "513dfe7d8c92709cfc506aed9564a61d",
     "packages": [
         {
             "name": "b13/seo_basics",
@@ -1719,53 +1719,57 @@
             "time": "2017-12-04T15:30:33+00:00"
         },
         {
-            "name": "vca/theme-millerntor",
+            "name": "vca/vca-millerntor",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/MillerntorGallery/theme_millerntor.git",
-                "reference": "b3c4053a17ce2fe0f9a065665c6c186077d5b67f"
+                "url": "https://github.com/MillerntorGallery/vca_millerntor.git",
+                "reference": "0731b0ca89ad7d6c8e753918e24916347644d621"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/b3c4053a17ce2fe0f9a065665c6c186077d5b67f",
-                "reference": "b3c4053a17ce2fe0f9a065665c6c186077d5b67f",
+                "url": "https://api.github.com/repos/MillerntorGallery/vca_millerntor/zipball/0731b0ca89ad7d6c8e753918e24916347644d621",
+                "reference": "0731b0ca89ad7d6c8e753918e24916347644d621",
                 "shasum": ""
             },
             "require": {
-                "typo3-ter/theme-bootstrap": "7.0.1"
+                "typo3-ter/vhs": "^3.1",
+                "typo3/cms": "^7.6"
             },
             "replace": {
-                "theme_millerntor": "self.version",
-                "typo3-ter/themes_millerntor": "self.version",
-                "vca/themes_millerntor": "self.version"
+                "typo3-ter/vca_millerntor": "self.version",
+                "vca/vca_millerntor": "self.version",
+                "vca_millerntor": "self.version"
             },
             "type": "typo3-cms-extension",
+            "autoload": {
+                "psr-4": {
+                    "VCA\\VcaMillerntor\\": "Classes"
+                }
+            },
             "license": [
                 "GPL-2.0+"
             ],
-            "description": "TYPO3 THEMES for millerntorgallery.org",
+            "description": "TYPO3 Plugin to manage exibitions and artists for millerntorgallery.org",
             "homepage": "http://millerntorgallery.org",
             "keywords": [
-                "BOOSTRAP",
-                "CUSTOMIZE",
+                "EXTBASE",
                 "FLUID",
-                "THEMES",
                 "TYPO3 CMS",
-                "TYPO3 THEMES"
+                "TYPO3 PLUGIN"
             ],
             "support": {
-                "issues": "https://github.com/MillerntorGALLERY/theme_millerntor/issues",
-                "source": "https://github.com/MillerntorGallery/theme_millerntor/tree/master"
+                "issues": "https://github.com/MillerntorGALLERY/vca_millerntor/issues",
+                "source": "https://github.com/MillerntorGallery/vca_millerntor/tree/master"
             },
-            "time": "2018-05-14T08:37:06+00:00"
+            "time": "2018-05-17T15:00:13+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [
         {
-            "alias": "7.0.0",
-            "alias_normalized": "7.0.0.0",
+            "alias": "7.0.1",
+            "alias_normalized": "7.0.1.0",
             "version": "9999999-dev",
             "package": "vca/theme-millerntor"
         },
