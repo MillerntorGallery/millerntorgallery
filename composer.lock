@@ -1719,6 +1719,48 @@
             "time": "2017-12-04T15:30:33+00:00"
         },
         {
+            "name": "vca/theme-millerntor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MillerntorGallery/theme_millerntor.git",
+                "reference": "39e6c8992584eaa95839d7ecd6cf598ce762dcfc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/39e6c8992584eaa95839d7ecd6cf598ce762dcfc",
+                "reference": "39e6c8992584eaa95839d7ecd6cf598ce762dcfc",
+                "shasum": ""
+            },
+            "require": {
+                "typo3-ter/theme-bootstrap": "7.0.1"
+            },
+            "replace": {
+                "theme_millerntor": "self.version",
+                "typo3-ter/themes_millerntor": "self.version",
+                "vca/themes_millerntor": "self.version"
+            },
+            "type": "typo3-cms-extension",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "TYPO3 THEMES for millerntorgallery.org",
+            "homepage": "http://millerntorgallery.org",
+            "keywords": [
+                "BOOSTRAP",
+                "CUSTOMIZE",
+                "FLUID",
+                "THEMES",
+                "TYPO3 CMS",
+                "TYPO3 THEMES"
+            ],
+            "support": {
+                "issues": "https://github.com/MillerntorGALLERY/theme_millerntor/issues",
+                "source": "https://github.com/MillerntorGallery/theme_millerntor/tree/master"
+            },
+            "time": "2018-05-16T17:06:14+00:00"
+        },
+        {
             "name": "vca/vca-millerntor",
             "version": "dev-master",
             "source": {
