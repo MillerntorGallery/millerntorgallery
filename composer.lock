@@ -1724,12 +1724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MillerntorGallery/theme_millerntor.git",
-                "reference": "39e6c8992584eaa95839d7ecd6cf598ce762dcfc"
+                "reference": "8635efcbe289deea0ae38be99e2262d8f7a8e722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/39e6c8992584eaa95839d7ecd6cf598ce762dcfc",
-                "reference": "39e6c8992584eaa95839d7ecd6cf598ce762dcfc",
+                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/8635efcbe289deea0ae38be99e2262d8f7a8e722",
+                "reference": "8635efcbe289deea0ae38be99e2262d8f7a8e722",
                 "shasum": ""
             },
             "require": {
@@ -1758,7 +1758,7 @@
                 "issues": "https://github.com/MillerntorGALLERY/theme_millerntor/issues",
                 "source": "https://github.com/MillerntorGallery/theme_millerntor/tree/master"
             },
-            "time": "2018-05-16T17:06:14+00:00"
+            "time": "2018-05-18T09:54:09+00:00"
         },
         {
             "name": "vca/vca-millerntor",
