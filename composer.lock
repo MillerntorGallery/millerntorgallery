@@ -723,16 +723,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.39",
+            "version": "v2.8.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "932d1e4f7f33ee37d3534f5f452474daa66283c2"
+                "reference": "e8e59b74ad1274714dad2748349b55e3e6e630c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/932d1e4f7f33ee37d3534f5f452474daa66283c2",
-                "reference": "932d1e4f7f33ee37d3534f5f452474daa66283c2",
+                "url": "https://api.github.com/repos/symfony/console/zipball/e8e59b74ad1274714dad2748349b55e3e6e630c7",
+                "reference": "e8e59b74ad1274714dad2748349b55e3e6e630c7",
                 "shasum": ""
             },
             "require": {
@@ -780,20 +780,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-30T01:21:07+00:00"
+            "time": "2018-05-15T21:17:45+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v2.8.39",
+            "version": "v2.8.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "4486d2be5e068b51fece4c8551c14e709f573c8d"
+                "reference": "fe8838e11cf7dbaf324bd6f51d065d873ccf78a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/4486d2be5e068b51fece4c8551c14e709f573c8d",
-                "reference": "4486d2be5e068b51fece4c8551c14e709f573c8d",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/fe8838e11cf7dbaf324bd6f51d065d873ccf78a2",
+                "reference": "fe8838e11cf7dbaf324bd6f51d065d873ccf78a2",
                 "shasum": ""
             },
             "require": {
@@ -837,20 +837,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-03T05:20:27+00:00"
+            "time": "2018-05-15T21:17:45+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.8.39",
+            "version": "v2.8.40",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "423746fc18ccf31f9abec43e4f078bb6e024b2d5"
+                "reference": "79764d21163db295f0daf8bd9d9b91f97e65db6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/423746fc18ccf31f9abec43e4f078bb6e024b2d5",
-                "reference": "423746fc18ccf31f9abec43e4f078bb6e024b2d5",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/79764d21163db295f0daf8bd9d9b91f97e65db6a",
+                "reference": "79764d21163db295f0daf8bd9d9b91f97e65db6a",
                 "shasum": ""
             },
             "require": {
@@ -886,7 +886,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-04T13:38:31+00:00"
+            "time": "2018-05-15T21:17:45+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -1438,16 +1438,16 @@
         },
         {
             "name": "typo3/cms",
-            "version": "v7.6.27",
+            "version": "v7.6.28",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3/TYPO3.CMS.git",
-                "reference": "22d0da3af76bb7aa2cf1ce31851370be7c47acb2"
+                "reference": "0c885e11d2f847ca98b5740857e86a21f8cbd3b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/22d0da3af76bb7aa2cf1ce31851370be7c47acb2",
-                "reference": "22d0da3af76bb7aa2cf1ce31851370be7c47acb2",
+                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/0c885e11d2f847ca98b5740857e86a21f8cbd3b5",
+                "reference": "0c885e11d2f847ca98b5740857e86a21f8cbd3b5",
                 "shasum": ""
             },
             "require": {
@@ -1647,7 +1647,7 @@
                 "extbase",
                 "typo3"
             ],
-            "time": "2018-04-17T08:09:51+00:00"
+            "time": "2018-05-22T13:52:43+00:00"
         },
         {
             "name": "typo3/cms-composer-installers",
@@ -1724,12 +1724,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MillerntorGallery/theme_millerntor.git",
-                "reference": "8635efcbe289deea0ae38be99e2262d8f7a8e722"
+                "reference": "013abdd5e96b7411e9d01568a549ebb769c5cafb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/8635efcbe289deea0ae38be99e2262d8f7a8e722",
-                "reference": "8635efcbe289deea0ae38be99e2262d8f7a8e722",
+                "url": "https://api.github.com/repos/MillerntorGallery/theme_millerntor/zipball/013abdd5e96b7411e9d01568a549ebb769c5cafb",
+                "reference": "013abdd5e96b7411e9d01568a549ebb769c5cafb",
                 "shasum": ""
             },
             "require": {
@@ -1758,7 +1758,7 @@
                 "issues": "https://github.com/MillerntorGALLERY/theme_millerntor/issues",
                 "source": "https://github.com/MillerntorGallery/theme_millerntor/tree/master"
             },
-            "time": "2018-05-18T09:54:09+00:00"
+            "time": "2018-05-25T02:06:49+00:00"
         },
         {
             "name": "vca/vca-millerntor",
@@ -1766,12 +1766,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/MillerntorGallery/vca_millerntor.git",
-                "reference": "0731b0ca89ad7d6c8e753918e24916347644d621"
+                "reference": "ded08b569df9fb4753b5b296bce8b5591fd07ce3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MillerntorGallery/vca_millerntor/zipball/0731b0ca89ad7d6c8e753918e24916347644d621",
-                "reference": "0731b0ca89ad7d6c8e753918e24916347644d621",
+                "url": "https://api.github.com/repos/MillerntorGallery/vca_millerntor/zipball/ded08b569df9fb4753b5b296bce8b5591fd07ce3",
+                "reference": "ded08b569df9fb4753b5b296bce8b5591fd07ce3",
                 "shasum": ""
             },
             "require": {
@@ -1804,7 +1804,7 @@
                 "issues": "https://github.com/MillerntorGALLERY/vca_millerntor/issues",
                 "source": "https://github.com/MillerntorGallery/vca_millerntor/tree/master"
             },
-            "time": "2018-05-17T15:00:13+00:00"
+            "time": "2018-05-25T02:05:59+00:00"
         }
     ],
     "packages-dev": [],
