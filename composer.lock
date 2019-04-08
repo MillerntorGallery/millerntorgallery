@@ -52,6 +52,42 @@
             "time": "2016-09-05T05:22:55+00:00"
         },
         {
+            "name": "brumann/polyfill-unserialize",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dbrumann/polyfill-unserialize.git",
+                "reference": "844d7e44b62a1a3d5c68cfb7ebbd59c17ea0fd7b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dbrumann/polyfill-unserialize/zipball/844d7e44b62a1a3d5c68cfb7ebbd59c17ea0fd7b",
+                "reference": "844d7e44b62a1a3d5c68cfb7ebbd59c17ea0fd7b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3|^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Brumann\\Polyfill\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Denis Brumann",
+                    "email": "denis.brumann@sensiolabs.de"
+                }
+            ],
+            "description": "Backports unserialize options introduced in PHP 7.0 to older PHP versions.",
+            "time": "2017-02-03T09:55:47+00:00"
+        },
+        {
             "name": "cogpowered/finediff",
             "version": "0.3.1",
             "source": {
@@ -158,20 +194,20 @@
         },
         {
             "name": "jonathanheilmann/jh-opengraphprotocol",
-            "version": "1.3.0",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jonathanheilmann/ext-jh_opengraphprotocol.git",
-                "reference": "7344f95decc9475cdfa71c2ac70fbb65b247da05"
+                "reference": "f18ebd284e67fd64ca50494a093cafc24f9a0786"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jonathanheilmann/ext-jh_opengraphprotocol/zipball/7344f95decc9475cdfa71c2ac70fbb65b247da05",
-                "reference": "7344f95decc9475cdfa71c2ac70fbb65b247da05",
+                "url": "https://api.github.com/repos/jonathanheilmann/ext-jh_opengraphprotocol/zipball/f18ebd284e67fd64ca50494a093cafc24f9a0786",
+                "reference": "f18ebd284e67fd64ca50494a093cafc24f9a0786",
                 "shasum": ""
             },
             "require": {
-                "typo3/cms": "~6.2||~7.6||~8.7"
+                "typo3/cms": "~7.6||~8.7"
             },
             "replace": {
                 "jh_opengraphprotocol": "self.version",
@@ -201,21 +237,21 @@
             ],
             "support": {
                 "issues": "https://github.com/jonathanheilmann/ext-jh_opengraphprotocol/issues",
-                "source": "https://github.com/jonathanheilmann/ext-jh_opengraphprotocol/tree/v1.3.0"
+                "source": "https://github.com/jonathanheilmann/ext-jh_opengraphprotocol/tree/v1.3.2"
             },
-            "time": "2017-08-21T14:43:35+00:00"
+            "time": "2018-07-02T05:03:22+00:00"
         },
         {
             "name": "mso/idna-convert",
             "version": "v0.9.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phlylabs/idna-convert.git",
+                "url": "https://github.com/algo26-matthias/idna-convert.git",
                 "reference": "0a0a09e460e63739d82c3f0c3f0e5555567a6be3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phlylabs/idna-convert/zipball/0a0a09e460e63739d82c3f0c3f0e5555567a6be3",
+                "url": "https://api.github.com/repos/algo26-matthias/idna-convert/zipball/0a0a09e460e63739d82c3f0c3f0e5555567a6be3",
                 "reference": "0a0a09e460e63739d82c3f0c3f0e5555567a6be3",
                 "shasum": ""
             },
@@ -253,6 +289,7 @@
                 "idna",
                 "php"
             ],
+            "abandoned": "algo26-matthias/idna-convert",
             "time": "2016-01-06T21:05:46+00:00"
         },
         {
@@ -669,16 +706,16 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.9",
+            "version": "v5.4.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "7ffc1ea296ed14bf8260b6ef11b80208dbadba91"
+                "reference": "181b89f18a90f8925ef805f950d47a7190e9b950"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/7ffc1ea296ed14bf8260b6ef11b80208dbadba91",
-                "reference": "7ffc1ea296ed14bf8260b6ef11b80208dbadba91",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/181b89f18a90f8925ef805f950d47a7190e9b950",
+                "reference": "181b89f18a90f8925ef805f950d47a7190e9b950",
                 "shasum": ""
             },
             "require": {
@@ -719,20 +756,20 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2018-01-23T07:37:21+00:00"
+            "time": "2018-07-31T09:26:32+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.40",
+            "version": "v2.8.49",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "e8e59b74ad1274714dad2748349b55e3e6e630c7"
+                "reference": "cbcf4b5e233af15cd2bbd50dee1ccc9b7927dc12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/e8e59b74ad1274714dad2748349b55e3e6e630c7",
-                "reference": "e8e59b74ad1274714dad2748349b55e3e6e630c7",
+                "url": "https://api.github.com/repos/symfony/console/zipball/cbcf4b5e233af15cd2bbd50dee1ccc9b7927dc12",
+                "reference": "cbcf4b5e233af15cd2bbd50dee1ccc9b7927dc12",
                 "shasum": ""
             },
             "require": {
@@ -780,20 +817,20 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-15T21:17:45+00:00"
+            "time": "2018-11-20T15:55:20+00:00"
         },
         {
             "name": "symfony/debug",
-            "version": "v2.8.40",
+            "version": "v2.8.49",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "fe8838e11cf7dbaf324bd6f51d065d873ccf78a2"
+                "reference": "74251c8d50dd3be7c4ce0c7b862497cdc641a5d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/fe8838e11cf7dbaf324bd6f51d065d873ccf78a2",
-                "reference": "fe8838e11cf7dbaf324bd6f51d065d873ccf78a2",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/74251c8d50dd3be7c4ce0c7b862497cdc641a5d0",
+                "reference": "74251c8d50dd3be7c4ce0c7b862497cdc641a5d0",
                 "shasum": ""
             },
             "require": {
@@ -837,20 +874,20 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-15T21:17:45+00:00"
+            "time": "2018-11-11T11:18:13+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.8.40",
+            "version": "v2.8.49",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "79764d21163db295f0daf8bd9d9b91f97e65db6a"
+                "reference": "1444eac52273e345d9b95129bf914639305a9ba4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/79764d21163db295f0daf8bd9d9b91f97e65db6a",
-                "reference": "79764d21163db295f0daf8bd9d9b91f97e65db6a",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/1444eac52273e345d9b95129bf914639305a9ba4",
+                "reference": "1444eac52273e345d9b95129bf914639305a9ba4",
                 "shasum": ""
             },
             "require": {
@@ -886,20 +923,20 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-15T21:17:45+00:00"
+            "time": "2018-11-11T11:18:13+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.8.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "3296adf6a6454a050679cde90f95350ad604b171"
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/3296adf6a6454a050679cde90f95350ad604b171",
-                "reference": "3296adf6a6454a050679cde90f95350ad604b171",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/fe5e94c604826c35a32fa832f35bd036b6799609",
+                "reference": "fe5e94c604826c35a32fa832f35bd036b6799609",
                 "shasum": ""
             },
             "require": {
@@ -911,7 +948,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.8-dev"
+                    "dev-master": "1.11-dev"
                 }
             },
             "autoload": {
@@ -945,7 +982,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-26T10:06:28+00:00"
+            "time": "2019-02-06T07:57:58+00:00"
         },
         {
             "name": "typo3-ter/cal",
@@ -1057,10 +1094,10 @@
         },
         {
             "name": "typo3-ter/gridelements",
-            "version": "7.4.0",
+            "version": "7.4.2",
             "dist": {
                 "type": "zip",
-                "url": "https://extensions.typo3.org/extension/download/gridelements/7.4.0/zip/",
+                "url": "https://extensions.typo3.org/extension/download/gridelements/7.4.2/zip/",
                 "reference": null,
                 "shasum": null
             },
@@ -1089,14 +1126,16 @@
                 }
             ],
             "description": "This extension integrates the grid layout concept also to regular content elements - the grid elements.\r\nIt offers a lot of new features like advanced drag & drop or real references, that improve the usability of the page and list module to speed up the daily work with the backend.",
-            "time": "2018-04-03T18:32:54+00:00"
+            "homepage": "https://extensions.typo3.org/extension/gridelements/",
+            "abandoned": "gridelementsteam/gridelements",
+            "time": "2018-06-18T20:31:47+00:00"
         },
         {
             "name": "typo3-ter/lfeditor",
-            "version": "4.2.4",
+            "version": "4.4.0",
             "dist": {
                 "type": "zip",
-                "url": "https://extensions.typo3.org/extension/download/lfeditor/4.2.4/zip/",
+                "url": "https://extensions.typo3.org/extension/download/lfeditor/4.4.0/zip/",
                 "reference": null,
                 "shasum": null
             },
@@ -1124,7 +1163,8 @@
                 }
             ],
             "description": "This module serves several functions for editing of language files.\nThe extension differs between editors and administrators with appropriate privileges.\nNormal users are allowed to edit only languages for which they have permission.\nFollowing functions are implemented in this module:\n\t Formats: PHP, XML and XLF\n\t Enhanced insert types (resizable text area, TinyMCE)\n\t Conversion of formats\n\t Splitting and merging of language files\n\t Override mode\n\t Editing L10n folder content\n\t Simple editing of constants and languages (edit/add/rename/delete constants)\n\t Flexible search and view of constants and values\n\t Tree view of constants\n\t Meta information handling\n\t Backups, recovering and diff view",
-            "time": "2018-04-04T18:14:31+00:00"
+            "homepage": "https://extensions.typo3.org/extension/lfeditor/",
+            "time": "2018-10-08T21:58:27+00:00"
         },
         {
             "name": "typo3-ter/mediace",
@@ -1160,15 +1200,15 @@
         },
         {
             "name": "typo3-ter/realurl",
-            "version": "2.3.2",
+            "version": "2.5.0",
             "dist": {
                 "type": "zip",
-                "url": "https://extensions.typo3.org/extension/download/realurl/2.3.2/zip/",
+                "url": "https://extensions.typo3.org/extension/download/realurl/2.5.0/zip/",
                 "reference": null,
                 "shasum": null
             },
             "require": {
-                "php": ">= 5.4.0, <= 7.1.999",
+                "php": ">= 5.4.0, <= 7.2.999",
                 "typo3/cms-core": ">= 6.2.0, <= 8.9.999"
             },
             "conflict": {
@@ -1193,7 +1233,8 @@
                 }
             ],
             "description": "Makes TYPO3 URLs search engine friendly. Donations are welcome to dmitry.dulepov@gmail.com. They help to support the extension!",
-            "time": "2018-03-07T11:24:23+00:00"
+            "homepage": "https://extensions.typo3.org/extension/realurl/",
+            "time": "2019-01-29T13:22:35+00:00"
         },
         {
             "name": "typo3-ter/static-info-tables",
@@ -1232,6 +1273,7 @@
                 }
             ],
             "description": "Data and API for countries, languages and currencies.",
+            "abandoned": "sjbr/static-info-tables",
             "time": "2016-07-15T00:27:57+00:00"
         },
         {
@@ -1380,16 +1422,16 @@
         },
         {
             "name": "typo3/class-alias-loader",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3/class-alias-loader.git",
-                "reference": "a9dd295c81ed0b51455644be420ab9210cad688f"
+                "reference": "4972f9f6c2bad07ab1620b5c9717fa626e9b03b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3/class-alias-loader/zipball/a9dd295c81ed0b51455644be420ab9210cad688f",
-                "reference": "a9dd295c81ed0b51455644be420ab9210cad688f",
+                "url": "https://api.github.com/repos/TYPO3/class-alias-loader/zipball/4972f9f6c2bad07ab1620b5c9717fa626e9b03b0",
+                "reference": "4972f9f6c2bad07ab1620b5c9717fa626e9b03b0",
                 "shasum": ""
             },
             "require": {
@@ -1402,7 +1444,7 @@
             "require-dev": {
                 "composer/composer": "dev-master",
                 "mikey179/vfsstream": "1.4.*@dev",
-                "phpunit/phpunit": "~4.7.0"
+                "phpunit/phpunit": "^4.8"
             },
             "type": "composer-plugin",
             "extra": {
@@ -1434,20 +1476,20 @@
                 "classloader",
                 "composer"
             ],
-            "time": "2015-10-06T10:25:44+00:00"
+            "time": "2018-10-03T12:49:56+00:00"
         },
         {
             "name": "typo3/cms",
-            "version": "v7.6.28",
+            "version": "v7.6.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/TYPO3/TYPO3.CMS.git",
-                "reference": "0c885e11d2f847ca98b5740857e86a21f8cbd3b5"
+                "reference": "1ce6676d49ca38fe1ca742ea98844747447a1c24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/0c885e11d2f847ca98b5740857e86a21f8cbd3b5",
-                "reference": "0c885e11d2f847ca98b5740857e86a21f8cbd3b5",
+                "url": "https://api.github.com/repos/TYPO3/TYPO3.CMS/zipball/1ce6676d49ca38fe1ca742ea98844747447a1c24",
+                "reference": "1ce6676d49ca38fe1ca742ea98844747447a1c24",
                 "shasum": ""
             },
             "require": {
@@ -1467,7 +1509,8 @@
                 "symfony/debug": "^2.7",
                 "symfony/finder": "^2.7",
                 "typo3/class-alias-loader": "^1.0",
-                "typo3/cms-composer-installers": "^1.2.8"
+                "typo3/cms-composer-installers": "^1.2.8",
+                "typo3/phar-stream-wrapper": "^2.0.1"
             },
             "conflict": {
                 "symfony/finder": "2.7.44 || 2.8.37"
@@ -1647,7 +1690,7 @@
                 "extbase",
                 "typo3"
             ],
-            "time": "2018-05-22T13:52:43+00:00"
+            "time": "2018-12-11T12:38:13+00:00"
         },
         {
             "name": "typo3/cms-composer-installers",
@@ -1717,6 +1760,49 @@
                 "typo3"
             ],
             "time": "2017-12-04T15:30:33+00:00"
+        },
+        {
+            "name": "typo3/phar-stream-wrapper",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/TYPO3/phar-stream-wrapper.git",
+                "reference": "b7a21f0859059ed5d9754af8c11f852d43762334"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/TYPO3/phar-stream-wrapper/zipball/b7a21f0859059ed5d9754af8c11f852d43762334",
+                "reference": "b7a21f0859059ed5d9754af8c11f852d43762334",
+                "shasum": ""
+            },
+            "require": {
+                "brumann/polyfill-unserialize": "^1.0",
+                "ext-fileinfo": "*",
+                "ext-json": "*",
+                "php": "^5.3.3|^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8.36"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "TYPO3\\PharStreamWrapper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Interceptors for PHP's native phar:// stream handling",
+            "homepage": "https://typo3.org/",
+            "keywords": [
+                "phar",
+                "php",
+                "security",
+                "stream-wrapper"
+            ],
+            "time": "2019-03-01T17:43:52+00:00"
         },
         {
             "name": "vca/theme-millerntor",
