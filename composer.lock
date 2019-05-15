@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "513dfe7d8c92709cfc506aed9564a61d",
+    "content-hash": "1c8960c1111565c9bcfe9ef5e6594e9a",
     "packages": [
         {
             "name": "b13/seo_basics",
@@ -1027,6 +1027,39 @@
             "time": "2017-04-16T21:40:48+00:00"
         },
         {
+            "name": "typo3-ter/cookies",
+            "version": "5.1.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://extensions.typo3.org/extension/download/cookies/5.1.1/zip/",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "typo3/cms-core": ">= 7.6.0, <= 9.5.99"
+            },
+            "replace": {
+                "cookies": "self.version"
+            },
+            "type": "typo3-cms-extension",
+            "autoload": {
+                "psr-4": {
+                    "SBTheke\\Cookies\\": "Classes"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Sven Burkert",
+                    "email": "bedienung@sbtheke.de",
+                    "company": "SBTheke web development",
+                    "username": "sventb"
+                }
+            ],
+            "description": "Show cookie hint, optional with possibility to deactivate them. Like ext. cookie_control, but this ext. disables cookies really and additional JavaScript library is not needed.",
+            "homepage": "https://extensions.typo3.org/extension/cookies/",
+            "time": "2018-12-18T15:04:56+00:00"
+        },
+        {
             "name": "typo3-ter/dyncss",
             "version": "0.8.3",
             "dist": {
@@ -1197,6 +1230,40 @@
             ],
             "description": "The media functionality from TYPO3 6.2 and earlier can be found here. This extension provides ContentObjects and Content Elements.",
             "time": "2017-03-30T11:59:46+00:00"
+        },
+        {
+            "name": "typo3-ter/mindshape-cookie-hint",
+            "version": "1.0.14",
+            "dist": {
+                "type": "zip",
+                "url": "https://extensions.typo3.org/extension/download/mindshape_cookie_hint/1.0.14/zip/",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "typo3/cms-core": ">= 6.2.0, <= 9.5.99"
+            },
+            "replace": {
+                "mindshape_cookie_hint": "self.version",
+                "typo3-ter/mindshape_cookie_hint": "self.version"
+            },
+            "type": "typo3-cms-extension",
+            "autoload": {
+                "psr-4": {
+                    "Mindshape\\MindshapeCookieHint\\": "Classes"
+                }
+            },
+            "authors": [
+                {
+                    "name": "mindshape GmbH",
+                    "email": "dieter@mindshape.de",
+                    "company": "mindshape GmbH",
+                    "username": "mindshape"
+                }
+            ],
+            "description": "Shows a visible hint on the website that cookies are used - according to the European laws. Easy to install, fully customizable and the hint will permanently be hidden after accepting.",
+            "homepage": "https://extensions.typo3.org/extension/mindshape_cookie_hint/",
+            "time": "2019-01-10T09:33:14+00:00"
         },
         {
             "name": "typo3-ter/realurl",

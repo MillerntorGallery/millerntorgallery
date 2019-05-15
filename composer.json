@@ -24,7 +24,8 @@
         "reelworx/rx-shariff": "^10.3",
         "typo3-ter/lfeditor": "^4.2",
         "vca/vca-millerntor": "dev-master as 7.0.0",
-        "typo3-ter/mediace": "^7.6"
+        "typo3-ter/mediace": "^7.6",
+        "typo3-ter/mindshape-cookie-hint": "^1.0"
     },
     "support": {
         "issues": "https://github.com/MillerntorGallery/millerntorgallery/issues",
